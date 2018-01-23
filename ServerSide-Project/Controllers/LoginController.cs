@@ -10,6 +10,7 @@ namespace ServerSide_Project.Controllers
     public class LoginController : Controller
     {
         // GET: Login
+        [HttpGet]
         public ActionResult Index()
         {
             
@@ -17,11 +18,21 @@ namespace ServerSide_Project.Controllers
         }
 
         // Post login
+        [HttpPost]
         public void Login(User user)
         {
 
+            //validate with database if login is OK
 
-            Redirect("");
         }
+        
+        private bool ValidatePassword(string pwd)
+        {
+
+            throw new NotImplementedException();
+        }
+
+
+
     }
 }
