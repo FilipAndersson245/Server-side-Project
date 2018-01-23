@@ -9,16 +9,10 @@ namespace ServerSide_Project.Controllers
     public class HomeController : Controller
     {
         // GET: Home
+        [HttpGet]
         public ActionResult Index()
         {
-            ViewBag.test = 1;
             return View();
-        }
-
-        public ActionResult Index2()
-        {
-            ViewBag.test = 2;
-            return View("Index");
         }
     }
 }

@@ -9,6 +9,7 @@ namespace ServerSide_Project.Controllers
     public class BookController : Controller
     {
         // GET: Book
+        [HttpGet]
         public ActionResult Index()
         {
             return View();

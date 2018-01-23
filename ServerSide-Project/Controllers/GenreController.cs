@@ -9,6 +9,7 @@ namespace ServerSide_Project.Controllers
     public class GenreController : Controller
     {
         // GET: Genre
+        [HttpGet]
         public ActionResult Index()
         {
             return View();

@@ -32,11 +32,10 @@
                     <span class="icon-bar"></span>
                 </button>
                 
-                @Html.ActionLink("Jönköping Library","Index","Home", new { @class = "navbar-brand" })
+                @Html.ActionLink("Jönköping Library","Index","Home",null, new { @class = "navbar-brand" })
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">Admin</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    <li>@Html.ActionLink("Login","index","login")</li>
+                    <li><a href=@Url.Action("index","login")><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 
                 </ul>
             </div>

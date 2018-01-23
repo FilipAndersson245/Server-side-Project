@@ -9,6 +9,7 @@ namespace ServerSide_Project.Controllers
     public class AuthorController : Controller
     {
         // GET: Author
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
