@@ -9,6 +9,7 @@ body
 {
     margin-bottom: 0;
     border-radius: 0;
+    padding-top: 5px;
 }
 
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
@@ -28,7 +29,12 @@ footer
     background-color: #555;
     color: white;
     padding: 15px;
+    position: relative;
+    margin-top: -150px;
+    height: 150px;
+    clear:both;
 }
+
 
 /* On small screens, set height to 'auto' for sidenav and grid */
     
@@ -39,13 +45,27 @@ footer
 
 
 
-.btn-primary
+#dropdownbtn
 {
     border-color: #ffffff; 
     background-color: #000000;
+    width:30%;
 }
 
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary
+.dropdown-menu
+{
+    width:30%;
+    text-align:center;
+}
+
+.dropdown-menu>li>a:hover 
+{
+   color: #000000;
+   text-decoration: none;
+   background-color: #d5d5d5;
+}
+
+#dropdownbtn:hover, #dropdownbtn:focus, #dropdownbtn:active, #dropdownbtn.active, .open .dropdown-toggle.dropdownbtn
 {
     border-color: #ffffff; 
     background-color: #555;
