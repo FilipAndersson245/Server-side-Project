@@ -1,0 +1,18 @@
+﻿
+@model ServerSide_Project.Models.User
+@{
+    ViewBag.Title = "Login";
+    
+}
+
+
+<h2>Index</h2>
+@using (@Html.BeginForm("Login", "Login"))
+{
+    @Html.LabelForModel(Model.Username)
+    @Html.TextBox("Username") //maychange to non static string
+
+    @Html.LabelForModel(Model.Password)
+    @Html.TextBox("Password") //maychange to non static string
+    
+}
