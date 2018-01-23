@@ -13,17 +13,19 @@
     <nav class="navbar navbar-inverse">
         <div class="container-fluid"> 
             <div class="navbar col-sm-5" id="myNavbar">
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                        Browse by
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Book</a></li>
-                        <li><a href="#">Author</a></li>
-                        <li><a href="#">Genre</a></li>
-                    </ul>
-                </div>
+                <ul class="nav navbar-nav navbar-left ">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle black-background white" type="button" data-toggle="dropdown">
+                            Browse by
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Book</a></li>
+                            <li><a href="#">Author</a></li>
+                            <li><a href="#">Genre</a></li>
+                        </ul>
+                    </div>
+                </ul>
             </div>
             <div class="navbar-header col-sm-7 ">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -44,59 +46,73 @@
     <div class="container-fluid text-center">
         <div class="row content">
             <div class="col-sm-2 sidenav">
-                <div class="panel-group" id="accordion">
+
+
+                <div class="collapse-group">
+
+
+
                     <div class="panel panel-default">
-                        <div class="panel-heading">
+                        <div class="panel-heading" role="tab" id="headingOne">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                                    Collapsible Group 1
+                                <a role="button" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="trigger collapsed">
+                                    Genres
                                 </a>
                             </h4>
                         </div>
-                        <div id="collapse1" class="panel-collapse collapse in">
+                        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                             <div class="panel-body">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                commodo consequat.
+                                
+                                    <li> <input type="checkbox" />&nbsp;Fantasy <span>(20)</span></li> 
+                                    <li> <input type="checkbox" />&nbsp;Thriller <span>(13)</span></li>
+                                    <li> <input type="checkbox" />&nbsp;Textbook <span>(7)</span></li>
+                                
                             </div>
                         </div>
                     </div>
+
                     <div class="panel panel-default">
-                        <div class="panel-heading">
+                        <div class="panel-heading" role="tab" id="headingTwo">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                                    Collapsible Group 2
+                                <a role="button" data-toggle="collapse" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" class="trigger collapsed">
+                                    Authors
                                 </a>
                             </h4>
                         </div>
-                        <div id="collapse2" class="panel-collapse collapse">
+                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                             <div class="panel-body">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                commodo consequat.
+                                
+                                <li> <input type="checkbox" />&nbsp;George R.R Martin <span>(7)</span></li>
+                                <li> <input type="checkbox" />&nbsp;J.K Rowling <span>(11)</span></li>
+                                <li> <input type="checkbox" />&nbsp;Astrid Lindgren <span>(14)</span></li>
+
                             </div>
                         </div>
                     </div>
+
                     <div class="panel panel-default">
-                        <div class="panel-heading">
+                        <div class="panel-heading" role="tab" id="headingThree">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                                    Collapsible Group 3
+                                <a role="button" data-toggle="collapse" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree" class="trigger collapsed">
+                                    Publication Year
                                 </a>
                             </h4>
                         </div>
-                        <div id="collapse3" class="panel-collapse collapse">
+                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                             <div class="panel-body">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                commodo consequat.
+
+                                <b>1800</b> <input id="ex2" type="text" class="span2" value="" data-slider-min="1800" data-slider-max="2020" data-slider-step="1" data-slider-value="[1800,2020]" /> <b>2020</b>
+
                             </div>
                         </div>
                     </div>
+
+
                 </div>
+
+               
+
+
             </div>
             <div class="col-sm-10 text-left">
                 @RenderBody()
