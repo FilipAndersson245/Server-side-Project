@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServerSide_Project.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,16 @@ namespace ServerSide_Project.Controllers
         // GET: Login
         public ActionResult Index()
         {
-            return View();
+            
+            return View(new User());
+        }
+
+        // Post login
+        public void Login(User user)
+        {
+
+
+            Redirect("");
         }
     }
 }
