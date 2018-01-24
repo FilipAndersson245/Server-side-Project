@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace ServerSide_Project.Models
 {
-    public class AuthorController : Controller
+    public class Genre : Controller
     {
-        // GET: Author
+        // GET: Genre
         public ActionResult Index()
         {
             return View();
