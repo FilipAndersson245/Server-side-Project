@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServerSide_Project.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,8 +18,8 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult ListBooks()
         {
-            
-            return View();
+            Repository repo = (Repository)Session["repo"];
+            return View(repo.BookList);
         }
     }
 }
