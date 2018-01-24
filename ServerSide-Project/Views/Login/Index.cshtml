@@ -4,11 +4,17 @@
     ViewBag.Title = "Login";
 }
 
+@*@foreach (var item in ViewData.ModelMetadata.Properties)
+{
+<div class="editor-line">
+    <label>@(item.DisplayName ?? item.PropertyName)</label>
+    @Html.Editor(item.PropertyName)
+</div>
+}*@
 
 <h2>Index</h2>
 @using (@Html.BeginForm("Login", "Login", FormMethod.Post, new { @class="col-sm-7 col-sm-offset-3"}))
 {
-
     <div class="form-group">
         <label for="exampleInputEmail1">Username</label>
         <input type="text" class="form-control" placeholder="Britta">
@@ -19,5 +25,4 @@
         <input type="password" class="form-control" id="password" placeholder="*******">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
-
 }
