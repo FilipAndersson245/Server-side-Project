@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ServerSide_Project.Models
 {
-    public class User
+    public class Admin
     {
         [Required(ErrorMessage = "Please Provide Username", AllowEmptyStrings = false)]
         [DataType(DataType.Text)]
