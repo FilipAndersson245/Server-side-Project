@@ -6,13 +6,18 @@ using System.Web.Mvc;
 
 namespace ServerSide_Project.Controllers
 {
-    public class AuthorController : Controller
+    public class UpdateController : Controller
     {
-        // GET: Author
-        [HttpGet]
+        // GET: Update
         public ActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View("login");
         }
     }
 }
