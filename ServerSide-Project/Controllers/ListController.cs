@@ -13,5 +13,12 @@ namespace ServerSide_Project.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public ActionResult ListBooks()
+        {
+            
+            return View();
+        }
     }
 }
