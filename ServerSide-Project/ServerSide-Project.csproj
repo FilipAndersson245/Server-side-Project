@@ -131,6 +131,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Update\Login.cshtml" />
+    <Content Include="Views\List\ListBooks.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -142,7 +143,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Create\" />
     <Folder Include="Views\Delete\" />
-    <Folder Include="Views\List\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
