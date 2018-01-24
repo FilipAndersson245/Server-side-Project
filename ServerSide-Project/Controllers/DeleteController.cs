@@ -6,10 +6,9 @@ using System.Web.Mvc;
 
 namespace ServerSide_Project.Controllers
 {
-    public class BookController : Controller
+    public class DeleteController : Controller
     {
-        // GET: Book
-        [HttpGet]
+        // GET: Delete
         public ActionResult Index()
         {
             return View();

@@ -105,13 +105,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\AuthorController.cs" />
-    <Compile Include="Controllers\BookController.cs" />
-    <Compile Include="Controllers\GenreController.cs" />
+    <Compile Include="Controllers\CreateController.cs" />
+    <Compile Include="Controllers\DeleteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ListController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\UpdateController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -131,7 +129,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Update\login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -141,10 +139,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Author\" />
-    <Folder Include="Views\Book\" />
-    <Folder Include="Views\Genre\" />
+    <Folder Include="Views\Create\" />
+    <Folder Include="Views\Delete\" />
     <Folder Include="Views\List\" />
   </ItemGroup>
   <PropertyGroup>

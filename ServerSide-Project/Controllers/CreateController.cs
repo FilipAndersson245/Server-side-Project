@@ -6,10 +6,9 @@ using System.Web.Mvc;
 
 namespace ServerSide_Project.Controllers
 {
-    public class AdminController : Controller
+    public class CreateController : Controller
     {
-        // GET: Admin
-        [HttpGet]
+        // GET: Create
         public ActionResult Index()
         {
             return View();
