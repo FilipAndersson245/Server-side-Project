@@ -14,12 +14,12 @@ namespace ServerSide_Project.Controllers
         public ActionResult Index()
         {
             
-            return View(new User());
+            return View(new Admin());
         }
 
         // Post login
         [HttpPost]
-        public void Login(User user)
+        public void Login(Admin user)
         {
 
             //validate with database if login is OK

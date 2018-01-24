@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Drawing;
 
 namespace ServerSide_Project.Models
 {
-    public class Genre : Controller
+    public class Genre
     {
-        // GET: Genre
-        public ActionResult Index()
-        {
-            return View();
-        }
+        public string Name { get; set; }
+
+        public Image Art { get; set; }
+        
     }
 }

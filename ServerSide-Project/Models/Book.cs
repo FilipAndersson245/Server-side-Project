@@ -6,12 +6,21 @@ using System.Web.Mvc;
 
 namespace ServerSide_Project.Models
 {
-    public class Book : Controller
+    public class Book
     {
-        // GET: Book
-        public ActionResult Index()
-        {
-            return View();
-        }
+
+        public string ISBN { get; set; }
+
+        public string Title { get; set; }
+
+        public int PublicationYear { get; set; }
+
+        public string Description { get; set; }
+
+        public int Pages { get; set; }
+
+        public Author Author{ get; set; }
+
+        public Genre Genre { get; set; }
     }
 }
