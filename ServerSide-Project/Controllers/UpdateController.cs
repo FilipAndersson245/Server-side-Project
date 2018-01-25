@@ -37,10 +37,9 @@ namespace ServerSide_Project.Controllers
             }
             //THIS NEED TO BE CHANGED IF YOU EVER WANNT TO CHANGE ISBN NEED TO STORE ISBN id and send it also (if changed)
             
-            //this is not working atm repo dosent seem to be updated
+            //may intreduce bugs with null   Works for now
             var repo = Session["repo"] as Repository;
-            var otherBook = repo.BookList.FirstOrDefault(x => x.ISBN == book.ISBN);
-            otherBook =  book;
+            repo.BookList.Where(d => d.ISBN == book.ISBN).First().SetBook(book);
 
 
             //redirect to list view when done

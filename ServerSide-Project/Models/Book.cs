@@ -11,9 +11,9 @@ namespace ServerSide_Project.Models
 {
     public class Book
     {
-        [Required(ErrorMessage = "ISBN Required")]
         [DisplayName("ISBN")]
-        [StringLength(13,ErrorMessage ="Must Be 13 char long")]
+        [Required(ErrorMessage = "ISBN Required")]
+        //[StringLength(13, MinimumLength = 13,ErrorMessage ="Must Be 13 char long")] not implamented as of testing
         public string ISBN { get; set; } //PRIMARY KEY
 
         [Required(ErrorMessage = "Must have a title")]
@@ -22,14 +22,30 @@ namespace ServerSide_Project.Models
         [Required(ErrorMessage = "Must have a publication year")]
         public int PublicationYear { get; set; }
 
+        [MaxLength(500,ErrorMessage ="Description to long")]
         public string Description { get; set; }
 
+        [Required]
+        [Range(1,15000, ErrorMessage = "Not valid page number")]
         public int Pages { get; set; }
 
         [Required]
+        [MaxLength(20, ErrorMessage ="Name to long!")]
         public Author Author{ get; set; }
 
         [Required]
         public Genre Genre { get; set; }
+
+
+        public void SetBook(Book book)
+        {
+            this.Author = book.Author;
+            this.Genre = book.Genre;
+            this.Pages = book.Pages;
+            this.Description = book.Description;
+            this.ISBN = book.ISBN;
+            this.Title = book.Title;
+            this.PublicationYear = book.PublicationYear;
+        }
     }
 }
