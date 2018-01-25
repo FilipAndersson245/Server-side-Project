@@ -26,5 +26,25 @@ namespace ServerSide_Project.Controllers
             var repo = Session["repo"] as Repository;
             return View("EditBook",repo.BookList.Find(x => x.ISBN == id)); // ret a book with ISBN equal to id
         }
+
+        [HttpPost]
+        public ActionResult UpdateBook(Book book)
+        {
+
+            if (ModelState.IsValid) //validate the data
+            {
+                int a = 5;
+            }
+            //THIS NEED TO BE CHANGED IF YOU EVER WANNT TO CHANGE ISBN NEED TO STORE ISBN id and send it also (if changed)
+            
+            //this is not working atm repo dosent seem to be updated
+            var repo = Session["repo"] as Repository;
+            var otherBook = repo.BookList.FirstOrDefault(x => x.ISBN == book.ISBN);
+            otherBook =  book;
+
+
+            //redirect to list view when done
+            return RedirectToAction("ListBooks", "List");
+        }
     }
 }

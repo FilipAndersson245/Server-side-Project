@@ -5,21 +5,21 @@ using System.Web;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-
+using System.Web.Helpers;
 
 namespace ServerSide_Project.Models
 {
     public class Book
     {
-        [Required]
+        [Required(ErrorMessage = "ISBN Required")]
         [DisplayName("ISBN")]
-        [StringLength(13)]
+        [StringLength(13,ErrorMessage ="Must Be 13 char long")]
         public string ISBN { get; set; } //PRIMARY KEY
 
-        [Required]
+        [Required(ErrorMessage = "Must have a title")]
         public string Title { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Must have a publication year")]
         public int PublicationYear { get; set; }
 
         public string Description { get; set; }
