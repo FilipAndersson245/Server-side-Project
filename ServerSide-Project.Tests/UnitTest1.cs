@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ServerSide_Project.Controllers;
+﻿using ServerSide_Project.Controllers;
 using System.Web.Mvc;
 using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using System.Web;
 
 namespace ServerSide_Project.Tests
 {
@@ -10,15 +11,12 @@ namespace ServerSide_Project.Tests
     public class UnitTest1
     {
         [TestMethod]
-        public void ListBooks()
+        public void Home()
         {
-            var Control = new ListController();
-            var res = Control.ListBooks() as ViewResult;
-            var model = res.Model as IEnumerable<Models.Book>;
-            foreach(var item in model)
-            {
-                Assert.AreEqual("Tolkien", item.Author.LastName);
-            }
+            var controler = new HomeController();
+            var res = controler.Index() as ViewResult;
+            Assert.AreEqual("Home", res.ViewName);
+            //wip
         }
     }
 }

@@ -47,9 +47,9 @@
             @Html.DisplayFor(modelItem => item.Pages)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Edit", "EditBook","Update", new { id=item.ISBN }, new { @class="" }) |
+            @Html.ActionLink("Details", "DetailsBook","Update", new { id=item.ISBN }, new { @class = "" })) |
+            @Html.ActionLink("Delete", "DeleteBook","Delete", new { id = item.ISBN }, new { @class = "" }))
         </td>
     </tr>
 }
