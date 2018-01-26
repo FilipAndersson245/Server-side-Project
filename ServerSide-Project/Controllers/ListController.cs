@@ -22,6 +22,11 @@ namespace ServerSide_Project.Controllers
             return View(repo.BookList);
         }
 
+        public ActionResult ListBookDetails(string id)
+        {
+            Repository repo = (Repository)Session["repo"];
+            return View(repo.BookList.FirstOrDefault(x => x.ISBN == id));
+        }
 
     }
 }
