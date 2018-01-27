@@ -15,7 +15,7 @@ namespace ServerSide_Project.Controllers
         {
             Repository repo = new Repository();
             Session["repo"] = repo;
-            return View();
+            return View("Home");
         }
     }
 }
