@@ -22,6 +22,7 @@ namespace ServerSide_Project.Controllers
             return View(repo.BookList);
         }
 
+        [HttpGet]
         public ActionResult ListBookDetails(string id)
         {
             Repository repo = (Repository)Session["repo"];
