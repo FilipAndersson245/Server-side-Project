@@ -88,7 +88,7 @@ footer
     margin: 50px auto 50px auto;
 }
 
-    .slider
+.slider
 {
     width: 100%;
 }
@@ -98,6 +98,8 @@ footer
     background-color: #4b4b4b;
     border-color: #ffffff;
     color: #ffffff;
+    height: 200%;
+    width: 5%;
 }
 
 #searchBtn:hover
@@ -108,5 +110,13 @@ footer
 
 #searchField
 {
-    width: 100%;
+    width: 50%;
+    height: 200%;
 }
+
+#searchBar
+{
+    margin-bottom: 2%;
+    margin-top: 1%;
+}
+
