@@ -18,8 +18,6 @@ namespace ServerSide_Project.Tests
     public class UnitTest1
     {
 
-
-
         [TestMethod]
         public void Home()
         {
@@ -34,12 +32,13 @@ namespace ServerSide_Project.Tests
             };
 
             //controler.Session["repo"] = new Repository();
+
             var res = controler.Index() as ViewResult;
             Assert.AreEqual("Home", res.ViewName);
-            res.
             
 
             //wip
         }
+
     }
 }
