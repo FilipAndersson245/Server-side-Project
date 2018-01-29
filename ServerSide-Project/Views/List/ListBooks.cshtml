@@ -36,60 +36,30 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-    @*<td>
-        @Html.DisplayFor(modelItem => item.ISBN)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Title)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.PublicationYear)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ShortDescription)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Pages)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.BookAuthor.FirstName)
-        @Html.DisplayFor(modelItem => item.BookAuthor.LastName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.BookGenre.Name)
-        @Html.DisplayFor(modelItem => item.BookGenre.Art)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "EditBook","Update", new { id=item.ISBN }, new { @class="" }) |
-        @Html.ActionLink("Details", "ListBookDetails", "List", new { id=item.ISBN }, new { @class = "" }) |
-        @Html.ActionLink("Delete", "DeleteBook","Delete", new { id = item.ISBN }, new { @class = "" })
-    </td>*@
-
-        <div class="row" id="bookListItem">
-            <div class="col-sm-2">
-                <div class="col-sm-12 text-center" id="bookListImage">
-                    image goes here
+    <div class="row" id="bookListItem">
+        <div class="col-sm-2">
+            <div class="col-sm-12 text-center" id="bookListImage">
+                image goes here
+            </div>
+            <div class="col-sm-12 text-center" id="bookListGenre">
+                <a>@Html.DisplayFor(modelItem => item.BookGenre.Name)</a>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="row">
+                <div class="col-sm-9" id="bookListTitle">
+                    <a>@Html.DisplayFor(modelItem => item.Title)</a>
                 </div>
-                <div class="col-sm-12 text-center" id="bookListGenre">
-                    <a>@Html.DisplayFor(modelItem => item.BookGenre.Name)</a>
+                <div class="col-sm-3" id="bookListAdminPane">
+                    @Html.ActionLink("Edit", "EditBook", "Update", new { id = item.ISBN }, new { @class = "" }) |
+                    @Html.ActionLink("Details", "ListBookDetails", "List", new { id = item.ISBN }, new { @class = "" }) |
+                    @Html.ActionLink("Delete", "DeleteBook", "Delete", new { id = item.ISBN }, new { @class = "" })
                 </div>
             </div>
-            <div class="col-sm-9">
-                <div class="row">
-                    <div class="col-sm-9" id="bookListTitle">
-                        <a>@Html.DisplayFor(modelItem => item.Title)</a>
-                    </div>
-                    <div class="col-sm-3" id="bookListAdminPane">
-                        @Html.ActionLink("Edit", "EditBook", "Update", new { id = item.ISBN }, new { @class = "" }) |
-                        @Html.ActionLink("Details", "ListBookDetails", "List", new { id = item.ISBN }, new { @class = "" }) |
-                        @Html.ActionLink("Delete", "DeleteBook", "Delete", new { id = item.ISBN }, new { @class = "" })
-                    </div>
-                </div>
-                <div class="row" id="bookListInfoRow">
-                    <div class="col-sm-2" id="bookListAuthor">
-                        <a>
-                            @Html.DisplayFor(modelItem => item.BookAuthor.FirstName)
+            <div class="row" id="bookListInfoRow">
+                <div class="col-sm-5" id="bookListAuthor">
+                    <a>
+                        @Html.DisplayFor(modelItem => item.BookAuthor.FirstName)
                         @Html.DisplayFor(modelItem => item.BookAuthor.LastName)
                     </a>
                 </div>
@@ -110,14 +80,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-    </tr>
 }
 
 </table>

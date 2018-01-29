@@ -150,3 +150,8 @@ footer
 {
     margin-bottom: 1%;
 }
+
+#bookListAdminPane, #bookListPublicationYear, #bookListISBN, #bookListPages
+{
+    text-align: right;
+}
