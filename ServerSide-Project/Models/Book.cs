@@ -47,5 +47,17 @@ namespace ServerSide_Project.Models
             this.Title = book.Title;
             this.PublicationYear = book.PublicationYear;
         }
+
+        public string ShortDescription
+        {
+            get
+            {
+                if (this.Description.Length< 550)
+                {
+                    return this.Description;
+                }
+                return this.Description.Substring(0, 550) + "...";
+            }
+        }
     }
 }

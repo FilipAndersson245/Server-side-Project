@@ -2,8 +2,7 @@
 {
     margin-top:0px;
     padding-top:0px;
-    padding-bottom: 0px;
-    margin-bottom: 50px;
+    padding-bottom: 50px;
     min-height: 100%;
 }
     
@@ -121,3 +120,33 @@ footer
     margin-top: 1%;
 }
 
+#bookListItem
+{
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border-bottom: 1px solid #f1f1f1;
+    border-top: 1px solid #f1f1f1;
+}
+
+#bookListImage
+{
+    padding-bottom: 80px;
+    padding-top: 80px;
+    background-color: #ff0000;
+    color: #f1f1f1;
+    margin-bottom: 10px;
+    height: 100%;
+    width: 80%;
+}
+
+#bookListTitle
+{
+    font-size: 175%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin-bottom: 1%;
+}
+
+#bookListInfoRow
+{
+    margin-bottom: 1%;
+}
