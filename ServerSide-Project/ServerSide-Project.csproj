@@ -142,6 +142,8 @@
     <Content Include="Views\Update\EditBook.cshtml" />
     <Content Include="Views\List\ListBookDetails.cshtml" />
     <Content Include="Views\Create\CreateBook.cshtml" />
+    <Content Include="Views\List\ListAuthors.cshtml" />
+    <Content Include="Views\List\ListAuthorDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

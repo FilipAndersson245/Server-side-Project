@@ -33,7 +33,7 @@ namespace ServerSide_Project.Controllers
 
             if (ModelState.IsValid) //validate the data
             {
-                int a = 5;
+                //int a = 5;
             }
             //THIS NEED TO BE CHANGED IF YOU EVER WANNT TO CHANGE ISBN NEED TO STORE ISBN id and send it also (if changed)
             

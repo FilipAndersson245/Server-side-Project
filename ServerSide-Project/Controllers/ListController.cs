@@ -29,5 +29,19 @@ namespace ServerSide_Project.Controllers
             return View(repo.BookList.FirstOrDefault(x => x.ISBN == id));
         }
 
+        [HttpGet]
+        public ActionResult ListAuthors()
+        {
+            Repository repo = (Repository)Session["repo"];
+            return View("ListAuthors",repo.AuthorList);
+        }
+
+        [HttpGet]
+        public ActionResult ListAuthorDetails(string id)
+        {
+            Repository repo = (Repository)Session["repo"];
+            return View("ListAuthorDetails", repo.AuthorList.FirstOrDefault(x => x.ID == id));
+        }
+
     }
 }
