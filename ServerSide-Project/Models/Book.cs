@@ -31,16 +31,16 @@ namespace ServerSide_Project.Models
 
         [Required]
         [MaxLength(20, ErrorMessage ="Name to long!")]
-        public Author Author{ get; set; }
+        public Author BookAuthor{ get; set; }
 
         [Required]
-        public Genre Genre { get; set; }
+        public Genre BookGenre { get; set; }
 
 
         public void SetBook(Book book)
         {
-            this.Author = book.Author;
-            this.Genre = book.Genre;
+            this.BookAuthor = book.BookAuthor;
+            this.BookGenre = book.BookGenre;
             this.Pages = book.Pages;
             this.Description = book.Description;
             this.ISBN = book.ISBN;
