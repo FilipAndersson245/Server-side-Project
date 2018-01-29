@@ -9,6 +9,7 @@ namespace ServerSide_Project.Models
     {
         //Tempoary Mockup data. This will be exchanged with real database access later on.
         private List<Book> bookList;
+        private List<Author> authorList;
 
         public Repository()
         {
@@ -113,8 +114,16 @@ namespace ServerSide_Project.Models
                     BookGenre = new Genre { Name = "Classic Fiction", Art = null } },
             };
 
+            authorList = new List<Author> {
+                new Author { ID = "9", FirstName = "George", LastName = "Orwell", BirthYear = 1903 },
+                new Author { ID = "8", FirstName = "M. Thamban", LastName = "Nair", BirthYear = 1957},
+                new Author { ID = "6", FirstName = "Douglas", LastName = "Adams", BirthYear = 1952},
+                new Author { ID = "4", FirstName = "Dan", LastName = "Brown", BirthYear = 1964},
+            };
+
         }
 
+        public List<Author> AuthorList { get { return authorList; } set { AuthorList = value; } }
         public List<Book> BookList { get { return bookList; } set { bookList = value; } }
 
     }
