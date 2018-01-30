@@ -14,6 +14,7 @@ namespace ServerSide_Project.Models
 
         [Required(ErrorMessage = "Please Provide Password", AllowEmptyStrings = false)]
         [DataType(DataType.Password)]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{7,15}$", ErrorMessage = "password must contain 1 upper and lower case char and be between 7-15 long")]
         public string Password { get; set; }
     }
 }
