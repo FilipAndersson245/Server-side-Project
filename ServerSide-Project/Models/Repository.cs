@@ -144,5 +144,6 @@ namespace ServerSide_Project.Models
         public List<Author> AuthorList { get { return authorList; } set { AuthorList = value; } }
         public List<Book> BookList { get { return bookList; } set { bookList = value; } }
 
+        public List<Admin> AdminList { get { return adminList; } set { adminList = value; } }
     }
 }

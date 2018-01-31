@@ -9,14 +9,7 @@ namespace ServerSide_Project.Controllers
 {
     public class ListController : Controller
     {
-        Repository repo { get; set; }
-
-        int currentPageIndex { get; set; }
-
-        int totalBooksInList { get; set; }
-
-
-
+        list = new List;
 
         // GET: List
         public ActionResult Index()
@@ -27,9 +20,9 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult ListBooks(int currentPageIndex = 1) 
         {
-            repo = (Repository)Session["repo"];
+            var repo = (Repository)Session["repo"];
 
-            totalBooksInList = repo.BookList.Count;
+            var totalBooksInList = repo.BookList.Count;
 
             
 
