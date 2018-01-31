@@ -9,6 +9,7 @@ namespace ServerSide_Project.Tests
         [TestMethod]
         public void TestMethod1()
         {
+
         }
     }
 }

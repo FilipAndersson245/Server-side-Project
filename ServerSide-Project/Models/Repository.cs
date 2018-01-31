@@ -23,7 +23,7 @@ namespace ServerSide_Project.Models
                     Author = new Author { ID = "1", FirstName = "J.R.R", LastName = "Tolkien", BirthYear = 1892},
                     Genre = new Genre { Name = "Fantasy", Art = null } },
                 new Book {ISBN = "9876", Title = "Return of the King", PublicationYear = 1956,
-                    Description = "The first book in the Lord of the Rings series.", Pages = 432,
+                    Description = "The third book in the Lord of the Rings series.", Pages = 432,
                     Author = new Author { ID = "1", FirstName = "J.R.R", LastName = "Tolkien", BirthYear = 1892},
                     Genre = new Genre { Name = "Fantasy", Art = null } },
             };
