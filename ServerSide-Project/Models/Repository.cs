@@ -119,10 +119,16 @@ namespace ServerSide_Project.Models
 
             authorList = new List<Author>
             {
-                new Author { ID = "9", FirstName = "George", LastName = "Orwell", BirthYear = 1903 },
-                new Author { ID = "8", FirstName = "M. Thamban", LastName = "Nair", BirthYear = 1957},
-                new Author { ID = "6", FirstName = "Douglas", LastName = "Adams", BirthYear = 1952},
+                new Author { ID = "1", FirstName = "J.R.R", LastName = "Tolkien", BirthYear = 1892},
+                new Author { ID = "2", FirstName = "Mark A.", LastName = "Weiss", BirthYear = 1963},
+                new Author { ID = "3", FirstName = "Agatha", LastName = "Christie", BirthYear = 1890},
                 new Author { ID = "4", FirstName = "Dan", LastName = "Brown", BirthYear = 1964},
+                new Author { ID = "5", FirstName = "Sarah", LastName = "Dessen", BirthYear = 1970},
+                new Author { ID = "6", FirstName = "Douglas", LastName = "Adams", BirthYear = 1952},
+                new Author { ID = "7", FirstName = "Ashlee", LastName = "Vance", BirthYear = 1977},
+                new Author { ID = "8", FirstName = "M. Thamban", LastName = "Nair", BirthYear = 1957},
+                new Author { ID = "9", FirstName = "George", LastName = "Orwell", BirthYear = 1903},
+                new Author { ID = "10", FirstName = "Ernest", LastName = "Hemingway", BirthYear = 1899},
             };
 
             adminList = new List<Admin>
