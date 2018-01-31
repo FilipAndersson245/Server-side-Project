@@ -18,8 +18,6 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult CreateBook()
         {
-
-
             return View("CreateBook");
         }
 
@@ -35,6 +33,19 @@ namespace ServerSide_Project.Controllers
             repo.BookList.Add(book);
 
             return RedirectToAction("ListBooks", "List", null); //maybe to the created book instead of list
+        }
+
+        [HttpGet]
+        public ActionResult CreateAdmin()
+        {
+            return View("CreateAdmin");
+        }
+
+        [HttpPost]
+        public ActionResult CreateAdmin(Admin admin)
+        {
+
+            return RedirectToAction("index", "Home");
         }
     }
 }

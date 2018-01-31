@@ -37,11 +37,11 @@
                     </div>
                 </div>
                 <div class="navbar-col-sm-6 col-sm-offset-5">
-                    @Html.ActionLink("Jönköping Library","Index","Home",null, new { @class = "navbar-brand hej" })
+                    @Html.ActionLink("Jönköping Library","Index","Home",null, new { @class = "navbar-brand" })
                 </div>
                 <div class="navbar-col-sm-4">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Admin</a></li>
+                        <li>@Html.ActionLink("admin","getAdminView","Update",null,null)</li>
                         <li><a href=@Url.Action("Login","Update")><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                     </ul>
                 </div>

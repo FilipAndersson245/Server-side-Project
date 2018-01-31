@@ -45,5 +45,11 @@ namespace ServerSide_Project.Controllers
             //redirect to list view when done
             return RedirectToAction("ListBooks", "List");
         }
+
+        [HttpGet]
+        public ActionResult GetAdminView()
+        {
+            return View("GetAdminView");
+        }
     }
 }
