@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace ServerSide_Project.Controllers
 {
@@ -19,6 +20,18 @@ namespace ServerSide_Project.Controllers
         public ActionResult Login()
         {
             return View("login");
+        }
+
+        [HttpPost]
+        public ActionResult Login(Admin admin)
+        {
+            //Roles.AddUserToRole(admin.Username, "admin");
+            //if(User.IsInRole("admin"))
+            //{
+            //    var x = 5;
+            //}
+
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult EditBook(string id)
