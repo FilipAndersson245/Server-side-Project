@@ -11,7 +11,7 @@ namespace ServerSide_Project.Tests
     public class MockHttpSession : HttpSessionStateBase
     {
         Dictionary<string, object> _sessionDictonary = new Dictionary<string, object>();
-        public override object this[string name] { get => _sessionDictonary[name]; set => _sessionDictonary[name] = value; }
+        public override object this[string name] { get { return _sessionDictonary[name]; } set { _sessionDictonary[name] = value; } }
     }
 
     [TestClass]
