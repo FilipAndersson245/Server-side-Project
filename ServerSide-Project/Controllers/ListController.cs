@@ -16,9 +16,15 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
-        public ActionResult ListBooks()
+        public ActionResult ListBooks(int currentPageIndex)
         {
             Repository repo = (Repository)Session["repo"];
+
+            int totalBooksInList = repo.BookList.Count;
+
+            
+
+
             return View(repo.BookList);
         }
 

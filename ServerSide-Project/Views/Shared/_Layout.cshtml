@@ -30,7 +30,7 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Books", "ListBooks", "List")</li>
+                            <li>@Html.ActionLink("Books", "ListBooks", "List", new { currentPageIndex = 1 },null)</li>
                             <li>@Html.ActionLink("Authors","ListAuthors","List")</li>
                             <li><a href="#">Genre</a></li>
                         </ul>
@@ -134,7 +134,7 @@
         </div>
     </div>
 
-    <div class="navbar navbar-fixed-bottom">
+    <div class="navbar navbar-bottom">
         <footer class="container-fluid text-center">
             <div class="col-sm-4 text-left">©@DateTime.Today.Year</div>
             <div class="col-sm-4 text-center">Project for the course Server-side Web Development</div>
