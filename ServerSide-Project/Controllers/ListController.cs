@@ -9,7 +9,7 @@ namespace ServerSide_Project.Controllers
 {
     public class ListController : Controller
     {
-        list = new List;
+        
 
         // GET: List
         public ActionResult Index()
