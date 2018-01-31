@@ -1,7 +1,29 @@
-﻿
+﻿@model IEnumerable<ServerSide_Project.Models.Admin>
+
 @{
     ViewBag.Title = "GetAdminView";
 }
 
-<h2>GetAdminView</h2>
 
+<div class="col-sm-1"></div>
+<div class="col-sm-11">
+    <h2>Admin Panel</h2>
+
+    @Html.ActionLink("Create New Book", "CreateBook", "Create") | 
+    @Html.ActionLink("Create New Admin", "CreateAdmin", "Create")
+
+
+    <div class="row" id="adminList">
+        @foreach (var item in Model)
+        {
+            <div class="row" id="adminRow">
+                <div class="col-sm-2">
+                    @Html.DisplayFor(modelItem => item.Username)
+                </div>
+                <div class="col-sm-2 text-right" id="adminOptions">
+                    @Html.ActionLink("Delete Admin", "Delete", "DeleteAdmin")
+                </div>
+            </div>
+        }
+    </div>
+</div>

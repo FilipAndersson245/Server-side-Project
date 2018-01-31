@@ -49,7 +49,8 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult GetAdminView()
         {
-            return View("GetAdminView");
+            Repository repo = (Repository)Session["repo"];
+            return View("GetAdminView", repo.AdminList);
         }
     }
 }

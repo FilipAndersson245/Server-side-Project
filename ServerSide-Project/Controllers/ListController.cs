@@ -19,14 +19,14 @@ namespace ServerSide_Project.Controllers
         public ActionResult ListBooks() 
         {
             Repository repo = (Repository)Session["repo"];
-            return View(repo.BookList);
+            return View("ListBooks", repo.BookList);
         }
 
         [HttpGet]
         public ActionResult ListBookDetails(string id)
         {
             Repository repo = (Repository)Session["repo"];
-            return View(repo.BookList.FirstOrDefault(x => x.ISBN == id));
+            return View("ListBookDetails",repo.BookList.FirstOrDefault(x => x.ISBN == id));
         }
 
         [HttpGet]
@@ -42,6 +42,5 @@ namespace ServerSide_Project.Controllers
             Repository repo = (Repository)Session["repo"];
             return View("ListAuthorDetails", repo.AuthorList.FirstOrDefault(x => x.ID == id));
         }
-
     }
 }

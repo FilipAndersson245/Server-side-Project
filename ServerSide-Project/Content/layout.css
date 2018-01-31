@@ -154,3 +154,20 @@ footer
 {
     text-align: right;
 }
+
+#adminRow
+{
+    border-bottom: 1px solid #f1f1f1;
+    border-top: 1px solid #f1f1f1;
+    margin-right: 50%;
+}
+
+#adminOptions
+{
+    float: right;
+}
+
+#adminList
+{
+    margin-top: 3%;
+}

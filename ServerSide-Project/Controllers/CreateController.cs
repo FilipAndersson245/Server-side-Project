@@ -44,7 +44,6 @@ namespace ServerSide_Project.Controllers
         [HttpPost]
         public ActionResult CreateAdmin(Admin admin)
         {
-
             return RedirectToAction("index", "Home");
         }
     }
