@@ -7,7 +7,7 @@
 <h2>ListBooks</h2>
 
 <p>
-    @Html.ActionLink("Create New", "CreateBook", "Create")
+    @Html.ActionLink("Create New Book", "CreateBook", "Create")
 </p>
 <table class="table">
     @foreach (var item in Model)
@@ -36,10 +36,6 @@
                     </div>
                     <div class="row" id="bookListInfoRow">
                         <div class="col-sm-5" id="bookListAuthor">
-                            <a>
-                                @Html.DisplayFor(modelItem => item.BookAuthor.FirstName)
-                                @Html.DisplayFor(modelItem => item.BookAuthor.LastName)
-                            </a>
                             @Html.ActionLink(Html.Encode(item.BookAuthor.FirstName + " " + item.BookAuthor.LastName),"ListAuthorDetails","List",new { id = item.BookAuthor.ID },null);
                         </div>
                         <div class="col-sm-2" id="bookListPublicationYear">

@@ -30,6 +30,8 @@ namespace ServerSide_Project.Controllers
                 //valid book!
             }
             Repository repo = (Repository)Session["repo"];
+            book.BookAuthor = new Author { ID = "11", FirstName = "Test", LastName = "Author", BirthYear = 2000 };
+            book.BookGenre = new Genre { Art = null, Name = "TestGenre" };
             repo.BookList.Add(book);
 
             return RedirectToAction("ListBooks", "List", null); //maybe to the created book instead of list
@@ -44,7 +46,23 @@ namespace ServerSide_Project.Controllers
         [HttpPost]
         public ActionResult CreateAdmin(Admin admin)
         {
-            return RedirectToAction("index", "Home");
+            Repository repo = (Repository)Session["repo"];
+            repo.AdminList.Add(admin);
+            return RedirectToAction("GetAdminView", "Update", null);
+        }
+
+        [HttpGet]
+        public ActionResult CreateAuthor()
+        {
+            return View("CreateAuthor");
+        }
+
+        [HttpPost]
+        public ActionResult CreateAuthor(Author author)
+        {
+            Repository repo = (Repository)Session["repo"];
+            repo.AuthorList.Add(author);
+            return RedirectToAction("ListAuthors", "List", null);
         }
     }
 }

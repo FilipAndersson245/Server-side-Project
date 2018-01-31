@@ -10,7 +10,8 @@
     <h2>Admin Panel</h2>
 
     @Html.ActionLink("Create New Book", "CreateBook", "Create") | 
-    @Html.ActionLink("Create New Admin", "CreateAdmin", "Create")
+    @Html.ActionLink("Create New Admin", "CreateAdmin", "Create") | 
+    @Html.ActionLink("Create New Author", "CreateAuthor", "Create")
 
 
     <div class="row" id="adminList">
@@ -21,7 +22,7 @@
                     @Html.DisplayFor(modelItem => item.Username)
                 </div>
                 <div class="col-sm-2 text-right" id="adminOptions">
-                    @Html.ActionLink("Delete Admin", "Delete", "DeleteAdmin")
+                    @Html.ActionLink("Delete Admin", "DeleteAdmin", "Delete", new {id = item.Username }, null)
                 </div>
             </div>
         }

@@ -145,6 +145,7 @@
     <Content Include="Views\List\ListAuthorDetails.cshtml" />
     <Content Include="Views\Update\GetAdminView.cshtml" />
     <Content Include="Views\Create\CreateAdmin.cshtml" />
+    <Content Include="Views\Create\CreateAuthor.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
