@@ -48,7 +48,8 @@
         <div class="col-sm-9">
             <div class="row">
                 <div class="col-sm-9" id="bookListTitle">
-                    <a>@Html.DisplayFor(modelItem => item.Title)</a>
+
+                    @Html.ActionLink(Html.Encode(item.Title), "ListBookDetails","List", new { id = item.ISBN }, null)
                 </div>
                 <div class="col-sm-3" id="bookListAdminPane">
                     @Html.ActionLink("Edit", "EditBook", "Update", new { id = item.ISBN }, new { @class = "" }) |
@@ -62,6 +63,7 @@
                         @Html.DisplayFor(modelItem => item.BookAuthor.FirstName)
                         @Html.DisplayFor(modelItem => item.BookAuthor.LastName)
                     </a>
+                    @Html.ActionLink(Html.Encode(item.BookAuthor.FirstName + " " + item.BookAuthor.LastName),"ListAuthorDetails","List",new { id = item.BookAuthor.ID },null);
                 </div>
                 <div class="col-sm-2" id="bookListPublicationYear">
                     Published: @Html.DisplayFor(modelItem => item.PublicationYear)

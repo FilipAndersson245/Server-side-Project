@@ -3,14 +3,6 @@
     ViewBag.Title = "Login";
 }
 
-@*@foreach (var item in ViewData.ModelMetadata.Properties)
-    {
-    <div class="editor-line">
-        <label>@(item.DisplayName ?? item.PropertyName)</label>
-        @Html.Editor(item.PropertyName)
-    </div>
-    }*@
-
 <h2>Index</h2>
 @using (@Html.BeginForm("Login", "Update", FormMethod.Post, new { @class = "col-sm-3 col-sm-offset-3" }))
 {
