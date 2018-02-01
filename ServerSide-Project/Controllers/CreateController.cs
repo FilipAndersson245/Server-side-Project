@@ -48,7 +48,7 @@ namespace ServerSide_Project.Controllers
         {
             Repository repo = (Repository)Session["repo"];
             repo.AdminList.Add(admin);
-            return RedirectToAction("GetAdminView", "Update", null);
+            return RedirectToAction("AdminPanel", "Update", null);
         }
 
         [HttpGet]

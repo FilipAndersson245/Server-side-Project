@@ -142,7 +142,7 @@
     <Content Include="Views\Create\CreateBook.cshtml" />
     <Content Include="Views\List\ListAuthors.cshtml" />
     <Content Include="Views\List\ListAuthorDetails.cshtml" />
-    <Content Include="Views\Update\GetAdminView.cshtml" />
+    <Content Include="Views\Update\AdminPanel.cshtml" />
     <Content Include="Views\Create\CreateAdmin.cshtml" />
     <Content Include="Views\Create\CreateAuthor.cshtml" />
     <Content Include="Views\Shared\ListBooks.cshtml" />

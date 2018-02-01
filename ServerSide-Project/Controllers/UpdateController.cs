@@ -64,10 +64,10 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetAdminView()
+        public ActionResult AdminPanel()
         {
             Repository repo = (Repository)Session["repo"];
-            return View("GetAdminView", repo.AdminList);
+            return View("AdminPanel", repo.AdminList);
         }
     }
 }

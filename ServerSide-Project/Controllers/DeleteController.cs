@@ -34,7 +34,7 @@ namespace ServerSide_Project.Controllers
         {
             Repository repo = (Repository)Session["repo"];
             repo.AdminList.RemoveAll(x => x.Username == id);
-            return RedirectToAction("GetAdminView", "Update", null);
+            return RedirectToAction("AdminPanel", "Update", null);
         }
     }
 }

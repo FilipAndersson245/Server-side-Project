@@ -33,26 +33,45 @@
                     @Html.ActionLink("Delete", "DeleteBook", "Delete", new { id = item.ISBN }, new { @class = "" })
                 </div>
             </div>
-            <div class="row" id="bookListInfoRow">
+            <div class="row">
                 <div class="col-sm-5" id="bookListAuthor">
-                    @Html.ActionLink(Html.Encode(item.BookAuthor.FirstName + " " + item.BookAuthor.LastName), "ListAuthorDetails", "List", new { id = item.BookAuthor.ID }, null);
+                    <p class="listHeadline">Author:</p>
                 </div>
                 <div class="col-sm-2" id="bookListPublicationYear">
-                    Published: @Html.DisplayFor(modelItem => item.PublicationYear)
+                    <p class="listHeadline">Published:</p>
                 </div>
                 <div class="col-sm-3" id="bookListISBN">
-                    ISBN: @Html.DisplayFor(modelItem => item.ISBN)
+                    <p class="listHeadline">ISBN:</p>
                 </div>
                 <div class="col-sm-2" id="bookListPages">
-                    Pages: @Html.DisplayFor(modelItem => item.Pages)
+                    <p class="listHeadline">Pages:</p>
                 </div>
             </div>
-            <div class="row" id="bookListDescription">
+            <div class="row" id="bookListInfoRow">
+                <div class="col-sm-5" id="bookListAuthor">
+                    @Html.ActionLink(Html.Encode(item.BookAuthor.FirstName + " " + item.BookAuthor.LastName), "ListAuthorDetails", "List", new { id = item.BookAuthor.ID }, null)
+                </div>
+                <div class="col-sm-2" id="bookListPublicationYear">
+                    @Html.DisplayFor(modelItem => item.PublicationYear)
+                </div>
+                <div class="col-sm-3" id="bookListISBN">
+                    @Html.DisplayFor(modelItem => item.ISBN)
+                </div>
+                <div class="col-sm-2" id="bookListPages">
+                    @Html.DisplayFor(modelItem => item.Pages)
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-sm-12">
-                    @Html.DisplayFor(modelItem => item.ShortDescription)
+                    <p class="listHeadline">Description:</p>
                 </div>
             </div>
-        </div>
+                <div class="row" id="bookListDescription">
+                    <div class="col-sm-12">
+                        @Html.DisplayFor(modelItem => item.ShortDescription)
+                    </div>
+                </div>
+            </div>
     </div>
 }
 

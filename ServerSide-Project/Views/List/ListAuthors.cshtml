@@ -3,43 +3,43 @@
 @{
     ViewBag.Title = "ListAuthors";
 }
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-10">
+        <h2>Authors</h2>
+    </div>
+    <div class="col-sm-2"></div>
+    <div class="col-sm-10">
+        <p>
+            @Html.ActionLink("Create New Author", "CreateAuthor", "Create", null, null)
+        </p>
+    </div>
+</div>
 
-<h2>ListAuthors</h2>
-
-<p>
-    @Html.ActionLink("Create New Author", "CreateAuthor", "Create", null, null)
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BirthYear)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.ActionLink(Html.Encode(item.FirstName + " " + item.LastName), "ListAuthorDetails","List",new { id = item.ID }, null)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BirthYear)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "DeleteAuthor","Delete", new { id=item.ID },null)
-        </td>
-    </tr>
-}
-
-</table>
+    @foreach (var item in Model)
+    {
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-6">
+                <div class="row" id="authorListItem">
+                    <div class="col-sm-3" id="authorListName">
+                        @Html.ActionLink(Html.Encode(item.FirstName + " " + item.LastName), "ListAuthorDetails", "List", new { id = item.ID }, null)
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="row">
+                            <p class="listHeadline">Year of Birth:</p>
+                        </div>
+                        <div class="row">
+                            @Html.DisplayFor(modelItem => item.BirthYear)
+                        </div>
+                    </div>
+                    <div class="col-sm-3" id="authorOptions">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Delete", "DeleteAuthor", "Delete", new { id = item.ID }, null)
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+    }
