@@ -59,10 +59,6 @@
         <div class="form-group">
             @Html.LabelFor(model => model.book.BookAuthor, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @{
-                    Html.DropDownList("a", Model.AuthorList.Select(x => x.FirstName),null); 
-                    Html.DropDownListFor(model => model, Model.AuthorList);
-                 }
             </div>
         </div>
 
