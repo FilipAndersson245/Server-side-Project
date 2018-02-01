@@ -20,6 +20,13 @@ namespace ServerSide_Project.Controllers
         {
             Repository repo = (Repository)Session["repo"];
             return View("ListBooks", repo.BookList);
+            
+        }
+
+        [HttpGet]
+        public ActionResult ListBooksByAuthor(Author author)
+        {
+            return View("ListBooks", author.BookList);
         }
 
         [HttpGet]
