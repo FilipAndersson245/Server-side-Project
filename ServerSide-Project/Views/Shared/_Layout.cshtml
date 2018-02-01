@@ -30,7 +30,7 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Books", "ListBooks", "List", new { currentPageIndex = 1 },null)</li>
+                            <li>@Html.ActionLink("Books", "ListBooks", "List")</li>
                             <li>@Html.ActionLink("Authors","ListAuthors","List")</li>
                             <li><a href="#">Genre</a></li>
                         </ul>
@@ -129,6 +129,9 @@
 
 
                 @RenderBody()
+                
+
+
             </div>
 
         </div>
