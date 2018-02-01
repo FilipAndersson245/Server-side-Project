@@ -155,11 +155,43 @@ footer
     text-align: right;
 }
 
-#adminRow
+#authorListItem
 {
+    padding-top: 2%;
+    margin-bottom: 1%;
+    margin-top: 1%;
     border-bottom: 1px solid #f1f1f1;
     border-top: 1px solid #f1f1f1;
-    margin-right: 50%;
+}
+
+#adminListItem
+{
+    padding-top: 2%;
+    margin-bottom: 1%;
+    margin-top: 1%;
+    border-bottom: 1px solid #f1f1f1;
+    border-top: 1px solid #f1f1f1;
+}
+
+#authorListName
+{
+    font-size: 120%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin-bottom: 1%;
+    margin-right: 30%;
+}
+
+#adminListName
+{
+    font-size: 120%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin-bottom: 1%;
+    margin-right: 30%;
+}
+
+#authorOptions
+{
+    float: right;
 }
 
 #adminOptions
@@ -167,7 +199,9 @@ footer
     float: right;
 }
 
-#adminList
+.listHeadline
 {
-    margin-top: 3%;
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 80%;
 }
