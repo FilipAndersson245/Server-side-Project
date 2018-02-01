@@ -18,7 +18,9 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult CreateBook()
         {
-            return View("CreateBook");
+            Repository repo = (Repository)Session["repo"];
+
+            return View("CreateBook", new AuthorAndGenre() { AuthorList = repo.AuthorList, GenreList = new List<Genre>() { new Genre() { Art = null, Name = "Fantasy" } } });
         }
 
         [HttpPost]
