@@ -14,6 +14,8 @@ namespace ServerSide_Project.Models
 
         private List<Admin> adminList;
 
+        private List<Genre> genraList;
+
         public Repository()
         {
             bookList = new List<Book>
@@ -139,11 +141,21 @@ namespace ServerSide_Project.Models
                 new Admin { Username = "Bengan", Password = "IamBengt" }
             };
 
+            genraList = new List<Genre>
+            {
+                new Genre { Name = "Fantasy", Art = null },
+                new Genre { Name = "Sci-Fi", Art = null },
+                new Genre { Name = "Roman", Art = null },
+                new Genre { Name = "Science", Art = null },
+            };
+
         }
 
         public List<Author> AuthorList { get { return authorList; } set { AuthorList = value; } }
         public List<Book> BookList { get { return bookList; } set { bookList = value; } }
 
         public List<Admin> AdminList { get { return adminList; } set { adminList = value; } }
+
+        public List<Genre> GenreList { get { return genraList; } set { genraList = value; } }
     }
 }

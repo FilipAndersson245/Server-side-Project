@@ -10,6 +10,7 @@ namespace ServerSide_Project.Models
     {
         [Required(ErrorMessage = "Please Provide Username", AllowEmptyStrings = false)]
         [DataType(DataType.Text)]
+        [Key]
         public string Username { get; set; }
 
         [Required(ErrorMessage = "Please Provide Password", AllowEmptyStrings = false)]

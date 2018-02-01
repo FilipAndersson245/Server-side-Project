@@ -14,6 +14,9 @@ namespace ServerSide_Project.Models
         public string Name { get; set; }
 
         public Image Art { get; set; }
+
+        [Key]
+        public String Signid { get; set; }
         
     }
 }

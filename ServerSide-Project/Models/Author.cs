@@ -24,6 +24,7 @@ namespace ServerSide_Project.Models
         }
 
         [Required]
+        [Key]
         [StringLength(10)]
         public string ID { get; set; } //Primary Key
 

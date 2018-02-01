@@ -13,7 +13,8 @@ namespace ServerSide_Project.Models
     {
         [DisplayName("ISBN")]
         [Required(ErrorMessage = "ISBN Required")]
-        //[StringLength(13, MinimumLength = 13,ErrorMessage ="Must Be 13 char long")] not implamented as of testing
+        [Key]
+        [StringLength(11, MinimumLength = 11,ErrorMessage ="Must Be 11 char long")] 
         public string ISBN { get; set; } //PRIMARY KEY
 
         [Required(ErrorMessage = "Must have a title")]
