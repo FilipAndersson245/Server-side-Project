@@ -36,6 +36,7 @@ namespace ServerSide_Project.Controllers
 
         public ActionResult EditBook(string id)
         {
+            //TempData.Add("ISBN", id);
             var repo = Session["repo"] as Repository;
             return View("EditBook",repo.BookList.Find(x => x.ISBN == id)); // ret a book with ISBN equal to id
         }
@@ -43,16 +44,19 @@ namespace ServerSide_Project.Controllers
         [HttpPost]
         public ActionResult UpdateBook(Book book)
         {
-
+                            
             if (ModelState.IsValid) //validate the data
             {
                 //int a = 5;
             }
             //THIS NEED TO BE CHANGED IF YOU EVER WANNT TO CHANGE ISBN NEED TO STORE ISBN id and send it also (if changed)
-            
+
             //may intreduce bugs with null   Works for now
+
+            string oldISBN = (string)TempData["ISBN"];
+
             var repo = Session["repo"] as Repository;
-            repo.BookList.Where(d => d.ISBN == book.ISBN).First().SetBook(book);
+            repo.BookList.Where(d => d.ISBN == oldISBN).First().SetBook(book);
 
 
             //redirect to list view when done
