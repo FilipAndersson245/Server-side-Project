@@ -7,40 +7,41 @@ using System.Web.Mvc;
 
 namespace ServerSide_Project.Controllers
 {
-    public class ListController : Controller
+    public class AuthorsController : Controller
     {
-        // GET: List
+        // GET: Authors
         public ActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
-        public ActionResult ListBooks() 
+        public ActionResult CreateAuthor()
         {
-            Repository repo = (Repository)Session["repo"];
-            return View("ListBooks", repo.BookList);
-            
+            return View("CreateAuthor");
         }
 
-        [HttpGet]
-        public ActionResult ListBooksByAuthor(Author author)
-        {
-            return View("ListBooks", author.BookList);
-        }
-
-        [HttpGet]
-        public ActionResult ListBookDetails(string id)
+        [HttpPost]
+        public ActionResult CreateAuthor(Author author)
         {
             Repository repo = (Repository)Session["repo"];
-            return View("ListBookDetails",repo.BookList.FirstOrDefault(x => x.ISBN == id));
+            repo.AuthorList.Add(author);
+            return RedirectToAction("ListAuthors", "Authors", null);
+        }
+
+        
+        public ActionResult DeleteAuthor(string id)
+        {
+            Repository repo = (Repository)Session["repo"];
+            repo.AuthorList.RemoveAll(x => x.ID == id);
+            return RedirectToAction("ListAuthors", "Authors", null);
         }
 
         [HttpGet]
         public ActionResult ListAuthors()
         {
             Repository repo = (Repository)Session["repo"];
-            return View("ListAuthors",repo.AuthorList);
+            return View("ListAuthors", repo.AuthorList);
         }
 
         [HttpGet]

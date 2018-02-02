@@ -111,11 +111,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\CreateController.cs" />
-    <Compile Include="Controllers\DeleteController.cs" />
+    <Compile Include="Controllers\AdminsController.cs" />
+    <Compile Include="Controllers\AuthorsController.cs" />
+    <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ListController.cs" />
-    <Compile Include="Controllers\UpdateController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -137,15 +136,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Update\Login.cshtml" />
-    <Content Include="Views\Update\EditBook.cshtml" />
-    <Content Include="Views\List\ListBookDetails.cshtml" />
-    <Content Include="Views\Create\CreateBook.cshtml" />
-    <Content Include="Views\List\ListAuthors.cshtml" />
-    <Content Include="Views\List\ListAuthorDetails.cshtml" />
-    <Content Include="Views\Update\AdminPanel.cshtml" />
-    <Content Include="Views\Create\CreateAdmin.cshtml" />
-    <Content Include="Views\Create\CreateAuthor.cshtml" />
+    <Content Include="Views\Admins\Login.cshtml" />
+    <Content Include="Views\Books\EditBook.cshtml" />
+    <Content Include="Views\Books\ListBookDetails.cshtml" />
+    <Content Include="Views\Books\CreateBook.cshtml" />
+    <Content Include="Views\Authors\ListAuthors.cshtml" />
+    <Content Include="Views\Authors\ListAuthorDetails.cshtml" />
+    <Content Include="Views\Admins\AdminPanel.cshtml" />
+    <Content Include="Views\Admins\CreateAdmin.cshtml" />
+    <Content Include="Views\Authors\CreateAuthor.cshtml" />
     <Content Include="Views\Shared\ListBooks.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -156,7 +155,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Delete\" />
+    <Folder Include="Views\Update\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

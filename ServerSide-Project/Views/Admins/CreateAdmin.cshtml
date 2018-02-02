@@ -6,7 +6,7 @@
 
 <h2>CreateAdmin</h2>
 
-@using (Html.BeginForm("CreateAdmin","Create",FormMethod.Post,new { @class = "col-sm-3 col-sm-offset-3" }))
+@using (Html.BeginForm("CreateAdmin","Admins",FormMethod.Post,new { @class = "col-sm-3 col-sm-offset-3" }))
 {
     @Html.AntiForgeryToken()
     
@@ -39,5 +39,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "AdminPanel", "Update", null, null)
+    @Html.ActionLink("Back to List", "AdminPanel", "Admins", null, null)
 </div>
