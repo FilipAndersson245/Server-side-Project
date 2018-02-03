@@ -6,12 +6,13 @@ using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using System.Web.Helpers;
+using Repository.Support;
 
 namespace ServerSide_Project.Models
 {
     public class Book
     {
-        [DisplayName("ISBN")]
+        //[DisplayName("ISBN")]
         [Required(ErrorMessage = "ISBN Required")]
         [Key]
         [StringLength(11, MinimumLength = 11,ErrorMessage ="Must Be 11 char long")] 

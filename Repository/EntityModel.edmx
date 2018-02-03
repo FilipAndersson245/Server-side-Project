@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="db_server_sideModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AUTHOR">
+          <Key>
+            <PropertyRef Name="Aid" />
+          </Key>
+          <Property Name="Aid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="BirthYear" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="BOOK">
+          <Key>
+            <PropertyRef Name="ISBN" />
+          </Key>
+          <Property Name="ISBN" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="255" />
+          <Property Name="SignId" Type="int" />
+          <Property Name="PublicationYear" Type="nvarchar" MaxLength="10" />
+          <Property Name="publicationinfo" Type="nvarchar" MaxLength="255" />
+          <Property Name="pages" Type="smallint" />
+        </EntityType>
+        <EntityType Name="BOOK_AUTHOR">
+          <Key>
+            <PropertyRef Name="ISBN" />
+            <PropertyRef Name="Aid" />
+          </Key>
+          <Property Name="ISBN" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Aid" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CLASSIFICATION">
+          <Key>
+            <PropertyRef Name="SignId" />
+          </Key>
+          <Property Name="SignId" Type="int" Nullable="false" />
+          <Property Name="Signum" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK_BOOK_AUTHOR_AUTHOR">
+          <End Role="AUTHOR" Type="Self.AUTHOR" Multiplicity="1" />
+          <End Role="BOOK_AUTHOR" Type="Self.BOOK_AUTHOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AUTHOR">
+              <PropertyRef Name="Aid" />
+            </Principal>
+            <Dependent Role="BOOK_AUTHOR">
+              <PropertyRef Name="Aid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BOOK_AUTHOR_BOOK">
+          <End Role="BOOK" Type="Self.BOOK" Multiplicity="1" />
+          <End Role="BOOK_AUTHOR" Type="Self.BOOK_AUTHOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOOK">
+              <PropertyRef Name="ISBN" />
+            </Principal>
+            <Dependent Role="BOOK_AUTHOR">
+              <PropertyRef Name="ISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BOOK_CLASSIFICATION">
+          <End Role="CLASSIFICATION" Type="Self.CLASSIFICATION" Multiplicity="0..1" />
+          <End Role="BOOK" Type="Self.BOOK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLASSIFICATION">
+              <PropertyRef Name="SignId" />
+            </Principal>
+            <Dependent Role="BOOK">
+              <PropertyRef Name="SignId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="db_server_sideModelStoreContainer">
+          <EntitySet Name="AUTHOR" EntityType="Self.AUTHOR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BOOK" EntityType="Self.BOOK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BOOK_AUTHOR" EntityType="Self.BOOK_AUTHOR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CLASSIFICATION" EntityType="Self.CLASSIFICATION" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BOOK_AUTHOR_AUTHOR" Association="Self.FK_BOOK_AUTHOR_AUTHOR">
+            <End Role="AUTHOR" EntitySet="AUTHOR" />
+            <End Role="BOOK_AUTHOR" EntitySet="BOOK_AUTHOR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOOK_AUTHOR_BOOK" Association="Self.FK_BOOK_AUTHOR_BOOK">
+            <End Role="BOOK" EntitySet="BOOK" />
+            <End Role="BOOK_AUTHOR" EntitySet="BOOK_AUTHOR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOOK_CLASSIFICATION" Association="Self.FK_BOOK_CLASSIFICATION">
+            <End Role="CLASSIFICATION" EntitySet="CLASSIFICATION" />
+            <End Role="BOOK" EntitySet="BOOK" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="db_server_sideModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AUTHOR">
+          <Key>
+            <PropertyRef Name="Aid" />
+          </Key>
+          <Property Name="Aid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BirthYear" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BOOKs" Relationship="Self.BOOK_AUTHOR" FromRole="AUTHOR" ToRole="BOOK" />
+        </EntityType>
+        <EntityType Name="BOOK">
+          <Key>
+            <PropertyRef Name="ISBN" />
+          </Key>
+          <Property Name="ISBN" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SignId" Type="Int32" />
+          <Property Name="PublicationYear" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="publicationinfo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="pages" Type="Int16" />
+          <NavigationProperty Name="CLASSIFICATION" Relationship="Self.FK_BOOK_CLASSIFICATION" FromRole="BOOK" ToRole="CLASSIFICATION" />
+          <NavigationProperty Name="AUTHORs" Relationship="Self.BOOK_AUTHOR" FromRole="BOOK" ToRole="AUTHOR" />
+        </EntityType>
+        <EntityType Name="CLASSIFICATION">
+          <Key>
+            <PropertyRef Name="SignId" />
+          </Key>
+          <Property Name="SignId" Type="Int32" Nullable="false" />
+          <Property Name="Signum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BOOKs" Relationship="Self.FK_BOOK_CLASSIFICATION" FromRole="CLASSIFICATION" ToRole="BOOK" />
+        </EntityType>
+        <Association Name="FK_BOOK_CLASSIFICATION">
+          <End Role="CLASSIFICATION" Type="Self.CLASSIFICATION" Multiplicity="0..1" />
+          <End Role="BOOK" Type="Self.BOOK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLASSIFICATION">
+              <PropertyRef Name="SignId" />
+            </Principal>
+            <Dependent Role="BOOK">
+              <PropertyRef Name="SignId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BOOK_AUTHOR">
+          <End Role="AUTHOR" Type="Self.AUTHOR" Multiplicity="*" />
+          <End Role="BOOK" Type="Self.BOOK" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="db_server_sideEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AUTHORs" EntityType="Self.AUTHOR" />
+          <EntitySet Name="BOOKs" EntityType="Self.BOOK" />
+          <EntitySet Name="CLASSIFICATIONs" EntityType="Self.CLASSIFICATION" />
+          <AssociationSet Name="FK_BOOK_CLASSIFICATION" Association="Self.FK_BOOK_CLASSIFICATION">
+            <End Role="CLASSIFICATION" EntitySet="CLASSIFICATIONs" />
+            <End Role="BOOK" EntitySet="BOOKs" />
+          </AssociationSet>
+          <AssociationSet Name="BOOK_AUTHOR" Association="Self.BOOK_AUTHOR">
+            <End Role="AUTHOR" EntitySet="AUTHORs" />
+            <End Role="BOOK" EntitySet="BOOKs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="db_server_sideModelStoreContainer" CdmEntityContainer="db_server_sideEntities">
+          <EntitySetMapping Name="AUTHORs">
+            <EntityTypeMapping TypeName="db_server_sideModel.AUTHOR">
+              <MappingFragment StoreEntitySet="AUTHOR">
+                <ScalarProperty Name="Aid" ColumnName="Aid" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="BirthYear" ColumnName="BirthYear" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BOOKs">
+            <EntityTypeMapping TypeName="db_server_sideModel.BOOK">
+              <MappingFragment StoreEntitySet="BOOK">
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="SignId" ColumnName="SignId" />
+                <ScalarProperty Name="PublicationYear" ColumnName="PublicationYear" />
+                <ScalarProperty Name="publicationinfo" ColumnName="publicationinfo" />
+                <ScalarProperty Name="pages" ColumnName="pages" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CLASSIFICATIONs">
+            <EntityTypeMapping TypeName="db_server_sideModel.CLASSIFICATION">
+              <MappingFragment StoreEntitySet="CLASSIFICATION">
+                <ScalarProperty Name="SignId" ColumnName="SignId" />
+                <ScalarProperty Name="Signum" ColumnName="Signum" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="BOOK_AUTHOR" TypeName="db_server_sideModel.BOOK_AUTHOR" StoreEntitySet="BOOK_AUTHOR">
+            <EndProperty Name="AUTHOR">
+              <ScalarProperty Name="Aid" ColumnName="Aid" />
+            </EndProperty>
+            <EndProperty Name="BOOK">
+              <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

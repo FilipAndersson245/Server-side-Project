@@ -20,7 +20,7 @@ namespace ServerSide_Project.Controllers
         {
             Repository repo = (Repository)Session["repo"];
 
-            return View("CreateBook", new AuthorAndGenre() { AuthorList = repo.AuthorList, GenreList = new List<Genre>() { new Genre() { Art = null, Name = "Fantasy" } } });
+            return View("CreateBook", new AuthorAndGenre() { AuthorList = repo.AuthorList, GenreList = new List<Genre>() { new Genre() { Name = "Fantasy" } } });
         }
 
         [HttpPost]
@@ -33,7 +33,7 @@ namespace ServerSide_Project.Controllers
             }
             Repository repo = (Repository)Session["repo"];
             book.BookAuthor = new Author { ID = "11", FirstName = "Test", LastName = "Author", BirthYear = 2000 };
-            book.BookGenre = new Genre { Art = null, Name = "TestGenre" };
+            book.BookGenre = new Genre { Name = "TestGenre" };
             repo.BookList.Add(book);
 
             return RedirectToAction("ListBooks", "Books", null); //maybe to the created book instead of list
