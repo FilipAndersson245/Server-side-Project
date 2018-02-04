@@ -10,13 +10,7 @@ namespace Repository
         static db_server_sideEntities()
         {
             var foo = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
-            using (var db = new db_server_sideEntities())
-            {
-                foreach(var book in db.BOOKs)
-                {
-                    Console.WriteLine(book.Title);
-                }
-            }
+
         }
     }
 }

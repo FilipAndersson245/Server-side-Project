@@ -24,7 +24,7 @@ namespace ServerSide_Project.Controllers
         [HttpPost]
         public ActionResult CreateAuthor(Author author)
         {
-            Repository repo = (Repository)Session["repo"];
+            ServerSide_Project.Models.Repository repo = (ServerSide_Project.Models.Repository)Session["repo"];
             repo.AuthorList.Add(author);
             return RedirectToAction("ListAuthors", "Authors", null);
         }
@@ -32,7 +32,7 @@ namespace ServerSide_Project.Controllers
         
         public ActionResult DeleteAuthor(string id)
         {
-            Repository repo = (Repository)Session["repo"];
+            ServerSide_Project.Models.Repository repo = (ServerSide_Project.Models.Repository)Session["repo"];
             repo.AuthorList.RemoveAll(x => x.ID == id);
             return RedirectToAction("ListAuthors", "Authors", null);
         }
@@ -40,14 +40,14 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult ListAuthors()
         {
-            Repository repo = (Repository)Session["repo"];
+            ServerSide_Project.Models.Repository repo = (ServerSide_Project.Models.Repository)Session["repo"];
             return View("ListAuthors", repo.AuthorList);
         }
 
         [HttpGet]
         public ActionResult ListAuthorDetails(string id)
         {
-            Repository repo = (Repository)Session["repo"];
+            ServerSide_Project.Models.Repository repo = (ServerSide_Project.Models.Repository)Session["repo"];
             return View("ListAuthorDetails", repo.AuthorList.FirstOrDefault(x => x.ID == id));
         }
     }

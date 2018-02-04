@@ -24,7 +24,7 @@ namespace ServerSide_Project.Controllers
         [HttpPost]
         public ActionResult CreateAdmin(Admin admin)
         {
-            Repository repo = (Repository)Session["repo"];
+            ServerSide_Project.Models.Repository repo = (ServerSide_Project.Models.Repository)Session["repo"];
             repo.AdminList.Add(admin);
             return RedirectToAction("AdminPanel", "Admins", null);
         }
@@ -32,7 +32,7 @@ namespace ServerSide_Project.Controllers
 
         public ActionResult DeleteAdmin(string id)
         {
-            Repository repo = (Repository)Session["repo"];
+            ServerSide_Project.Models.Repository repo = (ServerSide_Project.Models.Repository)Session["repo"];
             repo.AdminList.RemoveAll(x => x.Username == id);
             return RedirectToAction("AdminPanel", "Admins", null);
         }
@@ -58,7 +58,7 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult AdminPanel()
         {
-            Repository repo = (Repository)Session["repo"];
+            ServerSide_Project.Models.Repository repo = (ServerSide_Project.Models.Repository)Session["repo"];
             return View("AdminPanel", repo.AdminList);
         }
 

@@ -18,7 +18,7 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult CreateBook()
         {
-            Repository repo = (Repository)Session["repo"];
+            ServerSide_Project.Models.Repository repo = (ServerSide_Project.Models.Repository)Session["repo"];
 
             return View("CreateBook", new AuthorAndGenre() { AuthorList = repo.AuthorList, GenreList = new List<Genre>() { new Genre() { Name = "Fantasy" } } });
         }
@@ -31,7 +31,7 @@ namespace ServerSide_Project.Controllers
             {
                 //valid book!
             }
-            Repository repo = (Repository)Session["repo"];
+            ServerSide_Project.Models.Repository repo = (ServerSide_Project.Models.Repository)Session["repo"];
             book.BookAuthor = new Author { ID = "11", FirstName = "Test", LastName = "Author", BirthYear = 2000 };
             book.BookGenre = new Genre { Name = "TestGenre" };
             repo.BookList.Add(book);
@@ -42,7 +42,7 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult ListBooks()
         {
-            Repository repo = (Repository)Session["repo"];
+            ServerSide_Project.Models.Repository repo = (ServerSide_Project.Models.Repository)Session["repo"];
             return View("ListBooks", repo.BookList);
 
         }
@@ -56,7 +56,7 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult ListBookDetails(string id)
         {
-            Repository repo = (Repository)Session["repo"];
+            ServerSide_Project.Models.Repository repo = (ServerSide_Project.Models.Repository)Session["repo"];
             return View("ListBookDetails", repo.BookList.FirstOrDefault(x => x.ISBN == id));
         }
 
@@ -64,7 +64,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult EditBook(string id)
         {
             //TempData.Add("ISBN", id);
-            var repo = Session["repo"] as Repository;
+            var repo = Session["repo"] as ServerSide_Project.Models.Repository;
             return View("EditBook", repo.BookList.Find(x => x.ISBN == id)); // ret a book with ISBN equal to id
         }
 
@@ -80,7 +80,7 @@ namespace ServerSide_Project.Controllers
             
             string oldISBN = (string)TempData["ISBN"];
 
-            var repo = Session["repo"] as Repository;
+            var repo = Session["repo"] as ServerSide_Project.Models.Repository;
             repo.BookList.Where(d => d.ISBN == oldISBN).First().SetBook(book);
 
             return RedirectToAction("ListBooks", "Books");
@@ -89,7 +89,7 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult DeleteBook(string id)
         {
-            Repository repo = (Repository)Session["repo"];
+            ServerSide_Project.Models.Repository repo = (ServerSide_Project.Models.Repository)Session["repo"];
             repo.BookList.RemoveAll(x => x.ISBN == id);
             return RedirectToAction("ListBooks", "Books", null);
         }

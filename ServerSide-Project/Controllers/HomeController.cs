@@ -1,4 +1,5 @@
 ﻿using ServerSide_Project.Models;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,19 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            Repository repo = new Repository();
+            ServerSide_Project.Models.Repository repo = new ServerSide_Project.Models.Repository();
             Session["repo"] = repo;
+
+            using (var db = new db_server_sideEntities())
+            {
+                foreach (var book in db.BOOKs)
+                {
+                    Console.WriteLine(book.Title);
+                }
+            }
+
             return View("Home");
+
         }
     }
 }
