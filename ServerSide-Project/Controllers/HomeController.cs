@@ -17,8 +17,9 @@ namespace ServerSide_Project.Controllers
             ServerSide_Project.Models.Repository repo = new ServerSide_Project.Models.Repository();
             Session["repo"] = repo;
 
-            using (var db = new db_server_sideEntities())
+            using (var db = new dbGrupp3())
             {
+                //db.Database.Connection.Open();
                 foreach (var book in db.BOOKs)
                 {
                     Console.WriteLine(book.Title);
