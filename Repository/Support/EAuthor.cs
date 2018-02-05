@@ -6,7 +6,10 @@ using System.Data.Entity;
 
 namespace Repository.Support
 {
-    public class Book
+    public class EAuthor
     {
+
+
+
     }
 }

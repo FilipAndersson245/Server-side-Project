@@ -6,7 +6,7 @@ using System.Data.Entity;
 
 namespace Repository.Support
 {
-    public class AuthorAndGenre
+    public class EGenre
     {
     }
 }

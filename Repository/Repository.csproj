@@ -145,11 +145,11 @@
     <Compile Include="CLASSIFICATION.cs" />
     <Compile Include="dbGrupp3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Support\Admin.cs" />
-    <Compile Include="Support\Author.cs" />
-    <Compile Include="Support\AuthorAndGenre.cs" />
-    <Compile Include="Support\Book.cs" />
-    <Compile Include="Support\Genre.cs" />
+    <Compile Include="Support\EAdmin.cs" />
+    <Compile Include="Support\EAuthor.cs" />
+    <Compile Include="Support\EAuthorAndGenre.cs" />
+    <Compile Include="Support\EBook.cs" />
+    <Compile Include="Support\EGenre.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
