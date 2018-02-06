@@ -9,6 +9,16 @@ namespace Repository.Support
 {
     public class EBook
     {
+
+        public static List<BOOK> getAllBooksFromDB()
+        {
+            using (var db = new dbGrupp3())
+            {
+                return db.Database.SqlQuery<BOOK>("SELECT * FROM dbo.BOOK ORDER BY Title", new SqlParameter("bajs", 1)).ToList();
+            }
+        }
+
+
         public static List<AUTHOR> GetAuthorsFromIsbn(string isbn)
         {
             using (var db = new dbGrupp3())

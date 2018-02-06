@@ -38,13 +38,15 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult ListBooks()
         {
-            return View("ListBooks");
+            var bookList = new List<Book>();
+            bookList = Book.getAllBooks();
+            return View("ListBooks", bookList);
         }
 
         [HttpGet]
         public ActionResult ListBooksByAuthor(Author author)
         {
-            return View("ListBooks", author.BookList);
+            return View("ListBooks");
         }
 
         [HttpGet]
