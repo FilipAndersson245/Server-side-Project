@@ -32,7 +32,5 @@ namespace ServerSide_Project.Models
         [Range(-2000,2200)]
         public int BirthYear { get; set; }
 
-        [Required]
-        public List<Book> BookList { get; set; }
     }
 }
