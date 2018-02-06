@@ -14,7 +14,7 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                return db.Database.SqlQuery<BOOK>("SELECT * FROM dbo.BOOK ORDER BY Title", new SqlParameter("bajs", 1)).ToList();
+                return db.Database.SqlQuery<BOOK>("SELECT * FROM dbo.BOOK ORDER BY Title").ToList();
             }
         }
 

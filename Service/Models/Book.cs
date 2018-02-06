@@ -13,6 +13,11 @@ namespace ServerSide_Project.Models
 {
     public class Book
     {
+        public Book()
+        {
+
+        }
+
         //[DisplayName("ISBN")]
         [Required(ErrorMessage = "ISBN Required")]
         [Key]
@@ -55,11 +60,7 @@ namespace ServerSide_Project.Models
         {
             get
             {
-                if (this.Description == null)
-                {
-                    return "No Description Available.";
-                }
-                else if (this.Description.Length < 550)
+                if (this.Description.Length < 550)
                 {
                     return this.Description;
                 }
@@ -69,22 +70,34 @@ namespace ServerSide_Project.Models
 
         public static List<Book> getAllBooks()
         {
-            var bookList = new List<Book>();
+            List<Book> bookList = new List<Book>();
             var eBookList = EBook.getAllBooksFromDB();
 
             foreach(var book in eBookList)
             {
                 var authorList = EBook.GetAuthorsFromIsbn(book.ISBN);
-                bookList.Add(new Book
+                bookList.Add(new Book()
                 {
                     ISBN = book.ISBN,
                     Title = book.Title,
                     PublicationYear = Convert.ToInt32(book.PublicationYear),
-                    Description = book.publicationinfo,
-                    Pages = Convert.ToInt32(book.pages),
-                    BookAuthor = new Author { ID = authorList[0].Aid.ToString(), FirstName = authorList[0].FirstName,
-                        LastName = authorList[0].LastName, BirthYear = Convert.ToInt32(authorList[0].BirthYear) },
-                    BookGenre = new Genre { Name = book.CLASSIFICATION.ToString(), Signid = "1" }                   
+                    Description = book.publicationinfo ?? "No Description Available.",
+                    Pages = Convert.ToInt32(book.pages ?? 2000),
+                    /*BookAuthor = new Author
+                    {
+                        ID = authorList[0].Aid.ToString() ?? "0",
+                        FirstName = authorList[0].FirstName ?? "No Author Available",
+                        LastName = authorList[0].LastName ?? " ",
+                        BirthYear = Convert.ToInt32(authorList[0].BirthYear ?? "1111")
+                    },*/
+                    BookAuthor = new Author
+                    {
+                        ID = "1",
+                        FirstName = "Bengt",
+                        LastName = "Svensson",
+                        BirthYear = 1950
+                    },
+                    BookGenre = new Genre { Name = " ", Signid = "11" }
                 });
             }
             return bookList;
