@@ -23,6 +23,7 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
+                
                 //string isbn = "0070062722";
                 return db.Database.SqlQuery<AUTHOR>(
                      @"SELECT dbo.AUTHOR.FirstName, dbo.AUTHOR.LastName , dbo.AUTHOR.BirthYear , dbo.AUTHOR.Aid 
@@ -30,6 +31,22 @@ namespace Repository.Support
                      new SqlParameter("@isbn", isbn)).ToList();
 
             }
+        }
+
+        public static List<BOOK> GetBookSearchResultat(string search, params string[] classification)
+        {
+            using(var db = new dbGrupp3())
+            {
+               return db.Database.SqlQuery<BOOK>(
+                    @"SELECT BOOK.ISBN, BOOK.pages, BOOK.publicationinfo, BOOK.PublicationYear, BOOK.SignId, BOOK.Title
+                      FROM BOOK JOIN BOOK_AUTHOR ON BOOK.ISBN = BOOK_AUTHOR.ISBN JOIN AUTHOR ON AUTHOR.Aid = BOOK_AUTHOR.Aid
+                      WHERE BOOK.Title LIKE '%@search%'
+                      OR AUTHOR.FirstName LIKE '%@search%'
+                      OR AUTHOR.LastName LIKE '%@search%';
+                    "
+                    ,new SqlParameter("@search", search)).ToList();
+            }
+
         }
     }
 }
