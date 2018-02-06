@@ -44,9 +44,8 @@ namespace Repository.Support
                       OR AUTHOR.FirstName LIKE '%@search%'
                       OR AUTHOR.LastName LIKE '%@search%';
                     "
-                    ,new SqlParameter("@search", search)).ToList();
+                    , new SqlParameter("@search", search)).ToList();
             }
-
         }
     }
 }
