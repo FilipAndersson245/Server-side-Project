@@ -1,0 +1,48 @@
+﻿@model ServerSide_Project.Models.Author
+
+@{
+    ViewBag.Title = "ListAuthorDetails";
+}
+
+<h2>ListAuthorDetails</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BirthYear)
+        </th>
+        <th></th>
+    </tr>
+
+
+<tr>
+    <td>
+        @Html.DisplayFor(x => Model.FirstName)
+    </td>
+    <td>
+        @Html.DisplayFor(x => Model.LastName)
+    </td>
+    <td>
+        @Html.DisplayFor(x => Model.BirthYear)
+    </td>
+    <td>
+        @Html.ActionLink("XX Edit", "Edit", new { id=Model.ID }) |
+        @Html.ActionLink("XX Details", "Details", new { id=Model.ID }) |
+        @Html.ActionLink("XX Delete", "Delete", new { id=Model.ID })
+    </td>
+</tr>
+
+
+
+</table>
+
+@Html.ActionLink("Click here plz", "ListBooksByAuthor","List",Model,null )

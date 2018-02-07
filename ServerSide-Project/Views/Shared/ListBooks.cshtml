@@ -1,0 +1,77 @@
+﻿@model IEnumerable<ServerSide_Project.Models.Book>
+
+
+@{
+    ViewBag.Title = "ListBooks";
+}
+
+<h2>ListBooks</h2>
+
+<p>
+    @Html.ActionLink("Create New Book", "CreateBook", "Create")
+</p>
+@foreach (var item in Model)
+{
+    <div class="row" id="bookListItem">
+        <div class="col-sm-2">
+            <div class="col-sm-12 text-center" id="bookListImage">
+                image goes here
+            </div>
+            <div class="col-sm-12 text-center" id="bookListGenre">
+                <a>@Html.DisplayFor(modelItem => item.BookGenre.Name)</a>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="row">
+                <div class="col-sm-9" id="bookListTitle">
+
+                    @Html.ActionLink(Html.Encode(item.Title), "ListBookDetails", "Books", new { id = item.ISBN }, null)
+                </div>
+                <div class="col-sm-3" id="bookListAdminPane">
+                    @Html.ActionLink("Edit", "EditBook", "Books", new { id = item.ISBN }, new { @class = "" }) |
+                    @Html.ActionLink("Details", "ListBookDetails", "Books", new { id = item.ISBN }, new { @class = "" }) |
+                    @Html.ActionLink("Delete", "DeleteBook", "Books", new { id = item.ISBN }, new { @class = "" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5" id="bookListAuthor">
+                    <p class="listHeadline">Author:</p>
+                </div>
+                <div class="col-sm-2" id="bookListPublicationYear">
+                    <p class="listHeadline">Published:</p>
+                </div>
+                <div class="col-sm-3" id="bookListISBN">
+                    <p class="listHeadline">ISBN:</p>
+                </div>
+                <div class="col-sm-2" id="bookListPages">
+                    <p class="listHeadline">Pages:</p>
+                </div>
+            </div>
+            <div class="row" id="bookListInfoRow">
+                <div class="col-sm-5" id="bookListAuthor">
+                    @Html.ActionLink(Html.Encode(item.BookAuthor.FirstName + " " + item.BookAuthor.LastName), "ListAuthorDetails", "Authors", new { id = item.BookAuthor.ID }, null)
+                </div>
+                <div class="col-sm-2" id="bookListPublicationYear">
+                    @Html.DisplayFor(modelItem => item.PublicationYear)
+                </div>
+                <div class="col-sm-3" id="bookListISBN">
+                    @Html.DisplayFor(modelItem => item.ISBN)
+                </div>
+                <div class="col-sm-2" id="bookListPages">
+                    @Html.DisplayFor(modelItem => item.Pages)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <p class="listHeadline">Description:</p>
+                </div>
+            </div>
+                <div class="row" id="bookListDescription">
+                    <div class="col-sm-12">
+                        @Html.DisplayFor(modelItem => item.ShortDescription)
+                    </div>
+                </div>
+            </div>
+    </div>
+}
+
