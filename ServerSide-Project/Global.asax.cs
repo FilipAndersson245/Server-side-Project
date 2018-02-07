@@ -13,9 +13,7 @@ namespace ServerSide_Project
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            //todo add
-            //a map   Configuration and class/function
-            //Service.Configuration.AutoMapperConfig.Configure();
+            Service.Configuration.AutoMapperConfig.Configure();
         }
     }
 }
