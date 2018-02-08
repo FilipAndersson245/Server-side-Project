@@ -20,5 +20,12 @@ namespace Repository.Support
                 return db.CLASSIFICATIONs.Find(signId).BOOKs.ToList();
             }
         }
+        static public List<CLASSIFICATION> GetAllClassifications()
+        {
+            using (var db = new dbGrupp3())
+            {
+                return db.CLASSIFICATIONs.ToList();
+            }
+        }
     }
 }
