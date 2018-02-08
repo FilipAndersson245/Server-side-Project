@@ -57,7 +57,7 @@ namespace ServerSide_Project.Models
             this.PublicationYear = book.PublicationYear;
         }
 
-        public string ShortDescription
+        public string shortDescription
         {
             get
             {
@@ -73,26 +73,31 @@ namespace ServerSide_Project.Models
             }
         }
 
+        public static Book setupBook(Book book)
+        {
+            var author = Mapper.Map<List<AUTHOR>, List<Author>>(EBook.GetAuthorsFromIsbn(book.ISBN)); //get all Authors
+            if (author.Count > 0)
+            {
+                book.Authors = author;
+            }
+            else
+            {
+                author.Add(new Author() { FirstName = "No Author", LastName = "Available", BirthYear = 1000, Aid = "-1" });
+                book.Authors = author;
+            }
+            return book;
+
+        }
+
         public static List<Book> getAllBooks()
         {
             //List<Book> bookList = new List<Book>();
             var bookList = Mapper.Map<List<BOOK>,List<Book>>(EBook.getAllBooksFromDB()); //Mapper.Map should convert BOOK to Book (non complex types prob) of type List<>
 
-            foreach (var book in bookList) 
+            for (int i = 0; i < bookList.Count; i++)
             {
-                var author = Mapper.Map<List<AUTHOR>,List<Author>>(EBook.GetAuthorsFromIsbn(book.ISBN)); //get all Authors
-
-                if (author.Count > 0)
-                {
-                    book.Authors = author;
-                }
-                else
-                {
-                    author.Add(new Author() { FirstName = "No Author", LastName = "Available", BirthYear = 1000, Aid = "-1" });
-                    book.Authors = author;
-                }
-                
-            }
+                bookList[i] = Book.setupBook(bookList[i]);
+            } 
             return bookList;
         }
 

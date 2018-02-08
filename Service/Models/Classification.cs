@@ -33,5 +33,10 @@ namespace ServerSide_Project.Models
             return Mapper.Map<Classification>(EClassification.GetClassificationForBook(isbn));
         }
 
+        public static List<Classification> getAllClassifications()
+        {
+            return Mapper.Map<List<CLASSIFICATION>, List<Classification>>(EClassification.GetAllClassifications());
+        }
+
     }
 }
