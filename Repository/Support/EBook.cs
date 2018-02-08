@@ -24,7 +24,6 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                //string isbn = "0070062722";
                 return db.Database.SqlQuery<AUTHOR>(
                      @"SELECT dbo.AUTHOR.FirstName, dbo.AUTHOR.LastName , dbo.AUTHOR.BirthYear , dbo.AUTHOR.Aid 
                     FROM ( dbo.AUTHOR INNER JOIN BOOK_AUTHOR ON AUTHOR.Aid = BOOK_AUTHOR.Aid AND BOOK_AUTHOR.ISBN = @isbn)",
