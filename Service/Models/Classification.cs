@@ -29,8 +29,7 @@ namespace ServerSide_Project.Models
 
         public static Classification GetClassificationFromBookIsbn(string isbn)
         {
-            throw new NotImplementedException();
-            //return Mapper.Map()
+            return Mapper.Map<Classification>(EClassification.GetClassificationForBook(isbn));
         }
 
     }
