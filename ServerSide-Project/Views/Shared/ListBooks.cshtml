@@ -49,7 +49,14 @@
             </div>
             <div class="row" id="bookListInfoRow">
                 <div class="col-sm-5" id="bookListAuthor">
-                    @Html.ActionLink(Html.Encode(item.BookAuthor.FirstName + " " + item.BookAuthor.LastName), "ListAuthorDetails", "Authors", new { id = item.BookAuthor.ID }, null)
+                    @foreach (var author in item.Authors)
+                    {
+                        @Html.ActionLink(Html.Encode(author.FirstName + " " + author.LastName), "ListAuthorDetails", "Authors", new { id = author.ID }, null)
+                        if (!item.Authors.Last().Equals(author))
+                        {
+                            <span>| </span>
+                        }
+                    }
                 </div>
                 <div class="col-sm-2" id="bookListPublicationYear">
                     @Html.DisplayFor(modelItem => item.PublicationYear)

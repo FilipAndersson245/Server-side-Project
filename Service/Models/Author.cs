@@ -15,15 +15,6 @@ namespace ServerSide_Project.Models
 
         }
 
-        public Author(string id, Repository repo)
-        {
-            ID = id;
-            BookList = repo.BookList.FindAll(x => (x.BookAuthor.ID == id));
-            FirstName = repo.AuthorList.Find(x => (x.ID == id)).FirstName;
-            LastName = repo.AuthorList.Find(x => (x.ID == id)).LastName;
-            BirthYear = repo.AuthorList.Find(x => (x.ID == id)).BirthYear;
-        }
-
         [Required]
         [Key]
         [StringLength(10)]
@@ -41,7 +32,5 @@ namespace ServerSide_Project.Models
         [Range(-2000,2200)]
         public int BirthYear { get; set; }
 
-        [Required]
-        public List<Book> BookList { get; set; }
     }
 }

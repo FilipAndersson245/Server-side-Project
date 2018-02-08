@@ -18,5 +18,8 @@ namespace ServerSide_Project.Models
         [DataType(DataType.Password)]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{7,15}$", ErrorMessage = "Incorrect password")]
         public string Password { get; set; }
+
+        [Required]
+        public uint Privilege { get; set; }
     }
 }

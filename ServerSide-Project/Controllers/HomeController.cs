@@ -1,5 +1,4 @@
 ﻿using ServerSide_Project.Models;
-using Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +14,6 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            ServerSide_Project.Models.Repository repo = new ServerSide_Project.Models.Repository();
-            Session["repo"] = repo;
-
             return View("Home");
 
         }
