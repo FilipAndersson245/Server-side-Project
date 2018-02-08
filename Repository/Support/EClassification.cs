@@ -10,7 +10,7 @@ namespace Repository.Support
     {
         static public List<CLASSIFICATION> GetClassificationForBook(string isbn)
         {
-            return EBook.getBookFromIsbn(isbn).CLASSIFICATIONs
+            //return EBook.getBookFromIsbn(isbn).CLASSIFICATIONs;
             throw new NotImplementedException();
         }
     }
