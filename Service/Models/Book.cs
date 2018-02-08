@@ -43,13 +43,13 @@ namespace ServerSide_Project.Models
         public List<Author> Authors{ get; set; }
 
         [Required]
-        public Genre BookGenre { get; set; }
+        public Classification BookClassification { get; set; }
 
 
         public void SetBook(Book book)
         {
             this.Authors = book.Authors;
-            this.BookGenre = book.BookGenre;
+            this.BookClassification = book.BookClassification;
             this.Pages = book.Pages;
             this.publicationinfo = book.publicationinfo;
             this.ISBN = book.ISBN;

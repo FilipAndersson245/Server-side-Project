@@ -30,7 +30,7 @@ namespace ServerSide_Project.Controllers
                 //valid book!
             }
             //book.Authors = new Author { ID = "11", FirstName = "Test", LastName = "Author", BirthYear = 2000 };
-            book.BookGenre = new Genre { Name = "TestGenre" };
+            book.BookClassification = new Classification { Signum = "TestGenre" };
             return RedirectToAction("ListBooks", "Books", null); //maybe to the created book instead of list
         }
 

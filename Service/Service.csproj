@@ -49,7 +49,6 @@
     <Compile Include="Configuration\AutoMapperConfig.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Author.cs" />
-    <Compile Include="Models\AuthorAndGenre.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Classification.cs" />
   </ItemGroup>
