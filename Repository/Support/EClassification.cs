@@ -12,5 +12,13 @@ namespace Repository.Support
         {
             return EBook.getBookFromIsbn(isbn).CLASSIFICATION;
         }
+
+        static public List<BOOK> GetBooksFromClassification(int signId)
+        {
+            using (var db = new dbGrupp3())
+            {
+                return db.CLASSIFICATIONs.Find(signId).BOOKs.ToList();
+            }
+        }
     }
 }
