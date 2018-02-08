@@ -23,7 +23,7 @@
             <div class="col-sm-6">
                 <div class="row" id="authorListItem">
                     <div class="col-sm-3" id="authorListName">
-                        @Html.ActionLink(Html.Encode(item.FirstName + " " + item.LastName), "ListAuthorDetails", "Authors", new { id = item.ID }, null)
+                        @Html.ActionLink(Html.Encode(item.FirstName + " " + item.LastName), "ListAuthorDetails", "Authors", new { id = item.Aid }, null)
                     </div>
                     <div class="col-sm-2">
                         <div class="row">
@@ -34,9 +34,9 @@
                         </div>
                     </div>
                     <div class="col-sm-3" id="authorOptions">
-                        @Html.ActionLink("XX Edit", "Edit", new { id = item.ID }) |
-                        @Html.ActionLink("XX Details", "Details", new { id = item.ID }) |
-                        @Html.ActionLink("Delete", "DeleteAuthor", "Authors", new { id = item.ID }, null)
+                        @Html.ActionLink("XX Edit", "Edit", new { id = item.Aid }) |
+                        @Html.ActionLink("XX Details", "Details", new { id = item.Aid }) |
+                        @Html.ActionLink("Delete", "DeleteAuthor", "Authors", new { id = item.Aid }, null)
                     </div>
                 </div>
             </div>

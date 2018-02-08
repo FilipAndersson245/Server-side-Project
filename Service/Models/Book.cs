@@ -88,7 +88,7 @@ namespace ServerSide_Project.Models
                 }
                 else
                 {
-                    author.Add(new Author() { FirstName = "No Author", LastName = "Available", BirthYear = 1000, ID = "-1" });
+                    author.Add(new Author() { FirstName = "No Author", LastName = "Available", BirthYear = 1000, Aid = "-1" });
                     book.Authors = author;
                 }
                 
