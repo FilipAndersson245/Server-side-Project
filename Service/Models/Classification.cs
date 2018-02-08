@@ -22,7 +22,12 @@ namespace ServerSide_Project.Models
 
         public static List<Book> GetBooksByClassification(int signId)
         {
-            return Mapper.Map<List<BOOK>,List<Book>>(EClassification.GetBooksFromClassification(signId));
+            List<Book> bookList = Mapper.Map<List<BOOK>,List<Book>>(EClassification.GetBooksFromClassification(signId));
+            for (int i = 0; i < bookList.Count; i++)
+            {
+                bookList[i] = Book.setupBook(bookList[i]);
+            }
+            return bookList;
         }
 
         public static Classification GetClassificationFromBookIsbn(string isbn)

@@ -29,8 +29,8 @@ namespace Service.Configuration
     {
         public ToBookProfile()
         {
-            //CreateMap<BOOK, Book>().ForMember(m => m.Authors, opt => opt.Ignore());
-            CreateMap<BOOK, Book>();
+            CreateMap<BOOK, Book>().ForMember(m => m.Authors, opt => opt.Ignore());
+            //CreateMap<BOOK, Book>();
         }
     }
 
