@@ -42,7 +42,7 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
-        public ActionResult ListAuthorDetails(string id)
+        public ActionResult ListAuthorDetails(int id)
         {
             Author author = Author.getAuthorDetails(id);
             return View("ListAuthorDetails", author);

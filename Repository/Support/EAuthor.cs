@@ -18,7 +18,7 @@ namespace Repository.Support
             }
         }
 
-        public static AUTHOR getAuthorDetailsFromDB(string id)
+        public static AUTHOR getAuthorDetailsFromDB(int id)
         {
             using (var db = new dbGrupp3())
             {

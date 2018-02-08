@@ -51,7 +51,7 @@
                 <div class="col-sm-5" id="bookListAuthor">
                     @foreach (var author in item.Authors)
                     {
-                        @Html.ActionLink(Html.Encode(author.FirstName + " " + author.LastName), "ListAuthorDetails", "Authors", new { id = author.ID }, null)
+                        @Html.ActionLink(Html.Encode(author.FirstName + " " + author.LastName), "ListAuthorDetails", "Authors", new { id = author.Aid }, null)
                         if (!item.Authors.Last().Equals(author))
                         {
                             <span>| </span>

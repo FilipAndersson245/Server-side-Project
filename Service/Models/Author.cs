@@ -20,7 +20,7 @@ namespace ServerSide_Project.Models
         [Required]
         [Key]
         [StringLength(10)]
-        public string ID { get; set; } //Primary Key
+        public string Aid { get; set; } //Primary Key
 
         [Required]
         [StringLength(50,MinimumLength = 1)]
@@ -40,7 +40,7 @@ namespace ServerSide_Project.Models
             return authorList;
         }
 
-        public static Author getAuthorDetails(string id)
+        public static Author getAuthorDetails(int id)
         {
             Author author = Mapper.Map<AUTHOR, Author>(EAuthor.getAuthorDetailsFromDB(id));
             return author;
