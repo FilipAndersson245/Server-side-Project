@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Repository.Support;
+using Repository;
+using AutoMapper;
 
 namespace ServerSide_Project.Models
 {
@@ -31,6 +33,18 @@ namespace ServerSide_Project.Models
         [Required]
         [Range(-2000,2200)]
         public int BirthYear { get; set; }
+
+        public static List<Author> getAllAuthors()
+        {
+            var authorList = Mapper.Map<List<AUTHOR>, List<Author>>(EAuthor.getAllAuthorsFromDB());
+            return authorList;
+        }
+
+        public static Author getAuthorDetails(string id)
+        {
+            Author author = Mapper.Map<AUTHOR, Author>(EAuthor.getAuthorDetailsFromDB(id));
+            return author;
+        }
 
     }
 }

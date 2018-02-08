@@ -36,13 +36,16 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult ListAuthors()
         {
-            return View("ListAuthors");
+            var authorList = new List<Author>();
+            authorList = Author.getAllAuthors();
+            return View("ListAuthors", authorList);
         }
 
         [HttpGet]
         public ActionResult ListAuthorDetails(string id)
         {
-            return View("ListAuthorDetails");
+            Author author = Author.getAuthorDetails(id);
+            return View("ListAuthorDetails", author);
         }
     }
 }
