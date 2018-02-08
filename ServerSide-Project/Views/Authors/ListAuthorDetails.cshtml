@@ -32,7 +32,14 @@
         @Html.DisplayFor(x => Model.LastName)
     </td>
     <td>
-        @Html.DisplayFor(x => Model.BirthYear)
+        @if (Model.BirthYear == null)
+        {
+            <span>Unknown</span>
+        }
+        else
+        {
+            Html.DisplayNameFor(model => model.BirthYear);
+        }
     </td>
     <td>
         @*@Html.ActionLink("XX Edit", "Edit", new { id = Model.ID }) |

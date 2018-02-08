@@ -20,12 +20,9 @@ namespace ServerSide_Project.Models
 
         public string Description { get; set; }
 
-
-
         public static List<Book> GetBooksByClassification(int signId)
         {
             return Mapper.Map<List<BOOK>,List<Book>>(EClassification.GetBooksFromClassification(signId));
-            throw new NotImplementedException();
         }
 
         public static Classification GetClassificationFromBookIsbn(string isbn)

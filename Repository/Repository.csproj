@@ -144,7 +144,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Support\EAdmin.cs" />
     <Compile Include="Support\EAuthor.cs" />
-    <Compile Include="Support\EAuthorAndGenre.cs" />
     <Compile Include="Support\EBook.cs" />
     <Compile Include="Support\EClassification.cs" />
   </ItemGroup>

@@ -30,7 +30,14 @@
                             <p class="listHeadline">Year of Birth:</p>
                         </div>
                         <div class="row">
-                            @Html.DisplayFor(modelItem => item.BirthYear)
+                            @if (item.BirthYear == null)
+                            {
+                                <span>Unknown</span>
+                            }
+                            else
+                            {
+                                @Html.Encode(item.BirthYear);
+                            }
                         </div>
                     </div>
                     <div class="col-sm-3" id="authorOptions">

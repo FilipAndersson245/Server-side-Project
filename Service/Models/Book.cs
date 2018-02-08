@@ -16,7 +16,7 @@ namespace ServerSide_Project.Models
     {
         public Book()
         {
-
+            
         }
 
         //[DisplayName("ISBN")]

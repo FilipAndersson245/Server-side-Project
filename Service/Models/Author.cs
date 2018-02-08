@@ -32,18 +32,16 @@ namespace ServerSide_Project.Models
 
         [Required]
         [Range(-2000,2200)]
-        public int BirthYear { get; set; }
+        public int? BirthYear { get; set; }
 
         public static List<Author> getAllAuthors()
         {
-            var authorList = Mapper.Map<List<AUTHOR>, List<Author>>(EAuthor.getAllAuthorsFromDB());
-            return authorList;
+            return Mapper.Map<List<AUTHOR>, List<Author>>(EAuthor.getAllAuthorsFromDB());
         }
 
         public static Author getAuthorDetails(int id)
         {
-            Author author = Mapper.Map<AUTHOR, Author>(EAuthor.getAuthorDetailsFromDB(id));
-            return author;
+            return Mapper.Map<AUTHOR, Author>(EAuthor.getAuthorDetailsFromDB(id));
         }
 
     }
