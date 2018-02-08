@@ -24,7 +24,7 @@ namespace ServerSide_Project.Models
         [Key]
         [StringLength(11, MinimumLength = 11,ErrorMessage ="Must Be 11 char long")] 
         public string ISBN { get; set; } //PRIMARY KEY
-
+         
         [Required(ErrorMessage = "Must have a title")]
         public string Title { get; set; }
 
