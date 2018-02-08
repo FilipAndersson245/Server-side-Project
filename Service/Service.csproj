@@ -51,7 +51,7 @@
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\AuthorAndGenre.cs" />
     <Compile Include="Models\Book.cs" />
-    <Compile Include="Models\Genre.cs" />
+    <Compile Include="Models\Classification.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">

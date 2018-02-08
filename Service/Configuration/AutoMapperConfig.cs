@@ -16,11 +16,11 @@ namespace Service.Configuration
                 //AddProfile
                 cfg.AddProfile(new ToAuthorProfile());
                 cfg.AddProfile(new ToBookProfile());
-                cfg.AddProfile(new ToGenreProfile());
+                cfg.AddProfile(new ToClassificationProfile());
 
                 cfg.AddProfile(new FromAuthorProfile());
                 cfg.AddProfile(new FromBookProfile());
-                cfg.AddProfile(new FromGenreProfile());
+                cfg.AddProfile(new FromClassificationProfile());
             });
     }
 
@@ -57,19 +57,19 @@ namespace Service.Configuration
         }
     }
 
-    public class ToGenreProfile : Profile
+    public class ToClassificationProfile : Profile
     {
-        public ToGenreProfile()
+        public ToClassificationProfile()
         {
-            CreateMap<CLASSIFICATION, Genre>();
+            CreateMap<CLASSIFICATION, Classification>();
         }
     }
 
-    public class FromGenreProfile : Profile
+    public class FromClassificationProfile : Profile
     {
-        public FromGenreProfile()
+        public FromClassificationProfile()
         {
-            CreateMap<Genre, CLASSIFICATION>();
+            CreateMap<Classification, CLASSIFICATION>();
         }
     }
 }

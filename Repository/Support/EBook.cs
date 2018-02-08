@@ -19,6 +19,14 @@ namespace Repository.Support
             }
         }
 
+        public static BOOK getBookFromIsbn(string isbn)
+        {
+            using(var db = new dbGrupp3())
+            {
+                return db.BOOKs.Find(isbn);
+            }
+        }
+
 
         public static List<AUTHOR> GetAuthorsFromIsbn(string isbn)
         {

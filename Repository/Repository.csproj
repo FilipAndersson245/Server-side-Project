@@ -146,7 +146,7 @@
     <Compile Include="Support\EAuthor.cs" />
     <Compile Include="Support\EAuthorAndGenre.cs" />
     <Compile Include="Support\EBook.cs" />
-    <Compile Include="Support\EGenre.cs" />
+    <Compile Include="Support\EClassification.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
