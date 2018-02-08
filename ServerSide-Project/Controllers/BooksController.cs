@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Repository;
 
 namespace ServerSide_Project.Controllers
 {
@@ -30,7 +29,7 @@ namespace ServerSide_Project.Controllers
             {
                 //valid book!
             }
-            book.BookAuthor = new Author { ID = "11", FirstName = "Test", LastName = "Author", BirthYear = 2000 };
+            //book.Authors = new Author { ID = "11", FirstName = "Test", LastName = "Author", BirthYear = 2000 };
             book.BookGenre = new Genre { Name = "TestGenre" };
             return RedirectToAction("ListBooks", "Books", null); //maybe to the created book instead of list
         }

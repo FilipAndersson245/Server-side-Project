@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Web.Helpers;
 using Repository.Support;
 using Repository;
+using AutoMapper;
 
 namespace ServerSide_Project.Models
 {
@@ -31,15 +32,15 @@ namespace ServerSide_Project.Models
         public int PublicationYear { get; set; }
 
         [MaxLength(500,ErrorMessage ="Description to long")]
-        public string Description { get; set; }
+        public string publicationinfo { get; set; }
 
         [Required]
         [Range(1,15000, ErrorMessage = "Not valid page number")]
-        public int Pages { get; set; }
+        public short Pages { get; set; }
 
         [Required]
         [MaxLength(20, ErrorMessage ="Name to long!")]
-        public Author BookAuthor{ get; set; }
+        public List<Author> Authors{ get; set; }
 
         [Required]
         public Genre BookGenre { get; set; }
@@ -47,10 +48,10 @@ namespace ServerSide_Project.Models
 
         public void SetBook(Book book)
         {
-            this.BookAuthor = book.BookAuthor;
+            this.Authors = book.Authors;
             this.BookGenre = book.BookGenre;
             this.Pages = book.Pages;
-            this.Description = book.Description;
+            this.publicationinfo = book.publicationinfo;
             this.ISBN = book.ISBN;
             this.Title = book.Title;
             this.PublicationYear = book.PublicationYear;
@@ -60,45 +61,37 @@ namespace ServerSide_Project.Models
         {
             get
             {
-                if (this.Description.Length < 550)
+                if(this.publicationinfo == null)
                 {
-                    return this.Description;
+                    return "No description available";
                 }
-                return this.Description.Substring(0, 550) + "...";
+                else if (this.publicationinfo.Length < 255)
+                {
+                    return this.publicationinfo;
+                }
+                return this.publicationinfo.Substring(0, 255) + "...";
             }
         }
 
         public static List<Book> getAllBooks()
         {
-            List<Book> bookList = new List<Book>();
-            var eBookList = EBook.getAllBooksFromDB();
+            //List<Book> bookList = new List<Book>();
+            var bookList = Mapper.Map<List<BOOK>,List<Book>>(EBook.getAllBooksFromDB()); //Mapper.Map should convert BOOK to Book (non complex types prob) of type List<>
 
-            foreach(var book in eBookList)
+            foreach (var book in bookList) 
             {
-                var authorList = EBook.GetAuthorsFromIsbn(book.ISBN);
-                bookList.Add(new Book()
+                var author = Mapper.Map<List<AUTHOR>,List<Author>>(EBook.GetAuthorsFromIsbn(book.ISBN)); //get all Authors
+
+                if (author.Count > 0)
                 {
-                    ISBN = book.ISBN,
-                    Title = book.Title,
-                    PublicationYear = Convert.ToInt32(book.PublicationYear),
-                    Description = book.publicationinfo ?? "No Description Available.",
-                    Pages = Convert.ToInt32(book.pages ?? 2000),
-                    /*BookAuthor = new Author
-                    {
-                        ID = authorList[0].Aid.ToString() ?? "0",
-                        FirstName = authorList[0].FirstName ?? "No Author Available",
-                        LastName = authorList[0].LastName ?? " ",
-                        BirthYear = Convert.ToInt32(authorList[0].BirthYear ?? "1111")
-                    },*/
-                    BookAuthor = new Author
-                    {
-                        ID = "1",
-                        FirstName = "Bengt",
-                        LastName = "Svensson",
-                        BirthYear = 1950
-                    },
-                    BookGenre = new Genre { Name = " ", Signid = "11" }
-                });
+                    book.Authors = author;
+                }
+                else
+                {
+                    author.Add(new Author() { FirstName = "No Author", LastName = "Available", BirthYear = 1000, ID = "-1" });
+                    book.Authors = author;
+                }
+                
             }
             return bookList;
         }

@@ -158,10 +158,6 @@
     <Folder Include="Views\Update\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Repository\Repository.csproj">
-      <Project>{E2188EED-68D4-4268-8FFE-72D2370E2438}</Project>
-      <Name>Repository</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Service\Service.csproj">
       <Project>{0e7e3d2a-9733-4b0d-a641-a26a36843cd0}</Project>
       <Name>Service</Name>
