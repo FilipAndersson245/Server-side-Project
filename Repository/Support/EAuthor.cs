@@ -26,6 +26,19 @@ namespace Repository.Support
             }
         }
 
+        public static List<AUTHOR> getAuthorsFromSearchResultat(string search)
+        {
+            using (var db = new dbGrupp3())
+            {
+                return db.Database.SqlQuery<AUTHOR>(@"SELECT AUTHOR.Aid,AUTHOR.FirstName,AUTHOR.LastName,AUTHOR.BirthYear
+                                                      FROM AUTHOR
+                                                      WHERE AUTHOR.FirstName LIKE @SEARCH
+                                                      OR AUTHOR.LastName LIKE @SEARCH
+                                                      OR AUTHOR.FirstName + ' ' + AUTHOR.LastName LIKE @SEARCH",
+                                               new SqlParameter("@SEARCH", "%" + search + " % ")).ToList();
+            }
+        }
+
     }
 
 }

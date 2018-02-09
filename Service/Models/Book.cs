@@ -86,7 +86,6 @@ namespace ServerSide_Project.Models
                 book.Authors = author;
             }
             return book;
-
         }
 
         private static List<Book> setupBooks(List<Book> bookList)
