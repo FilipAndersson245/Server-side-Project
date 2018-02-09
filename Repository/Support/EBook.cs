@@ -45,14 +45,14 @@ namespace Repository.Support
         {
             using(var db = new dbGrupp3())
             {
-               return db.Database.SqlQuery<BOOK>(
+               return  db.Database.SqlQuery<BOOK>(
                     @"SELECT BOOK.ISBN, BOOK.pages, BOOK.publicationinfo, BOOK.PublicationYear, BOOK.SignId, BOOK.Title
                       FROM BOOK JOIN BOOK_AUTHOR ON BOOK.ISBN = BOOK_AUTHOR.ISBN JOIN AUTHOR ON AUTHOR.Aid = BOOK_AUTHOR.Aid
-                      WHERE BOOK.Title LIKE '%@search%'
-                      OR AUTHOR.FirstName LIKE '%@search%'
-                      OR AUTHOR.LastName LIKE '%@search%';
-                    "
-                    , new SqlParameter("@search", search)).ToList();
+                      WHERE BOOK.Title LIKE @SEARCH
+                      OR AUTHOR.FirstName LIKE @SEARCH
+                      OR AUTHOR.LastName LIKE @SEARCH
+                      OR AUTHOR.FirstName + ' ' + AUTHOR.LastName LIKE @SEARCH;"
+                    , new SqlParameter("@SEARCH", "%"+search+"%")).ToList();
             }
         }
     }

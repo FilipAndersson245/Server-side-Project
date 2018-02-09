@@ -82,23 +82,34 @@ namespace ServerSide_Project.Models
             }
             else
             {
-                author.Add(new Author() { FirstName = "No Author", LastName = "Available", BirthYear = 1000, Aid = "-1" });
+                author.Add(new Author() { FirstName = "No Author", LastName = "Available", BirthYear = 0, Aid = "-1" });
                 book.Authors = author;
             }
             return book;
 
         }
 
+        private static List<Book> setupBooks(List<Book> bookList)
+        {
+            for (int i = 0; i < bookList.Count; i++)
+            {
+                bookList[i] = setupBook(bookList[i]);
+            }
+            return bookList;
+        }
+
         public static List<Book> getAllBooks()
         {
             //List<Book> bookList = new List<Book>();
             var bookList = Mapper.Map<List<BOOK>,List<Book>>(EBook.getAllBooksFromDB()); //Mapper.Map should convert BOOK to Book (non complex types prob) of type List<>
+            return setupBooks(bookList);
 
-            for (int i = 0; i < bookList.Count; i++)
-            {
-                bookList[i] = Book.setupBook(bookList[i]);
-            } 
-            return bookList;
+        }
+
+        public static List<Book> SearchBooks(string search)
+        {
+            var bookList = Mapper.Map<List<BOOK>, List<Book>>(EBook.GetBookSearchResultat(search)); // optional send classification and add page index also
+            return setupBooks(bookList);
         }
 
     }

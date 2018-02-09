@@ -80,5 +80,11 @@ namespace ServerSide_Project.Controllers
         {
             return RedirectToAction("ListBooks", "Books", null);
         }
+
+        [HttpPost]
+        public ActionResult SearchBooks(string search)
+        {
+            return View("ListBooks", Book.SearchBooks(search));
+        }
     }
 }
