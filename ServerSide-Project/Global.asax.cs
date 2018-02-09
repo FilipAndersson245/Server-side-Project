@@ -13,6 +13,7 @@ namespace ServerSide_Project
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            Service.Configuration.AutoMapperConfig.Configure();
         }
     }
 }

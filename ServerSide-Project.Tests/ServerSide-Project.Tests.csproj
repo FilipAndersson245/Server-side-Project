@@ -92,6 +92,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Repository\Repository.csproj">
+      <Project>{E2188EED-68D4-4268-8FFE-72D2370E2438}</Project>
+      <Name>Repository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ServerSide-Project\ServerSide-Project.csproj">
       <Project>{1FC86992-0B73-4B02-8768-7121E3A8D6DC}</Project>
       <Name>ServerSide-Project</Name>

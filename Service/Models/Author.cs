@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Repository.Support;
+using Repository;
+using AutoMapper;
 
 namespace ServerSide_Project.Models
 {
@@ -18,7 +20,7 @@ namespace ServerSide_Project.Models
         [Required]
         [Key]
         [StringLength(10)]
-        public string ID { get; set; } //Primary Key
+        public string Aid { get; set; } //Primary Key
 
         [Required]
         [StringLength(50,MinimumLength = 1)]
@@ -30,9 +32,24 @@ namespace ServerSide_Project.Models
 
         [Required]
         [Range(-2000,2200)]
-        public int BirthYear { get; set; }
+        public int? BirthYear { get; set; }
 
-        [Required]
-        public List<Book> BookList { get; set; }
+        public static List<Author> getAllAuthors()
+        {
+            return Mapper.Map<List<AUTHOR>, List<Author>>(EAuthor.getAllAuthorsFromDB());
+        }
+
+        public static Author getAuthorDetails(int id)
+        {
+            return Mapper.Map<AUTHOR, Author>(EAuthor.getAuthorDetailsFromDB(id));
+        }
+
+        public static List<Author> getAuthorsFromSearch(string search)
+        {
+            return Mapper.Map<List<AUTHOR>, List<Author>>(EAuthor.getAuthorsFromSearchResultat(search));
+        }
+
+
+
     }
 }
