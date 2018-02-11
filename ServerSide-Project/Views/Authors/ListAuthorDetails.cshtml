@@ -1,56 +1,44 @@
 ﻿@model ServerSide_Project.Models.Author
 
 @{
-    ViewBag.Title = "ListAuthorDetails";
+    ViewBag.Title = "Author Details";
 }
 
-<h2>ListAuthorDetails</h2>
+<h4>Author Details</h4>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BirthYear)
-        </th>
-        <th></th>
-    </tr>
+<div class="row" id="authorDetails">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-7">
+        <h1>@Model.FirstName @Model.LastName</h1>
+    </div>
+    <div class="col-sm-1">
+        <div class="row">
+            <p class="listHeadline">Year of Birth:</p>
+        </div>
+        <div class="row">
+            @if (Model.BirthYear == null)
+            {
+                <span>Unknown</span>
+            }
+            else
+            {
+                @Html.Encode(Model.BirthYear);
+            }
+        </div>
+    </div>
+    <div class="col-sm-3" id="authorOptions">
+        @Html.ActionLink("XX Edit", "Edit", new { id = Model.Aid }) |
+        @Html.ActionLink("XX Details", "Details", new { id = Model.Aid }) |
+        @Html.ActionLink("Delete", "DeleteAuthor", "Authors", new { id = Model.Aid }, null)
+    </div>
+</div>
 
 
-<tr>
-    <td>
-        @Html.DisplayFor(x => Model.FirstName)
-    </td>
-    <td>
-        @Html.DisplayFor(x => Model.LastName)
-    </td>
-    <td>
-        @if (Model.BirthYear == null)
-        {
-            <span>Unknown</span>
-        }
-        else
-        {
-            Html.DisplayNameFor(model => model.BirthYear);
-        }
-    </td>
-    <td>
-        @*@Html.ActionLink("XX Edit", "Edit", new { id = Model.ID }) |
-        @Html.ActionLink("XX Details", "Details", new { id=Model.ID }) |
-        @Html.ActionLink("XX Delete", "Delete", new { id=Model.ID })*@
-    </td>
-</tr>
 
-</table>
-
-<h2>Books by this author:</h2>
+<h4 class="text-center">Books by this author:</h4>
 
 
 @Html.Partial("ListBooks", Model.BookList)
