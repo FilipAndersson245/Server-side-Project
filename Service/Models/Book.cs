@@ -88,7 +88,7 @@ namespace ServerSide_Project.Models
             return book;
         }
 
-        private static List<Book> setupBooks(List<Book> bookList)
+        public static List<Book> setupBooks(List<Book> bookList)
         {
             for (int i = 0; i < bookList.Count; i++)
             {
@@ -99,14 +99,8 @@ namespace ServerSide_Project.Models
 
         public static List<Book> getAllBooks()
         {
-            //List<Book> bookList = new List<Book>();
             var bookList = Mapper.Map<List<BOOK>,List<Book>>(EBook.getAllBooksFromDB()); //Mapper.Map should convert BOOK to Book (non complex types prob) of type List<>
             return setupBooks(bookList);
-        }
-
-        public static List<Book> getBooksFromAuthor(int id)
-        {
-            return Mapper.Map<List<BOOK>, List<Book>>(EBook.getBooksFromAuthor(id));
         }
 
         public static List<Book> SearchBooks(string search)
