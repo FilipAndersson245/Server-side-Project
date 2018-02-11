@@ -34,6 +34,8 @@ namespace ServerSide_Project.Models
         [Range(-2000,2200)]
         public int? BirthYear { get; set; }
 
+        public List<Book> BookList { get; set; }
+
         public static List<Author> getAllAuthors()
         {
             return Mapper.Map<List<AUTHOR>, List<Author>>(EAuthor.getAllAuthorsFromDB());
@@ -41,15 +43,16 @@ namespace ServerSide_Project.Models
 
         public static Author getAuthorDetails(int id)
         {
-            return Mapper.Map<AUTHOR, Author>(EAuthor.getAuthorDetailsFromDB(id));
+            Author author = Mapper.Map<AUTHOR, Author>(EAuthor.getAuthorDetailsFromDB(id));
+            author.BookList = Mapper.Map<List<BOOK>, List<Book>>(EAuthor.getBooksByAuthor(id));
+            author.BookList = Book.setupBooks(author.BookList);
+            return author;
         }
 
         public static List<Author> getAuthorsFromSearch(string search)
         {
             return Mapper.Map<List<AUTHOR>, List<Author>>(EAuthor.getAuthorsFromSearchResultat(search));
         }
-
-
 
     }
 }

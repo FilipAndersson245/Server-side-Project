@@ -43,12 +43,6 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
-        public ActionResult ListBooksByAuthor(Author author)
-        {
-            return View("ListBooks");
-        }
-
-        [HttpGet]
         public ActionResult ListBookDetails(string id)
         {
             return View("ListBookDetails");

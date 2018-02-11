@@ -48,8 +48,7 @@
     </td>
 </tr>
 
-
-
 </table>
 
-@Html.ActionLink("Click here plz", "ListBooksByAuthor","List",Model,null )
+
+@Html.Partial("ListBooks", Model.BookList)

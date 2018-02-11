@@ -26,6 +26,19 @@ namespace Repository.Support
             }
         }
 
+        public static List<BOOK> getBooksByAuthor(int id)
+        {
+            using (var db = new dbGrupp3())
+            {
+                return db.Database.SqlQuery<BOOK>(@"SELECT dbo.BOOK.ISBN, dbo.BOOK.pages,
+                                                    dbo.BOOK.publicationinfo, dbo.BOOK.PublicationYear,
+                                                    dbo.BOOK.SignId, dbo.BOOK.Title FROM
+                                                    (dbo.BOOK INNER JOIN BOOK_AUTHOR ON BOOK.ISBN = BOOK_AUTHOR.ISBN
+                                                    AND BOOK_AUTHOR.Aid = @authorID)",
+                                                    new SqlParameter("@authorID", id)).ToList();
+            }
+        }
+
         public static List<AUTHOR> getAuthorsFromSearchResultat(string search)
         {
             using (var db = new dbGrupp3())
