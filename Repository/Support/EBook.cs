@@ -43,15 +43,35 @@ namespace Repository.Support
 
         public static List<BOOK> GetBookSearchResultat(string search, params string[] classification)
         {
+            string classificationString = "";
+            if (classification.Count() > 0)
+            {
+                var lastItem = classification.Last();
+                classificationString += " AND";
+                foreach (var i in classification)
+                {
+                    classificationString += "@" + i;
+                    if (lastItem.Equals(i))
+                    {
+                        
+                    }
+                    else
+                    {
+                        classificationString += "AND ";
+                    }
+                }
+            }
+
+
             using (var db = new dbGrupp3())
             {
-               return  db.Database.SqlQuery<BOOK>(
-                    @"SELECT BOOK.ISBN, BOOK.pages, BOOK.publicationinfo, BOOK.PublicationYear, BOOK.SignId, BOOK.Title
+                return db.Database.SqlQuery<BOOK>(
+                     @"SELECT BOOK.ISBN, BOOK.pages, BOOK.publicationinfo, BOOK.PublicationYear, BOOK.SignId, BOOK.Title
                       FROM BOOK JOIN BOOK_AUTHOR ON BOOK.ISBN = BOOK_AUTHOR.ISBN JOIN AUTHOR ON AUTHOR.Aid = BOOK_AUTHOR.Aid
                       WHERE BOOK.Title LIKE @SEARCH
                       OR AUTHOR.FirstName LIKE @SEARCH
                       OR AUTHOR.LastName LIKE @SEARCH
-                      OR AUTHOR.FirstName + ' ' + AUTHOR.LastName LIKE @SEARCH;"
+                      OR AUTHOR.FirstName + ' ' + AUTHOR.LastName LIKE @SEARCH;" + classificationString
                     , new SqlParameter("@SEARCH", "%"+search+"%")).ToList();
             }
         }
