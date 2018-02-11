@@ -56,13 +56,5 @@ namespace Repository.Support
             }
         }
 
-        public static List<BOOK> getBooksFromAuthor(int id)
-        {
-            using (var db = new dbGrupp3())
-            {
-                throw new NotImplementedException();
-                //return db.BOOKs.Where(x => x.ISBN == db.BOOKs.Where());
-            }
-        }
     }
 }
