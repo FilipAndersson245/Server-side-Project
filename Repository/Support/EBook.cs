@@ -43,7 +43,7 @@ namespace Repository.Support
 
         public static List<BOOK> GetBookSearchResultat(string search, params string[] classification)
         {
-            using(var db = new dbGrupp3())
+            using (var db = new dbGrupp3())
             {
                return  db.Database.SqlQuery<BOOK>(
                     @"SELECT BOOK.ISBN, BOOK.pages, BOOK.publicationinfo, BOOK.PublicationYear, BOOK.SignId, BOOK.Title
@@ -53,6 +53,15 @@ namespace Repository.Support
                       OR AUTHOR.LastName LIKE @SEARCH
                       OR AUTHOR.FirstName + ' ' + AUTHOR.LastName LIKE @SEARCH;"
                     , new SqlParameter("@SEARCH", "%"+search+"%")).ToList();
+            }
+        }
+
+        public static List<BOOK> getBooksFromAuthor(int id)
+        {
+            using (var db = new dbGrupp3())
+            {
+                throw new NotImplementedException();
+                //return db.BOOKs.Where(x => x.ISBN == db.BOOKs.Where());
             }
         }
     }
