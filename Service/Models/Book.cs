@@ -102,7 +102,11 @@ namespace ServerSide_Project.Models
             //List<Book> bookList = new List<Book>();
             var bookList = Mapper.Map<List<BOOK>,List<Book>>(EBook.getAllBooksFromDB()); //Mapper.Map should convert BOOK to Book (non complex types prob) of type List<>
             return setupBooks(bookList);
+        }
 
+        public static List<Book> getBooksFromAuthor(int id)
+        {
+            return Mapper.Map<List<BOOK>, List<Book>>(EBook.getBooksFromAuthor(id));
         }
 
         public static List<Book> SearchBooks(string search)
