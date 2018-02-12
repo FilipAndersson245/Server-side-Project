@@ -78,7 +78,7 @@ namespace ServerSide_Project.Controllers
         [HttpPost]
         public ActionResult SearchBooks(string search)
         {
-            return View("ListBooks", Book.SearchBooks(search));
+            return View("ListBooks", Book.SearchBooks(search,1,2));
         }
     }
 }

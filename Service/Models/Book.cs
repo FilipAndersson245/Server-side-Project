@@ -103,9 +103,9 @@ namespace ServerSide_Project.Models
             return setupBooks(bookList);
         }
 
-        public static List<Book> SearchBooks(string search)
+        public static List<Book> SearchBooks(string search , params int[] classifications)
         {
-            var bookList = Mapper.Map<List<BOOK>, List<Book>>(EBook.GetBookSearchResultat(search)); // optional send classification and add page index also
+            var bookList = Mapper.Map<List<BOOK>, List<Book>>(EBook.GetBookSearchResultat(search,classifications)); // optional send classification and add page index also
             return setupBooks(bookList);
         }
 
