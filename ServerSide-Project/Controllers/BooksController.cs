@@ -75,7 +75,7 @@ namespace ServerSide_Project.Controllers
             return RedirectToAction("ListBooks", "Books", null);
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult SearchBooks(string search)
         {
             return View("ListBooks", Book.SearchBooks(search,1,2));

@@ -23,9 +23,8 @@
                 </button>
                 <div class="col-sm-4">
                     <ul class="nav navbar-nav">
-                        <li class="active">@Html.ActionLink("Books", "ListBooks", "Books")</li>
-                        <li>@Html.ActionLink("Authors", "ListAuthors", "Authors")</li>
-                        <li>@Html.ActionLink("Genres", "ListClassifications", "Classification", new { id = 1 } , null)</li>
+                        <li class="@((ViewBag.activeBrowseBy == "Books"  )? "active" : null) " >@Html.ActionLink("Books", "ListBooks", "Books")</li>
+                        <li class="@((ViewBag.activeBrowseBy == "Authors")? "active" : null) " >@Html.ActionLink("Authors", "ListAuthors", "Authors")</li>
                     </ul>
                 </div>
                 </div>
@@ -97,14 +96,29 @@
                 </div>
             </div>
             <div class="col-sm-10 text-left">
-                @Html.BeginForm("SearchBooks", "Books",FormMethod.Post,new { @class = "form-inline" })
-                { 
+                @if (ViewBag.activeBrowseBy == "Books")
+                {
+                    using (Html.BeginForm("SearchBooks", "Books", FormMethod.Get, new { @class = "form-inline" }))
+                    {
                         <div class="form-group col-sm-10 input-lg col-sm-offset-2" id="searchBar">
                             <input type="text" name="search" class="form-control" id="searchField" placeholder="Search for books, authors, genres...">
                             <button class="btn btn-default" type="submit" id="searchBtn">
                                 <i class="glyphicon glyphicon-search"></i>
                             </button>
                         </div>
+                    }
+                }
+                else if(ViewBag.activeBrowseBy == "Authors")
+                {
+                    using (Html.BeginForm("searchAuthors", "Authors", FormMethod.Get, new { @class = "form-inline" }))
+                    {
+                        <div class="form-group col-sm-10 input-lg col-sm-offset-2" id="searchBar">
+                            <input type="text" name="search" class="form-control" id="searchField" placeholder="Search for books, authors, genres...">
+                            <button class="btn btn-default" type="submit" id="searchBtn">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
+                    }
                 }
 
 

@@ -47,5 +47,12 @@ namespace ServerSide_Project.Controllers
             Author author = Author.getAuthorDetails(id);
             return View("ListAuthorDetails", author);
         }
+
+        [HttpGet]
+        public ActionResult searchAuthors(string search)
+        {
+            var authorList = Author.getAuthorsFromSearch(search);
+            return View("ListAuthors", authorList);
+        }
     }
 }
