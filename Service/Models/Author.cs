@@ -51,8 +51,7 @@ namespace ServerSide_Project.Models
 
         public static List<Author> getAuthorsFromSearch(string search)
         {
-            var ListAuthor  = Mapper.Map<List<AUTHOR>, List<Author>>(EAuthor.getAuthorsFromSearchResultat(search));
-            return ListAuthor;
+            return Mapper.Map<List<AUTHOR>, List<Author>>(EAuthor.getAuthorsFromSearchResultat(search));
         }
 
     }

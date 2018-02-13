@@ -43,13 +43,12 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                var listofAuthor = db.Database.SqlQuery<AUTHOR>(@"SELECT DISTINCT AUTHOR.Aid,AUTHOR.FirstName,AUTHOR.LastName,AUTHOR.BirthYear
+                return db.Database.SqlQuery<AUTHOR>(@"SELECT DISTINCT AUTHOR.Aid,AUTHOR.FirstName,AUTHOR.LastName,AUTHOR.BirthYear
                                                       FROM AUTHOR
                                                       WHERE AUTHOR.FirstName LIKE @SEARCH
                                                       OR AUTHOR.LastName LIKE @SEARCH
                                                       OR AUTHOR.FirstName + ' ' + AUTHOR.LastName LIKE @SEARCH",
                                                new SqlParameter("@SEARCH", "%" + search + "%")).ToList();
-                return listofAuthor;
             }
         }
 

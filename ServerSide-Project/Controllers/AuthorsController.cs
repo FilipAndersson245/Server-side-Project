@@ -51,8 +51,7 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult searchAuthors(string search)
         {
-            var authorList = Author.getAuthorsFromSearch(search);
-            return View("ListAuthors", authorList);
+            return View("ListAuthors", Author.getAuthorsFromSearch(search));
         }
     }
 }
