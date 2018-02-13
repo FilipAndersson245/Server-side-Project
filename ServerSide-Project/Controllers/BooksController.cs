@@ -4,16 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+
 
 namespace ServerSide_Project.Controllers
 {
     public class BooksController : Controller
     {
-        // GET: Books
-        public ActionResult Index()
-        {
-            return View();
-        }
+        public const int ITEMS_PER_PAGE = 10;
 
         [HttpGet]
         public ActionResult CreateBook()
@@ -35,11 +33,13 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
-        public ActionResult ListBooks()
+        public ActionResult ListBooks(int? page)
         {
             var bookList = new List<Book>();
             bookList = Book.getAllBooks();
-            return View("ListBooks", bookList);
+            int pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<Book> pagedBookList = bookList.ToPagedList(pageIndex, ITEMS_PER_PAGE);
+            return View("ListBooks", pagedBookList);
         }
 
         [HttpGet]
