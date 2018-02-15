@@ -73,8 +73,8 @@ namespace ServerSide_Project.Controllers
             return RedirectToAction("ListBooks", "Books", null);
         }
 
-        [HttpPost]
-        public ActionResult SearchBooks(string search, int? page)
+        [HttpGet]
+        public ActionResult SearchBooks(string search, int? page = 1)
         {
             int pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             return View("ListBooks", Book.SearchBooks(search, pageIndex, ITEMS_PER_PAGE, 1, 2));
