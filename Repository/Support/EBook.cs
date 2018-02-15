@@ -16,7 +16,6 @@ namespace Repository.Support
             using (var db = new dbGrupp3())
             {
                 return db.BOOKs.OrderBy(x => x.Title).ToList();
-                //return db.Database.SqlQuery<BOOK>("SELECT * FROM dbo.BOOK ORDER BY Title").ToList();
             }
         }
 
@@ -28,16 +27,14 @@ namespace Repository.Support
             }
         }
 
-
         public static List<AUTHOR> GetAuthorsFromIsbn(string isbn)
         {
             using (var db = new dbGrupp3())
             {
                 return db.Database.SqlQuery<AUTHOR>(
                      @"SELECT dbo.AUTHOR.FirstName, dbo.AUTHOR.LastName , dbo.AUTHOR.BirthYear , dbo.AUTHOR.Aid 
-                    FROM ( dbo.AUTHOR INNER JOIN BOOK_AUTHOR ON AUTHOR.Aid = BOOK_AUTHOR.Aid AND BOOK_AUTHOR.ISBN = @isbn)",
+                       FROM ( dbo.AUTHOR INNER JOIN BOOK_AUTHOR ON AUTHOR.Aid = BOOK_AUTHOR.Aid AND BOOK_AUTHOR.ISBN = @isbn)",
                      new SqlParameter("@isbn", isbn)).ToList();
-
             }
         }
 
@@ -64,7 +61,6 @@ namespace Repository.Support
         {
             string classificationString = "";
             List<SqlParameter> classParameters = new List<SqlParameter>();
-
             if (classification.Count() > 0)
             {
                 var lastItem = classification.Last();
