@@ -98,11 +98,9 @@ namespace ServerSide_Project.Models
             return bookList;
         }
 
-        public static IPagedList<Book> getAllBooks(int? page, int itemsPerPage)
+        public static IPagedList<Book> getAllBooks(int page, int itemsPerPage)
         {
-            IPagedList<BOOK> BOOKList = EBook.getAllBooksFromDB(page, itemsPerPage); //Mapper.Map should convert BOOK to Book (non complex types prob) of type List<>
-            var bookList = BOOKList.ToMappedPagedList<BOOK, Book>();
-            return bookList;
+            return EBook.getAllBooksFromDB(page, itemsPerPage).ToMappedPagedList<BOOK, Book>();
         }
 
         public static List<Book> SearchBooks(string search , params int[] classifications)

@@ -12,12 +12,11 @@ namespace Repository.Support
     public class EBook
     {
 
-        public static IPagedList<BOOK> getAllBooksFromDB(int? page, int itemsPerPage)
+        public static IPagedList<BOOK> getAllBooksFromDB(int page, int itemsPerPage)
         {
             using (var db = new dbGrupp3())
             {
-                var theresult = db.BOOKs.OrderBy(x => x.Title).ToPagedList(page?? 1, itemsPerPage);
-                return theresult;
+                return db.BOOKs.OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
             }
         }
 

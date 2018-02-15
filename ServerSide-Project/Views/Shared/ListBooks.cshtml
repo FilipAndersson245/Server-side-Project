@@ -9,6 +9,17 @@
 <p>
     @Html.ActionLink("Create New Book", "CreateBook", "Create")
 </p>
+
+<div class="text-center" id="pageSelector">
+    <p></p>
+    <p></p>
+    <div class="pagination">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        of @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("ListBooks", new { page }))
+    </div>
+</div>
+
 @for (int i = 0; i < Model.Count; i++)
 {
     <div class="row" id="bookListItem">
@@ -82,15 +93,12 @@
 
 }
 
-<div id="pageSelector">
+<div class="text-center" id="pageSelector">
     <p></p>
     <p></p>
     <div class="pagination">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
         of @Model.PageCount 
         @Html.PagedListPager(Model, page => Url.Action("ListBooks", new { page}))
-
     </div>
-
-
 </div>

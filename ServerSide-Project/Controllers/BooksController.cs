@@ -36,7 +36,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult ListBooks(int? page)
         {
             int pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            var bookList = Book.getAllBooks(page, ITEMS_PER_PAGE);
+            var bookList = Book.getAllBooks(pageIndex, ITEMS_PER_PAGE);
             return View("ListBooks", bookList);
         }
 
