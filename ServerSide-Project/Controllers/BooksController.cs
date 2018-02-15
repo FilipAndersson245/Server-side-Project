@@ -27,7 +27,6 @@ namespace ServerSide_Project.Controllers
             {
                 //valid book!
             }
-            //book.Authors = new Author { ID = "11", FirstName = "Test", LastName = "Author", BirthYear = 2000 };
             book.BookClassification = new Classification { Signum = "TestGenre" };
             return RedirectToAction("ListBooks", "Books", null); //maybe to the created book instead of list
         }
@@ -73,7 +72,7 @@ namespace ServerSide_Project.Controllers
             return RedirectToAction("ListBooks", "Books", null);
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult SearchBooks(string search, int? page)
         {
             int pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;

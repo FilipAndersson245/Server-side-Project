@@ -4,17 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using System.Data.SqlClient;
+using PagedList;
 
 namespace Repository.Support
 {
     public class EAuthor
     {
 
-        public static List<AUTHOR> getAllAuthorsFromDB()
+        public static IPagedList<AUTHOR> getAllAuthorsFromDB(int page, int itemsPerPage)
         {
             using (var db = new dbGrupp3())
             {
-                return db.AUTHORs.OrderBy(x => x.LastName).ToList();
+                return db.AUTHORs.OrderBy(x => x.LastName).ToPagedList(page, itemsPerPage);
             }
         }
 
@@ -26,7 +27,7 @@ namespace Repository.Support
             }
         }
 
-        public static List<BOOK> getBooksByAuthor(int id)
+        public static IPagedList<BOOK> getBooksByAuthor(int id)
         {
             using (var db = new dbGrupp3())
             {
@@ -35,11 +36,11 @@ namespace Repository.Support
                                                     dbo.BOOK.SignId, dbo.BOOK.Title FROM
                                                     (dbo.BOOK INNER JOIN BOOK_AUTHOR ON BOOK.ISBN = BOOK_AUTHOR.ISBN
                                                     AND BOOK_AUTHOR.Aid = @authorID)",
-                                                    new SqlParameter("@authorID", id)).ToList();
+                                                    new SqlParameter("@authorID", id)).ToList().ToPagedList(1, 10);
             }
         }
 
-        public static List<AUTHOR> getAuthorsFromSearchResultat(string search)
+        public static IPagedList<AUTHOR> getAuthorsFromSearchResult(string search, int page, int itemsPerPage)
         {
             using (var db = new dbGrupp3())
             {
@@ -48,7 +49,7 @@ namespace Repository.Support
                                                       WHERE AUTHOR.FirstName LIKE @SEARCH
                                                       OR AUTHOR.LastName LIKE @SEARCH
                                                       OR AUTHOR.FirstName + ' ' + AUTHOR.LastName LIKE @SEARCH",
-                                               new SqlParameter("@SEARCH", "%" + search + "%")).ToList();
+                                               new SqlParameter("@SEARCH", "%" + search + "%")).ToList().ToPagedList(page, itemsPerPage);
             }
         }
 

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Repository.Support;
 using Repository;
 using AutoMapper;
+using PagedList;
 
 namespace ServerSide_Project.Models
 {
@@ -34,24 +35,24 @@ namespace ServerSide_Project.Models
         [Range(-2000,2200)]
         public int? BirthYear { get; set; }
 
-        public List<Book> BookList { get; set; }
+        public IPagedList<Book> BookList { get; set; }
 
-        public static List<Author> getAllAuthors()
+        public static IPagedList<Author> getAllAuthors(int page, int itemsPerPage)
         {
-            return Mapper.Map<List<AUTHOR>, List<Author>>(EAuthor.getAllAuthorsFromDB());
+            return EAuthor.getAllAuthorsFromDB(page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>();
         }
 
-        public static Author getAuthorDetails(int id)
+        public static Author getAuthorDetails(int id, int bookPage, int bookItemsPerPage)
         {
             Author author = Mapper.Map<AUTHOR, Author>(EAuthor.getAuthorDetailsFromDB(id));
-            //author.BookList = Mapper.Map<List<BOOK>, List<Book>>(EAuthor.getBooksByAuthor(id));
-            //author.BookList = Book.setupBooks(Mapper.Map<List<BOOK>, List<Book>>(EAuthor.getBooksByAuthor(id)));
+            author.BookList = EBook.getAllBooksFromDB(bookPage, bookItemsPerPage).ToMappedPagedList<BOOK, Book>();
+            Book.setupBooks(author.BookList);
             return author;
         }
 
-        public static List<Author> getAuthorsFromSearch(string search)
+        public static IPagedList<Author> getAuthorsFromSearch(string search, int page, int itemsPerPage)
         {
-            return Mapper.Map<List<AUTHOR>, List<Author>>(EAuthor.getAuthorsFromSearchResultat(search));
+            return EAuthor.getAuthorsFromSearchResult(search, page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>(); ;
         }
 
     }

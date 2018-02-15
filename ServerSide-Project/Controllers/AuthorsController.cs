@@ -5,11 +5,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using PagedList;
 
 namespace ServerSide_Project.Controllers
 {
     public class AuthorsController : Controller
     {
+        public const int ITEMS_PER_PAGE = 15;
+
         // GET: Authors
         public ActionResult Index()
         {
@@ -35,24 +38,27 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
-        public ActionResult ListAuthors()
+        public ActionResult ListAuthors(int? page)
         {
-            var authorList = new List<Author>();
-            authorList = Author.getAllAuthors();
+            int pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            var authorList = Author.getAllAuthors(pageIndex, ITEMS_PER_PAGE);
             return View("ListAuthors", authorList);
         }
 
         [HttpGet]
-        public ActionResult ListAuthorDetails(int id)
+        public ActionResult ListAuthorDetails(int id, int? bookPage)
         {
-            Author author = Author.getAuthorDetails(id);
+            int bookItemsPerPage = 5;
+            int bookPageIndex = bookPage.HasValue ? Convert.ToInt32(bookPage) : 1;
+            Author author = Author.getAuthorDetails(id, bookPageIndex, bookItemsPerPage);
             return View("ListAuthorDetails", author);
         }
 
         [HttpGet]
-        public ActionResult searchAuthors(string search)
+        public ActionResult searchAuthors(string search, int? page)
         {
-            return View("ListAuthors", Author.getAuthorsFromSearch(search));
+            int pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            return View("ListAuthors", Author.getAuthorsFromSearch(search, pageIndex, ITEMS_PER_PAGE));
         }
     }
 }
