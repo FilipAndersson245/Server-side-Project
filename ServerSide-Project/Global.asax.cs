@@ -11,6 +11,7 @@ namespace ServerSide_Project
     {
         protected void Application_Start()
         {
+            
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             Service.Configuration.AutoMapperConfig.Configure();

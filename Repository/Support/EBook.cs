@@ -41,6 +41,25 @@ namespace Repository.Support
             }
         }
 
+        //may not work!!!
+        public static bool updateBook(BOOK updatedBook, string oldIsbn)
+        {
+            using (var db = new dbGrupp3())
+            {
+                if(db.BOOKs.Find(updatedBook.ISBN) == null)
+                {
+                    var book = db.BOOKs.Find(oldIsbn);
+                    if (book != null)
+                    {
+                        book = updatedBook;
+                        db.SaveChanges();
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
         public static List<BOOK> GetBookSearchResultat(string search, params int[] classification)
         {
             string classificationString = "";

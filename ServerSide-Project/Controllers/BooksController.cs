@@ -29,7 +29,7 @@ namespace ServerSide_Project.Controllers
             {
                 //valid book!
             }
-            //book.Authors = new Author { ID = "11", FirstName = "Test", LastName = "Author", BirthYear = 2000 };
+
             book.BookClassification = new Classification { Signum = "TestGenre" };
             return RedirectToAction("ListBooks", "Books", null); //maybe to the created book instead of list
         }
@@ -51,20 +51,20 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult EditBook(string id)
         {
-            return View("EditBook"); // ret a book with ISBN equal to id
+            return View("EditBook", Book.getBookFromIsbn(id)); // ret a book with ISBN equal to id
         }
 
 
         [HttpPost]
         public ActionResult UpdateBook(Book book)
         {
-
-            if (ModelState.IsValid) //validate the data
+            string oldISBN = (string)TempData["ISBN"];
+            if (ModelState.IsValid)
             {
-                //int a = 5;
+
             }
             
-            string oldISBN = (string)TempData["ISBN"];
+            
 
             return RedirectToAction("ListBooks", "Books");
         }
