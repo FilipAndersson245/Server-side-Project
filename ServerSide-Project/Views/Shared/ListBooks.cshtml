@@ -59,14 +59,14 @@
             </div>
             <div class="row" id="bookListInfoRow">
                 <div class="col-sm-5" id="bookListAuthor">
-                    @*@foreach (var author in @Model[i].Authors)
+                    @foreach (var author in @Model[i].Authors)
                     {
                         @Html.ActionLink(Html.Encode(author.FirstName + " " + author.LastName), "ListAuthorDetails", "Authors", new { id = author.Aid }, null)
                         if (!@Model[i].Authors.Last().Equals(author))
                         {
                             <span>| </span>
                         }
-                    }*@
+                    }
                 </div>
                 <div class="col-sm-2" id="bookListPublicationYear">
                     @Model[i].PublicationYear

@@ -32,7 +32,7 @@ namespace ServerSide_Project.Models
         [Required(ErrorMessage = "Must have a publication year")]
         public int PublicationYear { get; set; }
 
-        [MaxLength(500,ErrorMessage ="Description to long")]
+        [MaxLength(500,ErrorMessage ="Description too long")]
         public string publicationinfo { get; set; }
 
         [Required]
@@ -40,7 +40,7 @@ namespace ServerSide_Project.Models
         public short Pages { get; set; }
 
         [Required]
-        [MaxLength(20, ErrorMessage ="Name to long!")]
+        [MaxLength(20, ErrorMessage ="Name too long!")]
         public List<Author> Authors{ get; set; }
 
         [Required]
@@ -74,39 +74,40 @@ namespace ServerSide_Project.Models
             }
         }
 
-        public static Book setupBook(Book book)
+        public static List<Author> addAuthors(Book book)
         {
-            var author = Mapper.Map<List<AUTHOR>, List<Author>>(EBook.GetAuthorsFromIsbn(book.ISBN)); //get all Authors
-            if (author.Count > 0)
+            var authors = Mapper.Map<List<AUTHOR>, List<Author>>(EBook.GetAuthorsFromIsbn(book.ISBN)); //get all Authors
+            if (authors.Count > 0)
             {
-                book.Authors = author;
+                return authors;
             }
             else
             {
-                author.Add(new Author() { FirstName = "No Author", LastName = "Available", BirthYear = 0, Aid = "-1" });
-                book.Authors = author;
+                authors.Add(new Author() { FirstName = "No Author", LastName = "Available", BirthYear = 0, Aid = "-1" });
+                return authors;
             }
-            return book;
         }
 
-        public static List<Book> setupBooks(List<Book> bookList)
+        public static void setupBooks(IPagedList<Book> bookList)
         {
             for (int i = 0; i < bookList.Count; i++)
             {
-                bookList[i] = setupBook(bookList[i]);
+                bookList[i].Authors = addAuthors(bookList[i]);
             }
-            return bookList;
         }
 
         public static IPagedList<Book> getAllBooks(int page, int itemsPerPage)
         {
-            return EBook.getAllBooksFromDB(page, itemsPerPage).ToMappedPagedList<BOOK, Book>();
+            var bookList = EBook.getAllBooksFromDB(page, itemsPerPage).ToMappedPagedList<BOOK, Book>();
+            setupBooks(bookList);
+            return bookList;
         }
 
-        public static List<Book> SearchBooks(string search , params int[] classifications)
+        public static IPagedList<Book> SearchBooks(string search, int page, int itemsPerPage, params int[] classifications)
         {
-            var bookList = Mapper.Map<List<BOOK>, List<Book>>(EBook.GetBookSearchResultat(search,classifications)); // optional send classification and add page index also
-            return setupBooks(bookList);
+            var bookList = EBook.GetBookSearchResultat(search, page, itemsPerPage, classifications).ToMappedPagedList<BOOK, Book>();
+            setupBooks(bookList);
+            return bookList;
         }
 
     }

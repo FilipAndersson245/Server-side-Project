@@ -45,7 +45,7 @@ namespace ServerSide_Project.Models
         {
             Author author = Mapper.Map<AUTHOR, Author>(EAuthor.getAuthorDetailsFromDB(id));
             //author.BookList = Mapper.Map<List<BOOK>, List<Book>>(EAuthor.getBooksByAuthor(id));
-            author.BookList = Book.setupBooks(Mapper.Map<List<BOOK>, List<Book>>(EAuthor.getBooksByAuthor(id)));
+            //author.BookList = Book.setupBooks(Mapper.Map<List<BOOK>, List<Book>>(EAuthor.getBooksByAuthor(id)));
             return author;
         }
 

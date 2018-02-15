@@ -42,7 +42,7 @@ namespace Repository.Support
             }
         }
 
-        public static List<BOOK> GetBookSearchResultat(string search, params int[] classification)
+        public static IPagedList<BOOK> GetBookSearchResultat(string search, int page, int itemsPerPage, params int[] classification)
         {
             string classificationString = "";
             List<SqlParameter> classParameters = new List<SqlParameter>();
@@ -75,7 +75,7 @@ namespace Repository.Support
                       OR AUTHOR.FirstName LIKE @SEARCH
                       OR AUTHOR.LastName LIKE @SEARCH
                       OR AUTHOR.FirstName + ' ' + AUTHOR.LastName LIKE @SEARCH)" + classificationString
-                    , classParameters.ToArray()).ToList();
+                    , classParameters.ToArray()).ToList().ToPagedList(page, itemsPerPage);
                 }
                 else
                 {
@@ -86,7 +86,7 @@ namespace Repository.Support
                       OR AUTHOR.FirstName LIKE @SEARCH
                       OR AUTHOR.LastName LIKE @SEARCH
                       OR AUTHOR.FirstName + ' ' + AUTHOR.LastName LIKE @SEARCH);"
-                    , new SqlParameter("@SEARCH", "%" + search + "%")).ToList();
+                    , new SqlParameter("@SEARCH", "%" + search + "%")).ToList().ToPagedList(page, itemsPerPage);
                 }
             }
         }

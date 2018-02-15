@@ -74,9 +74,10 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpPost]
-        public ActionResult SearchBooks(string search)
+        public ActionResult SearchBooks(string search, int? page)
         {
-            return View("ListBooks", Book.SearchBooks(search,1,2));
+            int pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            return View("ListBooks", Book.SearchBooks(search, pageIndex, ITEMS_PER_PAGE, 1, 2));
         }
     }
 }
