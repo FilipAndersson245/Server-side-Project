@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ServerSide_Project.Models.Book>
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<ServerSide_Project.Models.Book>
 
 
 @{
@@ -9,7 +10,18 @@
 <p>
     @Html.ActionLink("Create New Book", "CreateBook", "Create")
 </p>
-@foreach (var item in Model)
+
+<div class="text-center" id="pageSelector">
+    <p></p>
+    <p></p>
+    <div class="pagination">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        of @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("ListBooks", new { page }))
+    </div>
+</div>
+
+@for (int i = 0; i < Model.Count; i++)
 {
     <div class="row" id="bookListItem">
         <div class="col-sm-2">
@@ -17,19 +29,19 @@
                 image goes here
             </div>
             <div class="col-sm-12 text-center" id="bookListGenre">
-                <a>@Html.DisplayFor(modelItem => item.BookClassification.Signum)</a>
+              @*  <a>@Model[i].BookClassification.Signum</a> *@
             </div>
         </div>
         <div class="col-sm-9">
             <div class="row">
                 <div class="col-sm-9" id="bookListTitle">
 
-                    @Html.ActionLink(Html.Encode(item.Title), "ListBookDetails", "Books", new { id = item.ISBN }, null)
+                    @Html.ActionLink(Html.Encode(@Model[i].Title), "ListBookDetails", "Books", new { id = @Model[i].ISBN }, null)
                 </div>
                 <div class="col-sm-3" id="bookListAdminPane">
-                    @Html.ActionLink("Edit", "EditBook", "Books", new { id = item.ISBN }, new { @class = "" }) |
-                    @Html.ActionLink("Details", "ListBookDetails", "Books", new { id = item.ISBN }, new { @class = "" }) |
-                    @Html.ActionLink("Delete", "DeleteBook", "Books", new { id = item.ISBN }, new { @class = "" })
+                    @Html.ActionLink("Edit", "EditBook", "Books", new { id = @Model[i].ISBN }, new { @class = "" }) |
+                    @Html.ActionLink("Details", "ListBookDetails", "Books", new { id = @Model[i].ISBN }, new { @class = "" }) |
+                    @Html.ActionLink("Delete", "DeleteBook", "Books", new { id = @Model[i].ISBN }, new { @class = "" })
                 </div>
             </div>
             <div class="row">
@@ -48,23 +60,23 @@
             </div>
             <div class="row" id="bookListInfoRow">
                 <div class="col-sm-5" id="bookListAuthor">
-                    @foreach (var author in item.Authors)
+                    @foreach (var author in @Model[i].Authors)
                     {
                         @Html.ActionLink(Html.Encode(author.FirstName + " " + author.LastName), "ListAuthorDetails", "Authors", new { id = author.Aid }, null)
-                        if (!item.Authors.Last().Equals(author))
+                        if (!@Model[i].Authors.Last().Equals(author))
                         {
                             <span>| </span>
                         }
                     }
                 </div>
                 <div class="col-sm-2" id="bookListPublicationYear">
-                    @Html.DisplayFor(modelItem => item.PublicationYear)
+                    @Model[i].PublicationYear
                 </div>
                 <div class="col-sm-3" id="bookListISBN">
-                    @Html.DisplayFor(modelItem => item.ISBN)
+                    @Model[i].ISBN
                 </div>
                 <div class="col-sm-2" id="bookListPages">
-                    @Html.DisplayFor(modelItem => item.Pages)
+                    @Model[i].Pages
                 </div>
             </div>
             <div class="row">
@@ -74,10 +86,20 @@
             </div>
                 <div class="row" id="bookListDescription">
                     <div class="col-sm-12">
-                        @Html.DisplayFor(modelItem => item.shortDescription)
+                        @Model[i].shortDescription
                     </div>
                 </div>
             </div>
     </div>
+
 }
 
+<div class="text-center" id="pageSelector">
+    <p></p>
+    <p></p>
+    <div class="pagination">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        of @Model.PageCount 
+        @Html.PagedListPager(Model, page => Url.Action("ListBooks", new { page}))
+    </div>
+</div>
