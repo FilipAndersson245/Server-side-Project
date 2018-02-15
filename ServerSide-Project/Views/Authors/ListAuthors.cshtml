@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ServerSide_Project.Models.Author>
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<ServerSide_Project.Models.Author>
 
 @{
     ViewBag.Title = "ListAuthors";
@@ -17,31 +18,47 @@
     </div>
 </div>
 
-    @foreach (var item in Model)
-    {
-        <div class="row">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-6">
-                <div class="row" id="authorListItem">
-                    <div class="col-sm-3" id="authorListName">
-                        @Html.ActionLink(Html.Encode(item.FirstName + " " + item.LastName), "ListAuthorDetails", "Authors", new { id = item.Aid }, null)
+<div class="text-center" id="pageSelector">
+    <div class="pagination">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        of @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("ListAuthors", new { page }))
+    </div>
+</div>
+
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-6">
+            <div class="row" id="authorListItem">
+                <div class="col-sm-3" id="authorListName">
+                    @Html.ActionLink(Html.Encode(item.FirstName + " " + item.LastName), "ListAuthorDetails", "Authors", new { id = item.Aid }, null)
+                </div>
+                <div class="col-sm-2">
+                    <div class="row">
+                        <p class="listHeadline">Year of Birth:</p>
                     </div>
-                    <div class="col-sm-2">
-                        <div class="row">
-                            <p class="listHeadline">Year of Birth:</p>
-                        </div>
-                        <div class="row">
-                            @if (item.BirthYear == null){<span>Unknown</span>}
-                            else{ @Html.Encode(item.BirthYear); }
-                        </div>
-                    </div>
-                    <div class="col-sm-3" id="authorOptions">
-                        @Html.ActionLink("XX Edit", "Edit", new { id = item.Aid }) |
-                        @Html.ActionLink("XX Details", "Details", new { id = item.Aid }) |
-                        @Html.ActionLink("Delete", "DeleteAuthor", "Authors", new { id = item.Aid }, null)
+                    <div class="row">
+                        @if (item.BirthYear == null){<span>Unknown</span>}
+                        else{ @Html.Encode(item.BirthYear); }
                     </div>
                 </div>
+                <div class="col-sm-3" id="authorOptions">
+                    @Html.ActionLink("XX Edit", "Edit", new { id = item.Aid }) |
+                    @Html.ActionLink("XX Details", "Details", new { id = item.Aid }) |
+                    @Html.ActionLink("Delete", "DeleteAuthor", "Authors", new { id = item.Aid }, null)
+                </div>
             </div>
-            <div class="col-sm-4"></div>
         </div>
-    }
+        <div class="col-sm-4"></div>
+    </div>
+}
+
+<div class="text-center" id="pageSelector">
+    <div class="pagination">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        of @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("ListAuthors", new { page }))
+    </div>
+</div>
