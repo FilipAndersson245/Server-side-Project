@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using System.Data.SqlClient;
+using PagedList;
 
 
 namespace Repository.Support
@@ -11,13 +12,14 @@ namespace Repository.Support
     public class EBook
     {
 
-        public static List<BOOK> getAllBooksFromDB()
+        public static IPagedList<BOOK> getAllBooksFromDB(int page, int itemsPerPage)
         {
             using (var db = new dbGrupp3())
             {
-                return db.BOOKs.OrderBy(x => x.Title).ToList();
+                return db.BOOKs.OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
             }
         }
+
 
         public static BOOK getBookFromIsbn(string isbn)
         {
@@ -27,40 +29,24 @@ namespace Repository.Support
             }
         }
 
+
         public static List<AUTHOR> GetAuthorsFromIsbn(string isbn)
         {
             using (var db = new dbGrupp3())
             {
                 return db.Database.SqlQuery<AUTHOR>(
                      @"SELECT dbo.AUTHOR.FirstName, dbo.AUTHOR.LastName , dbo.AUTHOR.BirthYear , dbo.AUTHOR.Aid 
-                       FROM ( dbo.AUTHOR INNER JOIN BOOK_AUTHOR ON AUTHOR.Aid = BOOK_AUTHOR.Aid AND BOOK_AUTHOR.ISBN = @isbn)",
+                    FROM ( dbo.AUTHOR INNER JOIN BOOK_AUTHOR ON AUTHOR.Aid = BOOK_AUTHOR.Aid AND BOOK_AUTHOR.ISBN = @isbn)",
                      new SqlParameter("@isbn", isbn)).ToList();
+
             }
         }
 
-        //may not work!!!
-        public static bool updateBook(BOOK updatedBook, string oldIsbn)
-        {
-            using (var db = new dbGrupp3())
-            {
-                if(db.BOOKs.Find(updatedBook.ISBN) == null)
-                {
-                    var book = db.BOOKs.Find(oldIsbn);
-                    if (book != null)
-                    {
-                        book = updatedBook;
-                        db.SaveChanges();
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-
-        public static List<BOOK> GetBookSearchResultat(string search, params int[] classification)
+        public static IPagedList<BOOK> GetBookSearchResultat(string search, int page, int itemsPerPage, params int[] classification)
         {
             string classificationString = "";
             List<SqlParameter> classParameters = new List<SqlParameter>();
+
             if (classification.Count() > 0)
             {
                 var lastItem = classification.Last();
@@ -89,7 +75,7 @@ namespace Repository.Support
                       OR AUTHOR.FirstName LIKE @SEARCH
                       OR AUTHOR.LastName LIKE @SEARCH
                       OR AUTHOR.FirstName + ' ' + AUTHOR.LastName LIKE @SEARCH)" + classificationString
-                    , classParameters.ToArray()).ToList();
+                    , classParameters.ToArray()).ToList().ToPagedList(page, itemsPerPage);
                 }
                 else
                 {
@@ -100,7 +86,7 @@ namespace Repository.Support
                       OR AUTHOR.FirstName LIKE @SEARCH
                       OR AUTHOR.LastName LIKE @SEARCH
                       OR AUTHOR.FirstName + ' ' + AUTHOR.LastName LIKE @SEARCH);"
-                    , new SqlParameter("@SEARCH", "%" + search + "%")).ToList();
+                    , new SqlParameter("@SEARCH", "%" + search + "%")).ToList().ToPagedList(page, itemsPerPage);
                 }
             }
         }

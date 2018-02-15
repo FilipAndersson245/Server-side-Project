@@ -25,7 +25,7 @@ namespace ServerSide_Project.Models
             List<Book> bookList = Mapper.Map<List<BOOK>,List<Book>>(EClassification.GetBooksFromClassification(signId));
             for (int i = 0; i < bookList.Count; i++)
             {
-                bookList[i] = Book.setupBook(bookList[i]);
+                //bookList[i] = Book.setupBook(bookList[i]);
             }
             return bookList;
         }
