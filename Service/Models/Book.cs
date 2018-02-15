@@ -9,6 +9,7 @@ using System.Web.Helpers;
 using Repository.Support;
 using Repository;
 using AutoMapper;
+using PagedList;
 
 namespace ServerSide_Project.Models
 {
@@ -97,10 +98,11 @@ namespace ServerSide_Project.Models
             return bookList;
         }
 
-        public static List<Book> getAllBooks()
+        public static IPagedList<Book> getAllBooks(int? page, int itemsPerPage)
         {
-            var bookList = Mapper.Map<List<BOOK>,List<Book>>(EBook.getAllBooksFromDB()); //Mapper.Map should convert BOOK to Book (non complex types prob) of type List<>
-            return setupBooks(bookList);
+            IPagedList<BOOK> BOOKList = EBook.getAllBooksFromDB(page, itemsPerPage); //Mapper.Map should convert BOOK to Book (non complex types prob) of type List<>
+            var bookList = BOOKList.ToMappedPagedList<BOOK, Book>();
+            return bookList;
         }
 
         public static List<Book> SearchBooks(string search , params int[] classifications)

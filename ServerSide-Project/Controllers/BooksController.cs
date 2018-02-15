@@ -35,11 +35,9 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult ListBooks(int? page)
         {
-            var bookList = new List<Book>();
-            bookList = Book.getAllBooks();
             int pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            IPagedList<Book> pagedBookList = bookList.ToPagedList(pageIndex, ITEMS_PER_PAGE);
-            return View("ListBooks", pagedBookList);
+            var bookList = Book.getAllBooks(page, ITEMS_PER_PAGE);
+            return View("ListBooks", bookList);
         }
 
         [HttpGet]

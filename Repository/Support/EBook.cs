@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using System.Data.SqlClient;
+using PagedList;
 
 
 namespace Repository.Support
@@ -11,14 +12,15 @@ namespace Repository.Support
     public class EBook
     {
 
-        public static List<BOOK> getAllBooksFromDB()
+        public static IPagedList<BOOK> getAllBooksFromDB(int? page, int itemsPerPage)
         {
             using (var db = new dbGrupp3())
             {
-                return db.BOOKs.OrderBy(x => x.Title).ToList();
-                //return db.Database.SqlQuery<BOOK>("SELECT * FROM dbo.BOOK ORDER BY Title").ToList();
+                var theresult = db.BOOKs.OrderBy(x => x.Title).ToPagedList(page?? 1, itemsPerPage);
+                return theresult;
             }
         }
+
 
         public static BOOK getBookFromIsbn(string isbn)
         {
