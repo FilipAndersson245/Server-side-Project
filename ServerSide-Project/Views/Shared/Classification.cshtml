@@ -1,0 +1,32 @@
+﻿@model List<ServerSide_Project.Models.Classification>
+
+<div class="col-sm-2 sidenav">
+    <div class="collapse-group">
+        <h5>Advanced Filters</h5>
+
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="trigger collapsed">
+                        Classification
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    @foreach (var classification in Model)
+                    {
+                        <li>
+                            @Html.CheckBox(classification.SignId.ToString(), new { value = classification.SignId })
+                            @Html.Label( classification.Signum)
+                        </li> // Not working label yet
+                    }
+                    @*<li> <input type="checkbox" />&nbsp;Fantasy <span>(20)</span></li>
+                    <li> <input type="checkbox" />&nbsp;Thriller <span>(13)</span></li>
+                    <li> <input type="checkbox" />&nbsp;Textbook <span>(7)</span></li>*@
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
