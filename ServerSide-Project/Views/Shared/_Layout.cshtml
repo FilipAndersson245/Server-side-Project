@@ -22,11 +22,10 @@
                     <span class="icon-bar"></span>
                 </button>
                 <div class="col-sm-4">
-                    <ul class="nav navbar-nav">
+                    <ul class="nav nav-pills nav-justified">
                         <li class="@((ViewBag.activeBrowseBy == "Books"  )? "active" : null) " >@Html.ActionLink("Books", "BrowseAllBooks", "Books")</li>
                         <li class="@((ViewBag.activeBrowseBy == "Authors")? "active" : null) " >@Html.ActionLink("Authors", "ListAuthors", "Authors")</li>
                     </ul>
-                </div>
                 </div>
                 <div class="navbar-col-sm-4 col-sm-offset-5">
                     @Html.ActionLink("Jönköping Library","Index","Home",null, new { @class = "navbar-brand" })
