@@ -20,8 +20,8 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpPost]
-        [ActionName("CreateBook")]              // cannot have equal names so using this to emulate same same
-        public ActionResult CreateBookPost(Book book)    //
+        [ActionName("CreateBook")]              
+        public ActionResult CreateBookPost(Book book) 
         {
             if (ModelState.IsValid)
             {
@@ -32,7 +32,7 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
-        public ActionResult getAllBooks(int? page)
+        public ActionResult BrowseAllBooks(int? page)
         {
             int pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             var bookList = Book.getAllBooks(pageIndex, ITEMS_PER_PAGE);

@@ -1,0 +1,10 @@
+﻿@model PagedList.IPagedList<ServerSide_Project.Models.Book>
+
+@{
+    ViewBag.Title = "BrowseAllBooks";
+    ViewBag.activeBrowseBy = "Books";
+}
+
+<h2>BrowseAllBooks</h2>
+
+@Html.Partial("ListBooks", Model)

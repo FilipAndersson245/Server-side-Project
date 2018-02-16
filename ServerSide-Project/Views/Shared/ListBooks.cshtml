@@ -1,24 +1,19 @@
 ﻿@using PagedList.Mvc
 @model PagedList.IPagedList<ServerSide_Project.Models.Book>
-
-
 @{
-    ViewBag.Title = "Books";
     ViewBag.activeBrowseBy = "Books";
-}
+} 
 
 <p>
     @Html.ActionLink("Create New Book", "CreateBook", "Create")
 </p>
-
 <div class="text-center" id="pageSelector">
     <div class="pagination">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
         of @Model.PageCount
-        @Html.PagedListPager(Model, page => Url.Action("getAllBooks", new { page }))
+        @Html.PagedListPager(Model, page => Url.Action("browseAllBooks", new { page }))
     </div>
 </div>
-
 @for (int i = 0; i < Model.Count; i++)
 {
     <div class="row" id="bookListItem">
@@ -27,13 +22,11 @@
                 image goes here
             </div>
             <div class="col-sm-12 text-center" id="bookListGenre">
-              @*  <a>@Model[i].BookClassification.Signum</a> *@
             </div>
         </div>
         <div class="col-sm-9">
             <div class="row">
                 <div class="col-sm-9" id="bookListTitle">
-
                     @Html.ActionLink(Html.Encode(@Model[i].Title), "ListBookDetails", "Books", new { id = @Model[i].ISBN }, null)
                 </div>
                 <div class="col-sm-3" id="bookListAdminPane">
@@ -62,9 +55,7 @@
                     {
                         @Html.ActionLink(Html.Encode(author.FirstName + " " + author.LastName), "ListAuthorDetails", "Authors", new { id = author.Aid }, null)
                         if (!@Model[i].Authors.Last().Equals(author))
-                        {
-                            <span>| </span>
-                        }
+                        {<span>| </span>}
                     }
                 </div>
                 <div class="col-sm-2" id="bookListPublicationYear">
@@ -82,12 +73,12 @@
                     <p class="listHeadline">Description:</p>
                 </div>
             </div>
-                <div class="row" id="bookListDescription">
-                    <div class="col-sm-12">
-                        @Model[i].shortDescription
-                    </div>
+            <div class="row" id="bookListDescription">
+                <div class="col-sm-12">
+                    @Model[i].shortDescription
                 </div>
             </div>
+        </div>
     </div>
 
 }
@@ -95,7 +86,7 @@
 <div class="text-center" id="pageSelector">
     <div class="pagination">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-        of @Model.PageCount 
-        @Html.PagedListPager(Model, page => Url.Action("getAllBooks", new { page}))
+        of @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("browseAllBooks", new { page }))
     </div>
 </div>

@@ -156,6 +156,7 @@
     <Content Include="Views\Admins\CreateAdmin.cshtml" />
     <Content Include="Views\Authors\CreateAuthor.cshtml" />
     <Content Include="Views\Shared\ListBooks.cshtml" />
+    <Content Include="Views\Books\BrowseAllBooks.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
