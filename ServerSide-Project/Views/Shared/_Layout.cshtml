@@ -23,17 +23,17 @@
                 </button>
                 <div class="col-sm-4">
                     <ul class="nav nav-pills nav-justified">
-                        <li class="@((ViewBag.activeBrowseBy == "Books"  )? "active" : null) " >@Html.ActionLink("Books", "BrowseAllBooks", "Books")</li>
-                        <li class="@((ViewBag.activeBrowseBy == "Authors")? "active" : null) " >@Html.ActionLink("Authors", "BrowseAllAuthors", "Authors")</li>
+                        <li class="@((ViewBag.activeBrowseBy == "Books") ? "active" : null) " >@Html.ActionLink("Books", "BrowseAllBooks", "Books")</li>
+                        <li class="@((ViewBag.activeBrowseBy == "Authors") ? "active" : null) " >@Html.ActionLink("Authors", "BrowseAllAuthors", "Authors")</li>
                     </ul>
                 </div>
                 <div class="navbar-col-sm-4 col-sm-offset-5">
-                    @Html.ActionLink("Jönköping Library","Index","Home",null, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Jönköping Library", "Index", "Home", null, new { @class = "navbar-brand" })
                 </div>
                 <div class="navbar-col-sm-4">
                     <ul class="nav navbar-nav navbar-right">
-                        <li>@Html.ActionLink("admin","AdminPanel","Admins",null,null)</li>
-                        <li><a href=@Url.Action("Login","Admins")><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        <li>@Html.ActionLink("admin", "AdminPanel", "Admins", null, null)</li>
+                        <li><a href=@Url.Action("Login", "Admins")><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                     </ul>
                 </div>
             </div>
@@ -42,29 +42,7 @@
 
     <div class="container-fluid text-center">
         <div class="row content">
-            <div class="col-sm-2 sidenav">
-                <div class="collapse-group">
-                    <h5>Advanced Filters</h5>
-                    
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingOne">
-                            <h4 class="panel-title">
-                                <a role="button" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="trigger collapsed">
-                                    Classification
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                            <div class="panel-body">
-                                    <li> <input type="checkbox" />&nbsp;Fantasy <span>(20)</span></li> 
-                                    <li> <input type="checkbox" />&nbsp;Thriller <span>(13)</span></li>
-                                    <li> <input type="checkbox" />&nbsp;Textbook <span>(7)</span></li>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+            @{Html.RenderAction("getClassification", "Classification");}
             <div class="col-sm-10 text-left">
                 @if (ViewBag.activeBrowseBy == "Books")
                 {
