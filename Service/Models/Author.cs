@@ -42,10 +42,10 @@ namespace ServerSide_Project.Models
             return EAuthor.getAllAuthorsFromDB(page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>();
         }
 
-        public static Author getAuthorDetails(int id, int bookPage, int bookItemsPerPage)
+        public static Author getAuthorDetails(int id, int bookPage)
         {
             Author author = Mapper.Map<AUTHOR, Author>(EAuthor.getAuthorDetailsFromDB(id));
-            author.BookList = EAuthor.getBooksByAuthor(id, bookPage, bookItemsPerPage).ToMappedPagedList<BOOK, Book>();
+            author.BookList = EAuthor.getBooksByAuthor(id, bookPage).ToMappedPagedList<BOOK, Book>();
             Book.setupBooks(author.BookList);
             return author;
         }

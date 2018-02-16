@@ -36,7 +36,7 @@ namespace ServerSide_Project.Controllers
         {
             int pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             var bookList = Book.getAllBooks(pageIndex, ITEMS_PER_PAGE);
-            return View("ListBooks", bookList);
+            return View("BrowseAllBooks", bookList);
         }
 
         [HttpGet]
@@ -73,10 +73,10 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
-        public ActionResult SearchBooks(string search, int? page)
+        public ActionResult SearchBooks(int? page, string search)
         {
             int pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            return View("ListBooks", Book.SearchBooks(search, pageIndex, ITEMS_PER_PAGE, 1, 2));
+            return View("BrowseSearchedBooks", Book.SearchBooks(search, pageIndex, ITEMS_PER_PAGE));
         }
     }
 }

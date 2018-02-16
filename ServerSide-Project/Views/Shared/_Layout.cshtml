@@ -24,7 +24,7 @@
                 <div class="col-sm-4">
                     <ul class="nav nav-pills nav-justified">
                         <li class="@((ViewBag.activeBrowseBy == "Books"  )? "active" : null) " >@Html.ActionLink("Books", "BrowseAllBooks", "Books")</li>
-                        <li class="@((ViewBag.activeBrowseBy == "Authors")? "active" : null) " >@Html.ActionLink("Authors", "ListAuthors", "Authors")</li>
+                        <li class="@((ViewBag.activeBrowseBy == "Authors")? "active" : null) " >@Html.ActionLink("Authors", "BrowseAllAuthors", "Authors")</li>
                     </ul>
                 </div>
                 <div class="navbar-col-sm-4 col-sm-offset-5">

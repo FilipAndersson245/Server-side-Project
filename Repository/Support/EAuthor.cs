@@ -27,7 +27,7 @@ namespace Repository.Support
             }
         }
 
-        public static IPagedList<BOOK> getBooksByAuthor(int id, int page, int itemsPerPage)
+        public static IPagedList<BOOK> getBooksByAuthor(int id, int page)
         {
             using (var db = new dbGrupp3())
             {
@@ -36,7 +36,7 @@ namespace Repository.Support
                                                     dbo.BOOK.SignId, dbo.BOOK.Title FROM
                                                     (dbo.BOOK INNER JOIN BOOK_AUTHOR ON BOOK.ISBN = BOOK_AUTHOR.ISBN
                                                     AND BOOK_AUTHOR.Aid = @authorID)",
-                                                    new SqlParameter("@authorID", id)).ToList().ToPagedList(page, itemsPerPage);
+                                                    new SqlParameter("@authorID", id)).ToList().ToPagedList(page, 100);
             }
         }
 

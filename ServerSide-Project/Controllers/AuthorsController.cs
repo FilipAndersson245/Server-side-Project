@@ -12,7 +12,6 @@ namespace ServerSide_Project.Controllers
     public class AuthorsController : Controller
     {
         public const int ITEMS_PER_PAGE = 15;
-        public const int ITEMS_PER_AUTHOR_PAGE = 5;
 
         // GET: Authors
         public ActionResult Index()
@@ -39,26 +38,26 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
-        public ActionResult ListAuthors(int? page)
+        public ActionResult BrowseAllAuthors(int? page)
         {
             int pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             var authorList = Author.getAllAuthors(pageIndex, ITEMS_PER_PAGE);
-            return View("ListAuthors", authorList);
+            return View("BrowseAllAuthors", authorList);
         }
 
         [HttpGet]
         public ActionResult ListAuthorDetails(int id, int? bookPage)
         {
             int bookPageIndex = bookPage.HasValue ? Convert.ToInt32(bookPage) : 1;
-            Author author = Author.getAuthorDetails(id, bookPageIndex, ITEMS_PER_AUTHOR_PAGE);
+            Author author = Author.getAuthorDetails(id, bookPageIndex);
             return View("ListAuthorDetails", author);
         }
 
         [HttpGet]
-        public ActionResult searchAuthors(string search, int? page)
+        public ActionResult searchAuthors(int? page, string search)
         {
             int pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            return View("ListAuthors", Author.getAuthorsFromSearch(search, pageIndex, ITEMS_PER_PAGE));
+            return View("BrowseSearchedAuthors", Author.getAuthorsFromSearch(search, pageIndex, ITEMS_PER_PAGE));
         }
     }
 }

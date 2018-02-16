@@ -150,13 +150,16 @@
     <Content Include="Views\Books\EditBook.cshtml" />
     <Content Include="Views\Books\ListBookDetails.cshtml" />
     <Content Include="Views\Books\CreateBook.cshtml" />
-    <Content Include="Views\Authors\ListAuthors.cshtml" />
+    <Content Include="Views\Shared\ListAuthors.cshtml" />
     <Content Include="Views\Authors\ListAuthorDetails.cshtml" />
     <Content Include="Views\Admins\AdminPanel.cshtml" />
     <Content Include="Views\Admins\CreateAdmin.cshtml" />
     <Content Include="Views\Authors\CreateAuthor.cshtml" />
     <Content Include="Views\Shared\ListBooks.cshtml" />
     <Content Include="Views\Books\BrowseAllBooks.cshtml" />
+    <Content Include="Views\Books\BrowseSearchedBooks.cshtml" />
+    <Content Include="Views\Authors\BrowseAllAuthors.cshtml" />
+    <Content Include="Views\Authors\BrowseSearchedAuthors.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

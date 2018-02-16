@@ -18,14 +18,6 @@
     </div>
 </div>
 
-<div class="text-center" id="pageSelector">
-    <div class="pagination">
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-        of @Model.PageCount
-        @Html.PagedListPager(Model, page => Url.Action("ListAuthors", new { page }))
-    </div>
-</div>
-
 @foreach (var item in Model)
 {
     <div class="row">
@@ -54,11 +46,3 @@
         <div class="col-sm-4"></div>
     </div>
 }
-
-<div class="text-center" id="pageSelector">
-    <div class="pagination">
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-        of @Model.PageCount
-        @Html.PagedListPager(Model, page => Url.Action("ListAuthors", new { page }))
-    </div>
-</div>
