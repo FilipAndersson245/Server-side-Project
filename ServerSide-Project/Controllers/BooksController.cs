@@ -32,7 +32,7 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
-        public ActionResult ListBooks(int? page)
+        public ActionResult getAllBooks(int? page)
         {
             int pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             var bookList = Book.getAllBooks(pageIndex, ITEMS_PER_PAGE);

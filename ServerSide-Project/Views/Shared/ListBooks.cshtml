@@ -15,7 +15,7 @@
     <div class="pagination">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
         of @Model.PageCount
-        @Html.PagedListPager(Model, page => Url.Action("ListBooks", new { page }))
+        @Html.PagedListPager(Model, page => Url.Action("getAllBooks", new { page }))
     </div>
 </div>
 
@@ -96,6 +96,6 @@
     <div class="pagination">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
         of @Model.PageCount 
-        @Html.PagedListPager(Model, page => Url.Action("ListBooks", new { page}))
+        @Html.PagedListPager(Model, page => Url.Action("getAllBooks", new { page}))
     </div>
 </div>

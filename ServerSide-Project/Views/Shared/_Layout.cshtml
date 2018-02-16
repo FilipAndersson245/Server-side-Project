@@ -23,7 +23,7 @@
                 </button>
                 <div class="col-sm-4">
                     <ul class="nav navbar-nav">
-                        <li class="@((ViewBag.activeBrowseBy == "Books"  )? "active" : null) " >@Html.ActionLink("Books", "ListBooks", "Books")</li>
+                        <li class="@((ViewBag.activeBrowseBy == "Books"  )? "active" : null) " >@Html.ActionLink("Books", "getAllBooks", "Books")</li>
                         <li class="@((ViewBag.activeBrowseBy == "Authors")? "active" : null) " >@Html.ActionLink("Authors", "ListAuthors", "Authors")</li>
                     </ul>
                 </div>
