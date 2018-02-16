@@ -12,6 +12,7 @@ namespace ServerSide_Project.Controllers
     public class AuthorsController : Controller
     {
         public const int ITEMS_PER_PAGE = 15;
+        public const int ITEMS_PER_AUTHOR_PAGE = 5;
 
         // GET: Authors
         public ActionResult Index()
@@ -48,9 +49,8 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult ListAuthorDetails(int id, int? bookPage)
         {
-            int bookItemsPerPage = 5;
             int bookPageIndex = bookPage.HasValue ? Convert.ToInt32(bookPage) : 1;
-            Author author = Author.getAuthorDetails(id, bookPageIndex, bookItemsPerPage);
+            Author author = Author.getAuthorDetails(id, bookPageIndex, ITEMS_PER_AUTHOR_PAGE);
             return View("ListAuthorDetails", author);
         }
 

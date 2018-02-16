@@ -45,7 +45,7 @@ namespace ServerSide_Project.Models
         public static Author getAuthorDetails(int id, int bookPage, int bookItemsPerPage)
         {
             Author author = Mapper.Map<AUTHOR, Author>(EAuthor.getAuthorDetailsFromDB(id));
-            author.BookList = EBook.getAllBooksFromDB(bookPage, bookItemsPerPage).ToMappedPagedList<BOOK, Book>();
+            author.BookList = EAuthor.getBooksByAuthor(id, bookPage, bookItemsPerPage).ToMappedPagedList<BOOK, Book>();
             Book.setupBooks(author.BookList);
             return author;
         }
