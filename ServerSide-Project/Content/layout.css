@@ -220,13 +220,13 @@ footer
 .nav-pills
 {
     font-size: 15px;
-    padding-left: 5%;
-    width: 60%
+    width: 80%;
 }
 
 .nav-pills a
 {
     color: white;
+    margin-left: 5%;
 }
 
 .nav-pills > li > a:hover, .nav-pills > li > a:focus
