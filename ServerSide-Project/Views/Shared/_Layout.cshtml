@@ -71,7 +71,7 @@
                     using (Html.BeginForm("SearchBooks", "Books", FormMethod.Get, new { @class = "form-inline" }))
                     {
                         <div class="form-group col-sm-10 input-lg col-sm-offset-2" id="searchBar">
-                            <input type="text" name="search" class="form-control" id="searchField" placeholder="Search for books, authors, genres...">
+                            <input type="text" name="search" class="form-control" id="searchField" placeholder="Search for books">
                             <button class="btn btn-default" type="submit" id="searchBtn">
                                 <i class="glyphicon glyphicon-search"></i>
                             </button>
@@ -83,7 +83,7 @@
                     using (Html.BeginForm("searchAuthors", "Authors", FormMethod.Get, new { @class = "form-inline" }))
                     {
                         <div class="form-group col-sm-10 input-lg col-sm-offset-2" id="searchBar">
-                            <input type="text" name="search" class="form-control" id="searchField" placeholder="Search for books, authors, genres...">
+                            <input type="text" name="search" class="form-control" id="searchField" placeholder="Search for authors">
                             <button class="btn btn-default" type="submit" id="searchBtn">
                                 <i class="glyphicon glyphicon-search"></i>
                             </button>

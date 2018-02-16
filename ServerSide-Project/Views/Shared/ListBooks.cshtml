@@ -37,7 +37,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-5" id="bookListAuthor">
-                    <p class="listHeadline">Author:</p>
+                    <p class="listHeadline">Authors:</p>
                 </div>
                 <div class="col-sm-2" id="bookListPublicationYear">
                     <p class="listHeadline">Published:</p>
@@ -55,7 +55,7 @@
                     {
                         @Html.ActionLink(Html.Encode(author.FirstName + " " + author.LastName), "ListAuthorDetails", "Authors", new { id = author.Aid }, null)
                         if (!@Model[i].Authors.Last().Equals(author))
-                        {<span>| </span>}
+                        {<span> | </span>}
                     }
                 </div>
                 <div class="col-sm-2" id="bookListPublicationYear">
