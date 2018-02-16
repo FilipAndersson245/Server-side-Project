@@ -23,5 +23,11 @@ namespace ServerSide_Project.Controllers
             classificationList = Classification.GetBooksByClassification(id);
             return View("ListBooks", classificationList);
         }
+
+
+        public ActionResult getClassification()
+        {
+            return PartialView("Classification", Classification.getAllClassifications());
+        }
     }
 }
