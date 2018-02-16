@@ -211,3 +211,25 @@ footer
     margin-bottom: 5%;
     margin-top:5%;
 }
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover
+{
+    background-color: #636363;
+}
+
+.nav-pills
+{
+    font-size: 15px;
+    padding-left: 5%;
+    width: 60%
+}
+
+.nav-pills a
+{
+    color: white;
+}
+
+.nav-pills > li > a:hover, .nav-pills > li > a:focus
+{
+    background-color: #969696;
+}

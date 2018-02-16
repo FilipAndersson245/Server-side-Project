@@ -21,21 +21,22 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <div class="col-sm-4">
-                    <ul class="nav navbar-nav">
-                        <li class="@((ViewBag.activeBrowseBy == "Books"  )? "active" : null) " >@Html.ActionLink("Books", "getAllBooks", "Books")</li>
-                        <li class="@((ViewBag.activeBrowseBy == "Authors")? "active" : null) " >@Html.ActionLink("Authors", "ListAuthors", "Authors")</li>
-                    </ul>
-                </div>
-                </div>
-                <div class="navbar-col-sm-4 col-sm-offset-5">
-                    @Html.ActionLink("Jönköping Library","Index","Home",null, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-col-sm-4">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>@Html.ActionLink("admin","AdminPanel","Admins",null,null)</li>
-                        <li><a href=@Url.Action("Login","Admins")><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    </ul>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <ul class="nav nav-pills nav-justified">
+                            <li class="@((ViewBag.activeBrowseBy == "Books"  )? "active" : null) ">@Html.ActionLink("Books", "getAllBooks", "Books")</li>
+                            <li class="@((ViewBag.activeBrowseBy == "Authors")? "active" : null) ">@Html.ActionLink("Authors", "ListAuthors", "Authors")</li>
+                        </ul>
+                    </div>
+                    <div class="navbar-col-sm-4 col-sm-offset-5">
+                        @Html.ActionLink("Jönköping Library","Index","Home",null, new { @class = "navbar-brand" })
+                    </div>
+                    <div class="navbar-col-sm-4">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>@Html.ActionLink("admin","AdminPanel","Admins",null,null)</li>
+                            <li><a href=@Url.Action("Login","Admins")><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -101,7 +102,7 @@
                     using (Html.BeginForm("SearchBooks", "Books", FormMethod.Get, new { @class = "form-inline" }))
                     {
                         <div class="form-group col-sm-10 input-lg col-sm-offset-2" id="searchBar">
-                            <input type="text" name="search" class="form-control" id="searchField" placeholder="Search for books, authors, genres...">
+                            <input type="text" name="search" class="form-control" id="searchField" placeholder="Search for books">
                             <button class="btn btn-default" type="submit" id="searchBtn">
                                 <i class="glyphicon glyphicon-search"></i>
                             </button>
@@ -113,7 +114,7 @@
                     using (Html.BeginForm("searchAuthors", "Authors", FormMethod.Get, new { @class = "form-inline" }))
                     {
                         <div class="form-group col-sm-10 input-lg col-sm-offset-2" id="searchBar">
-                            <input type="text" name="search" class="form-control" id="searchField" placeholder="Search for books, authors, genres...">
+                            <input type="text" name="search" class="form-control" id="searchField" placeholder="Search for authors">
                             <button class="btn btn-default" type="submit" id="searchBtn">
                                 <i class="glyphicon glyphicon-search"></i>
                             </button>
