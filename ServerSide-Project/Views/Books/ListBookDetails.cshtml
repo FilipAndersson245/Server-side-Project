@@ -4,48 +4,23 @@
     ViewBag.Title = "ListBookDetails";
 }
 
-<h2>ListBookDetails</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ISBN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PublicationYear)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.publicationinfo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Pages)
-        </th>
-        <th></th>
-    </tr>
+<div class="col-sm-6 col-sm-offset-2 align-center">
+    <h2>@Html.DisplayFor(modelItem => Model.Title)</h2>
+    <h5>
+        writen by:
+        @if(Model.Authors != null && Model.Authors.Any())
+        {
+            foreach (var author in Model.Authors)
+            {
+                @author.fullName;
+                Write("  ");
+            }
+        }
+        else
+        {
+            Write("Unknown");
+        }
 
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => Model.ISBN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => Model.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => Model.PublicationYear)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => Model.publicationinfo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => Model.Pages)
-        </td>
-        <td>
-        @*    @Html.ActionLink("Edit", "EditBook","Books", new { id=Model.ISBN }, null) |
-            @Html.ActionLink("Delete","DeleteBook", "Books", new {  id=Model.ISBN },null) *@
-        </td>
-    </tr>
-
-</table>
+    </h5>
+</div>

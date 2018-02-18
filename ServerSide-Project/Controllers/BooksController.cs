@@ -42,13 +42,14 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult ListBookDetails(string id)
         {
-            return View("ListBookDetails");
+            var a = Book.getBookFromIsbn(id);
+            return View("ListBookDetails", a);
         }
 
         [HttpGet]
         public ActionResult EditBook(string id)
         {
-            return View("EditBook"); // ret a book with ISBN equal to id
+            return View("EditBook",Book.getBookFromIsbn(id)); // ret a book with ISBN equal to id
         }
 
 
