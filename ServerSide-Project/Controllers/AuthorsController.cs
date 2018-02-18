@@ -28,7 +28,11 @@ namespace ServerSide_Project.Controllers
         [HttpPost]
         public ActionResult CreateAuthor(Author author)
         {
-            return RedirectToAction("ListAuthors", "Authors", null);
+            int aID = Author.CreateAuthor(author);
+            if ( aID != 0)
+                return RedirectToAction("ListAuthorDetails", "Authors", new { id = aID});
+            else
+                return RedirectToAction("BrowseAllAuthors", "Authors", null);
         }
 
         

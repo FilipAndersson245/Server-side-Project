@@ -27,6 +27,16 @@ namespace Repository.Support
             }
         }
 
+        public static int CreateAuthor(AUTHOR author) //Returns Aid if successfull, 0 if failed
+        {
+            using (var db = new dbGrupp3())
+            {
+                db.AUTHORs.Add(author);
+                db.SaveChanges();
+                return author.Aid;
+            }
+        }
+
         public static IPagedList<BOOK> getBooksByAuthor(int id, int page)
         {
             using (var db = new dbGrupp3())
