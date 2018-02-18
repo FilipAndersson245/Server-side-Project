@@ -47,7 +47,7 @@ namespace Repository.Support
             string classificationString = "";
             List<SqlParameter> classParameters = new List<SqlParameter>();
 
-            if (classification.Count() > 0)
+            if (classification!= null && classification.Count() > 0)
             {
                 var lastItem = classification.Last();
                 classificationString += " AND (";

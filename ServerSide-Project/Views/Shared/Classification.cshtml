@@ -17,13 +17,10 @@
                     @foreach (var classification in Model)
                     {
                         <li>
-                            @Html.CheckBox(classification.SignId.ToString(), new { value = classification.SignId })
-                            @Html.Label( classification.Signum)
+                            <input name=@classification.Signum type="checkbox" value=@classification.SignId.ToString() id=@classification.Signum>
+                            <label for=@classification.Signum>@classification.Signum</label>
                         </li> // Not working label yet
                     }
-                    @*<li> <input type="checkbox" />&nbsp;Fantasy <span>(20)</span></li>
-                    <li> <input type="checkbox" />&nbsp;Thriller <span>(13)</span></li>
-                    <li> <input type="checkbox" />&nbsp;Textbook <span>(7)</span></li>*@
                 </div>
             </div>
         </div>

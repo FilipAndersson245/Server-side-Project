@@ -160,6 +160,7 @@
     <Content Include="Views\Books\BrowseSearchedBooks.cshtml" />
     <Content Include="Views\Authors\BrowseAllAuthors.cshtml" />
     <Content Include="Views\Authors\BrowseSearchedAuthors.cshtml" />
+    <Content Include="Views\Shared\Classification.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

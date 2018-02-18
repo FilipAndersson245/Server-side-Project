@@ -73,10 +73,10 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
-        public ActionResult SearchBooks(int? page, string search)
+        public ActionResult SearchBooks(string search ,int? page, params int[] classifications)
         {
             int pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            return View("BrowseSearchedBooks", Book.SearchBooks(search, pageIndex, ITEMS_PER_PAGE));
+            return View("BrowseSearchedBooks", Book.SearchBooks(search, pageIndex, ITEMS_PER_PAGE, classifications));
         }
     }
 }
