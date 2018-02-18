@@ -41,11 +41,12 @@
     </nav>
 
     <div class="container-fluid text-center">
-        <div class="row content">
+        <div class="content">
             @* @{Html.RenderAction("getClassification", "Classification");} *@
-            <div class="col-sm-10 text-left">
+            <div class="row text-left">
                 @if (ViewBag.activeBrowseBy == "Books")
                 {
+
                     using (Html.BeginForm("SearchBooks", "Books", FormMethod.Get, new { @class = "form-inline" }))
                     {
                         Html.AntiForgeryToken();
@@ -56,23 +57,32 @@
                             </button>
                         </div>
                         Html.RenderAction("getClassification", "Classification");
+                        <div class="col-sm-8">
+                            @RenderBody()
+                        </div>
                     }
                 }
                 else if(ViewBag.activeBrowseBy == "Authors")
                 {
-                    using (Html.BeginForm("searchAuthors", "Authors", FormMethod.Get, new { @class = "form-inline" }))
-                    {
-                        <div class="form-group col-sm-10 input-lg col-sm-offset-2" id="searchBar">
-                            <input type="text" name="search" class="form-control" id="searchField" placeholder="Search for authors">
-                            <button class="btn btn-default" type="submit" id="searchBtn">
-                                <i class="glyphicon glyphicon-search"></i>
-                            </button>
+                        <div class="align-center">
+                            @using (Html.BeginForm("searchAuthors", "Authors", FormMethod.Get, new { @class = "form-inline" }))
+                            {
+                            <div class="form-group col-sm-9 input-lg col-sm-offset-2" id="searchBar">
+                                <input type="text" name="search" class="form-control" id="searchField" placeholder="Search for authors">
+                                <button class="btn btn-default" type="submit" id="searchBtn">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </div>
+                            }
+                            @RenderBody()
                         </div>
-                    }
+                }
+                else
+                {
+                    @RenderBody()
                 }
 
 
-                @RenderBody()
 
 
             </div>

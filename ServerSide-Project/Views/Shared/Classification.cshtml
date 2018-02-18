@@ -1,6 +1,6 @@
 ﻿@model List<ServerSide_Project.Models.Classification>
 
-<div class="col-sm-2 sidenav">
+<div class="col-sm-2 sidenav float-left align-top text-center">
     <div class="collapse-group">
         <h5>Advanced Filters</h5>
 
@@ -16,10 +16,10 @@
                 <div class="panel-body">
                     @foreach (var classification in Model)
                     {
-                        <li>
+                        <li class="text-left">
                             <input name=@classification.Signum type="checkbox" value=@classification.SignId.ToString() id=@classification.Signum>
                             <label for=@classification.Signum>@classification.Signum</label>
-                        </li> // Not working label yet
+                        </li> 
                     }
                 </div>
             </div>

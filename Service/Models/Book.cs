@@ -74,6 +74,13 @@ namespace ServerSide_Project.Models
             }
         }
 
+        public static Book getBookFromIsbn(string isbn)
+        {
+            var book = Mapper.Map<BOOK,Book>(EBook.getBookFromIsbn(isbn));
+            book.Authors = addAuthors(book);
+            return book;
+        }
+
         public static List<Author> addAuthors(Book book)
         {
             var authors = Mapper.Map<List<AUTHOR>, List<Author>>(EBook.GetAuthorsFromIsbn(book.ISBN)); //get all Authors

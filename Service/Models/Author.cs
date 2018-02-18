@@ -24,7 +24,7 @@ namespace ServerSide_Project.Models
         public string Aid { get; set; } //Primary Key
 
         [Required]
-        [StringLength(50,MinimumLength = 1)]
+        [StringLength(50, MinimumLength = 1)]
         public string FirstName { get; set; }
 
         [Required]
@@ -32,11 +32,18 @@ namespace ServerSide_Project.Models
         public string LastName { get; set; }
 
         [Required]
-        [Range(-2000,2200)]
+        [Range(-2000, 2200)]
         public int? BirthYear { get; set; }
 
         public IPagedList<Book> BookList { get; set; }
 
+        public string fullName
+        {
+            get
+            {
+                return this.LastName + " " + this.FirstName;
+            }
+        }
         public static int CreateAuthor(Author author) //Returns Aid if successfull, 0 if failed
         {
             return EAuthor.CreateAuthor(Mapper.Map<Author, AUTHOR>(author));
