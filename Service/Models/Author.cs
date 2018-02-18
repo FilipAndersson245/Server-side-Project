@@ -37,6 +37,11 @@ namespace ServerSide_Project.Models
 
         public IPagedList<Book> BookList { get; set; }
 
+        public static int CreateAuthor(Author author) //Returns Aid if successfull, 0 if failed
+        {
+            return EAuthor.CreateAuthor(Mapper.Map<Author, AUTHOR>(author));
+        }
+
         public static IPagedList<Author> getAllAuthors(int page, int itemsPerPage)
         {
             return EAuthor.getAllAuthorsFromDB(page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>();
