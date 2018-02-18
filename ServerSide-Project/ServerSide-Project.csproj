@@ -161,6 +161,7 @@
     <Content Include="Views\Authors\BrowseAllAuthors.cshtml" />
     <Content Include="Views\Authors\BrowseSearchedAuthors.cshtml" />
     <Content Include="Views\Shared\Classification.cshtml" />
+    <Content Include="Views\Authors\updateAuthor.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

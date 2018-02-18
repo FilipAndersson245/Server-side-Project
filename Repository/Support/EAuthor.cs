@@ -37,6 +37,27 @@ namespace Repository.Support
             }
         }
 
+        public static bool deleteAuthor(AUTHOR eauthor) //Returns true if amount of SaveChanges (int) is bigger than 1
+        {
+            using (var db = new dbGrupp3())
+            {
+                db.AUTHORs.Attach(eauthor);
+                db.AUTHORs.Remove(eauthor);
+                return Convert.ToBoolean(db.SaveChanges());
+            }
+        }
+
+        public static AUTHOR updateAuthor(AUTHOR eauthor) //Returns the updated author
+        {
+            using (var db = new dbGrupp3())
+            {
+                AUTHOR updatedAUTHOR = db.AUTHORs.Find(eauthor.Aid);
+                db.Entry(updatedAUTHOR).CurrentValues.SetValues(eauthor);
+                db.SaveChanges();
+                return updatedAUTHOR;
+            }
+        }
+
         public static IPagedList<BOOK> getBooksByAuthor(int id, int page)
         {
             using (var db = new dbGrupp3())

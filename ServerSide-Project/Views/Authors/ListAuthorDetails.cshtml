@@ -5,11 +5,8 @@
     ViewBag.activeBrowseBy = "Authors";
 }
 
-<h4>Author Details</h4>
+<h4 class="text-center">Author Details</h4>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <div class="row" id="authorDetails">
     <div class="col-sm-1"></div>
     <div class="col-sm-7">
@@ -30,10 +27,13 @@
             }
         </div>
     </div>
-    <div class="col-sm-3" id="authorOptions">
-        @Html.ActionLink("XX Edit", "Edit", new { id = Model.Aid }) |
-        @Html.ActionLink("XX Details", "Details", new { id = Model.Aid }) |
-        @Html.ActionLink("Delete", "DeleteAuthor", "Authors", new { id = Model.Aid }, null)
+    <div class="col-sm-3">
+        @Html.ActionLink("Edit", "updateAuthor", "Authors", Model, null) |
+        @using (Html.BeginForm("deleteAuthor", "Authors", Model, FormMethod.Post, new { @class = "form-group", @id = "authorDetailsOptions" }))
+        {
+            @Html.AntiForgeryToken()
+            <input type="submit" value="Delete" class="btn-link" />
+        }
     </div>
 </div>
 

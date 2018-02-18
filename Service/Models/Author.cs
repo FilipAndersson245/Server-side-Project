@@ -42,6 +42,18 @@ namespace ServerSide_Project.Models
             return EAuthor.CreateAuthor(Mapper.Map<Author, AUTHOR>(author));
         }
 
+        public static Author updateAuthor(Author author)
+        {
+            AUTHOR eauthor = EAuthor.updateAuthor(Mapper.Map<Author, AUTHOR>(author));
+            Author updatedAuthor = Mapper.Map<AUTHOR, Author>(eauthor);
+            return updatedAuthor;
+        }
+
+        public static bool deleteAuthor(Author author)
+        {
+            return EAuthor.deleteAuthor(Mapper.Map<Author, AUTHOR>(author));
+        }
+
         public static IPagedList<Author> getAllAuthors(int page, int itemsPerPage)
         {
             return EAuthor.getAllAuthorsFromDB(page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>();

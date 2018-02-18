@@ -35,10 +35,27 @@ namespace ServerSide_Project.Controllers
                 return RedirectToAction("BrowseAllAuthors", "Authors", null);
         }
 
-        
-        public ActionResult DeleteAuthor(string id)
+        [HttpGet]
+        public ActionResult updateAuthor(Author author)
         {
-            return RedirectToAction("ListAuthors", "Authors", null);
+            return View("updateAuthor", author);
+        }
+
+        [HttpPost]
+        [ActionName("updateAuthor")]
+        public ActionResult updateAuthorPost(Author author)
+        {
+            Author editedAuthor = Author.updateAuthor(author);
+            return RedirectToAction("ListAuthorDetails", "Authors", new { id = editedAuthor.Aid });
+        }
+        
+        [HttpPost]
+        public ActionResult deleteAuthor(Author author)
+        {
+            if (Author.deleteAuthor(author))
+                return RedirectToAction("BrowseAllAuthors", "Authors", null);
+            else
+                return RedirectToAction("BrowseAllAuthors", "Authors", null);
         }
 
         [HttpGet]

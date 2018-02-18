@@ -22,7 +22,7 @@
 {
     <div class="row">
         <div class="col-sm-2"></div>
-        <div class="col-sm-6">
+        <div class="col-sm-8">
             <div class="row" id="authorListItem">
                 <div class="col-sm-3" id="authorListName">
                     @Html.ActionLink(Html.Encode(item.FirstName + " " + item.LastName), "ListAuthorDetails", "Authors", new { id = item.Aid }, null)
@@ -36,13 +36,16 @@
                         else{ @Html.Encode(item.BirthYear); }
                     </div>
                 </div>
-                <div class="col-sm-3" id="authorOptions">
-                    @Html.ActionLink("XX Edit", "Edit", new { id = item.Aid }) |
-                    @Html.ActionLink("XX Details", "Details", new { id = item.Aid }) |
-                    @Html.ActionLink("Delete", "DeleteAuthor", "Authors", new { id = item.Aid }, null)
+                <div class="col-sm-3">
+                    @Html.ActionLink("Edit", "updateAuthor", "Authors", item, null) | 
+                    @using (Html.BeginForm("deleteAuthor", "Authors", item, FormMethod.Post, new { @class = "form-group", @id = "authorListOptions" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="submit" value="Delete" class="btn-link" />
+                    }
                 </div>
             </div>
         </div>
-        <div class="col-sm-4"></div>
+        <div class="col-sm-2"></div>
     </div>
 }
