@@ -113,6 +113,9 @@
     <Content Include="Resources\Biography.png" />
     <Content Include="Resources\Children.png" />
     <Content Include="Resources\Culture.png" />
+    <Content Include="Resources\Education 3.png" />
+    <Content Include="Resources\Education 4.png" />
+    <Content Include="Resources\Education 5.png" />
     <Content Include="Resources\Education.png" />
     <Content Include="Resources\Education2.png" />
     <Content Include="Resources\Fantasy.png" />
