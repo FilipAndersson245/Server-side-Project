@@ -1,4 +1,4 @@
-﻿@model ServerSide_Project.Models.Author
+﻿@model List<ServerSide_Project.Models.Author>
 
 @{
     ViewBag.Title = "Author Details";
@@ -10,26 +10,26 @@
 <div class="row" id="authorDetails">
     <div class="col-sm-1"></div>
     <div class="col-sm-7">
-        <h1>@Model.FirstName @Model.LastName</h1>
+        <h1>@Model.First().FirstName @Model.First().LastName</h1>
     </div>
     <div class="col-sm-1">
         <div class="row">
             <p class="listHeadline">Year of Birth:</p>
         </div>
         <div class="row">
-            @if (Model.BirthYear == null)
+            @if (Model.First().BirthYear == null)
             {
                 <span>Unknown</span>
             }
             else
             {
-                @Html.Encode(Model.BirthYear);
+                @Html.Encode(Model.First().BirthYear);
             }
         </div>
     </div>
     <div class="col-sm-3">
-        @Html.ActionLink("Edit", "updateAuthor", "Authors", Model, null) |
-        @using (Html.BeginForm("deleteAuthor", "Authors", Model, FormMethod.Post, new { @class = "form-group", @id = "authorDetailsOptions" }))
+        @Html.ActionLink("Edit", "updateAuthor", "Authors", Model.First(), null) |
+        @using (Html.BeginForm("deleteAuthor", "Authors", Model.First(), FormMethod.Post, new { @class = "form-group", @id = "authorDetailsOptions" }))
         {
             @Html.AntiForgeryToken()
             <input type="submit" value="Delete" class="btn-link" />
@@ -40,5 +40,8 @@
 
 
 <h4 class="text-center">Books by this author:</h4>
-
-@Html.Partial("ListBooks", Model.BookList)
+<div class="col-sm-2"></div>
+<div class="col-sm-8">
+    @Html.Partial("ListBooks", Model.First().BookList)
+</div>
+<div class="col-sm-2"></div>

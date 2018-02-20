@@ -71,7 +71,9 @@ namespace ServerSide_Project.Controllers
         {
             int bookPageIndex = bookPage.HasValue ? Convert.ToInt32(bookPage) : 1;
             Author author = Author.getAuthorDetails(id, bookPageIndex);
-            return View("ListAuthorDetails", author);
+            List<Author> authorHack = new List<Author>(); //Temporary solution to view problem
+            authorHack.Add(author);
+            return View("ListAuthorDetails", authorHack);
         }
 
         [HttpGet]

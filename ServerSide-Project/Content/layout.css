@@ -54,6 +54,22 @@ footer
     height:auto;
 }
 
+a, a:link, a:visited, .btn-link, .btn-link:link, .btn-link:visited
+{
+    color: #5b0000;
+}
+
+
+a:hover, a:active, .btn-link:hover, .btn-link:active
+{
+    color: #000000;
+}
+
+.page
+{
+    background-color: #e4e4e4;
+}
+
 #dropdownbtn
 {
     border-color: #ffffff; 
@@ -121,21 +137,13 @@ footer
 
 #bookListItem
 {
-    margin-bottom: 20px;
-    margin-top: 20px;
-    border-bottom: 1px solid #f1f1f1;
-    border-top: 1px solid #f1f1f1;
-}
-
-#bookListImage
-{
-    padding-bottom: 80px;
-    padding-top: 80px;
-    background-color: #ff0000;
-    color: #f1f1f1;
-    margin-bottom: 10px;
-    height: 100%;
-    width: 80%;
+    margin-bottom: 1%;
+    margin-top: 1%;
+    padding-bottom: 2%;
+    padding-top: 2%;
+    border: 1px solid #f1f1f1;
+    background-color: #c7c7c7;
+    border-radius: 5px;
 }
 
 #bookListTitle
@@ -244,4 +252,26 @@ footer
 #authorListOptions, #authorDetailsOptions
 {
     display: inline;
+}
+
+#bookListOuter
+{
+    background-color: #e4e4e4;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 2%;
+    padding-top: 2%;
+    border-radius: 5px;
+}
+
+#classificationOuter
+{
+    border-radius: 5px;
+    background-color: #e4e4e4;
+}
+
+#classificationPanel, #headingOne
+{
+    background-color: #c7c7c7;
+    border-radius: 5px;
 }

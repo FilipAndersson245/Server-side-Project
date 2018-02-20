@@ -8,71 +8,75 @@
     @Html.ActionLink("Create New Book", "CreateBook", "Create")
 </p>
 
-@for (int i = 0; i < Model.Count; i++)
-{
-    <div class="row" id="bookListItem">
-        <div class="col-sm-2">
-            <div class="col-sm-12 text-center" id="bookListImage">
-                image goes here
-            </div>
-            <div class="col-sm-12 text-center" id="bookListGenre">
-            </div>
-        </div>
-        <div class="col-sm-9">
-            <div class="row">
-                <div class="col-sm-9" id="bookListTitle">
-                    @Html.ActionLink(Html.Encode(@Model[i].Title), "ListBookDetails", "Books", new { id = @Model[i].ISBN }, null)
-                </div>
-                <div class="col-sm-3" id="bookListAdminPane">
-                    @Html.ActionLink("Edit", "EditBook", "Books", new { id = @Model[i].ISBN }, new { @class = "" }) |
-                    @Html.ActionLink("Details", "ListBookDetails", "Books", new { id = @Model[i].ISBN }, new { @class = "" }) |
-                    @Html.ActionLink("Delete", "DeleteBook", "Books", new { id = @Model[i].ISBN }, new { @class = "" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-5" id="bookListAuthor">
-                    <p class="listHeadline">Authors:</p>
-                </div>
-                <div class="col-sm-2" id="bookListPublicationYear">
-                    <p class="listHeadline">Published:</p>
-                </div>
-                <div class="col-sm-3" id="bookListISBN">
-                    <p class="listHeadline">ISBN:</p>
-                </div>
-                <div class="col-sm-2" id="bookListPages">
-                    <p class="listHeadline">Pages:</p>
-                </div>
-            </div>
-            <div class="row" id="bookListInfoRow">
-                <div class="col-sm-5" id="bookListAuthor">
-                    @foreach (var author in @Model[i].Authors)
-                    {
-                        @Html.ActionLink(Html.Encode(author.FirstName + " " + author.LastName), "ListAuthorDetails", "Authors", new { id = author.Aid }, null)
-                        if (!@Model[i].Authors.Last().Equals(author))
-                        {<span> | </span>}
-                    }
-                </div>
-                <div class="col-sm-2" id="bookListPublicationYear">
-                    @Model[i].PublicationYear
-                </div>
-                <div class="col-sm-3" id="bookListISBN">
-                    @Model[i].ISBN
-                </div>
-                <div class="col-sm-2" id="bookListPages">
-                    @Model[i].Pages
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <p class="listHeadline">Description:</p>
-                </div>
-            </div>
-            <div class="row" id="bookListDescription">
-                <div class="col-sm-12">
-                    @Model[i].shortDescription
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="row" id="bookListOuter">
 
-}
+    @for (int i = 0; i < Model.Count; i++)
+    {
+
+        <div class="row" id="bookListItem">
+            <div class="col-sm-2">
+                <div class="col-sm-12 text-center" id="bookListImage">
+                    <img src="~/Resources/Education2.png" width="100%" height="100%" />
+                </div>
+                <div class="col-sm-12 text-center" id="bookListGenre">
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="row">
+                    <div class="col-sm-9" id="bookListTitle">
+                        @Html.ActionLink(Html.Encode(@Model[i].Title), "ListBookDetails", "Books", new { id = @Model[i].ISBN }, null)
+                    </div>
+                    <div class="col-sm-3" id="bookListAdminPane">
+                        @Html.ActionLink("Edit", "EditBook", "Books", new { id = @Model[i].ISBN }, new { @class = "" }) |
+                        @Html.ActionLink("Delete", "DeleteBook", "Books", new { id = @Model[i].ISBN }, new { @class = "" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5" id="bookListAuthor">
+                        <p class="listHeadline">Authors:</p>
+                    </div>
+                    <div class="col-sm-2" id="bookListPublicationYear">
+                        <p class="listHeadline">Published:</p>
+                    </div>
+                    <div class="col-sm-3" id="bookListISBN">
+                        <p class="listHeadline">ISBN:</p>
+                    </div>
+                    <div class="col-sm-2" id="bookListPages">
+                        <p class="listHeadline">Pages:</p>
+                    </div>
+                </div>
+                <div class="row" id="bookListInfoRow">
+                    <div class="col-sm-5" id="bookListAuthor">
+                        @foreach (var author in @Model[i].Authors)
+                        {
+                            @Html.ActionLink(Html.Encode(author.FirstName + " " + author.LastName), "ListAuthorDetails", "Authors", new { id = author.Aid }, null)
+                            if (!@Model[i].Authors.Last().Equals(author))
+                            {<span> | </span>}
+                        }
+                    </div>
+                    <div class="col-sm-2" id="bookListPublicationYear">
+                        @Model[i].PublicationYear
+                    </div>
+                    <div class="col-sm-3" id="bookListISBN">
+                        @Model[i].ISBN
+                    </div>
+                    <div class="col-sm-2" id="bookListPages">
+                        @Model[i].Pages
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p class="listHeadline">Description:</p>
+                    </div>
+                </div>
+                <div class="row" id="bookListDescription">
+                    <div class="col-sm-12">
+                        @Model[i].shortDescription
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+
+</div>
