@@ -23,7 +23,7 @@ namespace ServerSide_Project.Models
         //[DisplayName("ISBN")]
         [Required(ErrorMessage = "ISBN Required")]
         [Key]
-        [StringLength(11, MinimumLength = 11,ErrorMessage ="Must Be 11 char long")] 
+        [StringLength(10, MinimumLength = 10,ErrorMessage ="Must Be 10 characters long.")] 
         public string ISBN { get; set; } //PRIMARY KEY
          
         [Required(ErrorMessage = "Must have a title")]
@@ -32,18 +32,15 @@ namespace ServerSide_Project.Models
         [Required(ErrorMessage = "Must have a publication year")]
         public int PublicationYear { get; set; }
 
-        [MaxLength(500,ErrorMessage ="Description too long")]
+        [MaxLength(500,ErrorMessage ="Description is too long")]
         public string publicationinfo { get; set; }
 
         [Required]
-        [Range(1,15000, ErrorMessage = "Not valid page number")]
+        [Range(1,15000, ErrorMessage = "Not a valid page number")]
         public short Pages { get; set; }
 
-        [Required]
-        [MaxLength(20, ErrorMessage ="Name too long!")]
         public List<Author> Authors{ get; set; }
 
-        [Required]
         public Classification BookClassification { get; set; }
 
 
@@ -115,6 +112,16 @@ namespace ServerSide_Project.Models
             var bookList = EBook.GetBookSearchResultat(search, page, itemsPerPage, classifications).ToMappedPagedList<BOOK, Book>();
             setupBooks(bookList);
             return bookList;
+        }
+
+        public static Book createBook(Book book)
+        {
+            return Mapper.Map<BOOK, Book>(EBook.createBook(Mapper.Map<Book, BOOK>(book)));
+        }
+
+        public static bool deleteBook(string isbn)
+        {
+            return EBook.deleteBook(Mapper.Map<Book, BOOK>(getBookFromIsbn(isbn)));
         }
 
     }

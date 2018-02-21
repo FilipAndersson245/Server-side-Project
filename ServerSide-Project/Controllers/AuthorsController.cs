@@ -38,8 +38,7 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult updateAuthor(int id)
         {
-            Author author = Author.getAuthorFromID(id);
-            return View("updateAuthor", author);
+            return View("updateAuthor", Author.getAuthorFromID(id));
         }
 
         [HttpPost]

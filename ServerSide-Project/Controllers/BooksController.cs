@@ -25,10 +25,10 @@ namespace ServerSide_Project.Controllers
         {
             if (ModelState.IsValid)
             {
-                //valid book!
+                return View("ListBookDetails", Book.createBook(book));
             }
-            book.BookClassification = new Classification { Signum = "TestGenre" };
-            return RedirectToAction("ListBooks", "Books", null); //maybe to the created book instead of list
+            else
+                return RedirectToAction("BrowseAllBooks", "Books", null);
         }
 
         [HttpGet]
@@ -64,13 +64,16 @@ namespace ServerSide_Project.Controllers
             
             string oldISBN = (string)TempData["ISBN"];
 
-            return RedirectToAction("ListBooks", "Books");
+            return RedirectToAction("BrowseAllBooks", "Books");
         }
 
-        [HttpGet]
-        public ActionResult DeleteBook(string id)
+        [HttpPost]
+        public ActionResult deleteBook(string id)
         {
-            return RedirectToAction("ListBooks", "Books", null);
+            if (Book.deleteBook(id))
+                return RedirectToAction("BrowseAllBooks", "Books", null);
+            else
+                return RedirectToAction("BrowseAllBooks", "Books", null);
         }
 
         [HttpGet]

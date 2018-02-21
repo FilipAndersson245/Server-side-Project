@@ -5,7 +5,7 @@
 } 
 
 <p>
-    @Html.ActionLink("Create New Book", "CreateBook", "Create")
+    @Html.ActionLink("Create New Book", "CreateBook", "Books")
 </p>
 
 <div class="row" id="bookListOuter">
@@ -28,7 +28,11 @@
                     </div>
                     <div class="col-sm-3" id="bookListAdminPane">
                         @Html.ActionLink("Edit", "EditBook", "Books", new { id = @Model[i].ISBN }, new { @class = "" }) |
-                        @Html.ActionLink("Delete", "DeleteBook", "Books", new { id = @Model[i].ISBN }, new { @class = "" })
+                        @using (Html.BeginForm("deleteBook", "Books", new { id = @Model[i].ISBN }, FormMethod.Post, new { @class = "form-group" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="submit" value="Delete" class="btn-link" />
+                        }
                     </div>
                 </div>
                 <div class="row">
@@ -47,11 +51,18 @@
                 </div>
                 <div class="row" id="bookListInfoRow">
                     <div class="col-sm-5" id="bookListAuthor">
-                        @foreach (var author in @Model[i].Authors)
+                        @if (Model[i].Authors[0].FirstName != "No Author")
                         {
-                            @Html.ActionLink(Html.Encode(author.FirstName + " " + author.LastName), "ListAuthorDetails", "Authors", new { id = author.Aid }, null)
-                            if (!@Model[i].Authors.Last().Equals(author))
-                            {<span> | </span>}
+                            foreach (var author in @Model[i].Authors)
+                            {
+                                @Html.ActionLink(Html.Encode(author.FirstName + " " + author.LastName), "ListAuthorDetails", "Authors", new { id = author.Aid }, null)
+                                if (!@Model[i].Authors.Last().Equals(author))
+                                {<span> | </span>}
+                            }
+                        }
+                        else
+                        {
+                            @Html.Encode("No Author Available");
                         }
                     </div>
                     <div class="col-sm-2" id="bookListPublicationYear">

@@ -29,6 +29,26 @@ namespace Repository.Support
             }
         }
 
+        public static BOOK createBook(BOOK book)
+        {
+            using (var db = new dbGrupp3())
+            {
+                db.BOOKs.Add(book);
+                db.SaveChanges();
+                return book;
+            }
+        }
+
+        public static bool deleteBook(BOOK ebook)
+        {
+            using (var db = new dbGrupp3())
+            {
+                var book = db.BOOKs.Include(a => a.AUTHORs).FirstOrDefault(a => a.ISBN == ebook.ISBN);
+                book.AUTHORs.Clear();
+                db.SaveChanges();
+                return true;
+            }
+        }
 
         public static List<AUTHOR> GetAuthorsFromIsbn(string isbn)
         {
