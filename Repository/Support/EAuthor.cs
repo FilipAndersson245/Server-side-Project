@@ -43,7 +43,8 @@ namespace Repository.Support
             {
                 db.AUTHORs.Attach(eauthor);
                 db.AUTHORs.Remove(eauthor);
-                return Convert.ToBoolean(db.SaveChanges());
+                db.SaveChanges();
+                return true;
             }
         }
 

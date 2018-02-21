@@ -18,26 +18,30 @@
     </div>
 </div>
 
-@foreach (var item in Model)
-{
-    <div class="row">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-8">
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8" id="authorListOuter">
+        @foreach (var item in Model)
+        {
+
             <div class="row" id="authorListItem">
                 <div class="col-sm-3" id="authorListName">
                     @Html.ActionLink(Html.Encode(item.FirstName + " " + item.LastName), "ListAuthorDetails", "Authors", new { id = item.Aid }, null)
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-3 text-right">
                     <div class="row">
                         <p class="listHeadline">Year of Birth:</p>
                     </div>
                     <div class="row">
-                        @if (item.BirthYear == null){<span>Unknown</span>}
-                        else{ @Html.Encode(item.BirthYear); }
+                        @if (item.BirthYear == null)
+                        {<span>Unknown</span>}
+                        else
+                        { @Html.Encode(item.BirthYear);
+                        }
                     </div>
                 </div>
-                <div class="col-sm-3">
-                    @Html.ActionLink("Edit", "updateAuthor", "Authors", item, null) | 
+                <div class="col-sm-2 text-right">
+                    @Html.ActionLink("Edit", "updateAuthor", "Authors", item, null) |
                     @using (Html.BeginForm("deleteAuthor", "Authors", item, FormMethod.Post, new { @class = "form-group", @id = "authorListOptions" }))
                     {
                         @Html.AntiForgeryToken()
@@ -45,7 +49,8 @@
                     }
                 </div>
             </div>
-        </div>
-        <div class="col-sm-2"></div>
+
+        }
     </div>
-}
+    <div class="col-sm-2"></div>
+</div>
