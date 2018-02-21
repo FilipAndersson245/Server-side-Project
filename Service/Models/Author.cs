@@ -79,5 +79,11 @@ namespace ServerSide_Project.Models
             return EAuthor.getAuthorsFromSearchResult(search, page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>(); ;
         }
 
+        public static Author getAuthorFromID(int id)
+        {
+            Author author = Mapper.Map<AUTHOR, Author>(EAuthor.getAuthorFromDB(id));
+            return author;
+        }
+
     }
 }
