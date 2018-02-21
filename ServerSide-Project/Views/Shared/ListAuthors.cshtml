@@ -25,10 +25,13 @@
         {
 
             <div class="row" id="authorListItem">
+                <div class="col-sm-1" id="authorImage">
+                    <img src="~/Resources/Author.png" width="80%" height="80%" class="text-center" />
+                </div>
                 <div class="col-sm-3" id="authorListName">
                     @Html.ActionLink(Html.Encode(item.FirstName + " " + item.LastName), "ListAuthorDetails", "Authors", new { id = item.Aid }, null)
                 </div>
-                <div class="col-sm-3 text-right">
+                <div class="col-sm-2 text-right">
                     <div class="row">
                         <p class="listHeadline">Year of Birth:</p>
                     </div>

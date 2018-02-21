@@ -15,18 +15,14 @@
 
         <div class="row" id="bookListItem">
             <div class="col-sm-2">
-                <div class="col-sm-12 text-center" id="bookListImage">
-                    <img src="~/Resources/Education 5.png" width="80%" height="80%" />
-                </div>
-                <div class="col-sm-12 text-center" id="bookListGenre">
-                </div>
+                <img src="~/Resources/Sports.png" width="70%" height="70%" class="text-center" />
             </div>
             <div class="col-sm-9">
                 <div class="row">
-                    <div class="col-sm-9" id="bookListTitle">
+                    <div class="col-sm-10" id="bookListTitle">
                         @Html.ActionLink(Html.Encode(@Model[i].Title), "ListBookDetails", "Books", new { id = @Model[i].ISBN }, null)
                     </div>
-                    <div class="col-sm-3" id="bookListAdminPane">
+                    <div class="col-sm-2 text-right" id="bookListAdminPane">
                         @Html.ActionLink("Edit", "EditBook", "Books", new { id = @Model[i].ISBN }, new { @class = "" }) |
                         @using (Html.BeginForm("deleteBook", "Books", new { id = @Model[i].ISBN }, FormMethod.Post, new { @class = "form-group" }))
                         {

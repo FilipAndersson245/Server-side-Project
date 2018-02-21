@@ -110,14 +110,11 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Resources\Author.png" />
     <Content Include="Resources\Biography.png" />
     <Content Include="Resources\Children.png" />
     <Content Include="Resources\Culture.png" />
-    <Content Include="Resources\Education 3.png" />
-    <Content Include="Resources\Education 4.png" />
-    <Content Include="Resources\Education 5.png" />
     <Content Include="Resources\Education.png" />
-    <Content Include="Resources\Education2.png" />
     <Content Include="Resources\Fantasy.png" />
     <Content Include="Resources\Food.png" />
     <Content Include="Resources\Generic.png" />
