@@ -36,8 +36,9 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
-        public ActionResult updateAuthor(Author author)
+        public ActionResult updateAuthor(int id)
         {
+            Author author = Author.getAuthorFromID(id);
             return View("updateAuthor", author);
         }
 
@@ -50,9 +51,9 @@ namespace ServerSide_Project.Controllers
         }
         
         [HttpPost]
-        public ActionResult deleteAuthor(Author author)
+        public ActionResult deleteAuthor(int id)
         {
-            if (Author.deleteAuthor(author))
+            if (Author.deleteAuthor(Author.getAuthorFromID(id)))
                 return RedirectToAction("BrowseAllAuthors", "Authors", null);
             else
                 return RedirectToAction("BrowseAllAuthors", "Authors", null);
@@ -71,9 +72,7 @@ namespace ServerSide_Project.Controllers
         {
             int bookPageIndex = bookPage.HasValue ? Convert.ToInt32(bookPage) : 1;
             Author author = Author.getAuthorDetails(id, bookPageIndex);
-            List<Author> authorHack = new List<Author>(); //Temporary solution to view problem
-            authorHack.Add(author);
-            return View("ListAuthorDetails", authorHack);
+            return View("ListAuthorDetails", author);
         }
 
         [HttpGet]

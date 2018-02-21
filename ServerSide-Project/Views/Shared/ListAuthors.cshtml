@@ -41,8 +41,8 @@
                     </div>
                 </div>
                 <div class="col-sm-2 text-right">
-                    @Html.ActionLink("Edit", "updateAuthor", "Authors", item, null) |
-                    @using (Html.BeginForm("deleteAuthor", "Authors", item, FormMethod.Post, new { @class = "form-group", @id = "authorListOptions" }))
+                    @Html.ActionLink("Edit", "updateAuthor", "Authors", new { id = item.Aid }, null) |
+                    @using (Html.BeginForm("deleteAuthor", "Authors", new { id = item.Aid }, FormMethod.Post, new { @class = "form-group", @id = "authorListOptions" }))
                     {
                         @Html.AntiForgeryToken()
                         <input type="submit" value="Delete" class="btn-link" />

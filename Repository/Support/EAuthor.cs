@@ -41,8 +41,9 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                db.AUTHORs.Attach(eauthor);
-                db.AUTHORs.Remove(eauthor);
+                var author = db.AUTHORs.Include(a => a.BOOKs).FirstOrDefault(a => a.Aid == eauthor.Aid);
+                author.BOOKs.Clear();
+                db.AUTHORs.Remove(author);
                 db.SaveChanges();
                 return true;
             }
@@ -82,6 +83,14 @@ namespace Repository.Support
                                                       OR AUTHOR.LastName LIKE @SEARCH
                                                       OR AUTHOR.FirstName + ' ' + AUTHOR.LastName LIKE @SEARCH",
                                                new SqlParameter("@SEARCH", "%" + search + "%")).ToList().ToPagedList(page, itemsPerPage);
+            }
+        }
+
+        public static AUTHOR getAuthorFromDB(int id)
+        {
+            using (var db = new dbGrupp3())
+            {
+                return db.AUTHORs.Find(id);
             }
         }
 
