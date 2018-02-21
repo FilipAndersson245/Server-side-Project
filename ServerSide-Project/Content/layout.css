@@ -276,3 +276,12 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
     background-color: #c7c7c7;
     border-radius: 5px;
 }
+
+.Home-jumbo
+{
+    background : url(https://www.luc.edu/media/lucedu/studyabroad/jonkoping.jpg) no-repeat center center;
+    opacity: 0.85;
+    border-radius: 1.5%;
+    color : white;
+    text-shadow: 1px 1px 1px #000000;
+}
