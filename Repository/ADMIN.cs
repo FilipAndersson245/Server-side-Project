@@ -22,5 +22,7 @@ namespace Repository
         public string PasswordHash { get; set; }
 
         public int PermissionLevel { get; set; }
+
+
     }
 }

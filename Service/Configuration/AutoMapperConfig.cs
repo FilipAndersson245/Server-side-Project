@@ -18,10 +18,14 @@ namespace Service.Configuration
                 cfg.AddProfile(new ToAuthorProfile());
                 cfg.AddProfile(new ToBookProfile());
                 cfg.AddProfile(new ToClassificationProfile());
+                cfg.AddProfile(new ToAdminProfile());
 
                 cfg.AddProfile(new FromAuthorProfile());
                 cfg.AddProfile(new FromBookProfile());
                 cfg.AddProfile(new FromClassificationProfile());
+                cfg.AddProfile(new FromAdminProfile());
+
+
             });
     }
 
@@ -71,6 +75,22 @@ namespace Service.Configuration
         public FromClassificationProfile()
         {
             CreateMap<Classification, CLASSIFICATION>();
+        }
+    }
+
+    public class ToAdminProfile : Profile
+    {
+        public ToAdminProfile()
+        {
+            CreateMap<ADMIN, Admin>();
+        }
+    }
+
+    public class FromAdminProfile : Profile
+    {
+        public FromAdminProfile()
+        {
+            CreateMap<Admin, ADMIN>();
         }
     }
 }
