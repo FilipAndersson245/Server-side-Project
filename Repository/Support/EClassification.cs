@@ -66,12 +66,16 @@ namespace Repository.Support
                 return true;
             }
         }
+
+        public static bool editClassification(CLASSIFICATION eClassification)
+        {
+            using (var db = new dbGrupp3())
+            {
+                CLASSIFICATION classification = db.CLASSIFICATIONs.Find(eClassification.SignId);
+                db.Entry(classification).CurrentValues.SetValues(eClassification);
+                db.SaveChanges();
+                return true;
+            }
+        }
     }
 }
-
-/*
-var classification = db.CLASSIFICATIONs.Include(a => a.BOOKs).FirstOrDefault(a => a.SignId == eClassification.SignId);
-                classification.BOOKs.Clear();
-                db.CLASSIFICATIONs.Remove(classification);
-                db.SaveChanges;
-                */
