@@ -26,20 +26,12 @@ namespace ServerSide_Project.Controllers
         [HttpPost]
         public ActionResult CreateAdmin(Admin admin)
         {
-            //byte[] bytes = Encoding.Unicode.GetBytes(admin.Password);
-
-            //const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            //var rand = new Random();
-            //var salt = new string(Enumerable.Repeat(chars, 10).Select(s => s[rand.Next(s.Length)]).ToArray());
-
-            //byte[] src = Encoding.Unicode.GetBytes(salt);
-            //byte[] dst = new byte[src.Length + bytes.Length];
-            //System.Buffer.BlockCopy(src, 0, dst, 0, src.Length);
-            //System.Buffer.BlockCopy(bytes, 0, dst, src.Length, bytes.Length);
-            //HashAlgorithm algorithm = HashAlgorithm.Create("SHA512");
-            //byte[] inArray = algorithm.ComputeHash(dst);
-            ////return Convert.ToBase64String(inArray);    
-            ////return EncodePasswordMd5(Convert.ToBase64String(inArray));
+            using (var deriveBytes = new Rfc2898DeriveBytes(admin.Password, 20))
+            {
+                byte[] salt = deriveBytes.Salt;
+                byte[] key = deriveBytes.GetBytes(20);  // derive a 20-byte key
+                // save salt and key to database
+            }
 
             return RedirectToAction("AdminPanel", "Admins", null);
         }
@@ -59,10 +51,15 @@ namespace ServerSide_Project.Controllers
         [HttpPost]
         public ActionResult Login(Admin admin)
         {
-            //Roles.AddUserToRole(admin.Username, "admin");
-            //if(Admin.IsInRole("admin"))
+            byte[] salt, key;
+            // load salt and key from database
+
+            //using (var deriveBytes = new Rfc2898DeriveBytes(admin.Password, salt))
             //{
-            //    var x = 5;
+            //    byte[] newKey = deriveBytes.GetBytes(20);  // derive a 20-byte key
+
+            //    if (!newKey.SequenceEqual(key))
+            //        throw new InvalidOperationException("Password is invalid!");
             //}
 
             return RedirectToAction("Index", "Home"); //change maybe
