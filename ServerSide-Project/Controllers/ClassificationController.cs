@@ -24,6 +24,22 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
+        public ActionResult editClassification(int id)
+        {
+            return View("EditClassification", Classification.getClassificationFromID(id));
+        }
+
+        [HttpPost]
+        [ActionName("editClassification")]
+        public ActionResult editClassificationPost(Classification classification)
+        {
+            if(Classification.editClassification(classification))
+                return RedirectToAction("BrowseAllBooks", "Books", null);
+            else
+                return RedirectToAction("BrowseAllBooks", "Books", null);
+        }
+
+        [HttpGet]
         public ActionResult CreateClassification()
         {
             return View("CreateClassification");

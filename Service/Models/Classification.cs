@@ -55,5 +55,9 @@ namespace ServerSide_Project.Models
             return Mapper.Map<List<CLASSIFICATION>, List<Classification>>(EClassification.GetAllClassifications());
         }
 
+        public static bool editClassification(Classification classification)
+        {
+            return EClassification.editClassification(Mapper.Map<Classification, CLASSIFICATION>(classification));
+        }
     }
 }

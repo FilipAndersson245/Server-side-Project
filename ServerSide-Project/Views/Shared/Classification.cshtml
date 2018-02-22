@@ -28,7 +28,7 @@
                                 </li>
                             </div>
                             <div class="col-sm-10 text-right">
-                                @Html.ActionLink("Edit", "updateClassification", "Classification", new { id = classification.SignId }, null) |
+                                @Html.ActionLink("Edit", "editClassification", "Classification", new { id = classification.SignId }, null) |
                                 @using (Html.BeginForm("deleteClassification", "Classification", new { id = classification.SignId }, FormMethod.Post, new { @class = "form-group", @id = "classificationListOptions"}))
                                 {
                                     @Html.AntiForgeryToken()
