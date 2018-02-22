@@ -26,11 +26,18 @@ namespace ServerSide_Project.Controllers
         [HttpPost]
         public ActionResult CreateAdmin(Admin admin)
         {
-            using (var deriveBytes = new Rfc2898DeriveBytes(admin.Password, 20))
+            if (ModelState.IsValid)
             {
-                byte[] salt = deriveBytes.Salt;
-                byte[] key = deriveBytes.GetBytes(20);  // derive a 20-byte key
-                // save salt and key to database
+                //todo check if already exist
+                using (var deriveBytes = new Rfc2898DeriveBytes(admin.Password, 20))
+                {
+                    Admin newAdmin = new Admin();
+                    newAdmin.Salt = Encoding.UTF8.GetString(deriveBytes.Salt);
+                    newAdmin.PasswordHash = Encoding.UTF8.GetString(deriveBytes.GetBytes(20));
+                    newAdmin.Username = admin.Username;
+                    newAdmin.PermissionLevel = admin.PermissionLevel;
+                    Admin.createAdmin(newAdmin);
+                }
             }
 
             return RedirectToAction("AdminPanel", "Admins", null);
@@ -51,16 +58,18 @@ namespace ServerSide_Project.Controllers
         [HttpPost]
         public ActionResult Login(Admin admin)
         {
-            byte[] salt, key;
-            // load salt and key from database
+            var serverAdmin = Admin.getAdmin(admin.Username);
+            byte[] salt = Encoding.UTF8.GetBytes(serverAdmin.Salt);
+            byte[] key = Encoding.UTF8.GetBytes(serverAdmin.PasswordHash);
+            //load salt and key from database
 
-            //using (var deriveBytes = new Rfc2898DeriveBytes(admin.Password, salt))
-            //{
-            //    byte[] newKey = deriveBytes.GetBytes(20);  // derive a 20-byte key
+            using (var deriveBytes = new Rfc2898DeriveBytes(admin.Password, salt))
+            {
+                byte[] newKey = deriveBytes.GetBytes(20);  // derive a 20-byte key
 
-            //    if (!newKey.SequenceEqual(key))
-            //        throw new InvalidOperationException("Password is invalid!");
-            //}
+                if (!newKey.SequenceEqual(key))
+                    throw new InvalidOperationException("Password is invalid!");
+            }
 
             return RedirectToAction("Index", "Home"); //change maybe
         }
@@ -68,7 +77,7 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult AdminPanel()
         {
-            return View("AdminPanel");
+            return View("AdminPanel",Admin.getAllAdmins());
         }
 
 
