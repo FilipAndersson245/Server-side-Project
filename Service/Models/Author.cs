@@ -51,9 +51,7 @@ namespace ServerSide_Project.Models
 
         public static Author updateAuthor(Author author)
         {
-            AUTHOR eauthor = EAuthor.updateAuthor(Mapper.Map<Author, AUTHOR>(author));
-            Author updatedAuthor = Mapper.Map<AUTHOR, Author>(eauthor);
-            return updatedAuthor;
+            return Mapper.Map<AUTHOR, Author>(EAuthor.updateAuthor(Mapper.Map<Author, AUTHOR>(author)));
         }
 
         public static bool deleteAuthor(Author author)

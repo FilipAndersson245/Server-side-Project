@@ -27,5 +27,51 @@ namespace Repository.Support
                 return db.CLASSIFICATIONs.ToList();
             }
         }
+
+        public static int getNewID()
+        {
+            using (var db = new dbGrupp3())
+            {
+                return db.CLASSIFICATIONs.Max(a => a.SignId) + 1;
+            }
+        }
+
+        public static bool createClassification(CLASSIFICATION eClassification)
+        {
+            using (var db = new dbGrupp3())
+            {
+                eClassification.SignId = EClassification.getNewID();
+                db.CLASSIFICATIONs.Add(eClassification);
+                db.SaveChanges();
+                return true;
+            }
+        }
+
+        public static CLASSIFICATION getClassificationFromID(int id)
+        {
+            using (var db = new dbGrupp3())
+            {
+                return db.CLASSIFICATIONs.Find(id);
+            }
+        }
+
+        public static bool deleteClassification(CLASSIFICATION eClassification)
+        {
+            using (var db = new dbGrupp3())
+            {
+                var classification = db.CLASSIFICATIONs.Include(a => a.BOOKs).FirstOrDefault(a => a.SignId == eClassification.SignId);
+                classification.BOOKs.Clear();
+                db.CLASSIFICATIONs.Remove(classification);
+                db.SaveChanges();
+                return true;
+            }
+        }
     }
 }
+
+/*
+var classification = db.CLASSIFICATIONs.Include(a => a.BOOKs).FirstOrDefault(a => a.SignId == eClassification.SignId);
+                classification.BOOKs.Clear();
+                db.CLASSIFICATIONs.Remove(classification);
+                db.SaveChanges;
+                */

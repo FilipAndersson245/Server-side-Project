@@ -35,6 +35,21 @@ namespace ServerSide_Project.Models
             return Mapper.Map<Classification>(EClassification.GetClassificationForBook(isbn));
         }
 
+        public static Classification getClassificationFromID(int id)
+        {
+            return Mapper.Map<CLASSIFICATION, Classification>(EClassification.getClassificationFromID(id));
+        }
+
+        public static bool deleteClassification(Classification classification)
+        {
+            return EClassification.deleteClassification(Mapper.Map<Classification, CLASSIFICATION>(classification));
+        }
+
+        public static bool createClassification(Classification classification)
+        {
+            return EClassification.createClassification(Mapper.Map<Classification, CLASSIFICATION>(classification));
+        }
+
         public static List<Classification> getAllClassifications()
         {
             return Mapper.Map<List<CLASSIFICATION>, List<Classification>>(EClassification.GetAllClassifications());

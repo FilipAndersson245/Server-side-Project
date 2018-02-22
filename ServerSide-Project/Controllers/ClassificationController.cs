@@ -23,6 +23,31 @@ namespace ServerSide_Project.Controllers
             return View("ListBooks", classificationList);
         }
 
+        [HttpGet]
+        public ActionResult CreateClassification()
+        {
+            return View("CreateClassification");
+        }
+
+        [HttpPost]
+        [ActionName("CreateClassification")]
+        public ActionResult CreateClassificationPost(Classification classification)
+        {
+            if (Classification.createClassification(classification))
+                return RedirectToAction("BrowseAllBooks", "Books", null);
+            else
+                return RedirectToAction("BrowseAllBooks", "Books", null);
+        }
+
+        [HttpPost]
+        public ActionResult deleteClassification(int id)
+        {
+            int a = 0;
+            if (Classification.deleteClassification(Classification.getClassificationFromID(id)))
+                return RedirectToAction("BrowseAllBooks", "Books", null);
+            else
+                return RedirectToAction("BrowseAllBooks", "Books", null);
+        }
 
         public ActionResult getClassification()
         {
