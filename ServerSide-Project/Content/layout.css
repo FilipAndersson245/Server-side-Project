@@ -228,12 +228,6 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
     background-color: #969696;
 }
 
-#createAuthorForm
-{
-    margin-bottom: 3%;
-    padding-top: 1%;
-    border-bottom: 1px solid #f1f1f1;
-}
 
 #authorListOptions, #authorDetailsOptions
 {
