@@ -49,22 +49,19 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult EditBook(string id)
         {
-            return View("EditBook",Book.getBookFromIsbn(id)); // ret a book with ISBN equal to id
+            return View("EditBook", Book.getBookFromIsbn(id));
         }
 
-
         [HttpPost]
-        public ActionResult UpdateBook(Book book)
+        [ActionName("EditBook")]
+        public ActionResult EditBookPost(Book book)
         {
-
-            if (ModelState.IsValid) //validate the data
-            {
-                //int a = 5;
-            }
-            
-            string oldISBN = (string)TempData["ISBN"];
-
-            return RedirectToAction("BrowseAllBooks", "Books");
+            //if (ModelState.IsValid) //validate the data
+            //{
+                return RedirectToAction("ListBookDetails", "Books", Book.editBook(book).ISBN);
+            //}
+            //else
+            //    return RedirectToAction("BrowseAllBooks", "Books");
         }
 
         [HttpPost]

@@ -50,8 +50,8 @@
   z-index: 2;
   color: #ffffff;
   cursor: default;
-  background-color: #428bca;
-  border-color: #428bca;
+  background-color: #c7c7c7;
+  border-color: #e4e4e4;
 }
 
 .pagination > .disabled > span,
@@ -105,6 +105,8 @@
   margin: 20px 0;
   text-align: center;
   list-style: none;
+  background-color: #c7c7c7;
+  border-color: #e4e4e4;
 }
 
 .pager:before,

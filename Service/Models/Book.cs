@@ -17,7 +17,7 @@ namespace ServerSide_Project.Models
     {
         public Book()
         {
-            
+            Authors = new List<Author>();
         }
 
         //[DisplayName("ISBN")]
@@ -80,7 +80,8 @@ namespace ServerSide_Project.Models
 
         public static List<Author> addAuthors(Book book)
         {
-            var authors = Mapper.Map<List<AUTHOR>, List<Author>>(EBook.GetAuthorsFromIsbn(book.ISBN)); //get all Authors
+            List<Author> authors = new List<Author>();
+            authors = Mapper.Map<List<AUTHOR>, List<Author>>(EBook.GetAuthorsFromIsbn(book.ISBN));
             if (authors.Count > 0)
             {
                 return authors;
@@ -124,5 +125,9 @@ namespace ServerSide_Project.Models
             return EBook.deleteBook(Mapper.Map<Book, BOOK>(getBookFromIsbn(isbn)));
         }
 
+        public static Book editBook(Book book)
+        {
+            return Mapper.Map<BOOK, Book>(EBook.editBook(Mapper.Map<Book, BOOK>(book)));
+        }
     }
 }

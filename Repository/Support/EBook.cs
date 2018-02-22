@@ -29,6 +29,18 @@ namespace Repository.Support
             }
         }
 
+        public static BOOK editBook(BOOK eBook)
+        {
+
+            using (var db = new dbGrupp3())
+            {
+                BOOK book = db.BOOKs.Find(eBook.ISBN);
+                db.Entry(book).CurrentValues.SetValues(eBook);
+                db.SaveChanges();
+                return book;
+            }
+        }
+
         public static BOOK createBook(BOOK book)
         {
             using (var db = new dbGrupp3())
