@@ -42,41 +42,38 @@
 
     <div class="container-fluid text-center">
         <div class="content">
-            <div class="row text-left">
+            <div class="row text-center">
                 @if (ViewBag.activeBrowseBy == "Books")
                 {
 
                     using (Html.BeginForm("SearchBooks", "Books", FormMethod.Get, new { @class = "form-inline" }))
                     {
                         Html.AntiForgeryToken();
-                        <div class="form-group col-sm-10 input-lg col-sm-offset-2 text-center" id="searchBar">
+                        <div class="form-group col-sm-12 input-lg text-center" id="searchBar">
                             <input type="text" name="search" class="form-control" id="searchField" placeholder="Search for books">
                             <button class="btn btn-default" type="submit" id="searchBtn">
                                 <i class="glyphicon glyphicon-search"></i>
                             </button>
                         </div>
                         Html.RenderAction("getClassification", "Classification");
-                        <div class="col-sm-1"></div>
                         <div class="col-sm-8">
                             @RenderBody()
                         </div>
-                        <div class="col-sm-1"></div>
                     }
                 }
                 else if (ViewBag.activeBrowseBy == "Authors")
                 {
-                        <div class="align-center">
-                            @using (Html.BeginForm("searchAuthors", "Authors", FormMethod.Get, new { @class = "form-inline" }))
-                            {
-                            <div class="form-group col-sm-10 input-lg col-sm-offset-2 text-center" id="searchBar">
-                                <input type="text" name="search" class="form-control" id="searchField" placeholder="Search for authors">
-                                <button class="btn btn-default" type="submit" id="searchBtn">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                </button>
-                            </div>
-                            }
-                            @RenderBody()
-                        </div>
+                    using (Html.BeginForm("searchAuthors", "Authors", FormMethod.Get, new { @class = "form-inline" }))
+                    {
+                                Html.AntiForgeryToken();
+                    <div class="form-group col-sm-12 input-lg text-center" id="searchBar">
+                        <input type="text" name="search" class="form-control" id="searchField" placeholder="Search for authors">
+                        <button class="btn btn-default" type="submit" id="searchBtn">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </div>
+                    }
+                    @RenderBody()
                 }
                 else
                 {
