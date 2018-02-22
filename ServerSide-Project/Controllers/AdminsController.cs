@@ -32,12 +32,16 @@ namespace ServerSide_Project.Controllers
                 using (var deriveBytes = new Rfc2898DeriveBytes(admin.Password, 20))
                 {
                     Admin newAdmin = new Admin();
-                    newAdmin.Salt = Encoding.UTF8.GetString(deriveBytes.Salt);
-                    newAdmin.PasswordHash = Encoding.UTF8.GetString(deriveBytes.GetBytes(20));
+                    newAdmin.Salt = Convert.ToBase64String(deriveBytes.Salt);
+                    newAdmin.PasswordHash = Convert.ToBase64String(deriveBytes.GetBytes(20));
                     newAdmin.Username = admin.Username;
                     newAdmin.PermissionLevel = admin.PermissionLevel;
                     Admin.createAdmin(newAdmin);
                 }
+            }
+            else
+            {
+                throw new NotFiniteNumberException("ModelstateNotValid");
             }
 
             return RedirectToAction("AdminPanel", "Admins", null);
@@ -59,14 +63,12 @@ namespace ServerSide_Project.Controllers
         public ActionResult Login(Admin admin)
         {
             var serverAdmin = Admin.getAdmin(admin.Username);
-            byte[] salt = Encoding.UTF8.GetBytes(serverAdmin.Salt);
-            byte[] key = Encoding.UTF8.GetBytes(serverAdmin.PasswordHash);
+            byte[] salt = Convert.FromBase64String(serverAdmin.Salt);
+            byte[] key = Convert.FromBase64String(serverAdmin.PasswordHash);
             //load salt and key from database
-
             using (var deriveBytes = new Rfc2898DeriveBytes(admin.Password, salt))
             {
                 byte[] newKey = deriveBytes.GetBytes(20);  // derive a 20-byte key
-
                 if (!newKey.SequenceEqual(key))
                     throw new InvalidOperationException("Password is invalid!");
             }
