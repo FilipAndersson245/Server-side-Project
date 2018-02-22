@@ -2,13 +2,12 @@
 
 @{
     ViewBag.Title = "EditBook";
-    TempData.Add("ISBN", Model.ISBN);
 }
 
 <h2>EditBook</h2>
 
 <div class="col-sm-offset-3 col-sm-6">
-    @using (Html.BeginForm("UpdateBook", "Books", FormMethod.Post))
+    @using (Html.BeginForm("EditBook", "Books", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
 
