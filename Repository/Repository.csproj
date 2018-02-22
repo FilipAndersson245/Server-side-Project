@@ -146,6 +146,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ADMIN.cs" />
     <Compile Include="AUTHOR.cs" />
     <Compile Include="BOOK.cs" />
     <Compile Include="CLASSIFICATION.cs" />
