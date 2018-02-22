@@ -15,7 +15,6 @@ namespace ServerSide_Project.Controllers
             return View();
         }
 
-
         [HttpGet]
         public ActionResult ListClassifications(int id)
         {

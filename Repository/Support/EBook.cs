@@ -45,6 +45,7 @@ namespace Repository.Support
             {
                 var book = db.BOOKs.Include(a => a.AUTHORs).FirstOrDefault(a => a.ISBN == ebook.ISBN);
                 book.AUTHORs.Clear();
+                db.BOOKs.Remove(book);
                 db.SaveChanges();
                 return true;
             }
