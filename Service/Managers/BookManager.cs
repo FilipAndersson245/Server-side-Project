@@ -41,11 +41,27 @@ namespace Service.Managers
             }
         }
 
+        public static Classification AddClassification(Book book)
+        {
+            Classification classification = Mapper.Map<CLASSIFICATION, Classification>(BookRepository.GetClassificationFromIsbn(Mapper.Map<Book, BOOK>(book)));
+            if (classification == null)
+            {
+                Classification genericClass = new Classification() { SignId = 78, Signum = "Generic", Description = "Books without a category" };
+                return genericClass;
+            }
+            else
+            {
+                return classification;
+            }
+
+        }
+
         public static void SetupBooks(IPagedList<Book> bookList)
         {
             for (int i = 0; i < bookList.Count; i++)
             {
                 bookList[i].Authors = AddAuthors(bookList[i]);
+                bookList[i].BookClassification = AddClassification(bookList[i]);
             }
         }
 

@@ -45,6 +45,7 @@ namespace Service.Models
 
         public Classification BookClassification { get; set; }
 
+        public int SignId { get; set; }
 
         public void SetBook(Book book)
         {

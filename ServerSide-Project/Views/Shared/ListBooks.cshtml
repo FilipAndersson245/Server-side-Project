@@ -13,10 +13,63 @@
 
     @for (int i = 0; i < Model.Count; i++)
     {
-
         <div class="row text-left" id="bookListItem">
             <div class="col-sm-2">
-                <img src="~/Resources/Education.png" width="70%" height="70%" class="text-center" />
+                @{
+                    string ClassificationPictureString = "~/Resources/";
+                    {
+                        switch (Model[i].BookClassification.Signum)
+                        {
+                            case "Biography":
+                                ClassificationPictureString += "Biography.png";
+                                break;
+                            case "Children":
+                                ClassificationPictureString += "Children.png";
+                                break;
+                            case "Culture":
+                                ClassificationPictureString += "Culture.png";
+                                break;
+                            case "Education":
+                                ClassificationPictureString += "Education.png";
+                                break;
+                            case "Fantasy":
+                                ClassificationPictureString += "Fantasy.png";
+                                break;
+                            case "Food":
+                                ClassificationPictureString += "Food.png";
+                                break;
+                            case "Generic":
+                                ClassificationPictureString += "Generic.png";
+                                break;
+                            case "History":
+                                ClassificationPictureString += "History.png";
+                                break;
+                            case "Music":
+                                ClassificationPictureString += "Music.png";
+                                break;
+                            case "Romance":
+                                ClassificationPictureString += "Romance.png";
+                                break;
+                            case "Science Fiction":
+                                ClassificationPictureString += "Science Fiction.png";
+                                break;
+                            case "Sports":
+                                ClassificationPictureString += "Sports.png";
+                                break;
+                            case "Thriller":
+                                ClassificationPictureString += "Thriller.png";
+                                break;
+                            default:
+                                ClassificationPictureString += "Generic.png";
+                                break;
+                        }
+                        if (@Model[i].BookClassification.Signum[0] == 'P' && @Model[i].BookClassification.Signum[1] == 'u' && @Model[i].BookClassification.Signum[2] == 'b')
+                        {
+                            ClassificationPictureString = "~/Resources/Education.png";
+                        }
+                    }
+                }
+                <img src="@Url.Content(ClassificationPictureString)" width="70%" height="70%" class="text-center" />
             </div>
             <div class="col-sm-9">
                 <div class="row">

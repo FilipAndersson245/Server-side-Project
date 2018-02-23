@@ -69,7 +69,14 @@ namespace Repository.Support
                      @"SELECT dbo.AUTHOR.FirstName, dbo.AUTHOR.LastName , dbo.AUTHOR.BirthYear , dbo.AUTHOR.Aid 
                     FROM ( dbo.AUTHOR INNER JOIN BOOK_AUTHOR ON AUTHOR.Aid = BOOK_AUTHOR.Aid AND BOOK_AUTHOR.ISBN = @isbn)",
                      new SqlParameter("@isbn", isbn)).ToList();
+            }
+        }
 
+        public static CLASSIFICATION GetClassificationFromIsbn(BOOK book)
+        {
+            using (var db = new dbGrupp3())
+            {
+                return db.CLASSIFICATIONs.FirstOrDefault(a => a.SignId == book.SignId);
             }
         }
 
