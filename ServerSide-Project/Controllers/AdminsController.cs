@@ -102,7 +102,7 @@ namespace ServerSide_Project.Controllers
             
         }
 
-        // place this in a extension of the Controller class so all controller can use it
+        // place this in a extension of the Controller class so all controllers can use it
         private bool ValidateAndRedirect(int level = 0)
         {
             if (Session["authentication"] == null || (int)Session["level"] < level) //change int to the level enum must include that inside wherever we place this function

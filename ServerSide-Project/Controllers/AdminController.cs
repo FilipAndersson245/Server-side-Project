@@ -80,18 +80,17 @@ namespace ServerSide_Project.Controllers
             using (var deriveBytes = new Rfc2898DeriveBytes(admin.Password, salt))
             {
                 byte[] newKey = deriveBytes.GetBytes(20);  // derive a 20-byte key
-                if (!newKey.SequenceEqual(key))
-                    throw new InvalidOperationException("Password is invalid!");
-                else
+                if (newKey.SequenceEqual(key))
                 {
-                    //System.Diagnostics.Debug.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                     Session["authentication"] = admin.Username;
                     Session["level"] = admin.PermissionLevel;
+                    return RedirectToAction("Index", "Home");
                 }
+                return View("Login");
             }
 
 
-            return RedirectToAction("Index", "Home"); //change maybe
+            
         }
 
         [HttpGet]

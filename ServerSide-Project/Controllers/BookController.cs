@@ -51,8 +51,7 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpPost]
-        [ActionName("EditBook")]
-        public ActionResult EditBookPost(Book book)
+        public ActionResult EditBook(Book book)
         {
             return RedirectToAction("ListBookDetails", "Book", BookManager.EditBook(book).ISBN);
 

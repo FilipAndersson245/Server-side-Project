@@ -42,8 +42,7 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpPost]
-        [ActionName("EditAuthor")]
-        public ActionResult EditAuthorPost(Author author)
+        public ActionResult EditAuthor(Author author)
         {
             return RedirectToAction("ListAuthorDetails", "Author", new { id = AuthorManager.EditAuthor(author).Aid });
         }

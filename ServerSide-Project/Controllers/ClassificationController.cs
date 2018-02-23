@@ -29,8 +29,7 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpPost]
-        [ActionName("editClassification")]
-        public ActionResult editClassificationPost(Classification classification)
+        public ActionResult editClassification(Classification classification)
         {
             if(ClassificationManager.EditClassification(classification))
                 return RedirectToAction("BrowseAllBooks", "Book", null);
