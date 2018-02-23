@@ -6,11 +6,11 @@ using System.Data.Entity;
 
 namespace Repository.Support
 {
-    public class EClassification
+    public class ClassificationRepositor
     {
         static public CLASSIFICATION GetClassificationForBook(string isbn)
         {
-            return EBook.getBookFromIsbn(isbn).CLASSIFICATION;
+            return BookRepository.getBookFromIsbn(isbn).CLASSIFICATION;
         }
 
         static public List<BOOK> GetBooksFromClassification(int signId)
@@ -40,7 +40,7 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                eClassification.SignId = EClassification.getNewID();
+                eClassification.SignId = ClassificationRepositor.getNewID();
                 db.CLASSIFICATIONs.Add(eClassification);
                 db.SaveChanges();
                 return true;

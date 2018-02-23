@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ServerSide_Project.Models;
+using Service.Models;
+using Service.Managers;
 
 namespace ServerSide_Project.Controllers
 {
@@ -26,14 +27,14 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult editClassification(int id)
         {
-            return View("EditClassification", Classification.getClassificationFromID(id));
+            return View("EditClassification", ClassificationManager.getClassificationFromID(id));
         }
 
         [HttpPost]
         [ActionName("editClassification")]
         public ActionResult editClassificationPost(Classification classification)
         {
-            if(Classification.editClassification(classification))
+            if(ClassificationManager.editClassification(classification))
                 return RedirectToAction("BrowseAllBooks", "Books", null);
             else
                 return RedirectToAction("BrowseAllBooks", "Books", null);
@@ -49,7 +50,7 @@ namespace ServerSide_Project.Controllers
         [ActionName("CreateClassification")]
         public ActionResult CreateClassificationPost(Classification classification)
         {
-            if (Classification.createClassification(classification))
+            if (ClassificationManager.createClassification(classification))
                 return RedirectToAction("BrowseAllBooks", "Books", null);
             else
                 return RedirectToAction("BrowseAllBooks", "Books", null);
@@ -59,15 +60,16 @@ namespace ServerSide_Project.Controllers
         public ActionResult deleteClassification(int id)
         {
             int a = 0;
-            if (Classification.deleteClassification(Classification.getClassificationFromID(id)))
+            if (ClassificationManager.deleteClassification(ClassificationManager.getClassificationFromID(id)))
                 return RedirectToAction("BrowseAllBooks", "Books", null);
             else
                 return RedirectToAction("BrowseAllBooks", "Books", null);
         }
 
-        public ActionResult getClassification()
+        [HttpGet]
+        public ActionResult GetClassification()
         {
-            return PartialView("Classification", Classification.getAllClassifications());
+            return PartialView("Classification", ClassificationManager.getAllClassifications());
         }
     }
 }

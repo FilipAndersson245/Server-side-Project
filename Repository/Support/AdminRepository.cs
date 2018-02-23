@@ -6,7 +6,7 @@ using System.Data.Entity;
 
 namespace Repository.Support
 {
-    public class EAdmin
+    public class AdminRepository
     {
         public static ADMIN getAdmin(string username)
         {

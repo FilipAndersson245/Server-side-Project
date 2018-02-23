@@ -9,7 +9,7 @@ using PagedList;
 
 namespace Repository.Support
 {
-    public class EBook
+    public class BookRepository
     {
 
         public static IPagedList<BOOK> getAllBooksFromDB(int page, int itemsPerPage)

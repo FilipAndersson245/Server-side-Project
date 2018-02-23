@@ -8,7 +8,7 @@ using PagedList;
 
 namespace Repository.Support
 {
-    public class EAuthor
+    public class AuthorRepository
     {
 
         public static IPagedList<AUTHOR> getAllAuthorsFromDB(int page, int itemsPerPage)
