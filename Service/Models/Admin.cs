@@ -6,6 +6,8 @@ using System.ComponentModel.DataAnnotations;
 using Repository.Support;
 using Repository;
 using AutoMapper;
+using Service.Managers;
+using Service.Tools;
 
 public enum Rank
 {
@@ -13,7 +15,7 @@ public enum Rank
     SuperAdmin
 }
 
-namespace ServerSide_Project.Models
+namespace Service.Models
 {
     public class Admin
     {
@@ -37,20 +39,5 @@ namespace ServerSide_Project.Models
         [Required]
         public Rank PermissionLevel { get; set; }
 
-
-        public static Admin getAdmin(string username)
-        {
-            return Mapper.Map<Admin>(EAdmin.getAdmin(username));
-        }
-
-        public static bool createAdmin(Admin admin)
-        {
-            return EAdmin.createAdmin(Mapper.Map<ADMIN>(admin));
-        }
-
-        public static List<Admin> getAllAdmins()
-        {
-            return Mapper.Map<List<ADMIN>, List<Admin>>(EAdmin.getAllAdmins());
-        }
     }
 }

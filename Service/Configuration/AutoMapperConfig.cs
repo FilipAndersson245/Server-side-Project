@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Repository;
-using ServerSide_Project.Models;
+using Service.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +34,6 @@ namespace Service.Configuration
         public ToBookProfile()
         {
             CreateMap<BOOK, Book>().ForMember(m => m.Authors, opt => opt.Ignore());
-            //CreateMap<BOOK, Book>();
         }
     }
 

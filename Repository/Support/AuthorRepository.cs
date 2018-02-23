@@ -8,10 +8,10 @@ using PagedList;
 
 namespace Repository.Support
 {
-    public class EAuthor
+    public class AuthorRepository
     {
 
-        public static IPagedList<AUTHOR> getAllAuthorsFromDB(int page, int itemsPerPage)
+        public static IPagedList<AUTHOR> GetAllAuthorsFromDB(int page, int itemsPerPage)
         {
             using (var db = new dbGrupp3())
             {
@@ -19,7 +19,7 @@ namespace Repository.Support
             }
         }
 
-        public static AUTHOR getAuthorDetailsFromDB(int id)
+        public static AUTHOR GetAuthorDetailsFromDB(int id)
         {
             using (var db = new dbGrupp3())
             {
@@ -37,7 +37,7 @@ namespace Repository.Support
             }
         }
 
-        public static bool deleteAuthor(AUTHOR eauthor) //Returns true if amount of SaveChanges (int) is bigger than 1
+        public static bool DeleteAuthor(AUTHOR eauthor) //Returns true if amount of SaveChanges (int) is bigger than 1
         {
             using (var db = new dbGrupp3())
             {
@@ -49,7 +49,7 @@ namespace Repository.Support
             }
         }
 
-        public static AUTHOR updateAuthor(AUTHOR eauthor) //Returns the updated author
+        public static AUTHOR EditAuthor(AUTHOR eauthor) //Returns the updated author
         {
             using (var db = new dbGrupp3())
             {
@@ -60,7 +60,7 @@ namespace Repository.Support
             }
         }
 
-        public static IPagedList<BOOK> getBooksByAuthor(int id, int page)
+        public static IPagedList<BOOK> GetBooksByAuthor(int id, int page)
         {
             using (var db = new dbGrupp3())
             {
@@ -73,7 +73,7 @@ namespace Repository.Support
             }
         }
 
-        public static IPagedList<AUTHOR> getAuthorsFromSearchResult(string search, int page, int itemsPerPage)
+        public static IPagedList<AUTHOR> GetAuthorsFromSearchResult(string search, int page, int itemsPerPage)
         {
             using (var db = new dbGrupp3())
             {
@@ -86,7 +86,7 @@ namespace Repository.Support
             }
         }
 
-        public static AUTHOR getAuthorFromDB(int id)
+        public static AUTHOR GetAuthorFromDB(int id)
         {
             using (var db = new dbGrupp3())
             {

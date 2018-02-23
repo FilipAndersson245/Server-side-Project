@@ -1,11 +1,12 @@
 ﻿@using PagedList.Mvc
-@model PagedList.IPagedList<ServerSide_Project.Models.Book>
+@model PagedList.IPagedList<Service.Models.Book>
 @{
-    ViewBag.activeBrowseBy = "Books";
+    ViewBag.activeBrowseBy = "Book";
 } 
 
+
 <p>
-    @Html.ActionLink("Create New Book", "CreateBook", "Books")
+    @Html.ActionLink("Create New Book", "CreateBook", "Book")
 </p>
 
 <div class="row" id="bookListOuter">
@@ -20,11 +21,11 @@
             <div class="col-sm-9">
                 <div class="row">
                     <div class="col-sm-9" id="bookListTitle">
-                        @Html.ActionLink(Html.Encode(@Model[i].Title), "ListBookDetails", "Books", new { id = @Model[i].ISBN }, null)
+                        @Html.ActionLink(Html.Encode(@Model[i].Title), "ListBookDetails", "Book", new { id = @Model[i].ISBN }, null)
                     </div>
                     <div class="col-sm-3 text-right" id="bookListAdminPane">
-                        @Html.ActionLink("Edit", "EditBook", "Books", new { id = @Model[i].ISBN }, new { @class = "" }) |
-                        @using (Html.BeginForm("deleteBook", "Books", new { id = @Model[i].ISBN }, FormMethod.Post, new { @class = "form-group" }))
+                        @Html.ActionLink("Edit", "EditBook", "Book", new { id = @Model[i].ISBN }, new { @class = "" }) |
+                        @using (Html.BeginForm("DeleteBook", "Book", new { id = @Model[i].ISBN }, FormMethod.Post, new { @class = "form-group" }))
                         {
                             @Html.AntiForgeryToken()
                             <input type="submit" value="Delete" class="btn-link" />
@@ -51,7 +52,7 @@
                         {
                             foreach (var author in @Model[i].Authors)
                             {
-                                @Html.ActionLink(Html.Encode(author.FirstName + " " + author.LastName), "ListAuthorDetails", "Authors", new { id = author.Aid }, null)
+                                @Html.ActionLink(Html.Encode(author.FullName), "ListAuthorDetails", "Author", new { id = author.Aid }, null)
                                 if (!@Model[i].Authors.Last().Equals(author))
                                 {<span> | </span>}
                             }
@@ -78,7 +79,7 @@
                 </div>
                 <div class="row" id="bookListDescription">
                     <div class="col-sm-12">
-                        @Model[i].shortDescription
+                        @Model[i].ShortDescription
                     </div>
                 </div>
             </div>

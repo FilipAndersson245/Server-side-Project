@@ -1,16 +1,16 @@
 ﻿@using PagedList.Mvc
-@model PagedList.IPagedList<ServerSide_Project.Models.Author>
+@model PagedList.IPagedList<Service.Models.Author>
 
 @{
     ViewBag.Title = "ListAuthors";
-    ViewBag.activeBrowseBy = "Authors";
+    ViewBag.activeBrowseBy = "Author";
 }
 <div class="row">
     <div class="col-sm-12 text-center">
         <h2>Authors</h2>
     </div>
     <div class="col-sm-offset-3 col-sm-9 text-left">
-         @Html.ActionLink("Create New Author", "CreateAuthor", "Authors", null, null)
+         @Html.ActionLink("Create New Author", "CreateAuthor", "Author", null, null)
     </div>
 </div>
 
@@ -25,7 +25,7 @@
                     <img src="~/Resources/Author.png" width="80%" height="80%" class="text-center" />
                 </div>
                 <div class="col-sm-3" id="authorListName">
-                    @Html.ActionLink(Html.Encode(item.FirstName + " " + item.LastName), "ListAuthorDetails", "Authors", new { id = item.Aid }, null)
+                    @Html.ActionLink(Html.Encode(item.FirstName + " " + item.LastName), "ListAuthorDetails", "Author", new { id = item.Aid }, null)
                 </div>
                 <div class="col-sm-2 text-right">
                     <div class="row">
@@ -40,8 +40,8 @@
                     </div>
                 </div>
                 <div class="col-sm-2 text-right">
-                    @Html.ActionLink("Edit", "updateAuthor", "Authors", new { id = item.Aid }, null) |
-                    @using (Html.BeginForm("deleteAuthor", "Authors", new { id = item.Aid }, FormMethod.Post, new { @class = "form-group", @id = "authorListOptions" }))
+                    @Html.ActionLink("Edit", "EditAuthor", "Author", new { id = item.Aid }, null) |
+                    @using (Html.BeginForm("DeleteAuthor", "Author", new { id = item.Aid }, FormMethod.Post, new { @class = "form-group", @id = "authorListOptions" }))
                     {
                         @Html.AntiForgeryToken()
                         <input type="submit" value="Delete" class="btn-link" />

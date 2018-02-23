@@ -1,16 +1,16 @@
 ﻿@using PagedList.Mvc
-@model PagedList.IPagedList<ServerSide_Project.Models.Book>
+@model PagedList.IPagedList<Service.Models.Book>
 
 @{
-    ViewBag.Title = "BrowseSearchedBooks";
-    ViewBag.activeBrowseBy = "Books";
+    ViewBag.Title = "BrowseAllBooks";
+    ViewBag.activeBrowseBy = "Book";
 }
 
 <div class="text-center" id="pageSelector">
     <div class="pagination">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
         of @Model.PageCount
-        @Html.PagedListPager(Model, page => Url.Action("SearchBooks", new { page, search = Request.Params["search"] }))
+        @Html.PagedListPager(Model, page => Url.Action("BrowseAllBooks", new { page }))
     </div>
 </div>
 
@@ -20,6 +20,6 @@
     <div class="pagination">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
         of @Model.PageCount
-        @Html.PagedListPager(Model, page => Url.Action("SearchBooks", new { page, search = Request.Params["search"] }))
+        @Html.PagedListPager(Model, page => Url.Action("BrowseAllBooks", new { page }))
     </div>
 </div>

@@ -140,9 +140,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AdminsController.cs" />
-    <Compile Include="Controllers\AuthorsController.cs" />
-    <Compile Include="Controllers\BooksController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AuthorController.cs" />
+    <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\ClassificationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -160,24 +160,24 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Admins\Login.cshtml" />
-    <Content Include="Views\Books\EditBook.cshtml" />
-    <Content Include="Views\Books\ListBookDetails.cshtml" />
-    <Content Include="Views\Books\CreateBook.cshtml" />
+    <Content Include="Views\Admin\Login.cshtml" />
+    <Content Include="Views\Book\EditBook.cshtml" />
+    <Content Include="Views\Book\CreateBook.cshtml" />
     <Content Include="Views\Shared\ListAuthors.cshtml" />
-    <Content Include="Views\Authors\ListAuthorDetails.cshtml" />
-    <Content Include="Views\Admins\AdminPanel.cshtml" />
-    <Content Include="Views\Admins\CreateAdmin.cshtml" />
-    <Content Include="Views\Authors\CreateAuthor.cshtml" />
+    <Content Include="Views\Author\ListAuthorDetails.cshtml" />
+    <Content Include="Views\Admin\AdminPanel.cshtml" />
+    <Content Include="Views\Admin\CreateAdmin.cshtml" />
+    <Content Include="Views\Author\CreateAuthor.cshtml" />
     <Content Include="Views\Shared\ListBooks.cshtml" />
-    <Content Include="Views\Books\BrowseAllBooks.cshtml" />
-    <Content Include="Views\Books\BrowseSearchedBooks.cshtml" />
-    <Content Include="Views\Authors\BrowseAllAuthors.cshtml" />
-    <Content Include="Views\Authors\BrowseSearchedAuthors.cshtml" />
+    <Content Include="Views\Book\BrowseAllBooks.cshtml" />
+    <Content Include="Views\Book\BrowseSearchedBooks.cshtml" />
+    <Content Include="Views\Author\BrowseAllAuthors.cshtml" />
+    <Content Include="Views\Author\BrowseSearchedAuthors.cshtml" />
     <Content Include="Views\Shared\Classification.cshtml" />
-    <Content Include="Views\Authors\updateAuthor.cshtml" />
+    <Content Include="Views\Author\EditAuthor.cshtml" />
     <Content Include="Views\Classification\CreateClassification.cshtml" />
     <Content Include="Views\Classification\EditClassification.cshtml" />
+    <Content Include="Views\Book\ListBookDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

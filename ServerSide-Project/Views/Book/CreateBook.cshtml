@@ -1,13 +1,16 @@
-﻿@model ServerSide_Project.Models.Book
+﻿@model Service.Models.Book
 
 @{
-    ViewBag.Title = "EditBook";
+    ViewBag.Title = "CreateBook";
 }
 
-<h2>EditBook</h2>
 
-<div class="col-sm-offset-3 col-sm-6">
-    @using (Html.BeginForm("EditBook", "Books", FormMethod.Post))
+<div class="col-sm-3"></div>
+<div class="col-sm-6">
+    <h2>CreateBook</h2>
+
+
+    @using (Html.BeginForm("CreateBook", "Book", FormMethod.Post, new { @class = "form-group" }))
     {
         @Html.AntiForgeryToken()
 
@@ -18,7 +21,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.ISBN, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.ISBN, new { htmlAttributes = new { @class = "form-control", @Value = Model.ISBN } })
+                    @Html.EditorFor(model => model.ISBN, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.ISBN, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -26,7 +29,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @Value = Model.Title } })
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -34,7 +37,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.PublicationYear, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.PublicationYear, new { htmlAttributes = new { @class = "form-control", @Value = Model.PublicationYear } })
+                    @Html.EditorFor(model => model.PublicationYear, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.PublicationYear, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -42,7 +45,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.publicationinfo, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.TextAreaFor(model => model.publicationinfo, new { htmlAttributes = new { @class = "form-control", @Value = Model.publicationinfo } })
+                    @Html.EditorFor(model => model.publicationinfo, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.publicationinfo, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -50,23 +53,33 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Pages, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Pages, new { htmlAttributes = new { @class = "form-control", @Value = Model.Pages } })
+                    @Html.EditorFor(model => model.Pages, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Pages, "", new { @class = "text-danger" })
+                </div> 
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Authors, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
                 </div>
             </div>
 
+
+
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
+                    <input type="submit" value="Create" class="btn btn-default" />
                 </div>
             </div>
         </div>
     }
-</div>
-    <div>
-        @Html.ActionLink("Back to List", "ListBooks", "Books", null, null);
-    </div>
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <div>
+        @Html.ActionLink("Back to List", "AdminPanel", "Admin", null, null)
+    </div>
+</div>
+<div class="col-sm-3"></div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
