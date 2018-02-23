@@ -16,7 +16,6 @@ namespace ServerSide_Project.Controllers
         public ActionResult Index()
         {
             return View("Home");
-
         }
     }
 }
