@@ -73,7 +73,8 @@ namespace ServerSide_Project.Controllers
                     throw new InvalidOperationException("Password is invalid!");
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                    //System.Diagnostics.Debug.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                    Session["authentication"] = admin.Username;
                 }
             }
             
@@ -84,8 +85,18 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult AdminPanel()
         {
-            return View("AdminPanel",Admin.getAllAdmins());
+            if(Session["authentication"] == null)
+            {
+                // return RedirectToAction("login", new { redirectBackToAction = this.ControllerContext.RouteData.Values["controller"].ToString(), RedirectToController = this.ControllerContext.RouteData.Values["controller"]});
+                return RedirectToAction("login");
+            }
+            else
+            {
+                return View("AdminPanel", Admin.getAllAdmins());
+            }
+            
         }
+
 
 
     }

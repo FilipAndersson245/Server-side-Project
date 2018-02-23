@@ -42,8 +42,7 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpPost]
-        [ActionName("updateAuthor")]
-        public ActionResult updateAuthorPost(Author author)
+        public ActionResult updateAuthor(Author author)
         {
             Author editedAuthor = Author.updateAuthor(author);
             return RedirectToAction("ListAuthorDetails", "Authors", new { id = editedAuthor.Aid });
