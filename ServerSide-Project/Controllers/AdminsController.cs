@@ -11,6 +11,16 @@ namespace ServerSide_Project.Controllers
 {
     public class AdminsController : Controller
     {
+        protected override void OnException(ExceptionContext filterContext)
+        {
+
+            if (filterContext.Exception is ValidationException)
+            {
+                filterContext.ExceptionHandled = true;
+                filterContext.Result = RedirectToAction("login",new { returnBackTo = Request.RawUrl});
+            }
+        }
+
         // GET: Admins
         public ActionResult Index()
         {
@@ -75,6 +85,7 @@ namespace ServerSide_Project.Controllers
                 {
                     //System.Diagnostics.Debug.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                     Session["authentication"] = admin.Username;
+                    Session["level"] = admin.PermissionLevel;
                 }
             }
             
@@ -85,19 +96,28 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult AdminPanel()
         {
-            if(Session["authentication"] == null)
-            {
+            ValidateAndRedirect();
                 // return RedirectToAction("login", new { redirectBackToAction = this.ControllerContext.RouteData.Values["controller"].ToString(), RedirectToController = this.ControllerContext.RouteData.Values["controller"]});
-                return RedirectToAction("login");
-            }
-            else
-            {
-                return View("AdminPanel", Admin.getAllAdmins());
-            }
+            return View("AdminPanel", Admin.getAllAdmins());
             
         }
 
+        // place this in a extension of the Controller class so all controller can use it
+        private bool ValidateAndRedirect(int level = 0)
+        {
+            if (Session["authentication"] == null || (int)Session["level"] < level) //change int to the level enum must include that inside wherever we place this function
+            {
+                //RedirectToAction("login", new { redirectTo = Request.RawUrl});
+                throw new ValidationException();
+            }
+            return true;
+        }
 
 
     }
+
+    //move to a different folder not in here
+    public class ValidationException : Exception{}
+
+
 }
