@@ -71,7 +71,12 @@ namespace ServerSide_Project.Controllers
                 byte[] newKey = deriveBytes.GetBytes(20);  // derive a 20-byte key
                 if (!newKey.SequenceEqual(key))
                     throw new InvalidOperationException("Password is invalid!");
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                }
             }
+            
 
             return RedirectToAction("Index", "Home"); //change maybe
         }
