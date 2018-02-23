@@ -40,7 +40,8 @@ namespace Service.Managers
         public static Author GetAuthorDetails(int id, int bookPage)
         {
             Author author = Mapper.Map<AUTHOR, Author>(AuthorRepository.GetAuthorDetailsFromDB(id));
-            BookManager.SetupBooks(AuthorRepository.GetBooksByAuthor(id, bookPage).ToMappedPagedList<BOOK, Book>());
+            author.BookList = AuthorRepository.GetBooksByAuthor(id, bookPage).ToMappedPagedList<BOOK, Book>();
+            BookManager.SetupBooks(author.BookList);
             return author;
         }
 
