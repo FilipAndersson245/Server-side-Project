@@ -66,7 +66,6 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult ListAuthorDetails(int id, int bookPage = 1)
         {
-            var z = AuthorManager.GetAuthorDetails(id, bookPage);
             return View("ListAuthorDetails", AuthorManager.GetAuthorDetails(id, bookPage));
         }
 
