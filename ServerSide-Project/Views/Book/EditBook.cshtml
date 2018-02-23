@@ -7,7 +7,7 @@
 <h2>EditBook</h2>
 
 <div class="col-sm-offset-3 col-sm-6">
-    @using (Html.BeginForm("EditBook", "Books", FormMethod.Post))
+    @using (Html.BeginForm("EditBook", "Book", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
 
@@ -64,7 +64,7 @@
     }
 </div>
     <div>
-        @Html.ActionLink("Back to List", "ListBooks", "Books", null, null);
+        @Html.ActionLink("Back to List", "ListBooks", "Book", null, null);
     </div>
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>

@@ -31,29 +31,29 @@ namespace Service.Managers
             return Mapper.Map<Classification>(ClassificationRepositor.GetClassificationForBook(isbn));
         }
 
-        public static Classification getClassificationFromID(int id)
+        public static Classification GetClassificationFromID(int id)
         {
-            return Mapper.Map<CLASSIFICATION, Classification>(ClassificationRepositor.getClassificationFromID(id));
+            return Mapper.Map<CLASSIFICATION, Classification>(ClassificationRepositor.GetClassificationFromID(id));
         }
 
-        public static bool deleteClassification(Classification classification)
+        public static bool DeleteClassification(Classification classification)
         {
-            return ClassificationRepositor.deleteClassification(Mapper.Map<Classification, CLASSIFICATION>(classification));
+            return ClassificationRepositor.DeleteClassification(Mapper.Map<Classification, CLASSIFICATION>(classification));
         }
 
-        public static bool createClassification(Classification classification)
+        public static bool CreateClassification(Classification classification)
         {
-            return ClassificationRepositor.createClassification(Mapper.Map<Classification, CLASSIFICATION>(classification));
+            return ClassificationRepositor.CreateClassification(Mapper.Map<Classification, CLASSIFICATION>(classification));
         }
 
-        public static List<Classification> getAllClassifications()
+        public static List<Classification> GetAllClassifications()
         {
             return Mapper.Map<List<CLASSIFICATION>, List<Classification>>(ClassificationRepositor.GetAllClassifications());
         }
 
-        public static bool editClassification(Classification classification)
+        public static bool EditClassification(Classification classification)
         {
-            return ClassificationRepositor.editClassification(Mapper.Map<Classification, CLASSIFICATION>(classification));
+            return ClassificationRepositor.EditClassification(Mapper.Map<Classification, CLASSIFICATION>(classification));
         }
 
     }

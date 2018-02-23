@@ -1,89 +1,91 @@
 ﻿@using PagedList.Mvc
 @model PagedList.IPagedList<Service.Models.Book>
 @{
-    ViewBag.activeBrowseBy = "Books";
+    ViewBag.activeBrowseBy = "Book";
 } 
 
-<p>
-    @Html.ActionLink("Create New Book", "CreateBook", "Books")
-</p>
+@*
+    <p>
+        @Html.ActionLink("Create New Book", "CreateBook", "Book")
+    </p>
 
-<div class="row" id="bookListOuter">
+    <div class="row" id="bookListOuter">
 
-    @for (int i = 0; i < Model.Count; i++)
-    {
+        @for (int i = 0; i < Model.Count; i++)
+        {
 
-        <div class="row text-left" id="bookListItem">
-            <div class="col-sm-2">
-                <img src="~/Resources/Education.png" width="70%" height="70%" class="text-center" />
-            </div>
-            <div class="col-sm-9">
-                <div class="row">
-                    <div class="col-sm-9" id="bookListTitle">
-                        @Html.ActionLink(Html.Encode(@Model[i].Title), "ListBookDetails", "Books", new { id = @Model[i].ISBN }, null)
-                    </div>
-                    <div class="col-sm-3 text-right" id="bookListAdminPane">
-                        @Html.ActionLink("Edit", "EditBook", "Books", new { id = @Model[i].ISBN }, new { @class = "" }) |
-                        @using (Html.BeginForm("deleteBook", "Books", new { id = @Model[i].ISBN }, FormMethod.Post, new { @class = "form-group" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            <input type="submit" value="Delete" class="btn-link" />
-                        }
-                    </div>
+            <div class="row text-left" id="bookListItem">
+                <div class="col-sm-2">
+                    <img src="~/Resources/Education.png" width="70%" height="70%" class="text-center" />
                 </div>
-                <div class="row">
-                    <div class="col-sm-5" id="bookListAuthor">
-                        <p class="listHeadline">Authors:</p>
-                    </div>
-                    <div class="col-sm-2" id="bookListPublicationYear">
-                        <p class="listHeadline">Published:</p>
-                    </div>
-                    <div class="col-sm-3" id="bookListISBN">
-                        <p class="listHeadline">ISBN:</p>
-                    </div>
-                    <div class="col-sm-2" id="bookListPages">
-                        <p class="listHeadline">Pages:</p>
-                    </div>
-                </div>
-                <div class="row" id="bookListInfoRow">
-                    <div class="col-sm-5" id="bookListAuthor">
-                        @if (Model[i].Authors[0].FirstName != "No Author")
-                        {
-                            foreach (var author in @Model[i].Authors)
+                <div class="col-sm-9">
+                    <div class="row">
+                        <div class="col-sm-9" id="bookListTitle">
+                            @Html.ActionLink(Html.Encode(@Model[i].Title), "ListBookDetails", "Book", new { id = @Model[i].ISBN }, null)
+                        </div>
+                        <div class="col-sm-3 text-right" id="bookListAdminPane">
+                            @Html.ActionLink("Edit", "EditBook", "Book", new { id = @Model[i].ISBN }, new { @class = "" }) |
+                            @using (Html.BeginForm("DeleteBook", "Book", new { id = @Model[i].ISBN }, FormMethod.Post, new { @class = "form-group" }))
                             {
-                                @Html.ActionLink(Html.Encode(author.FirstName + " " + author.LastName), "ListAuthorDetails", "Authors", new { id = author.Aid }, null)
-                                if (!@Model[i].Authors.Last().Equals(author))
-                                {<span> | </span>}
+                                @Html.AntiForgeryToken()
+                                <input type="submit" value="Delete" class="btn-link" />
                             }
-                        }
-                        else
-                        {
-                            @Html.Encode("No Author Available");
-                        }
+                        </div>
                     </div>
-                    <div class="col-sm-2" id="bookListPublicationYear">
-                        @Model[i].PublicationYear
+                    <div class="row">
+                        <div class="col-sm-5" id="bookListAuthor">
+                            <p class="listHeadline">Authors:</p>
+                        </div>
+                        <div class="col-sm-2" id="bookListPublicationYear">
+                            <p class="listHeadline">Published:</p>
+                        </div>
+                        <div class="col-sm-3" id="bookListISBN">
+                            <p class="listHeadline">ISBN:</p>
+                        </div>
+                        <div class="col-sm-2" id="bookListPages">
+                            <p class="listHeadline">Pages:</p>
+                        </div>
                     </div>
-                    <div class="col-sm-3" id="bookListISBN">
-                        @Model[i].ISBN
+                    <div class="row" id="bookListInfoRow">
+                        <div class="col-sm-5" id="bookListAuthor">
+                            @if (Model[i].Authors[0].FirstName != "No Author")
+                            {
+                                foreach (var author in @Model[i].Authors)
+                                {
+                                    @Html.ActionLink(Html.Encode(author.FullName), "ListAuthorDetails", "Author", new { id = author.Aid }, null)
+                                    if (!@Model[i].Authors.Last().Equals(author))
+                                    {<span> | </span>}
+                                }
+                            }
+                            else
+                            {
+                                @Html.Encode("No Author Available");
+                            }
+                        </div>
+                        <div class="col-sm-2" id="bookListPublicationYear">
+                            @Model[i].PublicationYear
+                        </div>
+                        <div class="col-sm-3" id="bookListISBN">
+                            @Model[i].ISBN
+                        </div>
+                        <div class="col-sm-2" id="bookListPages">
+                            @Model[i].Pages
+                        </div>
                     </div>
-                    <div class="col-sm-2" id="bookListPages">
-                        @Model[i].Pages
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="listHeadline">Description:</p>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <p class="listHeadline">Description:</p>
-                    </div>
-                </div>
-                <div class="row" id="bookListDescription">
-                    <div class="col-sm-12">
-                        @Model[i].shortDescription
+                    <div class="row" id="bookListDescription">
+                        <div class="col-sm-12">
+                            @Model[i].ShortDescription
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-    }
+        }
 
-</div>
+    </div>
+*@

@@ -12,7 +12,7 @@ namespace Repository.Support
     public class BookRepository
     {
 
-        public static IPagedList<BOOK> getAllBooksFromDB(int page, int itemsPerPage)
+        public static IPagedList<BOOK> GetAllBooksFromDB(int page, int itemsPerPage)
         {
             using (var db = new dbGrupp3())
             {
@@ -20,8 +20,7 @@ namespace Repository.Support
             }
         }
 
-
-        public static BOOK getBookFromIsbn(string isbn)
+        public static BOOK GetBookFromIsbn(string isbn)
         {
             using(var db = new dbGrupp3())
             {
@@ -29,9 +28,8 @@ namespace Repository.Support
             }
         }
 
-        public static BOOK editBook(BOOK eBook)
+        public static BOOK EditBook(BOOK eBook)
         {
-
             using (var db = new dbGrupp3())
             {
                 BOOK book = db.BOOKs.Find(eBook.ISBN);
@@ -41,7 +39,7 @@ namespace Repository.Support
             }
         }
 
-        public static BOOK createBook(BOOK book)
+        public static BOOK CreateBook(BOOK book)
         {
             using (var db = new dbGrupp3())
             {
@@ -51,7 +49,7 @@ namespace Repository.Support
             }
         }
 
-        public static bool deleteBook(BOOK ebook)
+        public static bool DeleteBook(BOOK ebook)
         {
             using (var db = new dbGrupp3())
             {

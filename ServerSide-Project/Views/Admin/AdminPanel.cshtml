@@ -8,9 +8,9 @@
 
 <div class="col-sm-6 col-sm-offset-3 text-center">
     <h2>Admin Panel</h2>
-    @Html.ActionLink("Create New Book", "CreateBook", "Books") | 
-    @Html.ActionLink("Create New Admin", "CreateAdmin", "Admins") | 
-    @Html.ActionLink("Create New Author", "CreateAuthor", "Authors")
+    @Html.ActionLink("Create New Book", "CreateBook", "Book") | 
+    @Html.ActionLink("Create New Admin", "CreateAdmin", "Admin") | 
+    @Html.ActionLink("Create New Author", "CreateAuthor", "Author")
 </div>
 
 @foreach (var item in Model)
@@ -22,7 +22,7 @@
                     @Html.DisplayFor(modelItem => item.Username)
                 </div>
                 <div class="col-sm-3" id="adminOptions">
-                    @Html.ActionLink("Delete Admin", "DeleteAdmin", "Admins", new { id = item.Username }, null)
+                    @Html.ActionLink("Delete Admin", "DeleteAdmin", "Admin", new { id = item.Username }, null)
                 </div>
             </div>
         </div>

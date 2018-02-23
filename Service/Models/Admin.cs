@@ -39,20 +39,5 @@ namespace Service.Models
         [Required]
         public Rank PermissionLevel { get; set; }
 
-
-        //public static Admin getAdmin(string username)
-        //{
-        //    return Mapper.Map<Admin>(EAdmin.getAdmin(username));
-        //}
-
-        //public static bool createAdmin(Admin admin)
-        //{
-        //    return EAdmin.createAdmin(Mapper.Map<ADMIN>(admin));
-        //}
-
-        //public static List<Admin> getAllAdmins()
-        //{
-        //    return Mapper.Map<List<ADMIN>, List<Admin>>(EAdmin.getAllAdmins());
-        //}
     }
 }

@@ -39,51 +39,13 @@ namespace Service.Models
 
         public IPagedList<Book> BookList { get; set; }
 
-        public string fullName
+        public string FullName
         {
             get
             {
                 return this.LastName + " " + this.FirstName;
             }
         }
-        //public static int CreateAuthor(Author author) //Returns Aid if successfull, 0 if failed
-        //{
-        //    return EAuthor.CreateAuthor(Mapper.Map<Author, AUTHOR>(author));
-        //}
-
-        //public static Author updateAuthor(Author author)
-        //{
-        //    return Mapper.Map<AUTHOR, Author>(EAuthor.updateAuthor(Mapper.Map<Author, AUTHOR>(author)));
-        //}
-
-        //public static bool deleteAuthor(Author author)
-        //{
-        //    return EAuthor.deleteAuthor(Mapper.Map<Author, AUTHOR>(author));
-        //}
-
-        //public static IPagedList<Author> getAllAuthors(int page, int itemsPerPage)
-        //{
-        //    return EAuthor.getAllAuthorsFromDB(page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>();
-        //}
-
-        //public static Author getAuthorDetails(int id, int bookPage)
-        //{
-        //    Author author = Mapper.Map<AUTHOR, Author>(EAuthor.getAuthorDetailsFromDB(id));
-        //    author.BookList = EAuthor.getBooksByAuthor(id, bookPage).ToMappedPagedList<BOOK, Book>();
-        //    Book.setupBooks(author.BookList);
-        //    return author;
-        //}
-
-        //public static IPagedList<Author> getAuthorsFromSearch(string search, int page, int itemsPerPage)
-        //{
-        //    return EAuthor.getAuthorsFromSearchResult(search, page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>(); ;
-        //}
-
-        //public static Author getAuthorFromID(int id)
-        //{
-        //    Author author = Mapper.Map<AUTHOR, Author>(EAuthor.getAuthorFromDB(id));
-        //    return author;
-        //}
 
     }
 }

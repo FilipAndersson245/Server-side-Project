@@ -8,13 +8,13 @@
 <div class="col-sm-6 col-sm-offset-2 align-center">
     <h2>@Html.DisplayFor(modelItem => Model.Title)</h2>
     <div class=" col-sm-3"><img src="~/Resources/Education.png" width="100%" height="100%" /></div>
-       <h5>
+    <h5>
         Written by:
-        @if(Model.Authors != null && Model.Authors.Any())
+        @if (Model.Authors != null && Model.Authors.Any())
         {
             foreach (var author in Model.Authors)
             {
-                @author.fullName;
+                @author.FullName;
                 Write("  ");
             }
         }

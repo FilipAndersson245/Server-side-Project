@@ -8,7 +8,7 @@ namespace Repository.Support
 {
     public class AdminRepository
     {
-        public static ADMIN getAdmin(string username)
+        public static ADMIN GetAdmin(string username)
         {
             using(var db = new dbGrupp3())
             {
@@ -16,7 +16,7 @@ namespace Repository.Support
             }
         }
 
-        public static bool createAdmin(ADMIN admin)
+        public static bool CreateAdmin(ADMIN admin)
         {
             using (var db = new dbGrupp3())
             {
@@ -26,7 +26,7 @@ namespace Repository.Support
             }
         }
 
-        public static List<ADMIN> getAllAdmins()
+        public static List<ADMIN> GetAllAdmins()
         {
             using (var db = new dbGrupp3())
             {

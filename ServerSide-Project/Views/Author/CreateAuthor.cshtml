@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "CreateAuthor";
-    ViewBag.activeBrowseBy = "Authors";
+    ViewBag.activeBrowseBy = "Author";
 }
 
 <div class="col-sm-6 col-sm-offset-3">
@@ -10,7 +10,7 @@
     <h2>Create Author</h2>
 
 
-    @using (Html.BeginForm("CreateAuthor", "Authors", FormMethod.Post, new { @class = "form-group" }))
+    @using (Html.BeginForm("CreateAuthor", "Author", FormMethod.Post, new { @class = "form-group" }))
     {
         @Html.AntiForgeryToken()
 
@@ -50,7 +50,7 @@
     }
 
     <div>
-        @Html.ActionLink("Back to Author List", "BrowseAllAuthors", "Authors", null, null)
+        @Html.ActionLink("Back to Author List", "BrowseAllAuthors", "Author", null, null)
     </div>
 
 </div>

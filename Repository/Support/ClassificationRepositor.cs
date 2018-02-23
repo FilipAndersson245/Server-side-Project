@@ -10,7 +10,7 @@ namespace Repository.Support
     {
         static public CLASSIFICATION GetClassificationForBook(string isbn)
         {
-            return BookRepository.getBookFromIsbn(isbn).CLASSIFICATION;
+            return BookRepository.GetBookFromIsbn(isbn).CLASSIFICATION;
         }
 
         static public List<BOOK> GetBooksFromClassification(int signId)
@@ -28,7 +28,7 @@ namespace Repository.Support
             }
         }
 
-        public static int getNewID()
+        public static int GetNewID()
         {
             using (var db = new dbGrupp3())
             {
@@ -36,18 +36,18 @@ namespace Repository.Support
             }
         }
 
-        public static bool createClassification(CLASSIFICATION eClassification)
+        public static bool CreateClassification(CLASSIFICATION eClassification)
         {
             using (var db = new dbGrupp3())
             {
-                eClassification.SignId = ClassificationRepositor.getNewID();
+                eClassification.SignId = ClassificationRepositor.GetNewID();
                 db.CLASSIFICATIONs.Add(eClassification);
                 db.SaveChanges();
                 return true;
             }
         }
 
-        public static CLASSIFICATION getClassificationFromID(int id)
+        public static CLASSIFICATION GetClassificationFromID(int id)
         {
             using (var db = new dbGrupp3())
             {
@@ -55,7 +55,7 @@ namespace Repository.Support
             }
         }
 
-        public static bool deleteClassification(CLASSIFICATION eClassification)
+        public static bool DeleteClassification(CLASSIFICATION eClassification)
         {
             using (var db = new dbGrupp3())
             {
@@ -67,7 +67,7 @@ namespace Repository.Support
             }
         }
 
-        public static bool editClassification(CLASSIFICATION eClassification)
+        public static bool EditClassification(CLASSIFICATION eClassification)
         {
             using (var db = new dbGrupp3())
             {

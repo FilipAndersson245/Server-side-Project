@@ -10,7 +10,7 @@ using Service.Managers;
 
 namespace ServerSide_Project.Controllers
 {
-    public class AdminsController : Controller
+    public class AdminController : Controller
     {
         // GET: Admins
         public ActionResult Index()
@@ -37,7 +37,7 @@ namespace ServerSide_Project.Controllers
                     newAdmin.PasswordHash = Convert.ToBase64String(deriveBytes.GetBytes(20));
                     newAdmin.Username = admin.Username;
                     newAdmin.PermissionLevel = admin.PermissionLevel;
-                    AdminManager.createAdmin(newAdmin);
+                    AdminManager.CreateAdmin(newAdmin);
                 }
             }
             else
@@ -45,25 +45,25 @@ namespace ServerSide_Project.Controllers
                 throw new NotFiniteNumberException("ModelstateNotValid");
             }
 
-            return RedirectToAction("AdminPanel", "Admins", null);
+            return RedirectToAction("AdminPanel", "Admin", null);
         }
 
 
         public ActionResult DeleteAdmin(string id)
         {
-            return RedirectToAction("AdminPanel", "Admins", null);
+            return RedirectToAction("AdminPanel", "Admin", null);
         }
 
         [HttpGet]
         public ActionResult Login()
         {
-            return View("login");
+            return View("Login");
         }
 
         [HttpPost]
         public ActionResult Login(Admin admin)
         {
-            var serverAdmin = AdminManager.getAdmin(admin.Username);
+            var serverAdmin = AdminManager.GetAdmin(admin.Username);
             byte[] salt = Convert.FromBase64String(serverAdmin.Salt);
             byte[] key = Convert.FromBase64String(serverAdmin.PasswordHash);
             //load salt and key from database
@@ -85,7 +85,7 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult AdminPanel()
         {
-            return View("AdminPanel", AdminManager.getAllAdmins());
+            return View("AdminPanel", AdminManager.GetAllAdmins());
         }
 
 

@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Author Details";
-    ViewBag.activeBrowseBy = "Authors";
+    ViewBag.activeBrowseBy = "Author";
 }
 
 <h4 class="text-center">Author Details</h4>
@@ -10,7 +10,7 @@
 <div class="row text-left" id="authorDetails">
     <div class="col-sm-2"></div>
     <div class="col-sm-6">
-        <h1>@Model.FirstName @Model.LastName</h1>
+        <h1>@Model.FullName</h1>
     </div>
     <div class="col-sm-1">
         <div class="row">
@@ -30,8 +30,8 @@
     <div class="col-sm-1 text-right">
         
         
-        @Html.ActionLink("Edit", "updateAuthor", "Authors", new { id = Model.Aid }, null) |
-        @using (Html.BeginForm("deleteAuthor", "Authors", new { id = Model.Aid }, FormMethod.Post, new { @class = "form-group", @id = "authorDetailsOptions" }))
+        @Html.ActionLink("Edit", "EditAuthor", "Author", new { id = Model.Aid }, null) |
+        @using (Html.BeginForm("DeleteAuthor", "Author", new { id = Model.Aid }, FormMethod.Post, new { @class = "form-group", @id = "authorDetailsOptions" }))
         {
             @Html.AntiForgeryToken()
             <input type="submit" value="Delete" class="btn-link" />

@@ -23,8 +23,8 @@
                 </button>
                 <div class="col-sm-4">
                     <ul class="nav nav-pills nav-justified">
-                        <li class="@((ViewBag.activeBrowseBy == "Books") ? "active" : null) " >@Html.ActionLink("Books", "BrowseAllBooks", "Books")</li>
-                        <li class="@((ViewBag.activeBrowseBy == "Authors") ? "active" : null) " >@Html.ActionLink("Authors", "BrowseAllAuthors", "Authors")</li>
+                        <li class="@((ViewBag.activeBrowseBy == "Books") ? "active" : null) " >@Html.ActionLink("Books", "BrowseAllBooks", "Book")</li>
+                        <li class="@((ViewBag.activeBrowseBy == "Authors") ? "active" : null) " >@Html.ActionLink("Authors", "BrowseAllAuthors", "Author")</li>
                     </ul>
                 </div>
                 <div class="navbar-col-sm-4 col-sm-offset-5">
@@ -32,8 +32,8 @@
                 </div>
                 <div class="navbar-col-sm-4">
                     <ul class="nav navbar-nav navbar-right">
-                        <li>@Html.ActionLink("admin", "AdminPanel", "Admins", null, null)</li>
-                        <li><a href=@Url.Action("Login", "Admins")><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        <li>@Html.ActionLink("Admin", "AdminPanel", "Admin", null, null)</li>
+                        <li><a href=@Url.Action("Login", "Admin")><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                     </ul>
                 </div>
             </div>
@@ -43,10 +43,10 @@
     <div class="container-fluid text-center">
         <div class="content">
             <div class="row text-center">
-                @if (ViewBag.activeBrowseBy == "Books")
+                @if (ViewBag.activeBrowseBy == "Book")
                 {
 
-                    using (Html.BeginForm("SearchBooks", "Books", FormMethod.Get, new { @class = "form-inline" }))
+                    using (Html.BeginForm("SearchBooks", "Book", FormMethod.Get, new { @class = "form-inline" }))
                     {
                         Html.AntiForgeryToken();
                         <div class="form-group col-sm-12 input-lg text-center" id="searchBar">
@@ -61,9 +61,9 @@
                         </div>
                     }
                 }
-                else if (ViewBag.activeBrowseBy == "Authors")
+                else if (ViewBag.activeBrowseBy == "Author")
                 {
-                    using (Html.BeginForm("searchAuthors", "Authors", FormMethod.Get, new { @class = "form-inline" }))
+                    using (Html.BeginForm("SearchAuthors", "Author", FormMethod.Get, new { @class = "form-inline" }))
                     {
                                 Html.AntiForgeryToken();
                     <div class="form-group col-sm-12 input-lg text-center" id="searchBar">

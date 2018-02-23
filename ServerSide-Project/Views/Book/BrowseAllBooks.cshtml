@@ -1,25 +1,25 @@
 ﻿@using PagedList.Mvc
-@model PagedList.IPagedList<Service.Models.Author>
+@model PagedList.IPagedList<Service.Models.Book>
 
 @{
-    ViewBag.Title = "BrowseSearchedAuthors";
-    ViewBag.activeBrowseBy = "Authors";
+    ViewBag.Title = "BrowseAllBooks";
+    ViewBag.activeBrowseBy = "Book";
 }
 
 <div class="text-center" id="pageSelector">
     <div class="pagination">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
         of @Model.PageCount
-        @Html.PagedListPager(Model, page => Url.Action("searchAuthors", new { page, search = Request.Params["search"] }))
+        @Html.PagedListPager(Model, page => Url.Action("BrowseAllBooks", new { page }))
     </div>
 </div>
 
-@Html.Partial("ListAuthors", Model)
+@Html.Partial("ListBooks", Model)
 
 <div class="text-center" id="pageSelector">
     <div class="pagination">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
         of @Model.PageCount
-        @Html.PagedListPager(Model, page => Url.Action("searchAuthors", new { page, search = Request.Params["search"] }))
+        @Html.PagedListPager(Model, page => Url.Action("BrowseAllBooks", new { page }))
     </div>
 </div>

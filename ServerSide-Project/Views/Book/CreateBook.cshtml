@@ -10,7 +10,7 @@
     <h2>CreateBook</h2>
 
 
-    @using (Html.BeginForm("CreateBook", "Books", FormMethod.Post, new { @class = "form-group" }))
+    @using (Html.BeginForm("CreateBook", "Book", FormMethod.Post, new { @class = "form-group" }))
     {
         @Html.AntiForgeryToken()
 
@@ -76,7 +76,7 @@
     }
 
     <div>
-        @Html.ActionLink("Back to List", "AdminPanel", "Admins", null, null)
+        @Html.ActionLink("Back to List", "AdminPanel", "Admin", null, null)
     </div>
 </div>
 <div class="col-sm-3"></div>
