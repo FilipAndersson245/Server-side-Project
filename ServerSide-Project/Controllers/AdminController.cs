@@ -7,10 +7,11 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Service.Managers;
+using ServerSide_Project.Tool;
 
 namespace ServerSide_Project.Controllers
 {
-    public class AdminController : Controller
+    public class AdminController : ControllerExtension
     {
         // GET: Admins
         public ActionResult Index()
@@ -95,32 +96,11 @@ namespace ServerSide_Project.Controllers
 
         }
 
-        protected override void OnException(ExceptionContext filterContext)
-        {
-
-            if (filterContext.Exception is ValidationException)
-            {
-                filterContext.ExceptionHandled = true;
-                filterContext.Result = RedirectToAction("Login", new { returnBackTo = Request.RawUrl });
-            }
-        }
-
-        // place this in a extension of the Controller class so all controller can use it
-        private bool ValidateAndRedirect(Rank rank = Rank.Admin)
-        {
-            if (Session["authentication"] == null || (Rank)Session["level"] < rank) 
-            {
-                //RedirectToAction("login", new { redirectTo = Request.RawUrl});
-                throw new ValidationException();
-            }
-            return true;
-        }
-
 
     }
 
     //move to a different folder not in here
-    public class ValidationException : Exception { }
+    
 
 
 }

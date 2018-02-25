@@ -7,10 +7,11 @@ using System.Web.Security;
 using PagedList;
 using Service.Models;
 using Service.Managers;
+using ServerSide_Project.Tool;
 
 namespace ServerSide_Project.Controllers
 {
-    public class AuthorController : Controller
+    public class AuthorController : ControllerExtension
     {
         public const int ITEMS_PER_PAGE = 15;
 

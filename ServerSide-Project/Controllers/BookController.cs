@@ -6,11 +6,11 @@ using System.Web.Mvc;
 using PagedList;
 using Service.Models;
 using Service.Managers;
-
+using ServerSide_Project.Tool;
 
 namespace ServerSide_Project.Controllers
 {
-    public class BookController : Controller
+    public class BookController : ControllerExtension
     {
         public const int ITEMS_PER_PAGE = 10;
 

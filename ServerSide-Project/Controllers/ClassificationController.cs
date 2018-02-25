@@ -5,10 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using Service.Models;
 using Service.Managers;
+using ServerSide_Project.Tool;
 
 namespace ServerSide_Project.Controllers
 {
-    public class ClassificationController : Controller
+    public class ClassificationController : ControllerExtension
     {
         // GET: Classification
         public ActionResult Index()
