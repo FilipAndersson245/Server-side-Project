@@ -149,7 +149,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tool\ControllerExtension.cs" />
+    <Compile Include="Tools\ControllerExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

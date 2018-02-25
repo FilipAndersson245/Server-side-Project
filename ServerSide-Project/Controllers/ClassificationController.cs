@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Service.Models;
 using Service.Managers;
-using ServerSide_Project.Tool;
+using ServerSide_Project.Tools;
 
 namespace ServerSide_Project.Controllers
 {

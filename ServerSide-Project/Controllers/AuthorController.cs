@@ -7,7 +7,7 @@ using System.Web.Security;
 using PagedList;
 using Service.Models;
 using Service.Managers;
-using ServerSide_Project.Tool;
+using ServerSide_Project.Tools;
 
 namespace ServerSide_Project.Controllers
 {

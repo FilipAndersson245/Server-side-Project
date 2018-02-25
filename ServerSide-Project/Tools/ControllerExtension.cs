@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Service.Models;
 
-namespace ServerSide_Project.Tool
+namespace ServerSide_Project.Tools
 {
     public class ControllerExtension : Controller
     {
