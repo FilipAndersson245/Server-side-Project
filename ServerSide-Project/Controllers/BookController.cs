@@ -21,9 +21,8 @@ namespace ServerSide_Project.Controllers
             return View("CreateBook");
         }
 
-        [HttpPost]
-        [ActionName("CreateBook")]              
-        public ActionResult CreateBookPost(Book book) 
+        [HttpPost]             
+        public ActionResult CreateBook(Book book) 
         {
             ValidateAndRedirect(Rank.Admin);
             if (ModelState.IsValid)
