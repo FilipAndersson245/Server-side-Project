@@ -12,16 +12,6 @@ namespace ServerSide_Project.Controllers
 {
     public class AdminController : Controller
     {
-        protected override void OnException(ExceptionContext filterContext)
-        {
-
-            if (filterContext.Exception is ValidationException)
-            {
-                filterContext.ExceptionHandled = true;
-                filterContext.Result = RedirectToAction("Login", new { returnBackTo = Request.RawUrl });
-            }
-        }
-
         // GET: Admins
         public ActionResult Index()
         {
@@ -38,6 +28,7 @@ namespace ServerSide_Project.Controllers
         [HttpPost]
         public ActionResult CreateAdmin(Admin admin)
         {
+            ValidateAndRedirect(Rank.SuperAdmin);
             if (ModelState.IsValid)
             {
                 //todo check if already exist
@@ -62,6 +53,7 @@ namespace ServerSide_Project.Controllers
 
         public ActionResult DeleteAdmin(string id)
         {
+            ValidateAndRedirect(Rank.SuperAdmin);
             return RedirectToAction("AdminPanel", "Admin", null);
         }
 
@@ -101,6 +93,16 @@ namespace ServerSide_Project.Controllers
             // return RedirectToAction("login", new { redirectBackToAction = this.ControllerContext.RouteData.Values["controller"].ToString(), RedirectToController = this.ControllerContext.RouteData.Values["controller"]});
             return View("AdminPanel", AdminManager.GetAllAdmins());
 
+        }
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+
+            if (filterContext.Exception is ValidationException)
+            {
+                filterContext.ExceptionHandled = true;
+                filterContext.Result = RedirectToAction("Login", new { returnBackTo = Request.RawUrl });
+            }
         }
 
         // place this in a extension of the Controller class so all controller can use it
