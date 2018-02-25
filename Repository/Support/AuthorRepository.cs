@@ -72,12 +72,12 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                return db.Database.SqlQuery<AUTHOR>(@"SELECT DISTINCT AUTHOR.Aid,AUTHOR.FirstName,AUTHOR.LastName,AUTHOR.BirthYear
-                                                      FROM AUTHOR
-                                                      WHERE AUTHOR.FirstName LIKE @SEARCH
-                                                      OR AUTHOR.LastName LIKE @SEARCH
-                                                      OR AUTHOR.FirstName + ' ' + AUTHOR.LastName LIKE @SEARCH",
-                                               new SqlParameter("@SEARCH", "%" + search + "%")).ToList().ToPagedList(page, itemsPerPage);
+                var resultat = db.AUTHORs.Where(x  => 
+                    (x.FirstName.Contains(search)) ||
+                    (x.LastName.Contains(search)) ||
+                    ((x.FirstName + " " + x.LastName).Contains(search))).OrderBy(x => x.LastName)
+                    .ToPagedList(page,itemsPerPage);
+                return resultat;
             }
         }
 
