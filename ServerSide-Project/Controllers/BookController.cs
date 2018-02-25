@@ -30,7 +30,11 @@ namespace ServerSide_Project.Controllers
                 return View("ListBookDetails", BookManager.CreateBook(book));
             }
             else
+            {
+                ModelState.AddModelError("", new Exception("aaa"));
                 return RedirectToAction("BrowseAllBooks", "Book", null);
+            }
+                
         }
 
         [HttpGet]

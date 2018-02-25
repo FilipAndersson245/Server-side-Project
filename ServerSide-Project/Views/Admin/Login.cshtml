@@ -8,6 +8,7 @@
     @using (@Html.BeginForm("Login", "Admin", FormMethod.Post, new {  }))
     {
         @Html.AntiForgeryToken()
+        @Html.Hidden("returnBackTo", (string)ViewBag.returnBackTo)
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.Username)

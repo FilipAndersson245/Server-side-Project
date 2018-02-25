@@ -35,17 +35,19 @@ namespace ServerSide_Project.Controllers
                 //todo check if already exist
                 using (var deriveBytes = new Rfc2898DeriveBytes(admin.Password, 20))
                 {
-                    Admin newAdmin = new Admin();
-                    newAdmin.Salt = Convert.ToBase64String(deriveBytes.Salt);
-                    newAdmin.PasswordHash = Convert.ToBase64String(deriveBytes.GetBytes(20));
-                    newAdmin.Username = admin.Username;
-                    newAdmin.PermissionLevel = admin.PermissionLevel;
+                    Admin newAdmin = new Admin
+                    {
+                        Salt = Convert.ToBase64String(deriveBytes.Salt),
+                        PasswordHash = Convert.ToBase64String(deriveBytes.GetBytes(20)),
+                        Username = admin.Username,
+                        PermissionLevel = admin.PermissionLevel
+                    };
                     AdminManager.CreateAdmin(newAdmin);
                 }
             }
             else
             {
-                throw new NotFiniteNumberException("ModelstateNotValid");
+                throw new Exception("ModelstateNotValid");
             }
             return RedirectToAction("AdminPanel", "Admin", null);
         }
@@ -58,13 +60,14 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult Login(string returnBackTo = null)
         {
+            ViewBag.returnBackTo = returnBackTo;
             return View("login");
         }
 
         [HttpPost]
-        public ActionResult Login(Admin admin)
+        public ActionResult Login(Admin admin, string returnBackTo = null)
         {
             var serverAdmin = AdminManager.GetAdmin(admin.Username);
             byte[] salt = Convert.FromBase64String(serverAdmin.Salt);
@@ -77,10 +80,13 @@ namespace ServerSide_Project.Controllers
                 {
                     Session["authentication"] = admin.Username;
                     Session["level"] = admin.PermissionLevel;
+
+                    var z = Url.RouteCollection["default"];
                     return RedirectToAction("Index", "Home");
                 }
                 return View("Login");
             }
+            
         }
 
         [HttpGet]

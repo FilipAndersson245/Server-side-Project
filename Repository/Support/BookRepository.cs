@@ -65,10 +65,7 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                return db.Database.SqlQuery<AUTHOR>(
-                     @"SELECT dbo.AUTHOR.FirstName, dbo.AUTHOR.LastName , dbo.AUTHOR.BirthYear , dbo.AUTHOR.Aid 
-                    FROM ( dbo.AUTHOR INNER JOIN BOOK_AUTHOR ON AUTHOR.Aid = BOOK_AUTHOR.Aid AND BOOK_AUTHOR.ISBN = @isbn)",
-                     new SqlParameter("@isbn", isbn)).ToList();
+                return db.BOOKs.Find(isbn).AUTHORs.ToList();
             }
         }
 
