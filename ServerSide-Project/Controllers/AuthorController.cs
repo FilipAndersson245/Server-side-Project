@@ -15,7 +15,7 @@ namespace ServerSide_Project.Controllers
     {
         public const int ITEMS_PER_PAGE = 15;
 
-        // GET: Authors
+        [HttpGet]
         public ActionResult Index()
         {
             return View();

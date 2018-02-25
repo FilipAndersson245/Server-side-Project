@@ -14,7 +14,6 @@ namespace Service.Configuration
     {
         public static void Configure() => Mapper.Initialize(cfg =>
             {
-                //AddProfile
                 cfg.AddProfile(new ToAuthorProfile());
                 cfg.AddProfile(new ToBookProfile());
                 cfg.AddProfile(new ToClassificationProfile());
@@ -24,8 +23,6 @@ namespace Service.Configuration
                 cfg.AddProfile(new FromBookProfile());
                 cfg.AddProfile(new FromClassificationProfile());
                 cfg.AddProfile(new FromAdminProfile());
-
-
             });
     }
 

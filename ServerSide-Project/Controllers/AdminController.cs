@@ -47,11 +47,10 @@ namespace ServerSide_Project.Controllers
             {
                 throw new NotFiniteNumberException("ModelstateNotValid");
             }
-
             return RedirectToAction("AdminPanel", "Admin", null);
         }
 
-
+        [HttpPost]
         public ActionResult DeleteAdmin(string id)
         {
             ValidateAndRedirect(Rank.SuperAdmin);
@@ -82,25 +81,13 @@ namespace ServerSide_Project.Controllers
                 }
                 return View("Login");
             }
-
-
-            
         }
 
         [HttpGet]
         public ActionResult AdminPanel()
         {
             ValidateAndRedirect();
-            // return RedirectToAction("login", new { redirectBackToAction = this.ControllerContext.RouteData.Values["controller"].ToString(), RedirectToController = this.ControllerContext.RouteData.Values["controller"]});
             return View("AdminPanel", AdminManager.GetAllAdmins());
-
         }
-
-
     }
-
-    //move to a different folder not in here
-    
-
-
 }

@@ -11,7 +11,7 @@ namespace ServerSide_Project.Controllers
 {
     public class ClassificationController : ControllerExtension
     {
-        // GET: Classification
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
@@ -48,8 +48,7 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpPost]
-        [ActionName("CreateClassification")]
-        public ActionResult CreateClassificationPost(Classification classification)
+        public ActionResult CreateClassification(Classification classification)
         {
             ValidateAndRedirect(Rank.Admin);
             if (ClassificationManager.CreateClassification(classification))
