@@ -15,7 +15,7 @@ namespace ServerSide_Project.Tools
             if (filterContext.Exception is ValidationException)
             {
                 filterContext.ExceptionHandled = true;
-                filterContext.Result = RedirectToAction("Login", "Admin", new { returnBackTo = Request.RawUrl });
+                filterContext.Result = RedirectToAction("Login", "Admin", new { returnBackTo = Request.Url });
 
             }
         }

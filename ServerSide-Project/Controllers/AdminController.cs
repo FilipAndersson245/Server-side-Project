@@ -69,6 +69,7 @@ namespace ServerSide_Project.Controllers
         [HttpPost]
         public ActionResult Login(Admin admin, string returnBackTo = null)
         {
+
             var serverAdmin = AdminManager.GetAdmin(admin.Username);
             byte[] salt = Convert.FromBase64String(serverAdmin.Salt);
             byte[] key = Convert.FromBase64String(serverAdmin.PasswordHash);
@@ -80,10 +81,11 @@ namespace ServerSide_Project.Controllers
                 {
                     Session["authentication"] = admin.Username;
                     Session["level"] = admin.PermissionLevel;
-
-                    return RedirectToAction("Index", "Home");
+                    if (returnBackTo.Equals(null))
+                        return RedirectToAction("index", "Home");
+                    return Redirect(returnBackTo);
                 }
-                return View("Login");
+                return RedirectToAction("Login","Admin",new { returnBackTo });
             }
             
         }
