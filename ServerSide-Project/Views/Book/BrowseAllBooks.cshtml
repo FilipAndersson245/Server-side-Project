@@ -6,20 +6,26 @@
     ViewBag.activeBrowseBy = "Book";
 }
 
-<div class="text-center" id="pageSelector">
-    <div class="pagination">
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-        of @Model.PageCount
-        @Html.PagedListPager(Model, page => Url.Action("BrowseAllBooks", new { page }))
+@if (Model.PageCount > 0)
+{
+    <div class="text-center" id="pageSelector">
+        <div class="pagination">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+            of @Model.PageCount
+            @Html.PagedListPager(Model, page => Url.Action("BrowseAllBooks", new { page }))
+        </div>
     </div>
-</div>
+}
 
 @Html.Partial("ListBooks", Model)
 
-<div class="text-center" id="pageSelector">
-    <div class="pagination">
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-        of @Model.PageCount
-        @Html.PagedListPager(Model, page => Url.Action("BrowseAllBooks", new { page }))
+@if (Model.PageCount > 0)
+{
+    <div class="text-center" id="pageSelector">
+        <div class="pagination">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+            of @Model.PageCount
+            @Html.PagedListPager(Model, page => Url.Action("BrowseAllBooks", new { page }))
+        </div>
     </div>
-</div>
+}

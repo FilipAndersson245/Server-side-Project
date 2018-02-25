@@ -6,20 +6,26 @@
     ViewBag.activeBrowseBy = "Author";
 }
 
-<div class="text-center" id="pageSelector">
-    <div class="pagination">
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-        of @Model.PageCount
-        @Html.PagedListPager(Model, page => Url.Action("SearchAuthors", new { search = Request.Params["search"], page }))
+@if (Model.PageCount > 1)
+{
+    <div class="text-center" id="pageSelector">
+        <div class="pagination">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+            of @Model.PageCount
+            @Html.PagedListPager(Model, page => Url.Action("SearchAuthors", new { search = Request.Params["search"], page }))
+        </div>
     </div>
-</div>
+}
 
-@Html.Partial("ListAuthors", Model)
+    @Html.Partial("ListAuthors", Model)
 
-<div class="text-center" id="pageSelector">
-    <div class="pagination">
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-        of @Model.PageCount
-        @Html.PagedListPager(Model, page => Url.Action("SearchAuthors", new { search = Request.Params["search"], page}))
-    </div>
-</div>
+    @if (Model.PageCount > 1)
+    {
+        <div class="text-center" id="pageSelector">
+            <div class="pagination">
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                of @Model.PageCount
+                @Html.PagedListPager(Model, page => Url.Action("SearchAuthors", new { search = Request.Params["search"], page }))
+            </div>
+        </div>
+    }
