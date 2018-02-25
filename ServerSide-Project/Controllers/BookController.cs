@@ -17,6 +17,7 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult CreateBook()
         {
+            ValidateAndRedirect(Rank.Admin);
             return View("CreateBook");
         }
 
@@ -24,6 +25,7 @@ namespace ServerSide_Project.Controllers
         [ActionName("CreateBook")]              
         public ActionResult CreateBookPost(Book book) 
         {
+            ValidateAndRedirect(Rank.Admin);
             if (ModelState.IsValid)
             {
                 return View("ListBookDetails", BookManager.CreateBook(book));
@@ -47,12 +49,14 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult EditBook(string id)
         {
+            ValidateAndRedirect(Rank.Admin);
             return View("EditBook", BookManager.GetBookFromIsbn(id));
         }
 
         [HttpPost]
         public ActionResult EditBook(Book book)
         {
+            ValidateAndRedirect(Rank.Admin);
             return RedirectToAction("ListBookDetails", "Book", BookManager.EditBook(book).ISBN);
 
         }
@@ -60,6 +64,7 @@ namespace ServerSide_Project.Controllers
         [HttpPost]
         public ActionResult DeleteBook(string id)
         {
+            ValidateAndRedirect(Rank.Admin);
             if (BookManager.DeleteBook(id))
                 return RedirectToAction("BrowseAllBooks", "Book", null);
             else
