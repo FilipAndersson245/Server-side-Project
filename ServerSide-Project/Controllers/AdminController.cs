@@ -31,6 +31,7 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult CreateAdmin()
         {
+            ValidateAndRedirect(Rank.SuperAdmin);
             return View("CreateAdmin");
         }
 
@@ -103,9 +104,9 @@ namespace ServerSide_Project.Controllers
         }
 
         // place this in a extension of the Controller class so all controller can use it
-        private bool ValidateAndRedirect(int level = 0)
+        private bool ValidateAndRedirect(Rank rank = Rank.Admin)
         {
-            if (Session["authentication"] == null || (int)Session["level"] < level) //change int to the level enum must include that inside wherever we place this function
+            if (Session["authentication"] == null || (Rank)Session["level"] < rank) 
             {
                 //RedirectToAction("login", new { redirectTo = Request.RawUrl});
                 throw new ValidationException();

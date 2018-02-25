@@ -9,14 +9,15 @@ using AutoMapper;
 using Service.Managers;
 using Service.Tools;
 
-public enum Rank
-{
-    Admin,
-    SuperAdmin
-}
 
 namespace Service.Models
 {
+    public enum Rank
+    {
+        Admin = 0,
+        SuperAdmin
+    }
+
     public class Admin
     {
         [Required(ErrorMessage = "Please Provide Username", AllowEmptyStrings = false)]
