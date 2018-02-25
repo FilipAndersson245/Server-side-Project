@@ -26,14 +26,14 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult EditClassification(int id)
         {
-            ValidateAndRedirect(Rank.Admin);
+            ValidateAndRedirect();
             return View("EditClassification", ClassificationManager.GetClassificationFromID(id));
         }
 
         [HttpPost]
         public ActionResult editClassification(Classification classification)
         {
-            ValidateAndRedirect(Rank.Admin);
+            ValidateAndRedirect();
             if (ClassificationManager.EditClassification(classification))
                 return RedirectToAction("BrowseAllBooks", "Book", null);
             else
@@ -43,14 +43,14 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult CreateClassification()
         {
-            ValidateAndRedirect(Rank.Admin);
+            ValidateAndRedirect();
             return View("CreateClassification");
         }
 
         [HttpPost]
         public ActionResult CreateClassification(Classification classification)
         {
-            ValidateAndRedirect(Rank.Admin);
+            ValidateAndRedirect();
             if (ClassificationManager.CreateClassification(classification))
                 return RedirectToAction("BrowseAllBooks", "Book", null);
             else
@@ -60,7 +60,7 @@ namespace ServerSide_Project.Controllers
         [HttpPost]
         public ActionResult DeleteClassification(int id)
         {
-            ValidateAndRedirect(Rank.Admin);
+            ValidateAndRedirect();
             if (ClassificationManager.DeleteClassification(ClassificationManager.GetClassificationFromID(id)))
                 return RedirectToAction("BrowseAllBooks", "Book", null);
             else

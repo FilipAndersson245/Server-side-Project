@@ -24,14 +24,14 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult CreateAuthor()
         {
-            ValidateAndRedirect(Rank.Admin);
+            ValidateAndRedirect();
             return View("CreateAuthor");
         }
 
         [HttpPost]
         public ActionResult CreateAuthor(Author author)
         {
-            ValidateAndRedirect(Rank.Admin);
+            ValidateAndRedirect();
             if (AuthorManager.CreateAuthor(author) != 0)
                 return RedirectToAction("ListAuthorDetails", "Author", new { id = AuthorManager.CreateAuthor(author)});
             else
@@ -41,21 +41,21 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult EditAuthor(int id)
         {
-            ValidateAndRedirect(Rank.Admin);
+            ValidateAndRedirect();
             return View("EditAuthor", AuthorManager.GetAuthorFromID(id));
         }
 
         [HttpPost]
         public ActionResult EditAuthor(Author author)
         {
-            ValidateAndRedirect(Rank.Admin);
+            ValidateAndRedirect();
             return RedirectToAction("ListAuthorDetails", "Author", new { id = AuthorManager.EditAuthor(author).Aid });
         }
         
         [HttpPost]
         public ActionResult DeleteAuthor(int id)
         {
-            ValidateAndRedirect(Rank.Admin);
+            ValidateAndRedirect();
             if (AuthorManager.DeleteAuthor(AuthorManager.GetAuthorFromID(id)))
                 return RedirectToAction("BrowseAllAuthors", "Author", null);
             else
