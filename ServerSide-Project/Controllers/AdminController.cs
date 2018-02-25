@@ -81,7 +81,6 @@ namespace ServerSide_Project.Controllers
                     Session["authentication"] = admin.Username;
                     Session["level"] = admin.PermissionLevel;
 
-                    var z = Url.RouteCollection["default"];
                     return RedirectToAction("Index", "Home");
                 }
                 return View("Login");

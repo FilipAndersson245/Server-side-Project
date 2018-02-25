@@ -72,12 +72,8 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                var resultat = db.AUTHORs.Where(x  => 
-                    (x.FirstName.Contains(search)) ||
-                    (x.LastName.Contains(search)) ||
-                    ((x.FirstName + " " + x.LastName).Contains(search))).OrderBy(x => x.LastName)
-                    .ToPagedList(page,itemsPerPage);
-                return resultat;
+                return db.AUTHORs.Where(x  => ((x.FirstName + " " + x.LastName).Contains(search))).OrderBy(x => x.LastName).ToPagedList(page,itemsPerPage);
+                
             }
         }
 
