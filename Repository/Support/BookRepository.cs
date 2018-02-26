@@ -5,7 +5,7 @@ using System.Web;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using PagedList;
-
+using LinqKit;
 
 namespace Repository.Support
 {
@@ -100,6 +100,7 @@ namespace Repository.Support
 
             using (var db = new dbGrupp3())
             {
+
                 if (classParameters.Count > 0)
                 {
                     classParameters.Add(new SqlParameter("@SEARCH", "%" + search + "%"));

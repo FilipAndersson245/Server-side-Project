@@ -69,7 +69,6 @@ namespace ServerSide_Project.Controllers
         [HttpPost]
         public ActionResult Login(Admin admin, string returnBackTo = null)
         {
-
             var serverAdmin = AdminManager.GetAdmin(admin.Username);
             byte[] salt = Convert.FromBase64String(serverAdmin.Salt);
             byte[] key = Convert.FromBase64String(serverAdmin.PasswordHash);
@@ -87,7 +86,6 @@ namespace ServerSide_Project.Controllers
                 }
                 return RedirectToAction("Login","Admin",new { returnBackTo });
             }
-            
         }
 
         [HttpGet]
