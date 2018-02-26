@@ -82,7 +82,7 @@ namespace Repository.Support
             
             if(classifications != null)
             {
-                return getClassificationQuery(classifications).Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + y.LastName).Contains(search))).OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
+                return GetClassificationQuery(classifications).Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + y.LastName).Contains(search))).OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
             }
             else
             {
@@ -93,7 +93,7 @@ namespace Repository.Support
             }
         }
 
-        private static IQueryable<BOOK> getClassificationQuery(params int[] clasifications)
+        private static IQueryable<BOOK> GetClassificationQuery(params int[] clasifications)
         {
             var query = PredicateBuilder.New<BOOK>();
             foreach (var clasification in clasifications)
