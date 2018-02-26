@@ -8,19 +8,28 @@ namespace Repository.Support
 {
     public class ClassificationRepositor
     {
-        static public CLASSIFICATION GetClassificationForBook(string isbn)
+        public static bool DoesClassificationExist(int signId)
+        {
+            using (var db = new dbGrupp3())
+            {
+                return db.CLASSIFICATIONs.Any(x => x.SignId.Equals(signId));
+            }
+        }
+
+        public static CLASSIFICATION GetClassificationForBook(string isbn)
         {
             return BookRepository.GetBookFromIsbn(isbn).CLASSIFICATION;
         }
 
-        static public List<BOOK> GetBooksFromClassification(int signId)
+        public static List<BOOK> GetBooksFromClassification(int signId)
         {
             using (var db = new dbGrupp3())
             {
                 return db.CLASSIFICATIONs.Find(signId).BOOKs.ToList();
             }
         }
-        static public List<CLASSIFICATION> GetAllClassifications()
+
+        public static List<CLASSIFICATION> GetAllClassifications()
         {
             using (var db = new dbGrupp3())
             {
@@ -40,7 +49,7 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                eClassification.SignId = ClassificationRepositor.GetNewID();
+                eClassification.SignId = GetNewID();
                 db.CLASSIFICATIONs.Add(eClassification);
                 db.SaveChanges();
                 return true;

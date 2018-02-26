@@ -11,6 +11,13 @@ namespace Repository.Support
 {
     public class BookRepository
     {
+        public static bool DoesBookExist(string isbn)
+        {
+            using (var db = new dbGrupp3())
+            {
+                return db.BOOKs.Any(x => x.ISBN == isbn);
+            }
+        }
 
         public static IPagedList<BOOK> GetAllBooksFromDB(int page, int itemsPerPage)
         {

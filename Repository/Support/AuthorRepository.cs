@@ -10,6 +10,13 @@ namespace Repository.Support
 {
     public class AuthorRepository
     {
+        public static bool DoesAuthorExist(int aid)
+        {
+            using (var db = new dbGrupp3())
+            {
+                return db.AUTHORs.Any(x => x.Aid == aid);
+            }
+        }
 
         public static IPagedList<AUTHOR> GetAllAuthorsFromDB(int page, int itemsPerPage)
         {
@@ -57,7 +64,7 @@ namespace Repository.Support
             {
                 using (var db = new dbGrupp3())
                 {
-                    var author = db.AUTHORs.Include(a => a.BOOKs).FirstOrDefault(a => a.Aid == eauthor.Aid);
+                    var author = db.AUTHORs.Include(a => a.BOOKs).FirstOrDefault(a => a.Aid.Equals(eauthor.Aid));
                     author.BOOKs.Clear();
                     db.AUTHORs.Remove(author);
                     db.SaveChanges();
