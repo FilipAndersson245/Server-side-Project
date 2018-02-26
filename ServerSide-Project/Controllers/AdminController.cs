@@ -88,6 +88,13 @@ namespace ServerSide_Project.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpGet]
         public ActionResult AdminPanel()
         {

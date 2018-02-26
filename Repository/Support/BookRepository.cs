@@ -77,55 +77,31 @@ namespace Repository.Support
             }
         }
 
-        public static IPagedList<BOOK> GetBookSearchResultat(string search, int page, int itemsPerPage, params int[] classification)
+        public static IPagedList<BOOK> GetBookSearchResultat(string search, int page, int itemsPerPage, params int[] classifications)
         {
-            string classificationString = "";
-            List<SqlParameter> classParameters = new List<SqlParameter>();
-
-            if (classification!= null && classification.Count() > 0)
+            
+            if(classifications != null)
             {
-                var lastItem = classification.Last();
-                classificationString += " AND (";
-                foreach (var item in classification)
-                {
-                    classParameters.Add(new SqlParameter("@" +item.ToString(), item.ToString()));
-                    classificationString += "CLASSIFICATION.SignId = " + classParameters.Last().ParameterName;
-                    if (!lastItem.Equals(item))
-                    {
-                        classificationString += " OR ";
-                    }
-                }
-                classificationString += ");";
+                return getClassificationQuery(classifications).Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + y.LastName).Contains(search))).OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
             }
-
-            using (var db = new dbGrupp3())
+            else
             {
-
-                if (classParameters.Count > 0)
+                using (var db = new dbGrupp3())
                 {
-                    classParameters.Add(new SqlParameter("@SEARCH", "%" + search + "%"));
-                    return db.Database.SqlQuery<BOOK>(
-                    @"SELECT DISTINCT BOOK.ISBN, BOOK.pages, BOOK.publicationinfo, BOOK.PublicationYear, BOOK.SignId, BOOK.Title
-                      FROM BOOK INNER JOIN BOOK_AUTHOR ON BOOK.ISBN = BOOK_AUTHOR.ISBN INNER JOIN AUTHOR ON AUTHOR.Aid = BOOK_AUTHOR.Aid INNER JOIN CLASSIFICATION ON CLASSIFICATION.SignId = BOOK.SignId
-                      WHERE (BOOK.Title LIKE @SEARCH
-                      OR AUTHOR.FirstName LIKE @SEARCH
-                      OR AUTHOR.LastName LIKE @SEARCH
-                      OR AUTHOR.FirstName + ' ' + AUTHOR.LastName LIKE @SEARCH)" + classificationString
-                    , classParameters.ToArray()).ToList().ToPagedList(page, itemsPerPage);
-                }
-                else
-                {
-                    return db.Database.SqlQuery<BOOK>(
-                    @"SELECT DISTINCT BOOK.ISBN, BOOK.pages, BOOK.publicationinfo, BOOK.PublicationYear, BOOK.SignId, BOOK.Title
-                      FROM BOOK JOIN BOOK_AUTHOR ON BOOK.ISBN = BOOK_AUTHOR.ISBN JOIN AUTHOR ON AUTHOR.Aid = BOOK_AUTHOR.Aid
-                      WHERE (BOOK.Title LIKE @SEARCH
-                      OR AUTHOR.FirstName LIKE @SEARCH
-                      OR AUTHOR.LastName LIKE @SEARCH
-                      OR AUTHOR.FirstName + ' ' + AUTHOR.LastName LIKE @SEARCH);"
-                    , new SqlParameter("@SEARCH", "%" + search + "%")).ToList().ToPagedList(page, itemsPerPage);
+                    return db.BOOKs.Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + y.LastName).Contains(search))).OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
                 }
             }
         }
 
+        private static IQueryable<BOOK> getClassificationQuery(params int[] clasifications)
+        {
+            var query = PredicateBuilder.New<BOOK>();
+            foreach (var clasification in clasifications)
+            {
+                var tmp = clasification;
+                query = query.Or(p => p.CLASSIFICATION.SignId.Equals(tmp));
+            }
+            return new dbGrupp3().BOOKs.AsExpandable().Where(query);
+        }
     }
 }

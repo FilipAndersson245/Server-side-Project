@@ -21,43 +21,73 @@ namespace Repository.Support
 
         public static AUTHOR GetAuthorDetailsFromDB(int id)
         {
-            using (var db = new dbGrupp3())
+            try
             {
-                return db.AUTHORs.Find(id);
+                using (var db = new dbGrupp3())
+                {
+                    return db.AUTHORs.Find(id);
+                }
+            }
+            catch
+            {
+                return null;
             }
         }
 
         public static int CreateAuthor(AUTHOR author) //Returns Aid if successfull, 0 if failed
         {
-            using (var db = new dbGrupp3())
+            try
             {
-                db.AUTHORs.Add(author);
-                db.SaveChanges();
-                return author.Aid;
+                using (var db = new dbGrupp3())
+                {
+                    db.AUTHORs.Add(author);
+                    db.SaveChanges();
+                    return author.Aid;
+                }
+            }
+            catch
+            {
+                return 0;
             }
         }
 
         public static bool DeleteAuthor(AUTHOR eauthor) //Returns true if amount of SaveChanges (int) is bigger than 1
         {
-            using (var db = new dbGrupp3())
+            try
             {
-                var author = db.AUTHORs.Include(a => a.BOOKs).FirstOrDefault(a => a.Aid == eauthor.Aid);
-                author.BOOKs.Clear();
-                db.AUTHORs.Remove(author);
-                db.SaveChanges();
-                return true;
+                using (var db = new dbGrupp3())
+                {
+                    var author = db.AUTHORs.Include(a => a.BOOKs).FirstOrDefault(a => a.Aid == eauthor.Aid);
+                    author.BOOKs.Clear();
+                    db.AUTHORs.Remove(author);
+                    db.SaveChanges();
+                    return true;
+                }
             }
+            catch
+            {
+                return false;
+            }
+            
         }
 
-        public static AUTHOR EditAuthor(AUTHOR eauthor) //Returns the updated author
+        public static AUTHOR EditAuthor(AUTHOR eauthor) //Returns the updated author and if failed returns null
         {
-            using (var db = new dbGrupp3())
+            try
             {
-                AUTHOR updatedAUTHOR = db.AUTHORs.Find(eauthor.Aid);
-                db.Entry(updatedAUTHOR).CurrentValues.SetValues(eauthor);
-                db.SaveChanges();
-                return updatedAUTHOR;
+                using (var db = new dbGrupp3())
+                {
+                    AUTHOR updatedAUTHOR = db.AUTHORs.Find(eauthor.Aid);
+                    db.Entry(updatedAUTHOR).CurrentValues.SetValues(eauthor);
+                    db.SaveChanges();
+                    return updatedAUTHOR;
+                }
             }
+            catch
+            {
+                return null;
+            }
+
         }
 
         public static IPagedList<BOOK> GetBooksByAuthor(int id, int page)
