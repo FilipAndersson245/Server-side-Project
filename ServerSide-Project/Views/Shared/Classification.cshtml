@@ -13,11 +13,9 @@
             @foreach (var classification in Model)
             {
                 <div class="row">
-                    <div class="col-sm-12">
-                        <li class="text-left">
+                    <div class="col-sm-12 text-left">
                             <input name=classifications type="checkbox" value=@classification.SignId.ToString() id=@classification.Signum>
                             <label for=@classification.Signum>@classification.Signum</label>
-                        </li>
                     </div>
                     <div class="col-sm-10 text-right">
                         @Html.ActionLink("Edit", "EditClassification", "Classification", new { id = classification.SignId }, null) |
