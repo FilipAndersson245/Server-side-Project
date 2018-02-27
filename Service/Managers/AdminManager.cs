@@ -16,26 +16,18 @@ namespace Service.Managers
 {
     public class AdminManager
     {
-        public Admin GetAdmin(string username)
-        {
-            AdminRepository repo = new AdminRepository();
-            return Mapper.Map<Admin>(repo.GetAdmin(username));
-        }
-
         public bool Login(ModelStateDictionary modelState,string username, string password)
         {
             if (modelState.IsValid)
             {
-                AdminRepository repo = new AdminRepository();
-                if (!repo.DoesAdminExist(username))
+                Admin dbAdmin = GetAdmin(username);
+                if (dbAdmin.Equals(null))
                 {
-                    modelState.AddModelError("Username", "User does not exist");
+                    modelState.AddModelError("Username", "User does not exist!");
                 }
                 else
                 {
-                    var dbAdmin = GetAdmin(username);
                     Hashing pwdHash = new Hashing(password, dbAdmin.Salt);
-                    repo.GetAdmin(username);
                     if (pwdHash.Equals(dbAdmin.PasswordHash))
                         return true;
                     else
@@ -51,8 +43,8 @@ namespace Service.Managers
         {
             if (modelState.IsValid)
             {
-                AdminRepository repo = new AdminRepository();
-                if (repo.DoesAdminExist(admin.Username))
+                Admin existingAdmin = GetAdmin(admin.Username);
+                if (existingAdmin != null)
                     modelState.AddModelError("Username", "Username already in use!");
                 else
                 {
@@ -65,6 +57,12 @@ namespace Service.Managers
                 }
             }
             return false;
+        }
+
+        public Admin GetAdmin(string username)
+        {
+            AdminRepository repo = new AdminRepository();
+            return Mapper.Map<Admin>(repo.GetAdmin(username));
         }
 
         public bool CreateAdmin(Admin admin)
