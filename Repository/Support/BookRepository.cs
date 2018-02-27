@@ -5,7 +5,6 @@ using System.Web;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using PagedList;
-using LinqKit;
 
 namespace Repository.Support
 {
@@ -89,26 +88,21 @@ namespace Repository.Support
             
             if(classifications != null)
             {
-                return GetClassificationQuery(classifications).Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + y.LastName).Contains(search))).OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
+                using (var db = new dbGrupp3())
+                {
+                    return db.BOOKs.Include(b => b.AUTHORs).AsExpandable().Where(b => b.SignId.HasValue && classifications.ToList().Contains(b.SignId.Value))
+                        .Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + y.LastName).Contains(search)))
+                        .OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
+                }
             }
             else
             {
                 using (var db = new dbGrupp3())
                 {
-                    return db.BOOKs.Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + y.LastName).Contains(search))).OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
+                    return db.BOOKs.Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + y.LastName).Contains(search)))
+                        .OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
                 }
             }
-        }
-
-        private static IQueryable<BOOK> GetClassificationQuery(params int[] clasifications)
-        {
-            var query = PredicateBuilder.New<BOOK>();
-            foreach (var clasification in clasifications)
-            {
-                var tmp = clasification;
-                query = query.Or(p => p.CLASSIFICATION.SignId.Equals(tmp));
-            }
-            return new dbGrupp3().BOOKs.AsExpandable().Where(query);
         }
     }
 }
