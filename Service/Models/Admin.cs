@@ -27,7 +27,7 @@ namespace Service.Models
 
         [Required(ErrorMessage = "Please Provide Password", AllowEmptyStrings = false)]
         [DataType(DataType.Password)]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{7,15}$", ErrorMessage = "Incorrect password")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{4,25}$", ErrorMessage = "Incorrect password")]
         public string Password { get; set;}
 
         [StringLength(64)]

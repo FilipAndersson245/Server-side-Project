@@ -31,27 +31,12 @@ namespace ServerSide_Project.Controllers
         public ActionResult CreateAdmin(Admin admin)
         {
             ValidateAndRedirect(Rank.SuperAdmin);
-            if (ModelState.IsValid)
+            AdminManager manager = new AdminManager();
+            if (manager.SignUp(ModelState,admin))
             {
-                //todo check if already exist
-                using (var deriveBytes = new Rfc2898DeriveBytes(admin.Password, 20))
-                {
-                    Admin newAdmin = new Admin
-                    {
-                        Salt = Convert.ToBase64String(deriveBytes.Salt),
-                        PasswordHash = Convert.ToBase64String(deriveBytes.GetBytes(20)),
-                        Username = admin.Username,
-                        PermissionLevel = admin.PermissionLevel
-                    };
-                    AdminManager adminManager = new AdminManager();
-                    adminManager.CreateAdmin(newAdmin);
-                }
+                return RedirectToAction("AdminPanel", "Admin");
             }
-            else
-            {
-                throw new Exception("ModelstateNotValid");
-            }
-            return RedirectToAction("AdminPanel", "Admin", null);
+            return RedirectToAction("CreateAdmin", "Admin", null);
         }
 
         [HttpPost]
@@ -71,30 +56,17 @@ namespace ServerSide_Project.Controllers
         [HttpPost]
         public ActionResult Login(Admin admin, string returnBackTo = null)
         {
-            AdminManager adminManager = new AdminManager();
-            var serverAdmin = adminManager.GetAdmin(admin.Username);
-            Hashing pwdHash = new Hashing(admin.Password, serverAdmin.Salt);
-            if (pwdHash.Equals(serverAdmin.PasswordHash))
+            if (new AdminManager().Login(ModelState, admin.Username, admin.Password))
             {
                 Session["authentication"] = admin.Username;
                 Session["level"] = admin.PermissionLevel;
-                if (returnBackTo.Equals(""))
+                if (String.IsNullOrEmpty(returnBackTo))
                     return RedirectToAction("index", "Home");
                 return Redirect(returnBackTo);
             }
-            //Wip :)
-
-            byte[] salt = Convert.FromBase64String(serverAdmin.Salt);
-            byte[] key = Convert.FromBase64String(serverAdmin.PasswordHash);
-            //load salt and key from database
-            using (var deriveBytes = new Rfc2898DeriveBytes(admin.Password, salt))
+            else
             {
-                byte[] newKey = deriveBytes.GetBytes(20);  // derive a 20-byte key
-                if (newKey.SequenceEqual(key))
-                {
-                    
-                }
-                return RedirectToAction("Login","Admin",new { returnBackTo });
+                return RedirectToAction("Login","Admin", new { returnBackTo });
             }
         }
 
