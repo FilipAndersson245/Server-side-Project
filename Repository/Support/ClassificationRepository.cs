@@ -6,9 +6,9 @@ using System.Data.Entity;
 
 namespace Repository.Support
 {
-    public class ClassificationRepositor
+    public class ClassificationRepository
     {
-        public static bool DoesClassificationExist(int signId)
+        public bool DoesClassificationExist(int signId)
         {
             using (var db = new dbGrupp3())
             {
@@ -16,12 +16,21 @@ namespace Repository.Support
             }
         }
 
-        public static CLASSIFICATION GetClassificationForBook(string isbn)
+        public bool DoesClassificationExist(string name)
         {
-            return BookRepository.GetBookFromIsbn(isbn).CLASSIFICATION;
+            using (var db = new dbGrupp3())
+            {
+                return db.CLASSIFICATIONs.Any(x => x.Signum.Equals(name));
+            }
         }
 
-        public static List<BOOK> GetBooksFromClassification(int signId)
+        public CLASSIFICATION GetClassificationForBook(string isbn)
+        {
+            BookRepository repo = new BookRepository();
+            return repo.GetBookFromIsbn(isbn).CLASSIFICATION;
+        }
+
+        public List<BOOK> GetBooksFromClassification(int signId)
         {
             using (var db = new dbGrupp3())
             {
@@ -29,7 +38,7 @@ namespace Repository.Support
             }
         }
 
-        public static List<CLASSIFICATION> GetAllClassifications()
+        public List<CLASSIFICATION> GetAllClassifications()
         {
             using (var db = new dbGrupp3())
             {
@@ -37,7 +46,7 @@ namespace Repository.Support
             }
         }
 
-        public static int GetNewID()
+        public int GetNewID()
         {
             using (var db = new dbGrupp3())
             {
@@ -45,7 +54,7 @@ namespace Repository.Support
             }
         }
 
-        public static bool CreateClassification(CLASSIFICATION eClassification)
+        public bool CreateClassification(CLASSIFICATION eClassification)
         {
             using (var db = new dbGrupp3())
             {
@@ -56,7 +65,7 @@ namespace Repository.Support
             }
         }
 
-        public static CLASSIFICATION GetClassificationFromID(int id)
+        public CLASSIFICATION GetClassificationFromID(int id)
         {
             using (var db = new dbGrupp3())
             {
@@ -64,7 +73,15 @@ namespace Repository.Support
             }
         }
 
-        public static bool DeleteClassification(CLASSIFICATION eClassification)
+        public CLASSIFICATION GetClassificationFromName(string name)
+        {
+            using (var db = new dbGrupp3())
+            {
+                return db.CLASSIFICATIONs.FirstOrDefault(a => a.Signum == name);
+            }
+        }
+
+        public bool DeleteClassification(CLASSIFICATION eClassification)
         {
             using (var db = new dbGrupp3())
             {
@@ -76,7 +93,7 @@ namespace Repository.Support
             }
         }
 
-        public static bool EditClassification(CLASSIFICATION eClassification)
+        public bool EditClassification(CLASSIFICATION eClassification)
         {
             using (var db = new dbGrupp3())
             {

@@ -25,9 +25,10 @@ namespace ServerSide_Project.Controllers
         public ActionResult CreateBook(Book book) 
         {
             ValidateAndRedirect();
+            BookManager bookManager = new BookManager();
             if (ModelState.IsValid)
             {
-                return View("ListBookDetails", BookManager.CreateBook(book));
+                return View("ListBookDetails", bookManager.CreateBook(book));
             }
             else
             {
@@ -40,27 +41,31 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult BrowseAllBooks(int page = 1)
         {
-            return View("BrowseAllBooks", BookManager.GetAllBooks(page, ITEMS_PER_PAGE));
+            BookManager bookManager = new BookManager();
+            return View("BrowseAllBooks", bookManager.GetAllBooks(page, ITEMS_PER_PAGE));
         }
 
         [HttpGet]
         public ActionResult ListBookDetails(string id)
         {
-            return View("ListBookDetails", BookManager.GetBookFromIsbn(id));
+            BookManager bookManager = new BookManager();
+            return View("ListBookDetails", bookManager.GetBookFromIsbn(id));
         }
 
         [HttpGet]
         public ActionResult EditBook(string id)
         {
             ValidateAndRedirect();
-            return View("EditBook", BookManager.GetBookFromIsbn(id));
+            BookManager bookManager = new BookManager();
+            return View("EditBook", bookManager.GetBookFromIsbn(id));
         }
 
         [HttpPost]
         public ActionResult EditBook(Book book)
         {
             ValidateAndRedirect();
-            return RedirectToAction("ListBookDetails", "Book", BookManager.EditBook(book).ISBN);
+            BookManager bookManager = new BookManager();
+            return RedirectToAction("ListBookDetails", "Book", bookManager.EditBook(book).ISBN);
 
         }
 
@@ -68,7 +73,8 @@ namespace ServerSide_Project.Controllers
         public ActionResult DeleteBook(string id)
         {
             ValidateAndRedirect();
-            if (BookManager.DeleteBook(id))
+            BookManager bookManager = new BookManager();
+            if (bookManager.DeleteBook(id))
                 return RedirectToAction("BrowseAllBooks", "Book", null);
             else
                 return RedirectToAction("BrowseAllBooks", "Book", null);
@@ -77,7 +83,8 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult SearchBooks(string search, int page = 1, params int[] classifications)
         {
-            return View("BrowseSearchedBooks", BookManager.SearchBooks(search, page, ITEMS_PER_PAGE, classifications));
+            BookManager bookManager = new BookManager();
+            return View("BrowseSearchedBooks", bookManager.SearchBooks(search, page, ITEMS_PER_PAGE, classifications));
         }
     }
 }

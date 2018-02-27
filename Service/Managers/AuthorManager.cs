@@ -17,42 +17,50 @@ namespace Service.Managers
 {
     public class AuthorManager
     {
-        public static int CreateAuthor(Author author) //Returns Aid if successfull, 0 if failed
+        public int CreateAuthor(Author author) //Returns Aid if successfull, 0 if failed
         {
-            return AuthorRepository.CreateAuthor(Mapper.Map<Author, AUTHOR>(author));
+            AuthorRepository repo = new AuthorRepository();
+            return repo.CreateAuthor(Mapper.Map<Author, AUTHOR>(author));
         }
 
-        public static Author EditAuthor(Author author)
+        public Author EditAuthor(Author author)
         {
-            return Mapper.Map<AUTHOR, Author>(AuthorRepository.EditAuthor(Mapper.Map<Author, AUTHOR>(author)));
+            AuthorRepository repo = new AuthorRepository();
+            return Mapper.Map<AUTHOR, Author>(repo.EditAuthor(Mapper.Map<Author, AUTHOR>(author)));
         }
 
-        public static bool DeleteAuthor(Author author)
+        public bool DeleteAuthor(Author author)
         {
-            return AuthorRepository.DeleteAuthor(Mapper.Map<Author, AUTHOR>(author));
+            AuthorRepository repo = new AuthorRepository();
+            return repo.DeleteAuthor(Mapper.Map<Author, AUTHOR>(author));
         }
 
-        public static IPagedList<Author> GetAllAuthors(int page, int itemsPerPage)
+        public IPagedList<Author> GetAllAuthors(int page, int itemsPerPage)
         {
-            return AuthorRepository.GetAllAuthorsFromDB(page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>();
+            AuthorRepository repo = new AuthorRepository();
+            return repo.GetAllAuthorsFromDB(page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>();
         }
 
-        public static Author GetAuthorDetails(int id, int bookPage)
+        public Author GetAuthorDetails(int id, int bookPage)
         {
-            Author author = Mapper.Map<AUTHOR, Author>(AuthorRepository.GetAuthorDetailsFromDB(id));
-            author.BookList = AuthorRepository.GetBooksByAuthor(id, bookPage).ToMappedPagedList<BOOK, Book>();
-            BookManager.SetupBooks(author.BookList);
+            AuthorRepository repo = new AuthorRepository();
+            Author author = Mapper.Map<AUTHOR, Author>(repo.GetAuthorDetailsFromDB(id));
+            author.BookList = repo.GetBooksByAuthor(id, bookPage).ToMappedPagedList<BOOK, Book>();
+            BookManager bookManager = new BookManager();
+            bookManager.SetupBooks(author.BookList);
             return author;
         }
 
-        public static IPagedList<Author> GetAuthorsFromSearch(string search, int page, int itemsPerPage)
+        public IPagedList<Author> GetAuthorsFromSearch(string search, int page, int itemsPerPage)
         {
-            return AuthorRepository.GetAuthorsFromSearchResult(search, page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>(); ;
+            AuthorRepository repo = new AuthorRepository();
+            return repo.GetAuthorsFromSearchResult(search, page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>(); ;
         }
 
-        public static Author GetAuthorFromID(int id)
+        public Author GetAuthorFromID(int id)
         {
-            return Mapper.Map<AUTHOR, Author>(AuthorRepository.GetAuthorFromDB(id));
+            AuthorRepository repo = new AuthorRepository();
+            return Mapper.Map<AUTHOR, Author>(repo.GetAuthorFromDB(id));
         }
 
     }
