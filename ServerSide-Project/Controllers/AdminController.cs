@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Service.Managers;
 using ServerSide_Project.Tools;
+using Service.Tools;
 
 namespace ServerSide_Project.Controllers
 {
@@ -72,6 +73,17 @@ namespace ServerSide_Project.Controllers
         {
             AdminManager adminManager = new AdminManager();
             var serverAdmin = adminManager.GetAdmin(admin.Username);
+            Hashing pwdHash = new Hashing(admin.Password, serverAdmin.Salt);
+            if (pwdHash.Equals(serverAdmin.PasswordHash))
+            {
+                Session["authentication"] = admin.Username;
+                Session["level"] = admin.PermissionLevel;
+                if (returnBackTo.Equals(""))
+                    return RedirectToAction("index", "Home");
+                return Redirect(returnBackTo);
+            }
+            //Wip :)
+
             byte[] salt = Convert.FromBase64String(serverAdmin.Salt);
             byte[] key = Convert.FromBase64String(serverAdmin.PasswordHash);
             //load salt and key from database
@@ -80,11 +92,7 @@ namespace ServerSide_Project.Controllers
                 byte[] newKey = deriveBytes.GetBytes(20);  // derive a 20-byte key
                 if (newKey.SequenceEqual(key))
                 {
-                    Session["authentication"] = admin.Username;
-                    Session["level"] = admin.PermissionLevel;
-                    if (returnBackTo.Equals(""))
-                        return RedirectToAction("index", "Home");
-                    return Redirect(returnBackTo);
+                    
                 }
                 return RedirectToAction("Login","Admin",new { returnBackTo });
             }

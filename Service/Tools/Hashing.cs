@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Service.Tools
 {
-    class Hashing
+    public class Hashing
     {
         public string Hash { get; set; } = null;
         public string Salt { get; set; } = null;
