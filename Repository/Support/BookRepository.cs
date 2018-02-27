@@ -10,7 +10,7 @@ namespace Repository.Support
 {
     public class BookRepository
     {
-        public static bool DoesBookExist(string isbn)
+        public bool DoesBookExist(string isbn)
         {
             using (var db = new dbGrupp3())
             {
@@ -18,7 +18,7 @@ namespace Repository.Support
             }
         }
 
-        public static IPagedList<BOOK> GetAllBooksFromDB(int page, int itemsPerPage)
+        public IPagedList<BOOK> GetAllBooksFromDB(int page, int itemsPerPage)
         {
             using (var db = new dbGrupp3())
             {
@@ -26,7 +26,7 @@ namespace Repository.Support
             }
         }
 
-        public static BOOK GetBookFromIsbn(string isbn)
+        public BOOK GetBookFromIsbn(string isbn)
         {
             using(var db = new dbGrupp3())
             {
@@ -34,7 +34,7 @@ namespace Repository.Support
             }
         }
 
-        public static BOOK EditBook(BOOK eBook)
+        public BOOK EditBook(BOOK eBook)
         {
             using (var db = new dbGrupp3())
             {
@@ -45,7 +45,7 @@ namespace Repository.Support
             }
         }
 
-        public static BOOK CreateBook(BOOK book)
+        public BOOK CreateBook(BOOK book)
         {
             using (var db = new dbGrupp3())
             {
@@ -55,7 +55,7 @@ namespace Repository.Support
             }
         }
 
-        public static bool DeleteBook(BOOK ebook)
+        public bool DeleteBook(BOOK ebook)
         {
             using (var db = new dbGrupp3())
             {
@@ -67,7 +67,7 @@ namespace Repository.Support
             }
         }
 
-        public static List<AUTHOR> GetAuthorsFromIsbn(string isbn)
+        public List<AUTHOR> GetAuthorsFromIsbn(string isbn)
         {
             using (var db = new dbGrupp3())
             {
@@ -75,7 +75,7 @@ namespace Repository.Support
             }
         }
 
-        public static CLASSIFICATION GetClassificationFromIsbn(BOOK book)
+        public CLASSIFICATION GetClassificationFromIsbn(BOOK book)
         {
             using (var db = new dbGrupp3())
             {
@@ -83,7 +83,7 @@ namespace Repository.Support
             }
         }
 
-        public static IPagedList<BOOK> GetBookSearchResultat(string search, int page, int itemsPerPage, params int[] classifications)
+        public IPagedList<BOOK> GetBookSearchResultat(string search, int page, int itemsPerPage, params int[] classifications)
         {
             
             if(classifications != null)
