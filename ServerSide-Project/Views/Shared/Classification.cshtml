@@ -1,45 +1,34 @@
 ﻿@model List<Service.Models.Classification>
 
-@*<div class="col-sm-2 sidenav float-left align-top text-center container" id="classificationOuter">
-    <div class="row">
-        @Html.ActionLink("Create New Classification", "CreateClassification", "Classification", null, null)
+<div class="panel panel-default" id="classificationPanel">
+    <div class="panel-heading" role="tab" id="headingOne">
+        <h4 class="panel-title">
+            <a role="button" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="trigger collapsed">
+                Classifications
+            </a>
+        </h4>
     </div>
-
-    <div class="collapse-group">
-        <h5>Advanced Filters</h5>*@
-
-        <div class="panel panel-default" id="classificationPanel">
-            <div class="panel-heading" role="tab" id="headingOne">
-                <h4 class="panel-title">
-                    <a role="button" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="trigger collapsed">
-                        Classifications
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                <div class="panel-body">
-                    @foreach (var classification in Model)
-                    {
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <li class="text-left">
-                                    <input name=classifications type="checkbox" value=@classification.SignId.ToString() id=@classification.Signum>
-                                    <label for=@classification.Signum>@classification.Signum</label>
-                                </li>
-                            </div>
-                            <div class="col-sm-10 text-right">
-                                @Html.ActionLink("Edit", "EditClassification", "Classification", new { id = classification.SignId }, null) |
-                                @using (Html.BeginForm("DeleteClassification", "Classification", new { id = classification.SignId }, FormMethod.Post, new { @class = "form-group", @id = "classificationListOptions"}))
-                                {
-                                    @Html.AntiForgeryToken()
-                                    <input type="submit" value="Delete" class="btn-link" />
-                                }
-                            </div>
-                        </div>
-                    }
+    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+        <div class="panel-body">
+            @foreach (var classification in Model)
+            {
+                <div class="row">
+                    <div class="col-sm-12">
+                        <li class="text-left">
+                            <input name=classifications type="checkbox" value=@classification.SignId.ToString() id=@classification.Signum>
+                            <label for=@classification.Signum>@classification.Signum</label>
+                        </li>
+                    </div>
+                    <div class="col-sm-10 text-right">
+                        @Html.ActionLink("Edit", "EditClassification", "Classification", new { id = classification.SignId }, null) |
+                        @using (Html.BeginForm("DeleteClassification", "Classification", new { id = classification.SignId }, FormMethod.Post, new { @class = "form-group", @id = "classificationListOptions"}))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="submit" value="Delete" class="btn-link" />
+                        }
+                    </div>
                 </div>
-            </div>
+            }
         </div>
-
-    @*</div>
-</div>*@
+    </div>
+</div>
