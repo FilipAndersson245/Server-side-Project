@@ -20,21 +20,24 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult ListClassifications(int id)
         {
-            return View("ListBooks", ClassificationManager.GetBooksByClassification(id));
+            ClassificationManager classificationManager = new ClassificationManager();
+            return View("ListBooks", classificationManager.GetBooksByClassification(id));
         }
 
         [HttpGet]
         public ActionResult EditClassification(int id)
         {
             ValidateAndRedirect();
-            return View("EditClassification", ClassificationManager.GetClassificationFromID(id));
+            ClassificationManager classificationManager = new ClassificationManager();
+            return View("EditClassification", classificationManager.GetClassificationFromID(id));
         }
 
         [HttpPost]
         public ActionResult editClassification(Classification classification)
         {
             ValidateAndRedirect();
-            if (ClassificationManager.EditClassification(classification))
+            ClassificationManager classificationManager = new ClassificationManager();
+            if (classificationManager.EditClassification(classification))
                 return RedirectToAction("BrowseAllBooks", "Book", null);
             else
                 return RedirectToAction("BrowseAllBooks", "Book", null);
@@ -51,7 +54,8 @@ namespace ServerSide_Project.Controllers
         public ActionResult CreateClassification(Classification classification)
         {
             ValidateAndRedirect();
-            if (ClassificationManager.CreateClassification(classification))
+            ClassificationManager classificationManager = new ClassificationManager();
+            if (classificationManager.CreateClassification(classification))
                 return RedirectToAction("BrowseAllBooks", "Book", null);
             else
                 return RedirectToAction("BrowseAllBooks", "Book", null);
@@ -61,7 +65,8 @@ namespace ServerSide_Project.Controllers
         public ActionResult DeleteClassification(int id)
         {
             ValidateAndRedirect();
-            if (ClassificationManager.DeleteClassification(ClassificationManager.GetClassificationFromID(id)))
+            ClassificationManager classificationManager = new ClassificationManager();
+            if (classificationManager.DeleteClassification(classificationManager.GetClassificationFromID(id)))
                 return RedirectToAction("BrowseAllBooks", "Book", null);
             else
                 return RedirectToAction("BrowseAllBooks", "Book", null);
@@ -70,7 +75,8 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult GetClassification()
         {
-            return PartialView("Classification", ClassificationManager.GetAllClassifications());
+            ClassificationManager classificationManager = new ClassificationManager();
+            return PartialView("Classification", classificationManager.GetAllClassifications());
         }
     }
 }

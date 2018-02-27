@@ -42,7 +42,8 @@ namespace ServerSide_Project.Controllers
                         Username = admin.Username,
                         PermissionLevel = admin.PermissionLevel
                     };
-                    AdminManager.CreateAdmin(newAdmin);
+                    AdminManager adminManager = new AdminManager();
+                    adminManager.CreateAdmin(newAdmin);
                 }
             }
             else
@@ -69,7 +70,8 @@ namespace ServerSide_Project.Controllers
         [HttpPost]
         public ActionResult Login(Admin admin, string returnBackTo = null)
         {
-            var serverAdmin = AdminManager.GetAdmin(admin.Username);
+            AdminManager adminManager = new AdminManager();
+            var serverAdmin = adminManager.GetAdmin(admin.Username);
             byte[] salt = Convert.FromBase64String(serverAdmin.Salt);
             byte[] key = Convert.FromBase64String(serverAdmin.PasswordHash);
             //load salt and key from database
@@ -80,7 +82,7 @@ namespace ServerSide_Project.Controllers
                 {
                     Session["authentication"] = admin.Username;
                     Session["level"] = admin.PermissionLevel;
-                    if (returnBackTo.Equals(null))
+                    if (returnBackTo.Equals(""))
                         return RedirectToAction("index", "Home");
                     return Redirect(returnBackTo);
                 }
@@ -99,7 +101,8 @@ namespace ServerSide_Project.Controllers
         public ActionResult AdminPanel()
         {
             ValidateAndRedirect();
-            return View("AdminPanel", AdminManager.GetAllAdmins());
+            AdminManager adminManager = new AdminManager();
+            return View("AdminPanel", adminManager.GetAllAdmins());
         }
     }
 }

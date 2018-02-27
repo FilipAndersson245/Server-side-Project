@@ -32,8 +32,9 @@ namespace ServerSide_Project.Controllers
         public ActionResult CreateAuthor(Author author)
         {
             ValidateAndRedirect();
-            if (AuthorManager.CreateAuthor(author) != 0)
-                return RedirectToAction("ListAuthorDetails", "Author", new { id = AuthorManager.CreateAuthor(author)});
+            AuthorManager authorManager = new AuthorManager();
+            if (authorManager.CreateAuthor(author) != 0)
+                return RedirectToAction("ListAuthorDetails", "Author", new { id = authorManager.CreateAuthor(author)});
             else
                 return RedirectToAction("BrowseAllAuthors", "Author", null);
         }
@@ -42,21 +43,24 @@ namespace ServerSide_Project.Controllers
         public ActionResult EditAuthor(int id)
         {
             ValidateAndRedirect();
-            return View("EditAuthor", AuthorManager.GetAuthorFromID(id));
+            AuthorManager authorManager = new AuthorManager();
+            return View("EditAuthor", authorManager.GetAuthorFromID(id));
         }
 
         [HttpPost]
         public ActionResult EditAuthor(Author author)
         {
             ValidateAndRedirect();
-            return RedirectToAction("ListAuthorDetails", "Author", new { id = AuthorManager.EditAuthor(author).Aid });
+            AuthorManager authorManager = new AuthorManager();
+            return RedirectToAction("ListAuthorDetails", "Author", new { id = authorManager.EditAuthor(author).Aid });
         }
         
         [HttpPost]
         public ActionResult DeleteAuthor(int id)
         {
             ValidateAndRedirect();
-            if (AuthorManager.DeleteAuthor(AuthorManager.GetAuthorFromID(id)))
+            AuthorManager authorManager = new AuthorManager();
+            if (authorManager.DeleteAuthor(authorManager.GetAuthorFromID(id)))
                 return RedirectToAction("BrowseAllAuthors", "Author", null);
             else
                 return RedirectToAction("BrowseAllAuthors", "Author", null);
@@ -65,19 +69,22 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult BrowseAllAuthors(int page = 1)
         {
-            return View("BrowseAllAuthors", AuthorManager.GetAllAuthors(page, ITEMS_PER_PAGE));
+            AuthorManager authorManager = new AuthorManager();
+            return View("BrowseAllAuthors", authorManager.GetAllAuthors(page, ITEMS_PER_PAGE));
         }
 
         [HttpGet]
         public ActionResult ListAuthorDetails(int id, int bookPage = 1)
         {
-            return View("ListAuthorDetails", AuthorManager.GetAuthorDetails(id, bookPage));
+            AuthorManager authorManager = new AuthorManager();
+            return View("ListAuthorDetails", authorManager.GetAuthorDetails(id, bookPage));
         }
 
         [HttpGet]
         public ActionResult SearchAuthors(string search, int page = 1)
         {
-            return View("BrowseSearchedAuthors", AuthorManager.GetAuthorsFromSearch(search, page, ITEMS_PER_PAGE));
+            AuthorManager authorManager = new AuthorManager();
+            return View("BrowseSearchedAuthors", authorManager.GetAuthorsFromSearch(search, page, ITEMS_PER_PAGE));
         }
     }
 }

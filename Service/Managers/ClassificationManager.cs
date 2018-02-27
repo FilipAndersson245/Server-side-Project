@@ -16,9 +16,10 @@ namespace Service.Managers
 {
     public class ClassificationManager
     {
-        public static List<Book> GetBooksByClassification(int signId)
+        public List<Book> GetBooksByClassification(int signId)
         {
-            List<Book> bookList = Mapper.Map<List<BOOK>, List<Book>>(ClassificationRepositor.GetBooksFromClassification(signId));
+            ClassificationRepository repo = new ClassificationRepository();
+            List<Book> bookList = Mapper.Map<List<BOOK>, List<Book>>(repo.GetBooksFromClassification(signId));
             for (int i = 0; i < bookList.Count; i++)
             {
                 //bookList[i] = Book.setupBook(bookList[i]);
@@ -26,34 +27,40 @@ namespace Service.Managers
             return bookList;
         }
 
-        public static Classification GetClassificationFromBookIsbn(string isbn)
+        public Classification GetClassificationFromBookIsbn(string isbn)
         {
-            return Mapper.Map<Classification>(ClassificationRepositor.GetClassificationForBook(isbn));
+            ClassificationRepository repo = new ClassificationRepository();
+            return Mapper.Map<Classification>(repo.GetClassificationForBook(isbn));
         }
 
-        public static Classification GetClassificationFromID(int id)
+        public Classification GetClassificationFromID(int id)
         {
-            return Mapper.Map<CLASSIFICATION, Classification>(ClassificationRepositor.GetClassificationFromID(id));
+            ClassificationRepository repo = new ClassificationRepository();
+            return Mapper.Map<CLASSIFICATION, Classification>(repo.GetClassificationFromID(id));
         }
 
-        public static bool DeleteClassification(Classification classification)
+        public bool DeleteClassification(Classification classification)
         {
-            return ClassificationRepositor.DeleteClassification(Mapper.Map<Classification, CLASSIFICATION>(classification));
+            ClassificationRepository repo = new ClassificationRepository();
+            return repo.DeleteClassification(Mapper.Map<Classification, CLASSIFICATION>(classification));
         }
 
-        public static bool CreateClassification(Classification classification)
+        public bool CreateClassification(Classification classification)
         {
-            return ClassificationRepositor.CreateClassification(Mapper.Map<Classification, CLASSIFICATION>(classification));
+            ClassificationRepository repo = new ClassificationRepository();
+            return repo.CreateClassification(Mapper.Map<Classification, CLASSIFICATION>(classification));
         }
 
-        public static List<Classification> GetAllClassifications()
+        public List<Classification> GetAllClassifications()
         {
-            return Mapper.Map<List<CLASSIFICATION>, List<Classification>>(ClassificationRepositor.GetAllClassifications());
+            ClassificationRepository repo = new ClassificationRepository();
+            return Mapper.Map<List<CLASSIFICATION>, List<Classification>>(repo.GetAllClassifications());
         }
 
-        public static bool EditClassification(Classification classification)
+        public bool EditClassification(Classification classification)
         {
-            return ClassificationRepositor.EditClassification(Mapper.Map<Classification, CLASSIFICATION>(classification));
+            ClassificationRepository repo = new ClassificationRepository();
+            return repo.EditClassification(Mapper.Map<Classification, CLASSIFICATION>(classification));
         }
 
     }

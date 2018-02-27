@@ -19,17 +19,19 @@ namespace Service.Managers
 {
     public class BookManager
     {
-        public static Book GetBookFromIsbn(string isbn)
+        public Book GetBookFromIsbn(string isbn)
         {
-            var book = Mapper.Map<BOOK, Book>(BookRepository.GetBookFromIsbn(isbn));
+            BookRepository repo = new BookRepository();
+            var book = Mapper.Map<BOOK, Book>(repo.GetBookFromIsbn(isbn));
             book.Authors = AddAuthors(book);
             return book;
         }
 
-        public static List<Author> AddAuthors(Book book)
+        public List<Author> AddAuthors(Book book)
         {
             List<Author> authors = new List<Author>();
-            authors = Mapper.Map<List<AUTHOR>, List<Author>>(BookRepository.GetAuthorsFromIsbn(book.ISBN));
+            BookRepository repo = new BookRepository();
+            authors = Mapper.Map<List<AUTHOR>, List<Author>>(repo.GetAuthorsFromIsbn(book.ISBN));
             if (authors.Count > 0)
             {
                 return authors;
@@ -41,13 +43,29 @@ namespace Service.Managers
             }
         }
 
-        public static Classification AddClassification(Book book)
+        public Classification AddClassification(Book book)
         {
-            Classification classification = Mapper.Map<CLASSIFICATION, Classification>(BookRepository.GetClassificationFromIsbn(Mapper.Map<Book, BOOK>(book)));
+            BookRepository bookRepo = new BookRepository();
+            ClassificationRepository classRepo = new ClassificationRepository();
+            Classification classification = Mapper.Map<CLASSIFICATION, Classification>(bookRepo.GetClassificationFromIsbn(Mapper.Map<Book, BOOK>(book)));
             if (classification == null)
             {
-                Classification genericClass = new Classification() { SignId = 78, Signum = "Generic", Description = "Books without a category" };
-                return genericClass;
+                if (classRepo.DoesClassificationExist("Generic"))
+                {
+                    return Mapper.Map<CLASSIFICATION, Classification>(classRepo.GetClassificationFromName("Generic"));
+                }
+                else
+                {
+                    Classification genericClass = new Classification() { Signum = "Generic", Description = "Books without a category" };
+                    if (classRepo.CreateClassification(Mapper.Map<Classification, CLASSIFICATION>(genericClass)))
+                    {
+                        return genericClass;
+                    }
+                    else
+                    {
+                        return genericClass; //Add some warning for user maybe
+                    }
+                }
             }
             else
             {
@@ -56,7 +74,7 @@ namespace Service.Managers
 
         }
 
-        public static void SetupBooks(IPagedList<Book> bookList)
+        public void SetupBooks(IPagedList<Book> bookList)
         {
             for (int i = 0; i < bookList.Count; i++)
             {
@@ -65,33 +83,38 @@ namespace Service.Managers
             }
         }
 
-        public static IPagedList<Book> GetAllBooks(int page, int itemsPerPage)
+        public IPagedList<Book> GetAllBooks(int page, int itemsPerPage)
         {
-            var bookList = BookRepository.GetAllBooksFromDB(page, itemsPerPage).ToMappedPagedList<BOOK, Book>();
+            BookRepository repo = new BookRepository();
+            var bookList = repo.GetAllBooksFromDB(page, itemsPerPage).ToMappedPagedList<BOOK, Book>();
             SetupBooks(bookList);
             return bookList;
         }
 
-        public static IPagedList<Book> SearchBooks(string search, int page, int itemsPerPage, params int[] classifications)
+        public IPagedList<Book> SearchBooks(string search, int page, int itemsPerPage, params int[] classifications)
         {
-            var bookList = BookRepository.GetBookSearchResultat(search, page, itemsPerPage, classifications).ToMappedPagedList<BOOK, Book>();
+            BookRepository repo = new BookRepository();
+            var bookList = repo.GetBookSearchResultat(search, page, itemsPerPage, classifications).ToMappedPagedList<BOOK, Book>();
             SetupBooks(bookList);
             return bookList;
         }
 
-        public static Book CreateBook(Book book)
+        public Book CreateBook(Book book)
         {
-            return Mapper.Map<BOOK, Book>(BookRepository.CreateBook(Mapper.Map<Book, BOOK>(book)));
+            BookRepository repo = new BookRepository();
+            return Mapper.Map<BOOK, Book>(repo.CreateBook(Mapper.Map<Book, BOOK>(book)));
         }
 
-        public static bool DeleteBook(string isbn)
+        public bool DeleteBook(string isbn)
         {
-            return BookRepository.DeleteBook(Mapper.Map<Book, BOOK>(GetBookFromIsbn(isbn)));
+            BookRepository repo = new BookRepository();
+            return repo.DeleteBook(Mapper.Map<Book, BOOK>(GetBookFromIsbn(isbn)));
         }
 
-        public static Book EditBook(Book book)
+        public Book EditBook(Book book)
         {
-            return Mapper.Map<BOOK, Book>(BookRepository.EditBook(Mapper.Map<Book, BOOK>(book)));
+            BookRepository repo = new BookRepository();
+            return Mapper.Map<BOOK, Book>(repo.EditBook(Mapper.Map<Book, BOOK>(book)));
         }
 
     }

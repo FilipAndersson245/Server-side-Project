@@ -155,7 +155,7 @@
     <Compile Include="Support\AdminRepository.cs" />
     <Compile Include="Support\AuthorRepository.cs" />
     <Compile Include="Support\BookRepository.cs" />
-    <Compile Include="Support\ClassificationRepositor.cs" />
+    <Compile Include="Support\ClassificationRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

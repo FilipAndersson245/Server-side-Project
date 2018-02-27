@@ -15,19 +15,22 @@ namespace Service.Managers
 {
     public class AdminManager
     {
-        public static Admin GetAdmin(string username)
+        public Admin GetAdmin(string username)
         {
-            return Mapper.Map<Admin>(AdminRepository.GetAdmin(username));
+            AdminRepository repo = new AdminRepository();
+            return Mapper.Map<Admin>(repo.GetAdmin(username));
         }
 
-        public static bool CreateAdmin(Admin admin)
+        public bool CreateAdmin(Admin admin)
         {
-            return AdminRepository.CreateAdmin(Mapper.Map<ADMIN>(admin));
+            AdminRepository repo = new AdminRepository();
+            return repo.CreateAdmin(Mapper.Map<ADMIN>(admin));
         }
 
-        public static List<Admin> GetAllAdmins()
+        public List<Admin> GetAllAdmins()
         {
-            return Mapper.Map<List<ADMIN>, List<Admin>>(AdminRepository.GetAllAdmins());
+            AdminRepository repo = new AdminRepository();
+            return Mapper.Map<List<ADMIN>, List<Admin>>(repo.GetAllAdmins());
         }
     }
 }
