@@ -5,13 +5,12 @@ using System.Web;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using PagedList;
-using LinqKit;
 
 namespace Repository.Support
 {
     public class BookRepository
     {
-        public bool DoesBookExist(string isbn)
+        public static bool DoesBookExist(string isbn)
         {
             using (var db = new dbGrupp3())
             {
@@ -19,7 +18,7 @@ namespace Repository.Support
             }
         }
 
-        public IPagedList<BOOK> GetAllBooksFromDB(int page, int itemsPerPage)
+        public static IPagedList<BOOK> GetAllBooksFromDB(int page, int itemsPerPage)
         {
             using (var db = new dbGrupp3())
             {
@@ -27,7 +26,7 @@ namespace Repository.Support
             }
         }
 
-        public BOOK GetBookFromIsbn(string isbn)
+        public static BOOK GetBookFromIsbn(string isbn)
         {
             using(var db = new dbGrupp3())
             {
@@ -35,7 +34,7 @@ namespace Repository.Support
             }
         }
 
-        public BOOK EditBook(BOOK eBook)
+        public static BOOK EditBook(BOOK eBook)
         {
             using (var db = new dbGrupp3())
             {
@@ -46,7 +45,7 @@ namespace Repository.Support
             }
         }
 
-        public BOOK CreateBook(BOOK book)
+        public static BOOK CreateBook(BOOK book)
         {
             using (var db = new dbGrupp3())
             {
@@ -56,7 +55,7 @@ namespace Repository.Support
             }
         }
 
-        public bool DeleteBook(BOOK ebook)
+        public static bool DeleteBook(BOOK ebook)
         {
             using (var db = new dbGrupp3())
             {
@@ -68,7 +67,7 @@ namespace Repository.Support
             }
         }
 
-        public List<AUTHOR> GetAuthorsFromIsbn(string isbn)
+        public static List<AUTHOR> GetAuthorsFromIsbn(string isbn)
         {
             using (var db = new dbGrupp3())
             {
@@ -76,7 +75,7 @@ namespace Repository.Support
             }
         }
 
-        public CLASSIFICATION GetClassificationFromIsbn(BOOK book)
+        public static CLASSIFICATION GetClassificationFromIsbn(BOOK book)
         {
             using (var db = new dbGrupp3())
             {
@@ -84,31 +83,26 @@ namespace Repository.Support
             }
         }
 
-        public IPagedList<BOOK> GetBookSearchResultat(string search, int page, int itemsPerPage, params int[] classifications)
+        public static IPagedList<BOOK> GetBookSearchResultat(string search, int page, int itemsPerPage, params int[] classifications)
         {
             
             if(classifications != null)
             {
-                return GetClassificationQuery(classifications).Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + y.LastName).Contains(search))).OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
+                using (var db = new dbGrupp3())
+                {
+                    return db.BOOKs.Include(b => b.AUTHORs).AsExpandable().Where(b => b.SignId.HasValue && classifications.ToList().Contains(b.SignId.Value))
+                        .Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + y.LastName).Contains(search)))
+                        .OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
+                }
             }
             else
             {
                 using (var db = new dbGrupp3())
                 {
-                    return db.BOOKs.Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + y.LastName).Contains(search))).OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
+                    return db.BOOKs.Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + y.LastName).Contains(search)))
+                        .OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
                 }
             }
-        }
-
-        private IQueryable<BOOK> GetClassificationQuery(params int[] classifications)
-        {
-            var query = PredicateBuilder.New<BOOK>();
-            foreach (var clasification in classifications)
-            {
-                var tmp = clasification;
-                query = query.Or(p => p.CLASSIFICATION.SignId.Equals(tmp));
-            }
-            return new dbGrupp3().BOOKs.AsExpandable().Where(query);
         }
     }
 }
