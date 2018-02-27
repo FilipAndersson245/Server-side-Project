@@ -33,7 +33,7 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                return db.CLASSIFICATIONs.ToList();
+                return db.CLASSIFICATIONs.OrderBy(x => x.Signum).ToList();
             }
         }
 
