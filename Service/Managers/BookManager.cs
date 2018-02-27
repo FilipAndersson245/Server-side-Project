@@ -65,9 +65,7 @@ namespace Service.Managers
                     {
                         return genericClass; //Add some warning for user maybe
                     }
-
                 }
-
             }
             else
             {
