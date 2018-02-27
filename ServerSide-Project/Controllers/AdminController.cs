@@ -21,6 +21,7 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
+        [RestoreModelStateFromTempData]
         public ActionResult CreateAdmin()
         {
             ValidateAndRedirect(Rank.SuperAdmin);
@@ -28,6 +29,7 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpPost]
+        [SetTempDataModelState]
         public ActionResult CreateAdmin(Admin admin)
         {
             ValidateAndRedirect(Rank.SuperAdmin);
@@ -47,6 +49,7 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
+        [RestoreModelStateFromTempData]
         public ActionResult Login(string returnBackTo = null)
         {
             ViewBag.returnBackTo = returnBackTo;
@@ -54,6 +57,7 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpPost]
+        [SetTempDataModelState]
         public ActionResult Login(Admin admin, string returnBackTo = null)
         {
             if (new AdminManager().Login(ModelState, admin.Username, admin.Password))
@@ -66,7 +70,7 @@ namespace ServerSide_Project.Controllers
             }
             else
             {
-                return RedirectToAction("Login","Admin", new { returnBackTo });
+                return RedirectToAction("Login", new { returnBackTo });
             }
         }
 
