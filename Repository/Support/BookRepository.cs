@@ -30,7 +30,7 @@ namespace Repository.Support
         {
             using(var db = new dbGrupp3())
             {
-                return db.BOOKs.Find(isbn);
+                return db.BOOKs.FirstOrDefault(x => x.ISBN.Equals(isbn));
             }
         }
 
@@ -38,7 +38,7 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                BOOK book = db.BOOKs.Find(eBook.ISBN);
+                BOOK book = db.BOOKs.FirstOrDefault(x => x.ISBN.Equals(eBook.ISBN));
                 db.Entry(book).CurrentValues.SetValues(eBook);
                 db.SaveChanges();
                 return book;

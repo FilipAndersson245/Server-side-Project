@@ -28,16 +28,9 @@ namespace Repository.Support
 
         public AUTHOR GetAuthorDetailsFromDB(int id)
         {
-            try
+            using (var db = new dbGrupp3())
             {
-                using (var db = new dbGrupp3())
-                {
-                    return db.AUTHORs.Find(id);
-                }
-            }
-            catch
-            {
-                return null;
+                return db.AUTHORs.FirstOrDefault(x => x.Aid.Equals(id));
             }
         }
 

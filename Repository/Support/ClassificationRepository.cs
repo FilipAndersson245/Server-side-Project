@@ -16,11 +16,11 @@ namespace Repository.Support
             }
         }
 
-        public bool DoesClassificationExist(string name)
+        public bool DoesClassificationExist(string signum)
         {
             using (var db = new dbGrupp3())
             {
-                return db.CLASSIFICATIONs.Any(x => x.Signum.Equals(name));
+                return db.CLASSIFICATIONs.Any(x => x.Signum.Equals(signum));
             }
         }
 
@@ -69,15 +69,15 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                return db.CLASSIFICATIONs.Find(id);
+                return db.CLASSIFICATIONs.FirstOrDefault(x => x.SignId.Equals(id));
             }
         }
 
-        public CLASSIFICATION GetClassificationFromName(string name)
+        public CLASSIFICATION GetClassificationFromName(string signum)
         {
             using (var db = new dbGrupp3())
             {
-                return db.CLASSIFICATIONs.FirstOrDefault(a => a.Signum == name);
+                return db.CLASSIFICATIONs.FirstOrDefault(a => a.Signum == signum);
             }
         }
 
@@ -97,7 +97,7 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                CLASSIFICATION classification = db.CLASSIFICATIONs.Find(eClassification.SignId);
+                CLASSIFICATION classification = db.CLASSIFICATIONs.FirstOrDefault(x => x.SignId.Equals(eClassification.SignId));
                 db.Entry(classification).CurrentValues.SetValues(eClassification);
                 db.SaveChanges();
                 return true;
