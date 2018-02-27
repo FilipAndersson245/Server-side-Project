@@ -4,9 +4,7 @@
     ViewBag.Title = "CreateBook";
 }
 
-
-<div class="col-sm-3"></div>
-<div class="col-sm-6">
+<div class="col-sm-10 col-sm-offset-1">
     <h2>CreateBook</h2>
 
 
@@ -55,13 +53,30 @@
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Pages, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Pages, "", new { @class = "text-danger" })
-                </div> 
+                </div>
             </div>
 
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Authors, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
+                    @Html.EditorFor(model => model.Authors, new { htmlAttributes = new { @class = "form-control"}})
+                    @{Html.RenderAction("GetAllAuthorsDropdown", "Author");}
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BookClassification, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @{Html.RenderAction("GetClassificationDropdown", "Classification");}
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BookClassification, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Action("GetClassification", "Classification" , null)
                 </div>
             </div>
 
@@ -73,13 +88,12 @@
                 </div>
             </div>
         </div>
-    }
+                        }
 
-    <div>
-        @Html.ActionLink("Back to List", "AdminPanel", "Admin", null, null)
-    </div>
-</div>
-<div class="col-sm-3"></div>
+                        <div>
+                            @Html.ActionLink("Back to List", "AdminPanel", "Admin", null, null)
+                        </div>
+                    </div>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

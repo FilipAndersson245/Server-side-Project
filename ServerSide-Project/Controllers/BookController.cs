@@ -15,16 +15,8 @@ namespace ServerSide_Project.Controllers
         public const int ITEMS_PER_PAGE = 10;
 
         [HttpGet]
-        public ActionResult CreateBook()
+        public ActionResult CreateBook(Book book)
         {
-            ValidateAndRedirect();
-            return View("CreateBook");
-        }
-
-        [HttpPost]             
-        public ActionResult CreateBook(Book book) 
-        {
-            ValidateAndRedirect();
             BookManager bookManager = new BookManager();
             if (ModelState.IsValid)
             {
@@ -35,8 +27,24 @@ namespace ServerSide_Project.Controllers
                 ModelState.AddModelError("", new Exception("aaa"));
                 return RedirectToAction("BrowseAllBooks", "Book", null);
             }
-                
         }
+
+        //[HttpPost]             
+        //public ActionResult CreateBook(Book book) 
+        //{
+        //    ValidateAndRedirect();
+        //    BookManager bookManager = new BookManager();
+        //    if (ModelState.IsValid)
+        //    {
+        //        return View("ListBookDetails", bookManager.CreateBook(book));
+        //    }
+        //    else
+        //    {
+        //        ModelState.AddModelError("", new Exception("aaa"));
+        //        return RedirectToAction("BrowseAllBooks", "Book", null);
+        //    }
+                
+        //}
 
         [HttpGet]
         public ActionResult BrowseAllBooks(int page = 1)

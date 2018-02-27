@@ -50,11 +50,13 @@
     <Compile Include="Configuration\AutoMapperConfig.cs" />
     <Compile Include="Managers\AdminManager.cs" />
     <Compile Include="Managers\AuthorManager.cs" />
+    <Compile Include="Managers\BookAuthorClassificationManager.cs" />
     <Compile Include="Managers\BookManager.cs" />
     <Compile Include="Managers\ClassificationManager.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\BookAuthorClassification.cs" />
     <Compile Include="Models\Classification.cs" />
     <Compile Include="Tools\Extensions.cs" />
     <Compile Include="Tools\Hashing.cs" />

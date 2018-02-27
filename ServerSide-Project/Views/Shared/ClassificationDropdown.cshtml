@@ -1,0 +1,24 @@
+﻿@model List<Service.Models.Classification>
+
+
+<div class="panel panel-default" id="classificationPanel">
+    <div class="panel-heading" role="tab" id="headingOne">
+        <h4 class="panel-title">
+            <a role="button" data-toggle="collapse" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" class="trigger collapsed">
+                Select Classification
+            </a>
+        </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+        <div class="panel-body">
+            @foreach (var classification in Model)
+            {
+                <div class="col-sm-2 text-left">
+                    
+                    <input name=classifications type="radio" value=@classification.SignId id=@classification.Signum>
+                    <label for=@classification.Signum>@classification.Signum</label>
+                </div>
+            }
+        </div>
+    </div>
+</div>

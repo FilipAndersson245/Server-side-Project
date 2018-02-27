@@ -141,6 +141,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthorController.cs" />
+    <Compile Include="Controllers\BookAuthorClassificationController.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\ClassificationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -178,6 +179,9 @@
     <Content Include="Views\Classification\CreateClassification.cshtml" />
     <Content Include="Views\Classification\EditClassification.cshtml" />
     <Content Include="Views\Book\ListBookDetails.cshtml" />
+    <Content Include="Views\Shared\ClassificationDropdown.cshtml" />
+    <Content Include="Views\Shared\AuthorDropdown.cshtml" />
+    <Content Include="Views\BookAuthorClassification\CreateBook.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

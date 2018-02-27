@@ -43,18 +43,18 @@
     <div class="container-fluid text-center">
         <div class="content">
             <div class="row text-center">
-    @if (ViewBag.activeBrowseBy == "Book")
-    {
+                @if (ViewBag.activeBrowseBy == "Book")
+                {
 
-        using (Html.BeginForm("SearchBooks", "Book", FormMethod.Get, new { @class = "form-inline" }))
-        {
-            Html.AntiForgeryToken();
-            <div class="form-group col-sm-12 input-lg text-center" id="searchBar">
-                <input type="text" name="search" class="form-control" id="searchField" placeholder="Search for books">
-                <button class="btn btn-default" type="submit" id="searchBtn">
-                    <i class="glyphicon glyphicon-search"></i>
-                </button>
-            </div>
+                    using (Html.BeginForm("SearchBooks", "Book", FormMethod.Get, new { @class = "form-inline" }))
+                    {
+                        Html.AntiForgeryToken();
+                        <div class="form-group col-sm-12 input-lg text-center" id="searchBar">
+                            <input type="text" name="search" class="form-control" id="searchField" placeholder="Search for books">
+                            <button class="btn btn-default" type="submit" id="searchBtn">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
 
                         <div class="col-sm-2 sidenav float-left align-top text-center container" id="classificationOuter">
                             <div class="row">
@@ -66,37 +66,37 @@
                             </div>
                         </div>
 
-                                <div class="col-sm-8">
-                                    @RenderBody()
-                                </div>
-                                }
-                                }
-                                else if (ViewBag.activeBrowseBy == "Author")
-                                {
-                                using (Html.BeginForm("SearchAuthors", "Author", FormMethod.Get, new { @class = "form-inline" }))
-                                {
-                                Html.AntiForgeryToken();
-                                <div class="form-group col-sm-12 input-lg text-center" id="searchBar">
-                                    <input type="text" name="search" class="form-control" id="searchField" placeholder="Search for authors">
-                                    <button class="btn btn-default" type="submit" id="searchBtn">
-                                        <i class="glyphicon glyphicon-search"></i>
-                                    </button>
-                                </div>
-                                }
-                                @RenderBody()
-                                }
-                                else
-                                {
-                                @RenderBody()
-                                }
-
-
-
-
-                            </div>
-
+                        <div class="col-sm-8">
+                            @RenderBody()
                         </div>
-                    </div>
+                        }
+                        }
+                        else if (ViewBag.activeBrowseBy == "Author")
+                        {
+                        using (Html.BeginForm("SearchAuthors", "Author", FormMethod.Get, new { @class = "form-inline" }))
+                        {
+                        Html.AntiForgeryToken();
+                        <div class="form-group col-sm-12 input-lg text-center" id="searchBar">
+                            <input type="text" name="search" class="form-control" id="searchField" placeholder="Search for authors">
+                            <button class="btn btn-default" type="submit" id="searchBtn">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
+                        }
+                        @RenderBody()
+                        }
+                        else
+                        {
+                        @RenderBody()
+                        }
+
+
+
+
+            </div>
+
+        </div>
+    </div>
 
     <footer>
         <div class="navbar align-center" >
