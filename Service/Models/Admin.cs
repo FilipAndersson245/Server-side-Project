@@ -14,6 +14,7 @@ namespace Service.Models
 {
     public enum Rank
     {
+        // User,may change admin to 1 and have user as rank 0
         Admin = 0,
         SuperAdmin
     }
@@ -27,7 +28,7 @@ namespace Service.Models
 
         [Required(ErrorMessage = "Please Provide Password", AllowEmptyStrings = false)]
         [DataType(DataType.Password)]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{4,25}$", ErrorMessage = "Incorrect password")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{4,25}$", ErrorMessage = "Password does not match the requirements")]
         public string Password { get; set;}
 
         [StringLength(64)]

@@ -17,10 +17,19 @@ namespace Service.Managers
 {
     public class AuthorManager
     {
-        public int CreateAuthor(Author author) //Returns Aid if successfull, 0 if failed
+        public int? CreateAuthor(ModelStateDictionary modelState,Author author) //Returns Aid if successfull, 0 if failed
         {
             AuthorRepository repo = new AuthorRepository();
-            return repo.CreateAuthor(Mapper.Map<Author, AUTHOR>(author));
+            int? id = null;
+            if (modelState.IsValid)
+            {
+                id = repo.CreateAuthor(Mapper.Map<Author, AUTHOR>(author));
+                if (id.Equals(null))
+                {
+                    modelState.AddModelError("", "Failed to Create author at database!");
+                }
+            }
+            return id;
         }
 
         public Author EditAuthor(Author author)

@@ -22,6 +22,7 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
+        [RestoreModelStateFromTempData]
         public ActionResult CreateAuthor()
         {
             ValidateAndRedirect();
@@ -29,14 +30,16 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpPost]
+        [SetTempDataModelState]
         public ActionResult CreateAuthor(Author author)
         {
             ValidateAndRedirect();
             AuthorManager authorManager = new AuthorManager();
-            if (authorManager.CreateAuthor(author) != 0)
-                return RedirectToAction("ListAuthorDetails", "Author", new { id = authorManager.CreateAuthor(author)});
+            var id = authorManager.CreateAuthor(ModelState, author);
+            if (id != null)
+                return RedirectToAction("ListAuthorDetails", "Author", new { id });
             else
-                return RedirectToAction("BrowseAllAuthors", "Author", null);
+                return RedirectToAction("CreateAuthor", "Author");
         }
 
         [HttpGet]
