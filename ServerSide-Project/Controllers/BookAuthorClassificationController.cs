@@ -23,12 +23,21 @@ namespace ServerSide_Project.Controllers
 
         [HttpPost]
         [ActionName("CreateBook")]
-        public ActionResult CreateBookPost(BookAuthorClassification bac)
+        public ActionResult CreateBookPost(BookAuthorClassification bac, string[] authorChecklist, int classificationRadio)
         {
+            AuthorManager authorManager = new AuthorManager();
+            ClassificationManager classificationManager = new ClassificationManager();
+            BookManager bookManager = new BookManager();
+            Classification classification = classificationManager.GetClassificationFromID(classificationRadio);
+            List<Author> authorList = new List<Author>();
+            foreach(var aID in authorChecklist)
+            {
+                authorList.Add(authorManager.GetAuthorFromID(Convert.ToInt32(aID)));
+            }
             Book book = new Book(){ Title = bac.Book.Title, ISBN = bac.Book.ISBN, Pages = bac.Book.Pages, PublicationYear = bac.Book.PublicationYear,
-                publicationinfo = bac.Book.publicationinfo, SignId = 78/*bac.Classifications.First().SignId,
-                BookClassification = bac.Classifications.First(), Authors = bac.Authors*/};
-            return RedirectToAction("CreateBook", "Book", book);
+                publicationinfo = bac.Book.publicationinfo, SignId = classification.SignId,
+                BookClassification = classification, Authors = authorList};
+            return View("ListBookDetails", bookManager.CreateBook(book));
         }
     }
 }

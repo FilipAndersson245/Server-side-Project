@@ -5,7 +5,7 @@
 }
 
 <div class="col-sm-10 col-sm-offset-1">
-    <h2>CreateBook</h2>
+    <h2>Create Book</h2>
 
 
     @using (Html.BeginForm("CreateBook", "BookAuthorClassification", FormMethod.Post, new { @class = "form-group" }))
@@ -56,9 +56,9 @@
                 </div>
             </div>
 
+            @Html.LabelFor(model => model.Authors, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="form-group">
-                @Html.LabelFor(model => model.Book.Pages, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="panel panel-default" id="classificationPanel">
+                <div class="panel panel-default" id="authorSelector">
                     <div class="panel-heading" role="tab" id="headingOne">
                         <h4 class="panel-title">
                             <a role="button" data-toggle="collapse" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree" class="trigger collapsed">
@@ -71,17 +71,19 @@
                             @foreach (var author in Model.Authors)
                             {
                                 <div class="col-sm-2 text-left">
-                                    @Html.EditorFor(model => model.Authors, new { htmlAttributes = new { @class = "form-control" } })
-                                    <input name=authorChecklist type="checkbox" value=@author.Aid id=@author.Aid>
-                                    <label for=@author.FullName>@author.FullName</label>
+                                    <label>
+                                        <input name=authorChecklist type="checkbox" value=@author.Aid>
+                                        @author.FullName
+                                    </label>
                                 </div>
                             }
                         </div>
                     </div>
                 </div>
             </div>
-
-                <div class="panel panel-default" id="classificationPanel">
+            @Html.LabelFor(model => model.Classifications, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="form-group">
+                <div class="panel panel-default" id="classificationSelector">
                     <div class="panel-heading" role="tab" id="headingOne">
                         <h4 class="panel-title">
                             <a role="button" data-toggle="collapse" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" class="trigger collapsed">
@@ -94,15 +96,16 @@
                             @foreach (var classification in Model.Classifications)
                             {
                                 <div class="col-sm-2 text-left">
-
-                                    <input name=classifications type="radio" value=@classification.SignId id=@classification.Signum>
-                                    <label for=@classification.Signum>@classification.Signum</label>
+                                    <label>
+                                        <input name=classificationRadio type="radio" value=@classification.SignId>
+                                        @classification.Signum
+                                    </label>
                                 </div>
                             }
                         </div>
                     </div>
                 </div>
-
+            </div>
 
 
 
@@ -117,7 +120,7 @@
                     </div>
                 </div>
             </div>
-                        }
+    }
 
     <div>
         @Html.ActionLink("Back to List", "AdminPanel", "Admin", null, null)
