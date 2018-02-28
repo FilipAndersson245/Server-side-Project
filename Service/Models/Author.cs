@@ -31,7 +31,7 @@ namespace Service.Models
         public string LastName { get; set; }
 
         [Required]
-        [Range(-2000, 2200)]
+        [Range(-3500, 2200)]
         public int? BirthYear { get; set; }
 
         public IPagedList<Book> BookList { get; set; }

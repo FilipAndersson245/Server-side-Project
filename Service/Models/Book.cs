@@ -35,7 +35,7 @@ namespace Service.Models
         public int PublicationYear { get; set; }
 
         [MaxLength(500,ErrorMessage ="Description is too long")]
-        public string publicationinfo { get; set; }
+        public string Publicationinfo { get; set; }
 
         [Required]
         [Range(1,15000, ErrorMessage = "Not a valid page number")]
@@ -52,7 +52,7 @@ namespace Service.Models
             this.Authors = book.Authors;
             this.BookClassification = book.BookClassification;
             this.Pages = book.Pages;
-            this.publicationinfo = book.publicationinfo;
+            this.Publicationinfo = book.Publicationinfo;
             this.ISBN = book.ISBN;
             this.Title = book.Title;
             this.PublicationYear = book.PublicationYear;
@@ -62,15 +62,15 @@ namespace Service.Models
         {
             get
             {
-                if(this.publicationinfo == null)
+                if(this.Publicationinfo == null)
                 {
                     return "No description available";
                 }
-                else if (this.publicationinfo.Length < 255)
+                else if (this.Publicationinfo.Length < 255)
                 {
-                    return this.publicationinfo;
+                    return this.Publicationinfo;
                 }
-                return this.publicationinfo.Substring(0, 255) + "...";
+                return this.Publicationinfo.Substring(0, 255) + "...";
             }
         }
 
