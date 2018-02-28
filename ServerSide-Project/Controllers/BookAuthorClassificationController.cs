@@ -22,22 +22,66 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpPost]
-        [ActionName("CreateBook")]
-        public ActionResult CreateBookPost(BookAuthorClassification bac, string[] authorChecklist, int classificationRadio)
+        public ActionResult CreateBook(BookAuthorClassification bac, string[] authorChecklist, int classificationRadio)
         {
             AuthorManager authorManager = new AuthorManager();
             ClassificationManager classificationManager = new ClassificationManager();
             BookManager bookManager = new BookManager();
             Classification classification = classificationManager.GetClassificationFromID(classificationRadio);
             List<Author> authorList = new List<Author>();
-            foreach(var aID in authorChecklist)
+            foreach (var aID in authorChecklist)
             {
                 authorList.Add(authorManager.GetAuthorFromID(Convert.ToInt32(aID)));
             }
-            Book book = new Book(){ Title = bac.Book.Title, ISBN = bac.Book.ISBN, Pages = bac.Book.Pages, PublicationYear = bac.Book.PublicationYear,
-                publicationinfo = bac.Book.publicationinfo, SignId = classification.SignId,
-                BookClassification = classification, Authors = authorList};
-            return View("ListBookDetails", bookManager.CreateBook(book));
+            Book book = new Book()
+            {
+                Title = bac.Book.Title,
+                ISBN = bac.Book.ISBN,
+                Pages = bac.Book.Pages,
+                PublicationYear = bac.Book.PublicationYear,
+                publicationinfo = bac.Book.publicationinfo,
+                SignId = classification.SignId,
+                BookClassification = classification,
+                Authors = authorList
+            };
+            return View("ListBookDetails", "Book", bookManager.CreateBook(book));
         }
+
+        [HttpGet]
+        public ActionResult EditBook(string id)
+        {
+            BookManager bookManager = new BookManager();
+            BookAuthorClassificationManager bacManager = new BookAuthorClassificationManager();
+            var bac = bacManager.Setup();
+            bac.Book = bookManager.GetBookFromIsbn(id);
+            return View("EditBook", bac);
+        }
+
+        [HttpPost]
+        public ActionResult EditBook(BookAuthorClassification bac, string[] authorChecklist, int classificationRadio)
+        {
+            AuthorManager authorManager = new AuthorManager();
+            ClassificationManager classificationManager = new ClassificationManager();
+            BookManager bookManager = new BookManager();
+            Classification classification = classificationManager.GetClassificationFromID(classificationRadio);
+            List<Author> authorList = new List<Author>();
+            foreach (var aID in authorChecklist)
+            {
+                authorList.Add(authorManager.GetAuthorFromID(Convert.ToInt32(aID)));
+            }
+            Book book = new Book()
+            {
+                Title = bac.Book.Title,
+                ISBN = bac.Book.ISBN,
+                Pages = bac.Book.Pages,
+                PublicationYear = bac.Book.PublicationYear,
+                publicationinfo = bac.Book.publicationinfo,
+                SignId = classification.SignId,
+                BookClassification = classification,
+                Authors = authorList
+            };
+            return RedirectToAction("ListBookDetails", "Book", bookManager.EditBook(book).ISBN);
+        }
+
     }
 }

@@ -42,7 +42,6 @@ namespace ServerSide_Project.Controllers
             ValidateAndRedirect();
             BookManager bookManager = new BookManager();
             return RedirectToAction("ListBookDetails", "Book", bookManager.EditBook(book).ISBN);
-
         }
 
         [HttpPost]

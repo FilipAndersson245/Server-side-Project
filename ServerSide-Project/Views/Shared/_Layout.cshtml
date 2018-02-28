@@ -73,21 +73,21 @@
                         }
                         else if (ViewBag.activeBrowseBy == "Author")
                         {
-                        using (Html.BeginForm("SearchAuthors", "Author", FormMethod.Get, new { @class = "form-inline" }))
-                        {
-                        Html.AntiForgeryToken();
-                        <div class="form-group col-sm-12 input-lg text-center" id="searchBar">
-                            <input type="text" name="search" class="form-control" id="searchField" placeholder="Search for authors">
-                            <button class="btn btn-default" type="submit" id="searchBtn">
-                                <i class="glyphicon glyphicon-search"></i>
-                            </button>
-                        </div>
-                        }
-                        @RenderBody()
+                            using (Html.BeginForm("SearchAuthors", "Author", FormMethod.Get, new { @class = "form-inline" }))
+                            {
+                                Html.AntiForgeryToken();
+                                <div class="form-group col-sm-12 input-lg text-center" id="searchBar">
+                                    <input type="text" name="search" class="form-control" id="searchField" placeholder="Search for authors">
+                                    <button class="btn btn-default" type="submit" id="searchBtn">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </div>
+                            }
+                            @RenderBody()
                         }
                         else
                         {
-                        @RenderBody()
+                            @RenderBody()
                         }
 
 
@@ -101,8 +101,6 @@
     <footer>
         <div class="navbar align-center" >
                 <div class="text-muted col-sm-4">©@DateTime.Today.Year</div>
-                @*<div class="col-sm-4 text-center">Project for the course Server-side Web Development</div>
-                <div class="col-sm-4 text-right">Made by Filip Andersson and Jonatan Flyckt</div>*@
         </div>
     </footer>
 

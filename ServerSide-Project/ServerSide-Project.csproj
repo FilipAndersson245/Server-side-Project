@@ -162,7 +162,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Admin\Login.cshtml" />
-    <Content Include="Views\Book\EditBook.cshtml" />
     <Content Include="Views\Shared\ListAuthors.cshtml" />
     <Content Include="Views\Author\ListAuthorDetails.cshtml" />
     <Content Include="Views\Admin\AdminPanel.cshtml" />
@@ -181,6 +180,7 @@
     <Content Include="Views\Shared\ClassificationDropdown.cshtml" />
     <Content Include="Views\Shared\AuthorDropdown.cshtml" />
     <Content Include="Views\BookAuthorClassification\CreateBook.cshtml" />
+    <Content Include="Views\BookAuthorClassification\EditBook.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
