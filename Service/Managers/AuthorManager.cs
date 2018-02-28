@@ -32,10 +32,20 @@ namespace Service.Managers
             return id;
         }
 
-        public Author EditAuthor(Author author)
+        public Author EditAuthor(ModelStateDictionary modelState, Author author)
         {
-            AuthorRepository repo = new AuthorRepository();
-            return Mapper.Map<AUTHOR, Author>(repo.EditAuthor(Mapper.Map<Author, AUTHOR>(author)));
+            if (modelState.IsValid)
+            {
+                AuthorRepository repo = new AuthorRepository();
+                var dbAuthor = repo.EditAuthor(Mapper.Map<Author, AUTHOR>(author));
+                if (dbAuthor.Equals(null))
+                {
+                    modelState.AddModelError("", "Author does not exist on the database");
+                }
+                return Mapper.Map<AUTHOR, Author>(dbAuthor);
+            }
+            return null;
+            
         }
 
         public bool DeleteAuthor(Author author)

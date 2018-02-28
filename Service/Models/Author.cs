@@ -15,10 +15,7 @@ namespace Service.Models
 {
     public class Author
     {
-        public Author()
-        {
-
-        }
+        public Author(){}
 
         [Required]
         [Key]
