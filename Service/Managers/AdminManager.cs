@@ -21,7 +21,7 @@ namespace Service.Managers
             if (modelState.IsValid)
             {
                 Admin dbAdmin = GetAdmin(username);
-                if (dbAdmin.Equals(null))
+                if (dbAdmin == null)
                 {
                     modelState.AddModelError("Username", "User does not exist!");
                 }

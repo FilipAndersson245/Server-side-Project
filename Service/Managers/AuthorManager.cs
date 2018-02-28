@@ -24,7 +24,7 @@ namespace Service.Managers
             if (modelState.IsValid)
             {
                 id = repo.CreateAuthor(Mapper.Map<Author, AUTHOR>(author));
-                if (id.Equals(null))
+                if (id == null)
                 {
                     modelState.AddModelError("", "Failed to Create author at database!");
                 }
@@ -38,7 +38,7 @@ namespace Service.Managers
             {
                 AuthorRepository repo = new AuthorRepository();
                 var dbAuthor = repo.EditAuthor(Mapper.Map<Author, AUTHOR>(author));
-                if (dbAuthor.Equals(null))
+                if (dbAuthor == null)
                 {
                     modelState.AddModelError("", "Author does not exist on the database");
                 }
