@@ -54,8 +54,14 @@ namespace ServerSide_Project.Controllers
         public ActionResult EditAuthor(Author author)
         {
             ValidateAndRedirect();
-            AuthorManager authorManager = new AuthorManager();
-            return RedirectToAction("ListAuthorDetails", "Author", new { id = authorManager.EditAuthor(author).Aid });
+            AuthorManager manager = new AuthorManager();
+            var dbAuthor = manager.EditAuthor(ModelState, author);
+            if (dbAuthor != null)
+            {
+                return RedirectToAction("ListAuthorDetails", "Author", new { dbAuthor.Aid });
+            }
+            //may not work
+            return RedirectToAction("BrowseAllAuthors","Admin");
         }
         
         [HttpPost]
