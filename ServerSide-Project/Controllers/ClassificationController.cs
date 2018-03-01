@@ -76,7 +76,8 @@ namespace ServerSide_Project.Controllers
         public ActionResult GetClassification()
         {
             ClassificationManager classificationManager = new ClassificationManager();
-            return PartialView("Classification", classificationManager.GetAllClassifications());
+            var test = classificationManager.GetAllClassifications();
+            return PartialView("Classification", test);
         }
 
         [HttpGet]

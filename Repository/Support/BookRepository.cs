@@ -50,6 +50,7 @@ namespace Repository.Support
             using (var db = new dbGrupp3())
             {
                 db.BOOKs.Add(book);
+                db.ChangeTracker.Entries<AUTHOR>().ToList().ForEach(a => a.State = EntityState.Unchanged);
                 db.SaveChanges();
                 return book;
             }
