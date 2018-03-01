@@ -17,25 +17,25 @@ namespace Service.Tools
 
         public bool IsValid { get; set; } = false;
 
-        public Dictionary<string, List<int>> ErrorList { get; set; }
+        public Dictionary<string, int> ErrorDict { get; set; }
 
         public ValidationModel(Admin model)
         {
             List<int> listOfErr = new List<int>();
             if (string.IsNullOrWhiteSpace(model.Username))
             {
-                listOfErr.Add(1);
+                ErrorDict.Add(nameof(model.Username), 1);
             }
             else if (model.Username.Length > MAX_NAME_LENGTH)
             {
-                listOfErr.Add(2);
+                ErrorDict.Add(nameof(model.Username), 2);
             }
             if (Regex.IsMatch(model.Password, PASSWORD_REQ_REGEX))
             {
-                listOfErr.Add(3);
+                ErrorDict.Add(nameof(model.Password), 3);
             }
 
-            if (listOfErr.Count == 0)
+            if (ErrorDict.Count == 0)
             {
                 IsValid = true;
             }
@@ -47,32 +47,33 @@ namespace Service.Tools
 
             if (string.IsNullOrWhiteSpace(model.Aid))
             {
-                listOfErr.Add(1);
+                ErrorDict.Add(nameof(model.Aid), 1);
             }
             else if (model.Aid.Length > 5)
             {
-                listOfErr.Add(5);
+                ErrorDict.Add(nameof(model.Aid), 5);
             }
 
             if(string.IsNullOrWhiteSpace(model.FirstName))
             {
-                listOfErr.Add(1);
+                ErrorDict.Add(nameof(model.FirstName), 1);
             }
             else if (model.FirstName.Length > MAX_NAME_LENGTH)
             {
-                listOfErr.Add(2);
+                ErrorDict.Add(nameof(model.FirstName), 2);
             }
 
             if (string.IsNullOrWhiteSpace(model.FirstName))
             {
-                listOfErr.Add(1);
+                ErrorDict.Add(nameof(model.LastName), 1);
             }
             else if (model.FirstName.Length > MAX_NAME_LENGTH)
             {
-                listOfErr.Add(2);
+                ErrorDict.Add(nameof(model.LastName), 2);
             }
+            //... more to come
 
-            if (listOfErr.Count == 0)
+            if (ErrorDict.Count == 0)
             {
                 IsValid = true;
             }
@@ -84,7 +85,7 @@ namespace Service.Tools
 
 
 
-            if (listOfErr.Count == 0)
+            if (ErrorDict.Count == 0)
             {
                 IsValid = true;
             }
@@ -96,7 +97,7 @@ namespace Service.Tools
 
 
 
-            if (listOfErr.Count == 0)
+            if (ErrorDict.Count == 0)
             {
                 IsValid = true;
             }
