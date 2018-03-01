@@ -44,7 +44,7 @@ namespace ServerSide_Project.Controllers
                 BookClassification = classification,
                 Authors = authorList
             };
-            return View("ListBookDetails", "Book", bookManager.CreateBook(book));
+            return RedirectToAction("ListBookDetailsFromBook", "Book", bookManager.CreateBook(book));
         }
 
         [HttpGet]
@@ -80,7 +80,7 @@ namespace ServerSide_Project.Controllers
                 BookClassification = classification,
                 Authors = authorList
             };
-            return RedirectToAction("ListBookDetails", "Book", bookManager.EditBook(book).ISBN);
+            return RedirectToAction("ListBookDetailsFromBook", "Book", bookManager.EditBook(book).ISBN);
         }
 
     }

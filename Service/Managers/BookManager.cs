@@ -102,7 +102,9 @@ namespace Service.Managers
         public Book CreateBook(Book book)
         {
             BookRepository repo = new BookRepository();
-            return Mapper.Map<BOOK, Book>(repo.CreateBook(Mapper.Map<Book, BOOK>(book)));
+            var newBook = Mapper.Map<BOOK, Book>(repo.CreateBook(Mapper.Map<Book, BOOK>(book)));
+            newBook.Authors = AddAuthors(newBook);
+            return newBook;
         }
 
         public bool DeleteBook(string isbn)

@@ -30,7 +30,7 @@ namespace Service.Configuration
     {
         public ToBookProfile()
         {
-            CreateMap<BOOK, Book>().ForMember(m => m.Authors, opt => opt.Ignore());
+            CreateMap<BOOK, Book>().ForMember(m => m.Authors, opt => opt.Ignore()).MaxDepth(1);
         }
     }
 
@@ -38,7 +38,7 @@ namespace Service.Configuration
     {
         public FromBookProfile()
         {
-            CreateMap<Book, BOOK>();
+            CreateMap<Book, BOOK>().MaxDepth(1);
         }
     }
 
@@ -46,7 +46,7 @@ namespace Service.Configuration
     {
         public ToAuthorProfile()
         {
-            CreateMap<AUTHOR, Author>();
+            CreateMap<AUTHOR, Author>().MaxDepth(1);
         }
     }
 
@@ -54,7 +54,7 @@ namespace Service.Configuration
     {
         public FromAuthorProfile()
         {
-            CreateMap<Author, AUTHOR>();
+            CreateMap<Author, AUTHOR>().MaxDepth(1);
         }
     }
 
