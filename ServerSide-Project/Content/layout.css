@@ -18,6 +18,7 @@ html
     border-radius: 0;
     padding-top: 5px;
     border-bottom: 0px;
+    background-color: #003952;
 }
 
 .row
@@ -41,7 +42,7 @@ html
     height: 60px;
     line-height: 60px;
     background-color: #f5f5f5;
-}*/
+}
 
 .container-fluid {
     padding-right: 15px;
@@ -52,13 +53,13 @@ html
 
 a, a:link, a:visited, .btn-link, .btn-link:link, .btn-link:visited
 {
-    color: #5b0000;
+    color: #006c9b;
 }
 
 
 a:hover, a:active, .btn-link:hover, .btn-link:active
 {
-    color: #000000;
+    color: #003952;
 }
 
 .page
@@ -106,7 +107,7 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
 
 #searchBtn
 {
-    background-color: #4b4b4b;
+    background-color: #006c9b;
     border-color: #ffffff;
     color: #ffffff;
     height: 200%;
@@ -115,7 +116,7 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
 
 #searchBtn:hover
 {
-    background-color: #636363;
+    background-color: #003952;
     border-color: #ffffff;
 }
 
@@ -236,7 +237,7 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
 
 #bookListOuter
 {
-    background-color: #e4e4e4;
+    background-color:#e4e4e4;
     padding-left: 5%;
     padding-right: 5%;
     padding-bottom: 2%;
@@ -261,7 +262,7 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
     padding-bottom: 1%;
     padding-top: 1%;
     border: 1px solid #f1f1f1;
-    background-color: #c7c7c7;
+    background-color: #cfcfcf;
     border-radius: 5px;
     font-size: 80%;
 }
@@ -273,7 +274,7 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
     padding-bottom: 1%;
     padding-top: 1%;
     border: 1px solid #f1f1f1;
-    background-color: #c7c7c7;
+    background-color: #cfcfcf;
     border-radius: 5px;
     font-size: 100%;
 }
@@ -287,7 +288,7 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
 
 #classificationPanel, #headingOne, #authorSelector, #classificationSelector
 {
-    background-color: #c7c7c7;
+    background-color: #cfcfcf;
     border-radius: 5px;
 }
 
@@ -298,4 +299,22 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
     border-radius: 1.5%;
     color : white;
     text-shadow: 1px 1px 1px #000000;
+}
+
+#bookListImage
+{
+    width: 80%;
+    height: 80%;
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+#bookDetailsImage
+{
+    width: 100%;
+    height: 100%;
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto; 
 }

@@ -24,6 +24,7 @@ namespace Service.Managers
             BookRepository repo = new BookRepository();
             var book = Mapper.Map<BOOK, Book>(repo.GetBookFromIsbn(isbn));
             book.Authors = AddAuthors(book);
+            book.BookClassification = AddClassification(book);
             return book;
         }
 

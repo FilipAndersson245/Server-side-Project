@@ -2,26 +2,87 @@
 
 @{
     ViewBag.Title = "ListBookDetails";
+    ViewBag.activeBrowseBy = "Author";
 }
 
-
-<div class="col-sm-6 col-sm-offset-2 align-center">
-    <h2>@Html.DisplayFor(modelItem => Model.Title)</h2>
-    <div class=" col-sm-3"><img src="~/Resources/Education.png" width="100%" height="100%" /></div>
-    <h5>
-        Written by:
-        @if (Model.Authors != null && Model.Authors.Any())
-        {
-            foreach (var author in Model.Authors)
-            {
-                @author.FullName;
-                Write("  ");
+<h4 class="text-center">Author Details</h4>
+<div class="col-sm-10 col-sm-offset-1">
+    <div class="row text-left" id="bookListItem">
+        <div class="col-sm-2">
+            @{
+                string ClassificationPictureString = "~/Resources/";
+                ClassificationPictureString += Model.BookClassification.Signum += ".png";
+                if (@Model.BookClassification.Signum[0] == 'P' && @Model.BookClassification.Signum[1] == 'u' && @Model.BookClassification.Signum[2] == 'b')
+                {
+                    ClassificationPictureString = "~/Resources/Education.png";
+                }
             }
-        }
-        else
-        {
-            Write("Unknown");
-        }
-
-    </h5>
+            <img src="@Url.Content(ClassificationPictureString)" id="bookDetailsImage" />
+        </div>
+        <div class="col-sm-9">
+            <div class="row">
+                <div class="col-sm-9" id="bookListTitle">
+                    @Html.ActionLink(Html.Encode(@Model.Title), "ListBookDetails", "Book", new { id = @Model.ISBN }, null)
+                </div>
+                <div class="col-sm-3 text-right" id="bookListAdminPane">
+                    @Html.ActionLink("Edit", "EditBook", "BookAuthorClassification", new { id = @Model.ISBN }, new { @class = "" }) |
+                    @using (Html.BeginForm("DeleteBook", "Book", new { id = @Model.ISBN }, FormMethod.Post, new { @class = "form-group" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="submit" value="Delete" class="btn-link" />
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5" id="bookListAuthor">
+                    <p class="listHeadline">Authors:</p>
+                </div>
+                <div class="col-sm-2" id="bookListPublicationYear">
+                    <p class="listHeadline">Published:</p>
+                </div>
+                <div class="col-sm-3" id="bookListISBN">
+                    <p class="listHeadline">ISBN:</p>
+                </div>
+                <div class="col-sm-2" id="bookListPages">
+                    <p class="listHeadline">Pages:</p>
+                </div>
+            </div>
+            <div class="row" id="bookListInfoRow">
+                <div class="col-sm-5" id="bookListAuthor">
+                    @if (Model.Authors[0].FirstName != "No Author")
+                    {
+                        foreach (var author in @Model.Authors)
+                        {
+                            @Html.ActionLink(Html.Encode(author.FullName), "ListAuthorDetails", "Author", new { id = author.Aid }, null)
+                            if (!@Model.Authors.Last().Equals(author))
+                            {<span> | </span>}
+                        }
+                    }
+                    else
+                    {
+                        @Html.Encode("No Author Available");
+                    }
+                </div>
+                <div class="col-sm-2" id="bookListPublicationYear">
+                    @Model.PublicationYear
+                </div>
+                <div class="col-sm-3" id="bookListISBN">
+                    @Model.ISBN
+                </div>
+                <div class="col-sm-2" id="bookListPages">
+                    @Model.Pages
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <p class="listHeadline">Description:</p>
+                </div>
+            </div>
+            <div class="row" id="bookListDescription">
+                <div class="col-sm-12">
+                    @Model.Publicationinfo
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
