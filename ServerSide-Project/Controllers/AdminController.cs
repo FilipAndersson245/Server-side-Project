@@ -60,7 +60,8 @@ namespace ServerSide_Project.Controllers
         [SetTempDataModelState]
         public ActionResult Login(Admin admin, string returnBackTo = null)
         {
-            if (new AdminManager().Login(ModelState, admin.Username, admin.Password))
+            var modelList = ModelState.ToList();
+            if (new AdminManager().Login(modelList, admin.Username, admin.Password))
             {
                 Session["authentication"] = admin.Username;
                 Session["level"] = admin.PermissionLevel;

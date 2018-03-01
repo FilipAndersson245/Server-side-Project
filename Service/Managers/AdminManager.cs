@@ -18,7 +18,8 @@ namespace Service.Managers
     {
         public bool Login(ModelStateDictionary modelState,string username, string password)
         {
-            if (modelState.IsValid)
+            ValidationModel validation = new ValidationModel(new Admin() { Username = username, Password = password });
+            if (validation.IsValid)
             {
                 Admin dbAdmin = GetAdmin(username);
                 if (dbAdmin == null)
@@ -37,6 +38,13 @@ namespace Service.Managers
                 }
             }
             return false;
+        }
+
+        public bool Login(List<KeyValuePair<string, ModelState>> modelList, string username, string password)
+        {
+            ModelState a = new ModelState();
+            
+            throw new NotImplementedException();
         }
 
         public bool SignUp(ModelStateDictionary modelState, Admin admin)
@@ -58,6 +66,8 @@ namespace Service.Managers
             }
             return false;
         }
+
+
 
         public Admin GetAdmin(string username)
         {

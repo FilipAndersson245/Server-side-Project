@@ -58,6 +58,7 @@
     <Compile Include="Models\Classification.cs" />
     <Compile Include="Tools\Extensions.cs" />
     <Compile Include="Tools\Hashing.cs" />
+    <Compile Include="Tools\Validation.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
