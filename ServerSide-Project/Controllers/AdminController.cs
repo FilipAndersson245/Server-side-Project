@@ -61,7 +61,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult Login(Admin admin, string returnBackTo = null)
         {
             var modelList = ModelState.ToList();
-            if (new AdminManager().Login(modelList, admin.Username, admin.Password))
+            if (new AdminManager().Login(ModelState, admin.Username, admin.Password))
             {
                 Session["authentication"] = admin.Username;
                 Session["level"] = admin.PermissionLevel;

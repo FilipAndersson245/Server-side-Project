@@ -19,7 +19,7 @@ namespace Service.Managers
         public bool Login(ModelStateDictionary modelState,string username, string password)
         {
             ValidationModel validation = new ValidationModel(new Admin() { Username = username, Password = password });
-            if (validation.IsValid)
+            if (modelState.IsValid)
             {
                 Admin dbAdmin = GetAdmin(username);
                 if (dbAdmin == null)

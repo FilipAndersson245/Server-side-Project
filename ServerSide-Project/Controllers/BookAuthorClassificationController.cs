@@ -39,7 +39,7 @@ namespace ServerSide_Project.Controllers
                 ISBN = bac.Book.ISBN,
                 Pages = bac.Book.Pages,
                 PublicationYear = bac.Book.PublicationYear,
-                publicationinfo = bac.Book.publicationinfo,
+                Publicationinfo = bac.Book.Publicationinfo,
                 SignId = classification.SignId,
                 BookClassification = classification,
                 Authors = authorList
@@ -75,7 +75,7 @@ namespace ServerSide_Project.Controllers
                 ISBN = bac.Book.ISBN,
                 Pages = bac.Book.Pages,
                 PublicationYear = bac.Book.PublicationYear,
-                publicationinfo = bac.Book.publicationinfo,
+                Publicationinfo = bac.Book.Publicationinfo,
                 SignId = classification.SignId,
                 BookClassification = classification,
                 Authors = authorList
