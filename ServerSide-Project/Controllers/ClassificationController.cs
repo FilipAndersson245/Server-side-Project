@@ -76,7 +76,16 @@ namespace ServerSide_Project.Controllers
         public ActionResult GetClassification()
         {
             ClassificationManager classificationManager = new ClassificationManager();
-            return PartialView("Classification", classificationManager.GetAllClassifications());
+            var test = classificationManager.GetAllClassifications();
+            return PartialView("Classification", test);
         }
+
+        [HttpGet]
+        public ActionResult GetClassificationDropdown()
+        {
+            ClassificationManager classificationManager = new ClassificationManager();
+            return PartialView("ClassificationDropdown", classificationManager.GetAllClassifications());
+        }
+
     }
 }

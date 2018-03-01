@@ -285,7 +285,7 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
     background-color: #e4e4e4;
 }
 
-#classificationPanel, #headingOne
+#classificationPanel, #headingOne, #authorSelector, #classificationSelector
 {
     background-color: #c7c7c7;
     border-radius: 5px;

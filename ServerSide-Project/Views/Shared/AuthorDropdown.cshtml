@@ -1,0 +1,22 @@
+﻿@model List<Service.Models.Author>
+
+<div class="panel panel-default" id="classificationPanel">
+    <div class="panel-heading" role="tab" id="headingOne">
+        <h4 class="panel-title">
+            <a role="button" data-toggle="collapse" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree" class="trigger collapsed">
+                Select Authors
+            </a>
+        </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+        <div class="panel-body">
+            @foreach (var author in Model)
+            {
+                <div class="col-sm-2 text-left">
+                    <input name=classifications type="checkbox" value=@author.Aid id=@author.FullName>
+                    <label for=@author.FullName>@author.FullName</label>
+                </div>
+            }
+        </div>
+    </div>
+</div>

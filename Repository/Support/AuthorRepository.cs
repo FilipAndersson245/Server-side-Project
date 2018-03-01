@@ -26,6 +26,14 @@ namespace Repository.Support
             }
         }
 
+        public List<AUTHOR> GetAllAuthorsFromDBToList()
+        {
+            using (var db = new dbGrupp3())
+            {
+                return db.AUTHORs.OrderBy(x => x.LastName).ToList();
+            }
+        }
+
         public AUTHOR GetAuthorDetailsFromDB(int id)
         {
             using (var db = new dbGrupp3())

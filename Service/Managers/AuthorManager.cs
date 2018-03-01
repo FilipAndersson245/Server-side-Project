@@ -60,6 +60,12 @@ namespace Service.Managers
             return repo.GetAllAuthorsFromDB(page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>();
         }
 
+        public List<Author> GetAllAuthorsToList()
+        {
+            AuthorRepository repo = new AuthorRepository();
+            return Mapper.Map<List<AUTHOR>, List<Author>>(repo.GetAllAuthorsFromDBToList());
+        }
+
         public Author GetAuthorDetails(int id, int bookPage)
         {
             AuthorRepository repo = new AuthorRepository();

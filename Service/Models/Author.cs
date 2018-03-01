@@ -40,7 +40,7 @@ namespace Service.Models
         {
             get
             {
-                return this.LastName + " " + this.FirstName;
+                return this.FirstName + " " + this.LastName;
             }
         }
 
