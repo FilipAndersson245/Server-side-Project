@@ -16,24 +16,27 @@ namespace Service.Managers
 {
     public class AdminManager
     {
-        public bool Login(ModelStateDictionary modelState,string username, string password)
+        public bool Login(ModelStateDictionary modelState, Admin admin)
         {
-            ValidationModel validation = new ValidationModel(new Admin() { Username = username, Password = password });
-            var a = validation.ErrorDict;
-            if (modelState.IsValid)
+            ValidationModel validation = new ValidationModel(admin);
+            var dict = validation.ErrorDict;
+            var IsValid = validation.IsValid;
+            if (IsValid)
             {
-                Admin dbAdmin = GetAdmin(username);
+                Admin dbAdmin = GetAdmin(admin.Username);
                 if (dbAdmin == null)
                 {
+                    validation.DoesNotExistOnServer(nameof(admin.Username));
                     modelState.AddModelError("Username", "User does not exist!");
                 }
                 else
                 {
-                    Hashing pwdHash = new Hashing(password, dbAdmin.Salt);
+                    Hashing pwdHash = new Hashing(admin.Password, dbAdmin.Salt);
                     if (pwdHash.Equals(dbAdmin.PasswordHash))
                         return true;
                     else
                     {
+                        validation.WrongPassword(nameof(admin.Username));
                         modelState.AddModelError("Password", "Wrong Password!");
                     }
                 }

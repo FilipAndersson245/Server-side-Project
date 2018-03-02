@@ -11,17 +11,16 @@ namespace Service.Tools
     class ValidationModel
     {
         const int BOOK_MAX_SIZE = 3000;
-        const string PASSWORD_REQ_REGEX = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{5,15}$";
+        const string PASSWORD_REQ_REGEX = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{4,25}$";
         const int DESCRIPTION_MAX_LENGTH = 1200;
         const int MAX_NAME_LENGTH = 25;
 
         public bool IsValid { get; set; } = false;
 
-        public Dictionary<string, int> ErrorDict { get; set; }
+        public Dictionary<string, int> ErrorDict { get; set; } = new Dictionary<string, int>();
 
         public ValidationModel(Admin model)
         {
-            List<int> listOfErr = new List<int>();
             if (string.IsNullOrWhiteSpace(model.Username))
             {
                 ErrorDict.Add(nameof(model.Username), 1);
@@ -30,7 +29,7 @@ namespace Service.Tools
             {
                 ErrorDict.Add(nameof(model.Username), 2);
             }
-            if (Regex.IsMatch(model.Password, PASSWORD_REQ_REGEX))
+            if (!Regex.IsMatch(model.Password, PASSWORD_REQ_REGEX))
             {
                 ErrorDict.Add(nameof(model.Password), 3);
             }
@@ -43,7 +42,6 @@ namespace Service.Tools
 
         public ValidationModel(Author model)
         {
-            List<int> listOfErr = new List<int>();
 
             if (string.IsNullOrWhiteSpace(model.Aid))
             {
@@ -81,7 +79,6 @@ namespace Service.Tools
 
         public ValidationModel(Book model)
         {
-            List<int> listOfErr = new List<int>();
 
             //more to come...
 
@@ -101,6 +98,25 @@ namespace Service.Tools
             {
                 IsValid = true;
             }
+        }
+
+
+        public void DoesNotExistOnServer(string type)
+        {
+            this.IsValid = false;
+            this.ErrorDict.Add(type, 123); //temp code
+        }
+
+        public void DoesAlreadyExistOnServer(string type)
+        {
+            IsValid = false;
+            ErrorDict.Add(type, 124); //tmp code
+        }
+
+        public void WrongPassword(string type)
+        {
+            IsValid = false;
+            ErrorDict.Add(type, 125); //tmp code
         }
 
     }
