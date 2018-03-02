@@ -17,22 +17,15 @@ namespace Service.Models
     {
         public Author(){}
 
-        [Required]
-        [Key]
-        [StringLength(10)]
+
         public string Aid { get; set; } //Primary Key
 
-        [Required]
-        [StringLength(50, MinimumLength = 1)]
+
         public string FirstName { get; set; }
 
-        [Required]
-        [StringLength(50, MinimumLength = 1)]
         public string LastName { get; set; }
 
-        [Required]
-        [Range(-3500, 2200)]
-        public int? BirthYear { get; set; }
+        public int? BirthYear { get; set; } = null;
 
         public IPagedList<Book> BookList { get; set; }
 

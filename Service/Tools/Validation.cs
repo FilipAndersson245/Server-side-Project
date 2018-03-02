@@ -8,30 +8,46 @@ using Service.Models;
 
 namespace Service.Tools
 {
+    public enum ErrorCodes
+    {
+        IsRequired = 1,
+        DoesNotExist,
+        InUse,
+        InvalidRange,
+        NotANumber,
+        ToLong,
+        MustBeTenCharLong,
+        InsuficentPermission,
+        PasswordDoesNotMatch,
+        ExistsAlready,
+        WrongPassword
+    }
+
     class ValidationModel
     {
         const int BOOK_MAX_SIZE = 3000;
         const string PASSWORD_REQ_REGEX = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{4,25}$";
         const int DESCRIPTION_MAX_LENGTH = 1200;
-        const int MAX_NAME_LENGTH = 25;
+        const int MAX_NAME_LENGTH = 30;
+        const int MIN_BIRTH_YEAR = -3500;
 
         public bool IsValid { get; set; } = false;
 
-        public Dictionary<string, int> ErrorDict { get; set; } = new Dictionary<string, int>();
+        public Dictionary<string, ErrorCodes> ErrorDict { get; set; } = new Dictionary<string, ErrorCodes>();
 
         public ValidationModel(Admin model)
         {
             if (string.IsNullOrWhiteSpace(model.Username))
             {
-                ErrorDict.Add(nameof(model.Username), 1);
+                ErrorDict.Add(nameof(model.Username), ErrorCodes.IsRequired);
             }
             else if (model.Username.Length > MAX_NAME_LENGTH)
             {
-                ErrorDict.Add(nameof(model.Username), 2);
+                ErrorDict.Add(nameof(model.Username), ErrorCodes.ToLong);
             }
             if (!Regex.IsMatch(model.Password, PASSWORD_REQ_REGEX))
             {
-                ErrorDict.Add(nameof(model.Password), 3);
+                ErrorDict.Add(nameof(model.Password), ErrorCodes.PasswordDoesNotMatch);
             }
 
             if (ErrorDict.Count == 0)
@@ -42,34 +58,33 @@ namespace Service.Tools
 
         public ValidationModel(Author model)
         {
-
-            if (string.IsNullOrWhiteSpace(model.Aid))
-            {
-                ErrorDict.Add(nameof(model.Aid), 1);
-            }
-            else if (model.Aid.Length > 5)
-            {
-                ErrorDict.Add(nameof(model.Aid), 5);
-            }
-
             if(string.IsNullOrWhiteSpace(model.FirstName))
             {
-                ErrorDict.Add(nameof(model.FirstName), 1);
+                ErrorDict.Add(nameof(model.FirstName), ErrorCodes.IsRequired);
             }
             else if (model.FirstName.Length > MAX_NAME_LENGTH)
             {
-                ErrorDict.Add(nameof(model.FirstName), 2);
+                ErrorDict.Add(nameof(model.FirstName), ErrorCodes.ToLong);
             }
 
             if (string.IsNullOrWhiteSpace(model.FirstName))
             {
-                ErrorDict.Add(nameof(model.LastName), 1);
+                ErrorDict.Add(nameof(model.LastName), ErrorCodes.IsRequired);
             }
             else if (model.FirstName.Length > MAX_NAME_LENGTH)
             {
-                ErrorDict.Add(nameof(model.LastName), 2);
+                ErrorDict.Add(nameof(model.LastName), ErrorCodes.ToLong);
             }
-            //... more to come
+
+            if (model.BirthYear != null)
+            {
+                if (model.BirthYear < MIN_BIRTH_YEAR && model.BirthYear > DateTime.Now.Year)
+                {
+                    ErrorDict.Add(nameof(model.BirthYear), ErrorCodes.InvalidRange);
+                }
+            }
+            
+
 
             if (ErrorDict.Count == 0)
             {
@@ -104,19 +119,19 @@ namespace Service.Tools
         public void DoesNotExistOnServer(string type)
         {
             this.IsValid = false;
-            this.ErrorDict.Add(type, 123); //temp code
+            this.ErrorDict.Add(type, ErrorCodes.DoesNotExist); //temp code
         }
 
         public void DoesAlreadyExistOnServer(string type)
         {
             IsValid = false;
-            ErrorDict.Add(type, 124); //tmp code
+            ErrorDict.Add(type, ErrorCodes.ExistsAlready); //tmp code
         }
 
         public void WrongPassword(string type)
         {
             IsValid = false;
-            ErrorDict.Add(type, 125); //tmp code
+            ErrorDict.Add(type, ErrorCodes.WrongPassword); //tmp code
         }
 
     }
