@@ -41,7 +41,7 @@ namespace ServerSide_Project.Controllers
                 PublicationYear = bac.Book.PublicationYear,
                 Publicationinfo = bac.Book.Publicationinfo,
                 SignId = classification.SignId,
-                BookClassification = classification,
+                Classification = classification,
                 Authors = authorList
             };
             return RedirectToAction("ListBookDetailsFromBook", "Book", bookManager.CreateBook(book));
@@ -77,7 +77,7 @@ namespace ServerSide_Project.Controllers
                 PublicationYear = bac.Book.PublicationYear,
                 Publicationinfo = bac.Book.Publicationinfo,
                 SignId = classification.SignId,
-                BookClassification = classification,
+                Classification = classification,
                 Authors = authorList
             };
             return RedirectToAction("ListBookDetailsFromBook", "Book", bookManager.EditBook(book).ISBN);

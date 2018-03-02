@@ -24,7 +24,7 @@ namespace Service.Managers
             BookRepository repo = new BookRepository();
             var book = Mapper.Map<BOOK, Book>(repo.GetBookFromIsbn(isbn));
             book.Authors = AddAuthors(book);
-            book.BookClassification = AddClassification(book);
+            book.Classification = AddClassification(book);
             return book;
         }
 
@@ -79,8 +79,10 @@ namespace Service.Managers
         {
             for (int i = 0; i < bookList.Count; i++)
             {
-                bookList[i].Authors = AddAuthors(bookList[i]);
-                bookList[i].BookClassification = AddClassification(bookList[i]);
+                if (bookList[i].SignId == 0)
+                    bookList[i].Classification = AddClassification(bookList[i]);
+                if (bookList[i].Authors.Count == 0)
+                    bookList[i].Authors = AddAuthors(bookList[i]);
             }
         }
 
@@ -88,7 +90,7 @@ namespace Service.Managers
         {
             BookRepository repo = new BookRepository();
             var bookList = repo.GetAllBooksFromDB(page, itemsPerPage).ToMappedPagedList<BOOK, Book>();
-            //SetupBooks(bookList);
+            SetupBooks(bookList);
             return bookList;
         }
 
@@ -104,8 +106,8 @@ namespace Service.Managers
         {
             BookRepository repo = new BookRepository();
             var newBook = Mapper.Map<BOOK, Book>(repo.CreateBook(Mapper.Map<Book, BOOK>(book)));
-            newBook.Authors = AddAuthors(newBook);
-            newBook.BookClassification = AddClassification(newBook);
+            //newBook.Authors = AddAuthors(newBook);
+            //newBook.Classification = AddClassification(newBook);
             return newBook;
         }
 

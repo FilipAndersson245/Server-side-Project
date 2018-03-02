@@ -43,14 +43,14 @@ namespace Service.Models
 
         public List<Author> Authors{ get; set; }
 
-        public Classification BookClassification { get; set; }
+        public Classification Classification { get; set; }
 
         public int SignId { get; set; }
 
         public void SetBook(Book book)
         {
             this.Authors = book.Authors;
-            this.BookClassification = book.BookClassification;
+            this.Classification = book.Classification;
             this.Pages = book.Pages;
             this.Publicationinfo = book.Publicationinfo;
             this.ISBN = book.ISBN;
