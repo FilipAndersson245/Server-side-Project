@@ -23,8 +23,10 @@ namespace Service.Managers
         {
             BookRepository repo = new BookRepository();
             var book = Mapper.Map<BOOK, Book>(repo.GetBookFromIsbn(isbn));
-            book.Authors = AddAuthors(book);
-            book.Classification = AddClassification(book);
+            if (book.Authors.Count == 0)
+                book.Authors = AddAuthors(book);
+            if (book.Classification.SignId == 0)
+                book.Classification = AddClassification(book);
             return book;
         }
 

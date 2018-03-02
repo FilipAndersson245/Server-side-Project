@@ -29,13 +29,6 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
-        public ActionResult ListBookDetailsFromBook(Book book)
-        {
-            BookManager bookManager = new BookManager();
-            return View("ListBookDetails", book);
-        }
-
-        [HttpGet]
         public ActionResult EditBook(string id)
         {
             ValidateAndRedirect();

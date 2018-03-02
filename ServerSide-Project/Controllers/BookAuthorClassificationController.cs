@@ -44,7 +44,8 @@ namespace ServerSide_Project.Controllers
                 Classification = classification,
                 Authors = authorList
             };
-            return RedirectToAction("ListBookDetailsFromBook", "Book", bookManager.CreateBook(book));
+            Book newBook = bookManager.CreateBook(book);
+            return RedirectToAction("ListBookDetails", "Book", new { id = newBook.ISBN });
         }
 
         [HttpGet]
