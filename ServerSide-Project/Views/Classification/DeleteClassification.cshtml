@@ -1,0 +1,13 @@
+﻿@model Service.Models.Classification
+
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>Are you sure you want to delete this classification?</h2>
+
+@using (Html.BeginForm("DeleteClassificationPost", "Classification", new { id = Model.SignId }, FormMethod.Post, new { @class = "form-group", @id = "classificationListOptions" }))
+{
+    @Html.AntiForgeryToken()
+    <input type="submit" value="Delete" class="btn-link" />
+}

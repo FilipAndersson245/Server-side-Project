@@ -105,6 +105,7 @@ namespace Service.Managers
             BookRepository repo = new BookRepository();
             var newBook = Mapper.Map<BOOK, Book>(repo.CreateBook(Mapper.Map<Book, BOOK>(book)));
             newBook.Authors = AddAuthors(newBook);
+            newBook.BookClassification = AddClassification(newBook);
             return newBook;
         }
 

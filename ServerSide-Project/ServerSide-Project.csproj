@@ -174,7 +174,7 @@
     <Content Include="Views\Book\BrowseSearchedBooks.cshtml" />
     <Content Include="Views\Author\BrowseAllAuthors.cshtml" />
     <Content Include="Views\Author\BrowseSearchedAuthors.cshtml" />
-    <Content Include="Views\Shared\Classification.cshtml" />
+    <Content Include="Views\Shared\ListClassifications.cshtml" />
     <Content Include="Views\Author\EditAuthor.cshtml" />
     <Content Include="Views\Classification\CreateClassification.cshtml" />
     <Content Include="Views\Classification\EditClassification.cshtml" />
@@ -183,6 +183,7 @@
     <Content Include="Views\Shared\AuthorDropdown.cshtml" />
     <Content Include="Views\BookAuthorClassification\CreateBook.cshtml" />
     <Content Include="Views\BookAuthorClassification\EditBook.cshtml" />
+    <Content Include="Views\Classification\DeleteClassification.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

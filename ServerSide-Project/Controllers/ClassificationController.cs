@@ -33,7 +33,7 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpPost]
-        public ActionResult editClassification(Classification classification)
+        public ActionResult EditClassification(Classification classification)
         {
             ValidateAndRedirect();
             ClassificationManager classificationManager = new ClassificationManager();
@@ -62,7 +62,7 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeleteClassification(int id)
+        public ActionResult DeleteClassificationPost(int id)
         {
             ValidateAndRedirect();
             ClassificationManager classificationManager = new ClassificationManager();
@@ -73,11 +73,17 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetClassification()
+        public ActionResult DeleteClassification(int id)
+        {
+            ClassificationManager manager = new ClassificationManager();
+            return View("DeleteClassification", manager.GetClassificationFromID(id));
+        }
+
+        [HttpGet]
+        public ActionResult GetClassifications()
         {
             ClassificationManager classificationManager = new ClassificationManager();
-            var test = classificationManager.GetAllClassifications();
-            return PartialView("Classification", test);
+            return PartialView("ListClassifications", classificationManager.GetAllClassifications());
         }
 
         [HttpGet]
@@ -86,6 +92,5 @@ namespace ServerSide_Project.Controllers
             ClassificationManager classificationManager = new ClassificationManager();
             return PartialView("ClassificationDropdown", classificationManager.GetAllClassifications());
         }
-
     }
 }
