@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "ListBookDetails";
-    ViewBag.activeBrowseBy = "Author";
+    ViewBag.activeBrowseBy = "Book";
 }
 
 <h4 class="text-center">Author Details</h4>
@@ -11,8 +11,8 @@
         <div class="col-sm-2">
             @{
                 string ClassificationPictureString = "~/Resources/";
-                ClassificationPictureString += Model.BookClassification.Signum += ".png";
-                if (@Model.BookClassification.Signum[0] == 'P' && @Model.BookClassification.Signum[1] == 'u' && @Model.BookClassification.Signum[2] == 'b')
+                ClassificationPictureString += Model.Classification.Signum += ".png";
+                if (@Model.Classification.Signum[0] == 'P' && @Model.Classification.Signum[1] == 'u' && @Model.Classification.Signum[2] == 'b')
                 {
                     ClassificationPictureString = "~/Resources/Education.png";
                 }
