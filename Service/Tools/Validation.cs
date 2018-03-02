@@ -20,7 +20,10 @@ namespace Service.Tools
         InsuficentPermission,
         PasswordDoesNotMatch,
         ExistsAlready,
-        WrongPassword
+        WrongPassword,
+        NotValidPageNr,
+        MoreThenFiveHundredChars,
+        MoreThenSixtyFourChars
     }
 
     class ValidationModel

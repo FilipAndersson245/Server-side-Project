@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Web.ModelBinding;
 
+using Service.Tools;
 namespace ServerSide_Project.Tools
 {
     public class ValidationMessages
     {
         public ModelStateDictionary modelState = new ModelStateDictionary();
 
-        public ValidationMessages(Dictionary<string, List<int>> MessageCodes)
+        public ValidationMessages(Dictionary<string, List<ErrorCodes>> MessageCodes)
         {
             foreach(var dict in MessageCodes)
             {
@@ -15,48 +16,45 @@ namespace ServerSide_Project.Tools
                 {
                     switch (code)
                     {
-                        case 100:
+                        case ErrorCodes.IsRequired:
                             modelState.AddModelError(dict.Key, " Is Required!");
                             break;
-                        case 110:
+                        case ErrorCodes.DoesNotExist:
                             modelState.AddModelError(dict.Key, " Does not exist");
                             break;
-                        case 120:
+                        case ErrorCodes.ExistsAlready:
                             modelState.AddModelError(dict.Key, " Is already in use");
                             break;
-                        case 130:
+                        case ErrorCodes.InvalidRange:
                             modelState.AddModelError(dict.Key, "Invalid range");
                             break;
-                        case 131:
-                            modelState.AddModelError(dict.Key, "Must be between -3500 and "+ System.DateTime.Now.Year.ToString());
-                            break;
-                        case 132:
+                        case ErrorCodes.NotANumber:
                             modelState.AddModelError(dict.Key, "Not a number");
                             break;
-                        case 133:
+                        case ErrorCodes.NotValidPageNr:
                             modelState.AddModelError(dict.Key, "Not a valid page number");
                             break;
-                        case 140:
+                        case ErrorCodes.ToLong:
                             modelState.AddModelError(dict.Key, "To long");
                             break;
-                        case 141:
+                        case ErrorCodes.MustBeTenCharLong:
                             modelState.AddModelError(dict.Key, "Must be 10 char long");
                             break;
-                        case 142:
+                        case ErrorCodes.MoreThenFiveHundredChars:
                             modelState.AddModelError(dict.Key, "To long cannot be longer then 500 chars");
                             break;
-                        case 143:
+                        case ErrorCodes.MoreThenSixtyFourChars:
                             modelState.AddModelError(dict.Key, "To long cannot be longer then 64 chars");
                             break;
-                        case 150:
+                        case ErrorCodes.InsuficentPermission:
                             modelState.AddModelError(dict.Key, "Insuficent permission");
                             break;
-                        case 160:
-                            modelState.AddModelError(dict.Key, "Password must be between 5-25 chars. Have atleast 1 upper and lower char and contain atleast one number");
-                            break;
-                        case 161:
-                            modelState.AddModelError(dict.Key, "");
-                            break;
+                        //case 160:
+                        //    modelState.AddModelError(dict.Key, "Password must be between 5-25 chars. Have atleast 1 upper and lower char and contain atleast one number");
+                        //    break;
+                        //case 161:
+                        //    modelState.AddModelError(dict.Key, "");
+                        //    break;
                         default:
                             throw new System.Exception("Error code does not exist with validation message");
                     }

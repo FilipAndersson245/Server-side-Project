@@ -88,7 +88,7 @@ namespace Service.Managers
         {
             BookRepository repo = new BookRepository();
             var bookList = repo.GetAllBooksFromDB(page, itemsPerPage).ToMappedPagedList<BOOK, Book>();
-            SetupBooks(bookList);
+            //SetupBooks(bookList);
             return bookList;
         }
 

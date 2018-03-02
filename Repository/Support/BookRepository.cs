@@ -22,7 +22,8 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                return db.BOOKs.OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
+                db.Database.Log = s => System.Diagnostics.Debug.Write(s);
+                return db.BOOKs.Include(b => b.AUTHORs).Include(b =>b.CLASSIFICATION).OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
             }
         }
 

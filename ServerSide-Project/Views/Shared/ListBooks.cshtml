@@ -15,14 +15,14 @@
     {
         <div class="row text-left" id="bookListItem">
             <div class="col-sm-2">
-                @{
+                @*@{
                     string ClassificationPictureString = "~/Resources/";
                     ClassificationPictureString += Model[i].BookClassification.Signum += ".png";
                     if (@Model[i].BookClassification.Signum[0] == 'P' && @Model[i].BookClassification.Signum[1] == 'u' && @Model[i].BookClassification.Signum[2] == 'b')
                     {
                         ClassificationPictureString = "~/Resources/Education.png";
                     }
-                }
+                }*@
                 <img src="@Url.Content(ClassificationPictureString)" id="bookListImage" />
             </div>
             <div class="col-sm-9">
