@@ -102,8 +102,8 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                //var data = db.AUTHORs.Find(id).BOOKs.ToPagedList(page, 100);
-                var data = db.BOOKs.Where(b => b.AUTHORs.All(a => a.Aid.Equals(id))).OrderBy(o => o.Title).ToPagedList(page, 100);
+                db.Configuration.LazyLoadingEnabled = false;
+                var data = db.AUTHORs.Include(a => a.BOOKs).First(a => a.Aid.Equals(id)).BOOKs.ToPagedList(page, 100);
                 return data;
             }
         }
