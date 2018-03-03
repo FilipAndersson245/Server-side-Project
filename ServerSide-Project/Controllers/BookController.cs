@@ -57,6 +57,14 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
+        [ActionName("DeleteBook")]
+        public ActionResult DeleteBookGet(string id)
+        {
+            BookManager manager = new BookManager();
+            return View("DeleteBook", manager.GetBookFromIsbn(id));
+        }
+
+        [HttpGet]
         public ActionResult SearchBooks(string search, int page = 1, params int[] classifications)
         {
             BookManager bookManager = new BookManager();
