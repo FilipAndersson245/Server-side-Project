@@ -65,7 +65,11 @@
                             {
                                 @Html.ActionLink(Html.Encode(author.FullName), "ListAuthorDetails", "Author", new { id = author.Aid }, null)
                                 if (!@Model[i].Authors.Last().Equals(author))
-                                {<span> | </span>}
+                                {
+                                    <span>
+                                        |
+                                    </span>
+                                }
                             }
                         }
                         else
