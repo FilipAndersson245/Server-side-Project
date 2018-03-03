@@ -22,7 +22,8 @@ namespace Service.Managers
         public Book GetBookFromIsbn(string isbn)
         {
             BookRepository repo = new BookRepository();
-            var book = Mapper.Map<BOOK, Book>(repo.GetBookFromIsbn(isbn));
+            var BOOK = repo.GetBookFromIsbn(isbn);
+            var book = Mapper.Map<BOOK, Book>(BOOK);
             if (book.Authors.Count == 0)
                 book.Authors = AddAuthors(book);
             if (book.Classification.SignId == 0)

@@ -31,7 +31,7 @@ namespace Repository.Support
         {
             using(var db = new dbGrupp3())
             {
-                return db.BOOKs.FirstOrDefault(x => x.ISBN.Equals(isbn));
+                return db.BOOKs.Include(b => b.AUTHORs).Include(b => b.CLASSIFICATION).FirstOrDefault(x => x.ISBN.Equals(isbn));
             }
         }
 
