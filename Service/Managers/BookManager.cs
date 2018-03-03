@@ -26,7 +26,7 @@ namespace Service.Managers
             var book = Mapper.Map<BOOK, Book>(BOOK);
             if (book.Authors.Count == 0)
                 book.Authors = AddAuthors(book);
-            if (book.Classification.SignId == 0)
+            if (book.Classification == null)
                 book.Classification = AddClassification(book);
             return book;
         }
