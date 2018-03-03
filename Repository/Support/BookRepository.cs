@@ -62,6 +62,7 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
+                db.Configuration.LazyLoadingEnabled = false;
                 var book = db.BOOKs.Include(a => a.AUTHORs).FirstOrDefault(a => a.ISBN == ebook.ISBN);
                 book.AUTHORs.Clear();
                 db.BOOKs.Remove(book);

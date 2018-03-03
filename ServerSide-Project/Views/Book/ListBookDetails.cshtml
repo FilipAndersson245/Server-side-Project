@@ -26,11 +26,7 @@
                 </div>
                 <div class="col-sm-3 text-right" id="bookListAdminPane">
                     @Html.ActionLink("Edit", "EditBook", "BookAuthorClassification", new { id = @Model.ISBN }, new { @class = "" }) |
-                    @using (Html.BeginForm("DeleteBook", "Book", new { id = @Model.ISBN }, FormMethod.Post, new { @class = "form-group" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <input type="submit" value="Delete" class="btn-link" />
-                    }
+                    @Html.ActionLink("Delete", "DeleteBook", "Book", new { id = @Model.ISBN }, null);
                 </div>
             </div>
             <div class="row">

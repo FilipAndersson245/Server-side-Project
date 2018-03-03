@@ -58,10 +58,10 @@ namespace ServerSide_Project.Controllers
             var dbAuthor = manager.EditAuthor(ModelState, author);
             if (dbAuthor != null)
             {
-                return RedirectToAction("ListAuthorDetails", "Author", new { dbAuthor.Aid });
+                return RedirectToAction("ListAuthorDetails", "Author", new { id = Convert.ToInt32(dbAuthor.Aid) });
             }
             //may not work
-            return RedirectToAction("BrowseAllAuthors","Admin");
+            return RedirectToAction("BrowseAllAuthors","Author");
         }
         
         [HttpPost]

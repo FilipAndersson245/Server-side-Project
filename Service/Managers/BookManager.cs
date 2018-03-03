@@ -82,7 +82,7 @@ namespace Service.Managers
         {
             for (int i = 0; i < bookList.Count; i++)
             {
-                if (bookList[i].SignId == 0)
+                if (bookList[i].SignId == 0 || bookList[i].Classification == null)
                     bookList[i].Classification = AddClassification(bookList[i]);
                 if (bookList[i].Authors.Count == 0)
                     bookList[i].Authors = AddAuthors(bookList[i]);

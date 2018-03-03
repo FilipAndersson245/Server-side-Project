@@ -20,11 +20,6 @@
                     <div class="col-sm-10 text-right">
                         @Html.ActionLink("Edit", "EditClassification", "Classification", new { id = classification.SignId }, null) |
                         @Html.ActionLink("Delete", "DeleteClassification", "Classification", new { id = classification.SignId }, null)
-                        @*@using (Html.BeginForm("DeleteClassification", "Classification", new { id = classification.SignId }, FormMethod.Post, new { @class = "form-group", @id = "classificationListOptions"}))
-                        {
-                            @Html.AntiForgeryToken()
-                            <input type="submit" value="Delete" class="btn-link" />
-                        }*@
                     </div>
                 </div>
             }

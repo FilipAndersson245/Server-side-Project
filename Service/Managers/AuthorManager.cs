@@ -70,7 +70,6 @@ namespace Service.Managers
         {
             AuthorRepository repo = new AuthorRepository();
             Author author = Mapper.Map<AUTHOR, Author>(repo.GetAuthorDetailsFromDB(id));
-
             author.BookList = repo.GetBooksByAuthor(id, bookPage).ToMappedPagedList<BOOK, Book>();
 
             BookManager bookManager = new BookManager();
