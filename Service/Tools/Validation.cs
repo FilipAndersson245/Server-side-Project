@@ -23,14 +23,15 @@ namespace Service.Tools
         WrongPassword,
         NotValidPageNr,
         MoreThenFiveHundredChars,
-        MoreThenSixtyFourChars
+        MoreThenSixtyFourChars,
+        FailedToCreateAuthor
     }
 
-    class ValidationModel
+    public class ValidationModel
     {
         const int BOOK_MAX_SIZE = 3000;
         const string PASSWORD_REQ_REGEX = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{4,25}$";
-        const int DESCRIPTION_MAX_LENGTH = 1200;
+        const int DESCRIPTION_MAX_LENGTH = 500;
         const int MAX_NAME_LENGTH = 30;
         const int MIN_BIRTH_YEAR = -3500;
 
@@ -48,7 +49,11 @@ namespace Service.Tools
             {
                 ErrorDict.Add(nameof(model.Username), ErrorCodes.ToLong);
             }
-            if (!Regex.IsMatch(model.Password, PASSWORD_REQ_REGEX))
+            if (string.IsNullOrWhiteSpace(model.Username))
+            {
+                ErrorDict.Add(nameof(model.Password), ErrorCodes.IsRequired);
+            }
+            else if (!Regex.IsMatch(model.Password, PASSWORD_REQ_REGEX))
             {
                 ErrorDict.Add(nameof(model.Password), ErrorCodes.PasswordDoesNotMatch);
             }
@@ -81,14 +86,12 @@ namespace Service.Tools
 
             if (model.BirthYear != null)
             {
-                if (model.BirthYear < MIN_BIRTH_YEAR && model.BirthYear > DateTime.Now.Year)
+                if (model.BirthYear < MIN_BIRTH_YEAR && model.BirthYear > DateTime.Now.Year-5)
                 {
                     ErrorDict.Add(nameof(model.BirthYear), ErrorCodes.InvalidRange);
                 }
             }
             
-
-
             if (ErrorDict.Count == 0)
             {
                 IsValid = true;
@@ -108,9 +111,23 @@ namespace Service.Tools
 
         public ValidationModel(Classification model)
         {
-            List<int> listOfErr = new List<int>();
+            if (String.IsNullOrWhiteSpace(model.Signum))
+            {
+                ErrorDict.Add(nameof(model.Signum), ErrorCodes.IsRequired);
+            }
+            else if(model.Signum.Length < 64)
+            {
+                ErrorDict.Add(nameof(model.Signum), ErrorCodes.MoreThenSixtyFourChars);
+            }
 
-            //more to come...
+            if(string.IsNullOrWhiteSpace(model.Description))
+            {
+                ErrorDict.Add(nameof(model.Description), ErrorCodes.IsRequired);
+            }
+            else if (model.Description.Length > DESCRIPTION_MAX_LENGTH)
+            {
+                ErrorDict.Add(nameof(model.Description), ErrorCodes.MoreThenFiveHundredChars);
+            }
 
             if (ErrorDict.Count == 0)
             {
@@ -122,19 +139,25 @@ namespace Service.Tools
         public void DoesNotExistOnServer(string type)
         {
             this.IsValid = false;
-            this.ErrorDict.Add(type, ErrorCodes.DoesNotExist); //temp code
+            this.ErrorDict.Add(type, ErrorCodes.DoesNotExist);
         }
 
         public void DoesAlreadyExistOnServer(string type)
         {
             IsValid = false;
-            ErrorDict.Add(type, ErrorCodes.ExistsAlready); //tmp code
+            ErrorDict.Add(type, ErrorCodes.ExistsAlready);
         }
 
         public void WrongPassword(string type)
         {
             IsValid = false;
-            ErrorDict.Add(type, ErrorCodes.WrongPassword); //tmp code
+            ErrorDict.Add(type, ErrorCodes.WrongPassword);
+        }
+
+        public void FailedToCreateAuthor(string type)
+        {
+            IsValid = false;
+            ErrorDict.Add(type, ErrorCodes.FailedToCreateAuthor);
         }
 
     }

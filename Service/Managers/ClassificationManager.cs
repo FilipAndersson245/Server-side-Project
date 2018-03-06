@@ -57,10 +57,18 @@ namespace Service.Managers
             return Mapper.Map<List<CLASSIFICATION>, List<Classification>>(repo.GetAllClassifications());
         }
 
-        public bool EditClassification(Classification classification)
+        public ValidationModel EditClassification(Classification classification)
         {
-            ClassificationRepository repo = new ClassificationRepository();
-            return repo.EditClassification(Mapper.Map<Classification, CLASSIFICATION>(classification));
+            ValidationModel validation = new ValidationModel(classification);
+            if (validation.IsValid)
+            {
+                ClassificationRepository repo = new ClassificationRepository();
+                if(!repo.EditClassification(Mapper.Map<Classification, CLASSIFICATION>(classification)))
+                {
+                    validation.DoesNotExistOnServer(nameof(classification.Signum));
+                }
+            }
+            return validation;
         }
 
     }

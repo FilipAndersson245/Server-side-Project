@@ -37,7 +37,8 @@ namespace ServerSide_Project.Controllers
         {
             ValidateAndRedirect();
             ClassificationManager classificationManager = new ClassificationManager();
-            if (classificationManager.EditClassification(classification))
+            var validation = classificationManager.EditClassification(classification);
+            if (validation.IsValid)
                 return RedirectToAction("BrowseAllBooks", "Book", null);
             else
                 return RedirectToAction("BrowseAllBooks", "Book", null);
