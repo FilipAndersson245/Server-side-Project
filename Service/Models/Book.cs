@@ -22,23 +22,16 @@ namespace Service.Models
 
         }
 
-        //[DisplayName("ISBN")]
-        [Required(ErrorMessage = "ISBN Required")]
         [Key]
         [StringLength(10, MinimumLength = 10,ErrorMessage ="Must Be 10 characters long.")] 
         public string ISBN { get; set; } //PRIMARY KEY
          
-        [Required(ErrorMessage = "Must have a title")]
         public string Title { get; set; }
 
-        [Required(ErrorMessage = "Must have a publication year")]
         public int PublicationYear { get; set; }
 
-        [MaxLength(500,ErrorMessage ="Description is too long")]
         public string Publicationinfo { get; set; }
 
-        [Required]
-        [Range(1,15000, ErrorMessage = "Not a valid page number")]
         public short Pages { get; set; }
 
         public List<Author> Authors{ get; set; }

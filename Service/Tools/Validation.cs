@@ -24,7 +24,9 @@ namespace Service.Tools
         NotValidPageNr,
         MoreThenFiveHundredChars,
         MoreThenSixtyFourChars,
-        FailedToCreateAuthor
+        FailedToCreateAuthor,
+        FailedToCreateBook,
+        BookDoesntExist
     }
 
     public class ValidationModel
@@ -49,7 +51,7 @@ namespace Service.Tools
             {
                 ErrorDict.Add(nameof(model.Username), ErrorCodes.ToLong);
             }
-            if (string.IsNullOrWhiteSpace(model.Username))
+            if (string.IsNullOrWhiteSpace(model.Password))
             {
                 ErrorDict.Add(nameof(model.Password), ErrorCodes.IsRequired);
             }
@@ -101,7 +103,55 @@ namespace Service.Tools
         public ValidationModel(Book model)
         {
 
-            //more to come...
+            if (String.IsNullOrWhiteSpace(model.ISBN))
+            {
+                ErrorDict.Add(nameof(model.ISBN), ErrorCodes.IsRequired);
+            }
+            else if(model.ISBN.Length > 10 || model.ISBN.Length < 4)
+            {
+                ErrorDict.Add(nameof(model.ISBN), ErrorCodes.InvalidRange);
+            }
+
+            if (String.IsNullOrWhiteSpace(model.Title))
+            {
+                ErrorDict.Add(nameof(model.Title), ErrorCodes.IsRequired);
+            }
+            else if (model.Title.Length > 150)
+            {
+                ErrorDict.Add(nameof(model.Title), ErrorCodes.InvalidRange);
+            }
+
+            if (model.PublicationYear.ToString().Length > 4)
+            {
+                ErrorDict.Add(nameof(model.PublicationYear), ErrorCodes.InvalidRange);
+            }
+            
+            if (model.Publicationinfo.Length > 2000)
+            {
+                ErrorDict.Add(nameof(model.Publicationinfo), ErrorCodes.InvalidRange);
+            }
+
+            if (model.Pages > 10000)
+            {
+                ErrorDict.Add(nameof(model.Pages), ErrorCodes.InvalidRange);
+            }
+
+            if (model.Authors != null)
+            {
+                if (model.Authors.Count < 1)
+                {
+                    ErrorDict.Add(nameof(model.Authors), ErrorCodes.IsRequired);
+                }
+                else if (model.Authors.Count > 15)
+                {
+                    ErrorDict.Add(nameof(model.Authors), ErrorCodes.InvalidRange);
+                }
+            }
+
+            if (model.Classification == null)
+            {
+                ErrorDict.Add(nameof(model.Classification), ErrorCodes.IsRequired);
+            }
 
             if (ErrorDict.Count == 0)
             {
@@ -160,5 +210,16 @@ namespace Service.Tools
             ErrorDict.Add(type, ErrorCodes.FailedToCreateAuthor);
         }
 
+        public void FailedToCreateBook(string type)
+        {
+            IsValid = false;
+            ErrorDict.Add(type, ErrorCodes.FailedToCreateBook);
+        }
+
+        public void BookDoesntExist(string type)
+        {
+            IsValid = false;
+            ErrorDict.Add(type, ErrorCodes.BookDoesntExist);
+        }
     }
 }
