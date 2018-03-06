@@ -81,7 +81,8 @@ namespace ServerSide_Project.Controllers
                 Classification = classification,
                 Authors = authorList
             };
-            return RedirectToAction("ListBookDetailsFromBook", "Book", bookManager.EditBook(book).ISBN);
+            Book editedBook = bookManager.EditBook(book);
+            return RedirectToAction("ListBookDetails", "Book", new { id = editedBook.ISBN });
         }
 
     }

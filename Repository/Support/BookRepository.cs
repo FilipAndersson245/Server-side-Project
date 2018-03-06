@@ -39,8 +39,16 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                BOOK book = db.BOOKs.FirstOrDefault(x => x.ISBN.Equals(eBook.ISBN));
+                db.Configuration.LazyLoadingEnabled = false;
+                BOOK book = db.BOOKs.Include(b => b.AUTHORs).FirstOrDefault(x => x.ISBN.Equals(eBook.ISBN));
                 db.Entry(book).CurrentValues.SetValues(eBook);
+                db.ChangeTracker.Entries<AUTHOR>().ToList().ForEach(a => a.State = EntityState.Unchanged);
+                db.ChangeTracker.Entries<CLASSIFICATION>().ToList().ForEach(a => a.State = EntityState.Unchanged);
+                book.AUTHORs.Clear();
+                foreach(var author in eBook.AUTHORs)
+                {
+                    book.AUTHORs.Add(author);
+                }
                 db.SaveChanges();
                 return book;
             }
