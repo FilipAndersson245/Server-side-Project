@@ -1,4 +1,5 @@
 ﻿@using PagedList.Mvc
+@using Service.Models
 @model PagedList.IPagedList<Service.Models.Author>
 
 @{
@@ -9,9 +10,12 @@
     <div class="col-sm-12 text-center">
         <h2>Authors</h2>
     </div>
-    <div class="col-sm-offset-3 col-sm-9 text-left">
-         @Html.ActionLink("Create New Author", "CreateAuthor", "Author", null, null)
-    </div>
+    @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Admin)
+    {
+        <div class="col-sm-offset-3 col-sm-9 text-left">
+                @Html.ActionLink("Create New Author", "CreateAuthor", "Author", null, null)
+        </div>
+    }
 </div>
 
 <div class="row">
@@ -40,11 +44,15 @@
                     </div>
                 </div>
                 <div class="col-sm-2 text-right">
-                    @Html.ActionLink("Edit", "EditAuthor", "Author", new { id = item.Aid }, null) |
-                    @using (Html.BeginForm("DeleteAuthor", "Author", new { id = item.Aid }, FormMethod.Post, new { @class = "form-group", @id = "authorListOptions" }))
+                    @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Admin)
                     {
-                        @Html.AntiForgeryToken()
-                        <input type="submit" value="Delete" class="btn-link" />
+                        @Html.ActionLink("Edit", "EditAuthor", "Author", new { id = item.Aid }, null);
+                        @Html.Raw(" | ")
+                        using (Html.BeginForm("DeleteAuthor", "Author", new { id = item.Aid }, FormMethod.Post, new { @class = "form-group", @id = "authorListOptions" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="submit" value="Delete" class="btn-link" />
+                        }
                     }
                 </div>
             </div>

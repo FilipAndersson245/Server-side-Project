@@ -1,4 +1,5 @@
 ﻿@model Service.Models.Book
+@using Service.Models
 
 @{
     ViewBag.Title = "ListBookDetails";
@@ -25,8 +26,12 @@
                     @Html.ActionLink(Html.Encode(@Model.Title), "ListBookDetails", "Book", new { id = @Model.ISBN }, null)
                 </div>
                 <div class="col-sm-3 text-right" id="bookListAdminPane">
-                    @Html.ActionLink("Edit", "EditBook", "BookAuthorClassification", new { id = @Model.ISBN }, new { @class = "" }) |
-                    @Html.ActionLink("Delete", "DeleteBook", "Book", new { id = @Model.ISBN }, null);
+                    @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Admin)
+                    {
+                        @Html.ActionLink("Edit", "EditBook", "BookAuthorClassification", new { id = @Model.ISBN }, new { @class = "" });
+                        @Html.Raw(" | ");
+                        @Html.ActionLink("Delete", "DeleteBook", "Book", new { id = @Model.ISBN }, null);
+                    }
                 </div>
             </div>
             <div class="row">

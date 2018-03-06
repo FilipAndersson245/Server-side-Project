@@ -230,7 +230,7 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
 }
 
 
-#authorListOptions, #authorDetailsOptions
+#authorListOptions, #authorDetailsOptions #logOutButton
 {
     display: inline;
 }
