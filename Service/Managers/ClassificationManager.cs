@@ -45,10 +45,18 @@ namespace Service.Managers
             return repo.DeleteClassification(Mapper.Map<Classification, CLASSIFICATION>(classification));
         }
 
-        public bool CreateClassification(Classification classification)
+        public ValidationModel CreateClassification(Classification classification)
         {
-            ClassificationRepository repo = new ClassificationRepository();
-            return repo.CreateClassification(Mapper.Map<Classification, CLASSIFICATION>(classification));
+            ValidationModel validation = new ValidationModel(classification);
+            if (validation.IsValid)
+            {
+                ClassificationRepository repo = new ClassificationRepository();
+                if(!repo.CreateClassification(Mapper.Map<Classification, CLASSIFICATION>(classification)))
+                {
+                    validation.FailedToCreateClassification(nameof(classification.Signum));
+                }
+            }
+            return validation;
         }
 
         public List<Classification> GetAllClassifications()

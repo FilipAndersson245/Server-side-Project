@@ -24,7 +24,8 @@ namespace Service.Tools
         NotValidPageNr,
         MoreThenFiveHundredChars,
         MoreThenSixtyFourChars,
-        FailedToCreateAuthor
+        FailedToCreateAuthor,
+        FailedToCreateClassification
     }
 
     public class ValidationModel
@@ -158,6 +159,12 @@ namespace Service.Tools
         {
             IsValid = false;
             ErrorDict.Add(type, ErrorCodes.FailedToCreateAuthor);
+        }
+
+        public void FailedToCreateClassification(string type)
+        {
+            IsValid = false;
+            ErrorDict.Add(type, ErrorCodes.FailedToCreateClassification);
         }
 
     }
