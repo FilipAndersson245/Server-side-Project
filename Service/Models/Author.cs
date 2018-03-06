@@ -17,9 +17,7 @@ namespace Service.Models
     {
         public Author(){}
 
-
         public string Aid { get; set; } //Primary Key
-
 
         public string FirstName { get; set; }
 

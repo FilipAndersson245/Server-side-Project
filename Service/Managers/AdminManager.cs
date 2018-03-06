@@ -16,48 +16,38 @@ namespace Service.Managers
 {
     public class AdminManager
     {
-        public bool Login(ModelStateDictionary modelState, Admin admin)
+        public ValidationModel Login(Admin admin)
         {
             ValidationModel validation = new ValidationModel(admin);
-            var dict = validation.ErrorDict;
-            var IsValid = validation.IsValid;
-            if (IsValid)
+            if (validation.IsValid)
             {
                 Admin dbAdmin = GetAdmin(admin.Username);
                 if (dbAdmin == null)
                 {
                     validation.DoesNotExistOnServer(nameof(admin.Username));
-                    modelState.AddModelError("Username", "User does not exist!");
                 }
                 else
                 {
                     Hashing pwdHash = new Hashing(admin.Password, dbAdmin.Salt);
                     if (pwdHash.Equals(dbAdmin.PasswordHash))
-                        return true;
+                        return validation;
                     else
                     {
-                        validation.WrongPassword(nameof(admin.Username));
-                        modelState.AddModelError("Password", "Wrong Password!");
+                        validation.WrongPassword(nameof(admin.Password));
                     }
                 }
             }
-            return false;
+            return validation;
         }
 
-        public bool Login(List<KeyValuePair<string, ModelState>> modelList, string username, string password)
+        public ValidationModel SignUp(Admin admin)
         {
-            ModelState a = new ModelState();
-            
-            throw new NotImplementedException();
-        }
-
-        public bool SignUp(ModelStateDictionary modelState, Admin admin)
-        {
-            if (modelState.IsValid)
+            ValidationModel validation = new ValidationModel(admin);
+            if (validation.IsValid)
             {
                 Admin existingAdmin = GetAdmin(admin.Username);
                 if (existingAdmin != null)
-                    modelState.AddModelError("Username", "Username already in use!");
+                    validation.DoesAlreadyExistOnServer(nameof(admin.Username));
                 else
                 {
                     Hashing hash = new Hashing(admin.Password);
@@ -65,10 +55,10 @@ namespace Service.Managers
                     admin.PasswordHash = hash.Hash;
                     admin.Salt = hash.Salt;
                     CreateAdmin(admin);
-                    return true;
+                    return validation;
                 }
             }
-            return false;
+            return validation;
         }
 
 
