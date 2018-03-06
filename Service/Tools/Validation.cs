@@ -26,7 +26,8 @@ namespace Service.Tools
         MoreThenSixtyFourChars,
         FailedToCreateAuthor,
         FailedToCreateBook,
-        BookDoesntExist
+        BookDoesntExist,
+        FailedToCreateClassification
     }
 
     public class ValidationModel
@@ -220,6 +221,12 @@ namespace Service.Tools
         {
             IsValid = false;
             ErrorDict.Add(type, ErrorCodes.BookDoesntExist);
+        }
+
+        public void FailedToCreateClassification(string type)
+        {
+            IsValid = false;
+            ErrorDict.Add(type, ErrorCodes.FailedToCreateClassification);
         }
     }
 }
