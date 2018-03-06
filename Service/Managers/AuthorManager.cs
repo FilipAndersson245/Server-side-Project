@@ -17,10 +17,8 @@ namespace Service.Managers
 {
     public class AuthorManager
     {
-        public int? CreateAuthor(ModelStateDictionary modelState,Author author) //Returns Aid if successfull, 0 if failed
+        public Tuple<int?,ValidationModel> CreateAuthor(Author author) //Returns Aid if successfull, 0 if failed
         {
-            //todo remove ModelStateDictionary
-
             ValidationModel validation = new ValidationModel(author);
 
             int? id = null;
@@ -33,13 +31,12 @@ namespace Service.Managers
                     validation.FailedToCreateAuthor(nameof(author.FirstName));
                 }
             }
-            return id;
+            return new Tuple<int?, ValidationModel>(id,validation);
             //should return the validation instead of int? should maybe Tuple.
         }
 
-        public Author EditAuthor(ModelStateDictionary modelState, Author author)
+        public Tuple<Author, ValidationModel> EditAuthor(Author author)
         {
-            //todo remove ModelStateDictionary
 
             ValidationModel validation = new ValidationModel(author);
             if (validation.IsValid)
@@ -48,12 +45,12 @@ namespace Service.Managers
                 var dbAuthor = repo.EditAuthor(Mapper.Map<Author, AUTHOR>(author));
                 if (dbAuthor == null)
                 {
-                    modelState.AddModelError("", "Author does not exist on the database");
                     validation.DoesAlreadyExistOnServer(nameof(author.FirstName));
                 }
-                return Mapper.Map<AUTHOR, Author>(dbAuthor);
+                //return Mapper.Map<AUTHOR, Author>(dbAuthor);
+                return new Tuple<Author, ValidationModel>(Mapper.Map<AUTHOR, Author>(dbAuthor), validation);
             }
-            return null;
+            return new Tuple<Author, ValidationModel>(null, validation);
             //return tuple probebly same as above with id?
             
         }
