@@ -14,6 +14,7 @@ using AutoMapper;
 using PagedList;
 using Service.Models;
 using Service.Tools;
+using Service.Validations;
 
 namespace Service.Managers
 {
@@ -105,18 +106,18 @@ namespace Service.Managers
             return bookList;
         }
 
-        public Tuple<Book, ValidationModel> CreateBook(Book book)
+        public Tuple<Book, BookValidation> CreateBook(Book book)
         {
-            ValidationModel validation = new ValidationModel(book);
+            BookValidation validation = new BookValidation(book);
             if (validation.IsValid)
             {
                 BookRepository repo = new BookRepository();
                 var newBook = Mapper.Map<BOOK, Book>(repo.CreateBook(Mapper.Map<Book, BOOK>(book)));
                 if (newBook != null)
-                    return new Tuple<Book, ValidationModel>(newBook, validation);
+                    return new Tuple<Book, BookValidation>(newBook, validation);
                 validation.FailedToCreateBook(nameof(book.Title));
             }
-            return new Tuple<Book, ValidationModel>(null, validation);
+            return new Tuple<Book, BookValidation>(null, validation);
         }
 
         public bool DeleteBook(string isbn)
@@ -125,9 +126,9 @@ namespace Service.Managers
             return repo.DeleteBook(Mapper.Map<Book, BOOK>(GetBookFromIsbn(isbn)));
         }
 
-        public Tuple<Book, ValidationModel> EditBook(Book book)
+        public Tuple<Book, BookValidation> EditBook(Book book)
         {
-            ValidationModel validation = new ValidationModel(book);
+            BookValidation validation = new BookValidation(book);
             BookRepository repo = new BookRepository();
             if (!repo.DoesBookExist(book.ISBN))
                 validation.BookDoesntExist(book.ISBN);
@@ -135,10 +136,10 @@ namespace Service.Managers
             {
                 var editedBook = Mapper.Map<BOOK, Book>(repo.EditBook(Mapper.Map<Book, BOOK>(book)));
                 if (editedBook != null)
-                    return new Tuple<Book, ValidationModel>(editedBook, validation);
+                    return new Tuple<Book, BookValidation>(editedBook, validation);
                 validation.FailedToCreateBook(nameof(Book.Title));
             }
-            return new Tuple<Book, ValidationModel>(null, validation);
+            return new Tuple<Book, BookValidation>(null, validation);
         }
 
     }

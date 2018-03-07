@@ -12,14 +12,15 @@ using AutoMapper;
 using PagedList;
 using Service.Models;
 using Service.Tools;
+using Service.Validations;
 
 namespace Service.Managers
 {
     public class AuthorManager
     {
-        public Tuple<int?,ValidationModel> CreateAuthor(Author author) //Returns Aid if successfull, 0 if failed
+        public Tuple<int?, AuthorValidation> CreateAuthor(Author author) //Returns Aid if successfull, 0 if failed
         {
-            ValidationModel validation = new ValidationModel(author);
+            AuthorValidation validation = new AuthorValidation(author);
 
             int? id = null;
             if (validation.IsValid)
@@ -31,14 +32,14 @@ namespace Service.Managers
                     validation.FailedToCreateAuthor(nameof(author.FirstName));
                 }
             }
-            return new Tuple<int?, ValidationModel>(id,validation);
+            return new Tuple<int?, AuthorValidation>(id, validation);
             //should return the validation instead of int? should maybe Tuple.
         }
 
-        public Tuple<Author, ValidationModel> EditAuthor(Author author)
+        public Tuple<Author, AuthorValidation> EditAuthor(Author author)
         {
 
-            ValidationModel validation = new ValidationModel(author);
+            AuthorValidation validation = new AuthorValidation(author);
             if (validation.IsValid)
             {
                 AuthorRepository repo = new AuthorRepository();
@@ -48,9 +49,9 @@ namespace Service.Managers
                     validation.DoesAlreadyExistOnServer(nameof(author.FirstName));
                 }
                 //return Mapper.Map<AUTHOR, Author>(dbAuthor);
-                return new Tuple<Author, ValidationModel>(Mapper.Map<AUTHOR, Author>(dbAuthor), validation);
+                return new Tuple<Author, AuthorValidation>(Mapper.Map<AUTHOR, Author>(dbAuthor), validation);
             }
-            return new Tuple<Author, ValidationModel>(null, validation);
+            return new Tuple<Author, AuthorValidation>(null, validation);
             //return tuple probebly same as above with id?
             
         }

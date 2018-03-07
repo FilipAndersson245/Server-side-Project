@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.ModelBinding;
 using System.Web.Mvc;
 using Service.Tools;
+using Service.Validations;
 namespace ServerSide_Project.Tools
 {
     public class ValidationMessages

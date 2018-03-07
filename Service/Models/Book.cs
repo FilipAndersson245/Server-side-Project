@@ -22,8 +22,6 @@ namespace Service.Models
 
         }
 
-        [Key]
-        [StringLength(10, MinimumLength = 10,ErrorMessage ="Must Be 10 characters long.")] 
         public string ISBN { get; set; } //PRIMARY KEY
          
         public string Title { get; set; }

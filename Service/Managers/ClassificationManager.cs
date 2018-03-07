@@ -11,6 +11,7 @@ using AutoMapper;
 using Repository;
 using Service.Models;
 using Service.Tools;
+using Service.Validations;
 
 namespace Service.Managers
 {
@@ -45,9 +46,9 @@ namespace Service.Managers
             return repo.DeleteClassification(Mapper.Map<Classification, CLASSIFICATION>(classification));
         }
 
-        public ValidationModel CreateClassification(Classification classification)
+        public ClassificationValidation CreateClassification(Classification classification)
         {
-            ValidationModel validation = new ValidationModel(classification);
+            ClassificationValidation validation = new ClassificationValidation(classification);
             if (validation.IsValid)
             {
                 ClassificationRepository repo = new ClassificationRepository();
@@ -65,9 +66,9 @@ namespace Service.Managers
             return Mapper.Map<List<CLASSIFICATION>, List<Classification>>(repo.GetAllClassifications());
         }
 
-        public ValidationModel EditClassification(Classification classification)
+        public ClassificationValidation EditClassification(Classification classification)
         {
-            ValidationModel validation = new ValidationModel(classification);
+            ClassificationValidation validation = new ClassificationValidation(classification);
             if (validation.IsValid)
             {
                 ClassificationRepository repo = new ClassificationRepository();

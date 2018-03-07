@@ -11,14 +11,15 @@ using AutoMapper;
 using Service.Models;
 using Service.Tools;
 using System.Web.Mvc;
+using Service.Validations;
 
 namespace Service.Managers
 {
     public class AdminManager
     {
-        public ValidationModel Login(Admin admin)
+        public AdminValidation Login(Admin admin)
         {
-            ValidationModel validation = new ValidationModel(admin);
+            AdminValidation validation = new AdminValidation(admin);
             if (validation.IsValid)
             {
                 Admin dbAdmin = GetAdmin(admin.Username);
@@ -40,9 +41,9 @@ namespace Service.Managers
             return validation;
         }
 
-        public ValidationModel SignUp(Admin admin)
+        public AdminValidation SignUp(Admin admin)
         {
-            ValidationModel validation = new ValidationModel(admin);
+            AdminValidation validation = new AdminValidation(admin);
             if (validation.IsValid)
             {
                 Admin existingAdmin = GetAdmin(admin.Username);
@@ -60,8 +61,6 @@ namespace Service.Managers
             }
             return validation;
         }
-
-
 
         public Admin GetAdmin(string username)
         {

@@ -24,12 +24,16 @@ namespace ServerSide_Project.Controllers
 
         [HttpPost]
         [SetTempDataModelState]
-        public ActionResult CreateBook(BookAuthorClassification bac, string[] authorChecklist, int classificationRadio)
+        public ActionResult CreateBook(BookAuthorClassification bac, string[] authorChecklist, int? classificationRadio) //Strukturera om till servicelagret och lös classificationRadio null
         {
             AuthorManager authorManager = new AuthorManager();
             ClassificationManager classificationManager = new ClassificationManager();
             BookManager bookManager = new BookManager();
-            Classification classification = classificationManager.GetClassificationFromID(classificationRadio);
+            if (classificationRadio == null)
+            {
+                return RedirectToAction("CreateBook", "BookAuthorClassification");
+            }
+            Classification classification = classificationManager.GetClassificationFromID(Convert.ToInt32(classificationRadio));
             List<Author> authorList = new List<Author>();
             foreach (var aID in authorChecklist)
             {
@@ -53,7 +57,7 @@ namespace ServerSide_Project.Controllers
             else
             {
                 ValidationMessages.ConvertCodeToMsg(ModelState, bookTuple.Item2.ErrorDict);
-                return RedirectToAction("CreateBook", "BookAuthorClassification", new { id = bookTuple.Item1.ISBN });
+                return RedirectToAction("CreateBook", "BookAuthorClassification");
             }
         }
 

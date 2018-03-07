@@ -28,33 +28,6 @@ namespace ServerSide_Project.Controllers
             return View("ListBookDetails", bookManager.GetBookFromIsbn(id));
         }
 
-        //Redundant I think???
-        //[HttpGet]
-        //[RestoreModelStateFromTempData]
-        //public ActionResult EditBook(string id)
-        //{
-        //    ValidateAndRedirect();
-        //    BookManager bookManager = new BookManager();
-        //    return View("EditBook", bookManager.GetBookFromIsbn(id));
-        //}
-
-        //Redundant I think???
-        //[HttpPost]
-        //[SetTempDataModelState]
-        //public ActionResult EditBook(Book book)
-        //{
-        //    ValidateAndRedirect();
-        //    BookManager bookManager = new BookManager();
-        //    var bookTuple = bookManager.EditBook(book);
-        //    if (bookTuple.Item2.IsValid)
-        //        return RedirectToAction("ListBookDetails", "Book", bookTuple.Item1.ISBN);
-        //    else
-        //    {
-        //        ValidationMessages.ConvertCodeToMsg(ModelState, bookTuple.Item2.ErrorDict);
-        //        return RedirectToAction("EditBook", "Book", book.ISBN);
-        //    }
-        //}
-
         [HttpPost]
         public ActionResult DeleteBook(string id)
         {
