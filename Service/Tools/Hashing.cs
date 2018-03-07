@@ -32,7 +32,7 @@ namespace Service.Tools
 
         public bool Equals(string dbHash)
         {
-            return this.Hash == dbHash ? true : false;
+            return this.Hash == dbHash;
         }
     }
 }
