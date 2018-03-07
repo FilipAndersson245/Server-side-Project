@@ -105,13 +105,18 @@ namespace Service.Managers
             return bookList;
         }
 
-        public Book CreateBook(Book book)
+        public Tuple<Book, ValidationModel> CreateBook(Book book)
         {
-            BookRepository repo = new BookRepository();
-            var newBook = Mapper.Map<BOOK, Book>(repo.CreateBook(Mapper.Map<Book, BOOK>(book)));
-            //newBook.Authors = AddAuthors(newBook);
-            //newBook.Classification = AddClassification(newBook);
-            return newBook;
+            ValidationModel validation = new ValidationModel(book);
+            if (validation.IsValid)
+            {
+                BookRepository repo = new BookRepository();
+                var newBook = Mapper.Map<BOOK, Book>(repo.CreateBook(Mapper.Map<Book, BOOK>(book)));
+                if (newBook != null)
+                    return new Tuple<Book, ValidationModel>(newBook, validation);
+                validation.FailedToCreateBook(nameof(book.Title));
+            }
+            return new Tuple<Book, ValidationModel>(null, validation);
         }
 
         public bool DeleteBook(string isbn)
@@ -120,10 +125,20 @@ namespace Service.Managers
             return repo.DeleteBook(Mapper.Map<Book, BOOK>(GetBookFromIsbn(isbn)));
         }
 
-        public Book EditBook(Book book)
+        public Tuple<Book, ValidationModel> EditBook(Book book)
         {
+            ValidationModel validation = new ValidationModel(book);
             BookRepository repo = new BookRepository();
-            return Mapper.Map<BOOK, Book>(repo.EditBook(Mapper.Map<Book, BOOK>(book)));
+            if (!repo.DoesBookExist(book.ISBN))
+                validation.BookDoesntExist(book.ISBN);
+            else if (validation.IsValid)
+            {
+                var editedBook = Mapper.Map<BOOK, Book>(repo.EditBook(Mapper.Map<Book, BOOK>(book)));
+                if (editedBook != null)
+                    return new Tuple<Book, ValidationModel>(editedBook, validation);
+                validation.FailedToCreateBook(nameof(Book.Title));
+            }
+            return new Tuple<Book, ValidationModel>(null, validation);
         }
 
     }
