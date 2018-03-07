@@ -48,12 +48,9 @@ namespace Service.Managers
                 {
                     validation.DoesAlreadyExistOnServer(nameof(author.FirstName));
                 }
-                //return Mapper.Map<AUTHOR, Author>(dbAuthor);
                 return new Tuple<Author, AuthorValidation>(Mapper.Map<AUTHOR, Author>(dbAuthor), validation);
             }
             return new Tuple<Author, AuthorValidation>(null, validation);
-            //return tuple probebly same as above with id?
-            
         }
 
         public bool DeleteAuthor(Author author)
