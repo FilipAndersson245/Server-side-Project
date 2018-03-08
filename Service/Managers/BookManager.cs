@@ -19,18 +19,6 @@ namespace Service.Managers
 {
     public class BookManager
     {
-        public Book GetBookFromIsbn(string isbn)
-        {
-            BookRepository repo = new BookRepository();
-            var BOOK = repo.GetBookFromIsbn(isbn);
-            var book = Mapper.Map<BOOK, Book>(BOOK);
-            if (book.Authors.Count == 0)
-                book.Authors = AddAuthors(book);
-            if (book.Classification == null)
-                book.Classification = AddClassification(book);
-            return book;
-        }
-
         public List<Author> AddAuthors(Book book)
         {
             List<Author> authors = new List<Author>();
@@ -78,33 +66,6 @@ namespace Service.Managers
 
         }
 
-        public void SetupBooks(IPagedList<Book> bookList)
-        {
-            for (int i = 0; i < bookList.Count; i++)
-            {
-                if (bookList[i].SignId == 0 || bookList[i].Classification == null)
-                    bookList[i].Classification = AddClassification(bookList[i]);
-                if (bookList[i].Authors.Count == 0)
-                    bookList[i].Authors = AddAuthors(bookList[i]);
-            }
-        }
-
-        public IPagedList<Book> GetAllBooks(int page, int itemsPerPage)
-        {
-            BookRepository repo = new BookRepository();
-            var bookList = repo.GetAllBooksFromDB(page, itemsPerPage).ToMappedPagedList<BOOK, Book>();
-            SetupBooks(bookList);
-            return bookList;
-        }
-
-        public IPagedList<Book> SearchBooks(string search, int page, int itemsPerPage, params int[] classifications)
-        {
-            BookRepository repo = new BookRepository();
-            var bookList = repo.GetBookSearchResultat(search, page, itemsPerPage, classifications).ToMappedPagedList<BOOK, Book>();
-            SetupBooks(bookList);
-            return bookList;
-        }
-
         public Book CreateBook(Book book)
         {
             BookRepository repo = new BookRepository();
@@ -126,5 +87,42 @@ namespace Service.Managers
             return Mapper.Map<BOOK, Book>(repo.EditBook(Mapper.Map<Book, BOOK>(book)));
         }
 
+        public IPagedList<Book> GetAllBooks(int page, int itemsPerPage)
+        {
+            BookRepository repo = new BookRepository();
+            var bookList = repo.GetAllBooksFromDB(page, itemsPerPage).ToMappedPagedList<BOOK, Book>();
+            SetupBooks(bookList);
+            return bookList;
+        }
+
+        public Book GetBookFromIsbn(string isbn)
+        {
+            BookRepository repo = new BookRepository();
+            var BOOK = repo.GetBookFromIsbn(isbn);
+            var book = Mapper.Map<BOOK, Book>(BOOK);
+            if (book.Authors.Count == 0)
+                book.Authors = AddAuthors(book);
+            if (book.Classification == null)
+                book.Classification = AddClassification(book);
+            return book;
+        }
+        public IPagedList<Book> SearchBooks(string search, int page, int itemsPerPage, params int[] classifications)
+        {
+            BookRepository repo = new BookRepository();
+            var bookList = repo.GetBookSearchResultat(search, page, itemsPerPage, classifications).ToMappedPagedList<BOOK, Book>();
+            SetupBooks(bookList);
+            return bookList;
+        }
+
+        public void SetupBooks(IPagedList<Book> bookList)
+        {
+            for (int i = 0; i < bookList.Count; i++)
+            {
+                if (bookList[i].SignId == 0 || bookList[i].Classification == null)
+                    bookList[i].Classification = AddClassification(bookList[i]);
+                if (bookList[i].Authors.Count == 0)
+                    bookList[i].Authors = AddAuthors(bookList[i]);
+            }
+        }
     }
 }
