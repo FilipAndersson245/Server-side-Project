@@ -1,26 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Service.Models;
+﻿using Service.Models;
+using System;
 
 namespace Service.Validations
 {
-    public class BookValidation: Validation
+    public class BookValidation : Validation
     {
-
-        const int BOOK_MAX_LENGTH = 10000;
-        const int TITLE_MAX_LENGTH = 150;
-        const int DESCRIPTION_MAX_LENGTH = 2000;
-        const int MAX_ISBN = 10;
-        const int MIN_ISBN = 4;
-
+        private const int BOOK_MAX_LENGTH = 10000;
+        private const int TITLE_MAX_LENGTH = 150;
+        private const int DESCRIPTION_MAX_LENGTH = 2000;
+        private const int MAX_ISBN = 10;
+        private const int MIN_ISBN = 4;
 
         public BookValidation(Book model)
         {
-
             if (String.IsNullOrWhiteSpace(model.ISBN))
             {
                 ErrorDict.Add(nameof(model.ISBN), ErrorCodes.IsRequired);
@@ -76,8 +68,5 @@ namespace Service.Validations
                 IsValid = true;
             }
         }
-
-
-
     }
 }

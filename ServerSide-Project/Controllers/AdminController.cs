@@ -1,14 +1,9 @@
-﻿using Service.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Web;
-using System.Web.Mvc;
+﻿using ServerSide_Project.Tools;
 using Service.Managers;
-using ServerSide_Project.Tools;
-using Service.Tools;
+using Service.Models;
+using System;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace ServerSide_Project.Controllers
 {

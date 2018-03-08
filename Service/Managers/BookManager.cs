@@ -1,20 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
-using System.Web.Helpers;
-using Repository.Support;
-using Repository;
-using AutoMapper;
+﻿using AutoMapper;
 using PagedList;
+using Repository;
+using Repository.Support;
 using Service.Models;
 using Service.Tools;
 using Service.Validations;
+using System;
+using System.Collections.Generic;
 
 namespace Service.Managers
 {
@@ -76,7 +68,6 @@ namespace Service.Managers
             {
                 return classification;
             }
-
         }
 
         public void SetupBooks(IPagedList<Book> bookList)
@@ -141,6 +132,5 @@ namespace Service.Managers
             }
             return new Tuple<Book, BookValidation>(null, validation);
         }
-
     }
 }

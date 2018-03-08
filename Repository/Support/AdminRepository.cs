@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace Repository.Support
 {
@@ -14,7 +11,7 @@ namespace Repository.Support
             using (var db = new dbGrupp3())
             {
                 string sql = "SELECT TOP 1 * FROM ADMINS WHERE ADMINS.Username = @user LIMIT 1";
-                var existingAdmin =  db.Database.SqlQuery<ADMIN>(sql, new SqlParameter("@user", username)).SingleOrDefault();
+                var existingAdmin = db.Database.SqlQuery<ADMIN>(sql, new SqlParameter("@user", username)).SingleOrDefault();
                 return existingAdmin != null;
 
                 //return db.ADMINS.Any(x => x.Username.Equals(username));
@@ -23,7 +20,7 @@ namespace Repository.Support
 
         public ADMIN GetAdmin(string username)
         {
-            using(var db = new dbGrupp3())
+            using (var db = new dbGrupp3())
             {
                 string sql = "SELECT * FROM ADMINS WHERE ADMINS.Username = @user";
                 return db.Database.SqlQuery<ADMIN>(sql, new SqlParameter("@user", username)).SingleOrDefault();

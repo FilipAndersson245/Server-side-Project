@@ -1,10 +1,7 @@
 namespace Repository
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     [Table("ADMINS")]
     public partial class ADMIN
@@ -22,7 +19,5 @@ namespace Repository
         public string PasswordHash { get; set; }
 
         public int PermissionLevel { get; set; }
-
-
     }
 }

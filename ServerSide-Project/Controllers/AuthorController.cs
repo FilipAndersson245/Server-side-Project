@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Security;
-using PagedList;
-using Service.Models;
+﻿using ServerSide_Project.Tools;
 using Service.Managers;
-using ServerSide_Project.Tools;
+using Service.Models;
+using System;
+using System.Web.Mvc;
 
 namespace ServerSide_Project.Controllers
 {
@@ -43,7 +38,6 @@ namespace ServerSide_Project.Controllers
                 ValidationMessages.ConvertCodeToMsg(ModelState, authorTuple.Item2.ErrorDict);
                 return RedirectToAction("CreateAuthor", "Author");
             }
-                
         }
 
         [HttpGet]
@@ -67,9 +61,9 @@ namespace ServerSide_Project.Controllers
                 return RedirectToAction("ListAuthorDetails", "Author", new { id = Convert.ToInt32(authorTuple.Item1.Aid) });
             }
             ValidationMessages.ConvertCodeToMsg(ModelState, authorTuple.Item2.ErrorDict);
-            return RedirectToAction("BrowseAllAuthors","Author");
+            return RedirectToAction("BrowseAllAuthors", "Author");
         }
-        
+
         [HttpPost]
         public ActionResult DeleteAuthor(int id)
         {

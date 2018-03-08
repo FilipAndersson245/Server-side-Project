@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Service.Models;
+﻿using Service.Models;
+using System;
 
 namespace Service.Validations
 {
-    public class ClassificationValidation: Validation
+    public class ClassificationValidation : Validation
     {
-
-        const int DESCRIPTION_MAX_LENGTH = 500;
+        private const int DESCRIPTION_MAX_LENGTH = 500;
 
         public ClassificationValidation(Classification model)
         {
@@ -38,6 +32,5 @@ namespace Service.Validations
                 IsValid = true;
             }
         }
-
     }
 }

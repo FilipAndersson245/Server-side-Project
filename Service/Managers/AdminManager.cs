@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using System.ComponentModel.DataAnnotations;
-using Repository.Support;
+﻿using AutoMapper;
 using Repository;
-using AutoMapper;
+using Repository.Support;
 using Service.Models;
 using Service.Tools;
-using System.Web.Mvc;
 using Service.Validations;
+using System.Collections.Generic;
 
 namespace Service.Managers
 {

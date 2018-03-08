@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Service.Models;
+using System;
 using System.Web.Mvc;
-using Service.Models;
 
 namespace ServerSide_Project.Tools
 {
@@ -11,12 +8,10 @@ namespace ServerSide_Project.Tools
     {
         protected override void OnException(ExceptionContext filterContext)
         {
-
             if (filterContext.Exception is ValidationException)
             {
                 filterContext.ExceptionHandled = true;
                 filterContext.Result = RedirectToAction("Login", "Admin", new { returnBackTo = Request.Url });
-
             }
         }
 

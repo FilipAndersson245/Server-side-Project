@@ -9,7 +9,7 @@
 @using (Html.BeginForm("EditAuthor", "Author", FormMethod.Post, new { @class = "form-group" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Author</h4>
         @Html.ActionLink("Back to Author List", "BrowseAllAuthors", "Author", null, null)

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Service.Tools
 {
@@ -20,6 +16,7 @@ namespace Service.Tools
                 this.Salt = Convert.ToBase64String(deriveBytes.Salt);
             }
         }
+
         public Hashing(string password, string salt)
         {
             using (var deriveBytes = new Rfc2898DeriveBytes(password, Convert.FromBase64String(salt)))

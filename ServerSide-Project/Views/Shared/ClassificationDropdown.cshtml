@@ -1,6 +1,5 @@
 ﻿@model List<Service.Models.Classification>
 
-
 <div class="panel panel-default" id="classificationPanel">
     <div class="panel-heading" role="tab" id="headingOne">
         <h4 class="panel-title">
@@ -14,7 +13,7 @@
             @foreach (var classification in Model)
             {
                 <div class="col-sm-2 text-left">
-                    
+
                     <input name=classifications type="radio" value=@classification.SignId id=@classification.Signum>
                     <label for=@classification.Signum>@classification.Signum</label>
                 </div>

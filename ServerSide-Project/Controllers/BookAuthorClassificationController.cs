@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using PagedList;
-using Service.Models;
+﻿using ServerSide_Project.Tools;
 using Service.Managers;
-using ServerSide_Project.Tools;
+using Service.Models;
+using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace ServerSide_Project.Controllers
 {
     public class BookAuthorClassificationController : ControllerExtension
     {
-
         [HttpGet]
         [RestoreModelStateFromTempData]
         public ActionResult CreateBook()
@@ -103,9 +99,8 @@ namespace ServerSide_Project.Controllers
             else
             {
                 ValidationMessages.ConvertCodeToMsg(ModelState, bookTuple.Item2.ErrorDict);
-                return RedirectToAction("EditBook", "BookAuthorClassification", new { id = book.ISBN});
+                return RedirectToAction("EditBook", "BookAuthorClassification", new { id = book.ISBN });
             }
         }
-
     }
 }

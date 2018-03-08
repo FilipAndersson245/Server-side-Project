@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using System.ComponentModel.DataAnnotations;
-using Repository.Support;
-using AutoMapper;
+﻿using AutoMapper;
 using Repository;
+using Repository.Support;
 using Service.Models;
-using Service.Tools;
 using Service.Validations;
+using System.Collections.Generic;
 
 namespace Service.Managers
 {
@@ -52,7 +44,7 @@ namespace Service.Managers
             if (validation.IsValid)
             {
                 ClassificationRepository repo = new ClassificationRepository();
-                if(!repo.CreateClassification(Mapper.Map<Classification, CLASSIFICATION>(classification)))
+                if (!repo.CreateClassification(Mapper.Map<Classification, CLASSIFICATION>(classification)))
                 {
                     validation.FailedToCreateClassification(nameof(classification.Signum));
                 }
@@ -72,13 +64,12 @@ namespace Service.Managers
             if (validation.IsValid)
             {
                 ClassificationRepository repo = new ClassificationRepository();
-                if(!repo.EditClassification(Mapper.Map<Classification, CLASSIFICATION>(classification)))
+                if (!repo.EditClassification(Mapper.Map<Classification, CLASSIFICATION>(classification)))
                 {
                     validation.DoesNotExistOnServer(nameof(classification.Signum));
                 }
             }
             return validation;
         }
-
     }
 }

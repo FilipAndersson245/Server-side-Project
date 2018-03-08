@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Service.Models;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Service.Models;
 
 namespace Service.Validations
 {
-    public class AdminValidation: Validation
+    public class AdminValidation : Validation
     {
-
-        const int MAX_NAME_LENGTH = 30;
-        const string PASSWORD_REQ_REGEX = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{4,25}$";
+        private const int MAX_NAME_LENGTH = 30;
+        private const string PASSWORD_REQ_REGEX = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{4,25}$";
 
         public AdminValidation(Admin model)
         {

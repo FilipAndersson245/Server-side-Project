@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Service.Models;
+﻿using ServerSide_Project.Tools;
 using Service.Managers;
-using ServerSide_Project.Tools;
+using Service.Models;
+using System.Web.Mvc;
 
 namespace ServerSide_Project.Controllers
 {
@@ -47,7 +43,6 @@ namespace ServerSide_Project.Controllers
             }
         }
 
-
         [HttpGet]
         [RestoreModelStateFromTempData]
         public ActionResult CreateClassification()
@@ -67,7 +62,7 @@ namespace ServerSide_Project.Controllers
                 return RedirectToAction("BrowseAllBooks", "Book", null);
             else
                 ValidationMessages.ConvertCodeToMsg(ModelState, validation.ErrorDict);
-                return RedirectToAction("BrowseAllBooks", "Book", null);
+            return RedirectToAction("BrowseAllBooks", "Book", null);
         }
 
         [HttpPost]

@@ -1,17 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
-using System.Web.Helpers;
-using Repository.Support;
-using Repository;
-using AutoMapper;
-using PagedList;
-using Service.Managers;
-using Service.Tools;
+﻿using System.Collections.Generic;
 
 namespace Service.Models
 {
@@ -19,11 +6,10 @@ namespace Service.Models
     {
         public Book()
         {
-
         }
 
         public string ISBN { get; set; } //PRIMARY KEY
-         
+
         public string Title { get; set; }
 
         public int PublicationYear { get; set; }
@@ -32,7 +18,7 @@ namespace Service.Models
 
         public short Pages { get; set; }
 
-        public List<Author> Authors{ get; set; }
+        public List<Author> Authors { get; set; }
 
         public Classification Classification { get; set; }
 
@@ -53,7 +39,7 @@ namespace Service.Models
         {
             get
             {
-                if(this.Publicationinfo == null)
+                if (this.Publicationinfo == null)
                 {
                     return "No description available";
                 }
@@ -64,6 +50,5 @@ namespace Service.Models
                 return this.Publicationinfo.Substring(0, 255) + "...";
             }
         }
-
     }
 }

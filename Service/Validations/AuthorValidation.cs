@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Service.Models;
+﻿using Service.Models;
+using System;
 
 namespace Service.Validations
 {
-    public class AuthorValidation: Validation
+    public class AuthorValidation : Validation
     {
-
-        const int MAX_NAME_LENGTH = 30;
-        const int MIN_BIRTH_YEAR = -3500;
+        private const int MAX_NAME_LENGTH = 30;
+        private const int MIN_BIRTH_YEAR = -3500;
 
         public AuthorValidation(Author model)
         {

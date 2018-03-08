@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using System.Web;
-using System.Web.Mvc;
-using Repository.Support;
-using Repository;
-using AutoMapper;
+﻿using AutoMapper;
 using PagedList;
+using Repository;
+using Repository.Support;
 using Service.Models;
 using Service.Tools;
 using Service.Validations;
+using System;
+using System.Collections.Generic;
 
 namespace Service.Managers
 {
@@ -38,7 +32,6 @@ namespace Service.Managers
 
         public Tuple<Author, AuthorValidation> EditAuthor(Author author)
         {
-
             AuthorValidation validation = new AuthorValidation(author);
             if (validation.IsValid)
             {
@@ -93,6 +86,5 @@ namespace Service.Managers
             AuthorRepository repo = new AuthorRepository();
             return Mapper.Map<AUTHOR, Author>(repo.GetAuthorFromDB(id));
         }
-
     }
 }

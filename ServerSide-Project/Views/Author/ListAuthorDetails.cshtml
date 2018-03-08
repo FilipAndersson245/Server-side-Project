@@ -1,5 +1,5 @@
 ﻿@model Service.Models.Author
-    @using Service.Models
+@using Service.Models
 
 @{
     ViewBag.Title = "Author Details";
@@ -20,31 +20,29 @@
         <div class="row">
             @if (Model.BirthYear == null)
             {
-                <span>Unknown</span>
+            <span>Unknown</span>
             }
             else
             {
-                @Html.Encode(Model.BirthYear);
+            @Html.Encode(Model.BirthYear);
             }
         </div>
     </div>
     <div class="col-sm-1 text-right">
-        
+
         @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Admin)
         {
-            @Html.ActionLink("Edit", "EditAuthor", "Author", new { id = Model.Aid }, null);
-            @Html.Raw(" | ");
+        @Html.ActionLink("Edit", "EditAuthor", "Author", new { id = Model.Aid }, null);
+        @Html.Raw(" | ");
             using (Html.BeginForm("DeleteAuthor", "Author", new { id = Model.Aid }, FormMethod.Post, new { @class = "form-group", @id = "authorDetailsOptions" }))
             {
-                @Html.AntiForgeryToken();
-                <input type="submit" value="Delete" class="btn-link" />
+        @Html.AntiForgeryToken();
+        <input type="submit" value="Delete" class="btn-link" />
             }
         }
     </div>
     <div class="col-sm-2"></div>
 </div>
-
-
 
 <h4 class="text-center">Books by this author:</h4>
 <div class="col-sm-2"></div>

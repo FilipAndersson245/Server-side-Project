@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.ComponentModel.DataAnnotations;
-using Repository.Support;
-using AutoMapper;
-using Repository;
-using Service.Managers;
-using Service.Tools;
-
-namespace Service.Models
+﻿namespace Service.Models
 {
     public class Classification
     {
@@ -19,6 +7,5 @@ namespace Service.Models
         public int SignId { get; set; }
 
         public string Description { get; set; }
-
     }
 }

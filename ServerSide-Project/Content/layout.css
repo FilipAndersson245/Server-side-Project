@@ -1,18 +1,18 @@
-﻿body 
+﻿body
 {
     margin-top:0px;
     padding-top:0px;
     padding-bottom: 50px;
     height: 100%;
 }
-    
+
 html
 {
     position: relative;
     height: 100%;
 }
 
-.navbar 
+.navbar
 {
     margin-bottom: 0;
     border-radius: 0;
@@ -27,14 +27,14 @@ html
     margin-right: 0px !important;
 }
 
-.sidenav 
+.sidenav
 {
     padding-top: 20px;
     background-color: #f1f1f1;
     height: 100%;
 }
 
-.footer 
+.footer
 {
     position: absolute;
     bottom: 0;
@@ -56,7 +56,6 @@ a, a:link, a:visited, .btn-link, .btn-link:link, .btn-link:visited
     color: #006c9b;
 }
 
-
 a:hover, a:active, .btn-link:hover, .btn-link:active
 {
     color: #003952;
@@ -69,7 +68,7 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
 
 #dropdownbtn
 {
-    border-color: #ffffff; 
+    border-color: #ffffff;
     background-color: #4b4b4b;
     width:100%;
 }
@@ -80,7 +79,7 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
     text-align:center;
 }
 
-.dropdown-menu>li>a:hover 
+.dropdown-menu>li>a:hover
 {
    color: #000000;
    text-decoration: none;
@@ -89,7 +88,7 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
 
 #dropdownbtn:hover, #dropdownbtn:focus, #dropdownbtn:active, #dropdownbtn.active, .open .dropdown-toggle.dropdownbtn
 {
-    border-color: #ffffff; 
+    border-color: #ffffff;
     background-color: #555;
 }
 
@@ -229,7 +228,6 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
     background-color: #969696;
 }
 
-
 #authorListOptions, #authorDetailsOptions #logOutButton
 {
     display: inline;
@@ -279,7 +277,6 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
     font-size: 100%;
 }
 
-
 #classificationOuter
 {
     border-radius: 5px;
@@ -305,8 +302,8 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
 {
     width: 80%;
     height: 80%;
-    display: block; 
-    margin-left: auto; 
+    display: block;
+    margin-left: auto;
     margin-right: auto;
 }
 
@@ -314,7 +311,7 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
 {
     width: 100%;
     height: 100%;
-    display: block; 
-    margin-left: auto; 
-    margin-right: auto; 
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

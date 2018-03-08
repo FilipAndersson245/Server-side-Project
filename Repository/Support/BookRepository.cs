@@ -1,10 +1,7 @@
-﻿using System;
+﻿using PagedList;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Data.Entity;
-using System.Data.SqlClient;
-using PagedList;
+using System.Linq;
 
 namespace Repository.Support
 {
@@ -23,13 +20,13 @@ namespace Repository.Support
             using (var db = new dbGrupp3())
             {
                 db.Database.Log = s => System.Diagnostics.Debug.Write(s);
-                return db.BOOKs.Include(b => b.AUTHORs).Include(b =>b.CLASSIFICATION).OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
+                return db.BOOKs.Include(b => b.AUTHORs).Include(b => b.CLASSIFICATION).OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
             }
         }
 
         public BOOK GetBookFromIsbn(string isbn)
         {
-            using(var db = new dbGrupp3())
+            using (var db = new dbGrupp3())
             {
                 return db.BOOKs.Include(b => b.AUTHORs).Include(b => b.CLASSIFICATION).FirstOrDefault(x => x.ISBN.Equals(isbn));
             }
@@ -45,7 +42,7 @@ namespace Repository.Support
                 db.ChangeTracker.Entries<AUTHOR>().ToList().ForEach(a => a.State = EntityState.Unchanged);
                 db.ChangeTracker.Entries<CLASSIFICATION>().ToList().ForEach(a => a.State = EntityState.Unchanged);
                 book.AUTHORs.Clear();
-                foreach(var author in eBook.AUTHORs)
+                foreach (var author in eBook.AUTHORs)
                 {
                     book.AUTHORs.Add(author);
                 }
@@ -97,8 +94,7 @@ namespace Repository.Support
 
         public IPagedList<BOOK> GetBookSearchResultat(string search, int page, int itemsPerPage, params int[] classifications)
         {
-            
-            if(classifications != null)
+            if (classifications != null)
             {
                 using (var db = new dbGrupp3())
                 {

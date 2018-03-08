@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Service.Models;
+﻿using System.Collections.Generic;
 
 namespace Service.Validations
 {
@@ -32,7 +26,6 @@ namespace Service.Validations
 
     public class Validation
     {
-
         public bool IsValid { get; set; } = false;
 
         public Dictionary<string, ErrorCodes> ErrorDict { get; set; } = new Dictionary<string, ErrorCodes>();

@@ -1,16 +1,13 @@
-﻿using System;
+﻿using PagedList;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Data.Entity;
-using System.Data.SqlClient;
-using PagedList;
+using System.Linq;
 
 namespace Repository.Support
 {
     public class AuthorRepository
     {
-        public  bool DoesAuthorExist(int aid)
+        public bool DoesAuthorExist(int aid)
         {
             using (var db = new dbGrupp3())
             {
@@ -76,7 +73,6 @@ namespace Repository.Support
             {
                 return false;
             }
-            
         }
 
         public AUTHOR EditAuthor(AUTHOR eauthor) //Returns the updated author and if failed returns null
@@ -95,7 +91,6 @@ namespace Repository.Support
             {
                 return null;
             }
-
         }
 
         public IPagedList<BOOK> GetBooksByAuthor(int id, int page)
@@ -112,8 +107,7 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                return db.AUTHORs.Where(x  => ((x.FirstName + " " + x.LastName).Contains(search))).OrderBy(x => x.LastName).ToPagedList(page,itemsPerPage);
-                
+                return db.AUTHORs.Where(x => ((x.FirstName + " " + x.LastName).Contains(search))).OrderBy(x => x.LastName).ToPagedList(page, itemsPerPage);
             }
         }
 
@@ -124,7 +118,5 @@ namespace Repository.Support
                 return db.AUTHORs.Find(id);
             }
         }
-
     }
-
 }
