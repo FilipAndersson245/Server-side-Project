@@ -13,8 +13,8 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                string sql = "SELECT TOP 1 * FROM ADMIN WHERE ADMIN.Username = @user LIMIT 1";
-                var existingAdmin =  db.Database.SqlQuery<ADMIN>(sql, new SqlParameter("@user", username)).FirstOrDefault();
+                string sql = "SELECT TOP 1 * FROM ADMINS WHERE ADMINS.Username = @user LIMIT 1";
+                var existingAdmin =  db.Database.SqlQuery<ADMIN>(sql, new SqlParameter("@user", username)).SingleOrDefault();
                 return existingAdmin != null;
 
                 //return db.ADMINS.Any(x => x.Username.Equals(username));
@@ -25,8 +25,8 @@ namespace Repository.Support
         {
             using(var db = new dbGrupp3())
             {
-                string sql = "SELECT * FROM ADMIN WHERE Username = @user";
-                return db.Database.SqlQuery<ADMIN>(sql, new SqlParameter("@user", username)).FirstOrDefault();
+                string sql = "SELECT * FROM ADMINS WHERE ADMINS.Username = @user";
+                return db.Database.SqlQuery<ADMIN>(sql, new SqlParameter("@user", username)).SingleOrDefault();
 
                 //return db.ADMINS.FirstOrDefault(x => x.Username.Equals(username));
             }
@@ -36,9 +36,24 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                db.ADMINS.Add(admin);
-                db.SaveChanges();
-                return true;
+                string sql = @"INSERT INTO ADMINS VALUES (@username, @salt, @passwordHash, @ permissionLevel);";
+
+                try
+                {
+                    db.Database.ExecuteSqlCommand(sql,
+                        new SqlParameter("@username", admin.Username),
+                        new SqlParameter("@salt", admin.Salt),
+                        new SqlParameter("@passwordHash", admin.PasswordHash),
+                        new SqlParameter("@permissionLevel", admin.PermissionLevel));
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+                //db.ADMINS.Add(admin);
+                //db.SaveChanges();
+                //return true;
             }
         }
 
@@ -46,7 +61,7 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                string sql = "SELECT * FROM ADMIN ORDER BY Username";
+                string sql = "SELECT * FROM ADMINS ORDER BY Username";
                 return db.Database.SqlQuery<ADMIN>(sql).ToList();
                 //return db.ADMINS.OrderBy(x => x.Username).ToList();
             }
