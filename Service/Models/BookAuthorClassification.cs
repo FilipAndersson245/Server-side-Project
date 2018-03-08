@@ -20,10 +20,8 @@ namespace Service.Models
 
         public Book Book { get; set; }
 
-        [Required]
         public List<Author> Authors { get; set; }
 
-        [Required]
         public List<Classification> Classifications { get; set; }
     }
 }

@@ -11,6 +11,7 @@ using AutoMapper;
 using Repository;
 using Service.Models;
 using Service.Tools;
+using Service.Validations;
 
 namespace Service.Managers
 {
@@ -45,10 +46,18 @@ namespace Service.Managers
             return repo.DeleteClassification(Mapper.Map<Classification, CLASSIFICATION>(classification));
         }
 
-        public bool CreateClassification(Classification classification)
+        public ClassificationValidation CreateClassification(Classification classification)
         {
-            ClassificationRepository repo = new ClassificationRepository();
-            return repo.CreateClassification(Mapper.Map<Classification, CLASSIFICATION>(classification));
+            ClassificationValidation validation = new ClassificationValidation(classification);
+            if (validation.IsValid)
+            {
+                ClassificationRepository repo = new ClassificationRepository();
+                if(!repo.CreateClassification(Mapper.Map<Classification, CLASSIFICATION>(classification)))
+                {
+                    validation.FailedToCreateClassification(nameof(classification.Signum));
+                }
+            }
+            return validation;
         }
 
         public List<Classification> GetAllClassifications()
@@ -57,10 +66,18 @@ namespace Service.Managers
             return Mapper.Map<List<CLASSIFICATION>, List<Classification>>(repo.GetAllClassifications());
         }
 
-        public bool EditClassification(Classification classification)
+        public ClassificationValidation EditClassification(Classification classification)
         {
-            ClassificationRepository repo = new ClassificationRepository();
-            return repo.EditClassification(Mapper.Map<Classification, CLASSIFICATION>(classification));
+            ClassificationValidation validation = new ClassificationValidation(classification);
+            if (validation.IsValid)
+            {
+                ClassificationRepository repo = new ClassificationRepository();
+                if(!repo.EditClassification(Mapper.Map<Classification, CLASSIFICATION>(classification)))
+                {
+                    validation.DoesNotExistOnServer(nameof(classification.Signum));
+                }
+            }
+            return validation;
         }
 
     }

@@ -21,24 +21,14 @@ namespace Service.Models
 
     public class Admin
     {
-        [Required(ErrorMessage = "Please Provide Username", AllowEmptyStrings = false)]
-        [DataType(DataType.Text)]
-        [Key]
         public string Username { get; set; }
 
-        [Required(ErrorMessage = "Please Provide Password", AllowEmptyStrings = false)]
-        [DataType(DataType.Password)]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{4,25}$", ErrorMessage = "Password does not match the requirements")]
         public string Password { get; set;}
 
-        [StringLength(64)]
         public string PasswordHash { get; set; }
 
-        [StringLength(64)]
         public string Salt { get; set; }
 
-
-        [Required]
         public Rank PermissionLevel { get; set; }
 
     }

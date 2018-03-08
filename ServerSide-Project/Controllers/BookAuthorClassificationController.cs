@@ -10,10 +10,11 @@ using ServerSide_Project.Tools;
 
 namespace ServerSide_Project.Controllers
 {
-    public class BookAuthorClassificationController : Controller
+    public class BookAuthorClassificationController : ControllerExtension
     {
 
         [HttpGet]
+        [RestoreModelStateFromTempData]
         public ActionResult CreateBook()
         {
             BookAuthorClassificationManager bacManager = new BookAuthorClassificationManager();
@@ -22,12 +23,17 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateBook(BookAuthorClassification bac, string[] authorChecklist, int classificationRadio)
+        [SetTempDataModelState]
+        public ActionResult CreateBook(BookAuthorClassification bac, string[] authorChecklist, int? classificationRadio) //Strukturera om till servicelagret och lös classificationRadio null
         {
             AuthorManager authorManager = new AuthorManager();
             ClassificationManager classificationManager = new ClassificationManager();
             BookManager bookManager = new BookManager();
-            Classification classification = classificationManager.GetClassificationFromID(classificationRadio);
+            if (classificationRadio == null)
+            {
+                return RedirectToAction("CreateBook", "BookAuthorClassification");
+            }
+            Classification classification = classificationManager.GetClassificationFromID(Convert.ToInt32(classificationRadio));
             List<Author> authorList = new List<Author>();
             foreach (var aID in authorChecklist)
             {
@@ -44,11 +50,19 @@ namespace ServerSide_Project.Controllers
                 Classification = classification,
                 Authors = authorList
             };
-            Book newBook = bookManager.CreateBook(book);
-            return RedirectToAction("ListBookDetails", "Book", new { id = newBook.ISBN });
+            ValidateAndRedirect();
+            var bookTuple = bookManager.CreateBook(book);
+            if (bookTuple.Item2.IsValid)
+                return RedirectToAction("ListBookDetails", "Book", new { id = bookTuple.Item1.ISBN });
+            else
+            {
+                ValidationMessages.ConvertCodeToMsg(ModelState, bookTuple.Item2.ErrorDict);
+                return RedirectToAction("CreateBook", "BookAuthorClassification");
+            }
         }
 
         [HttpGet]
+        [RestoreModelStateFromTempData]
         public ActionResult EditBook(string id)
         {
             BookManager bookManager = new BookManager();
@@ -59,6 +73,7 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpPost]
+        [SetTempDataModelState]
         public ActionResult EditBook(BookAuthorClassification bac, string[] authorChecklist, int classificationRadio)
         {
             AuthorManager authorManager = new AuthorManager();
@@ -81,7 +96,15 @@ namespace ServerSide_Project.Controllers
                 Classification = classification,
                 Authors = authorList
             };
-            return RedirectToAction("ListBookDetailsFromBook", "Book", bookManager.EditBook(book).ISBN);
+            ValidateAndRedirect();
+            var bookTuple = bookManager.EditBook(book);
+            if (bookTuple.Item2.IsValid)
+                return RedirectToAction("ListBookDetails", "Book", new { id = bookTuple.Item1.ISBN });
+            else
+            {
+                ValidationMessages.ConvertCodeToMsg(ModelState, bookTuple.Item2.ErrorDict);
+                return RedirectToAction("EditBook", "BookAuthorClassification", new { id = book.ISBN});
+            }
         }
 
     }

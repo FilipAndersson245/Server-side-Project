@@ -14,10 +14,8 @@ namespace Service.Models
 {
     public class Classification
     {
-        [Required(AllowEmptyStrings =false, ErrorMessage ="Genre Requests a name")]
         public string Signum { get; set; }
 
-        [Key]
         public int SignId { get; set; }
 
         public string Description { get; set; }

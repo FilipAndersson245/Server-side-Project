@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using System.Data.SqlClient;
 
 namespace Repository.Support
 {
@@ -12,7 +13,11 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                return db.ADMINS.Any(x => x.Username.Equals(username));
+                string sql = "SELECT TOP 1 * FROM ADMIN WHERE ADMIN.Username = @user LIMIT 1";
+                var existingAdmin =  db.Database.SqlQuery<ADMIN>(sql, new SqlParameter("@user", username)).FirstOrDefault();
+                return existingAdmin != null;
+
+                //return db.ADMINS.Any(x => x.Username.Equals(username));
             }
         }
 
@@ -20,7 +25,10 @@ namespace Repository.Support
         {
             using(var db = new dbGrupp3())
             {
-                return db.ADMINS.FirstOrDefault(x => x.Username.Equals(username));
+                string sql = "SELECT * FROM ADMIN WHERE Username = @user";
+                return db.Database.SqlQuery<ADMIN>(sql, new SqlParameter("@user", username)).FirstOrDefault();
+
+                //return db.ADMINS.FirstOrDefault(x => x.Username.Equals(username));
             }
         }
 
@@ -38,7 +46,9 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                return db.ADMINS.OrderBy(x => x.Username).ToList();
+                string sql = "SELECT * FROM ADMIN ORDER BY Username";
+                return db.Database.SqlQuery<ADMIN>(sql).ToList();
+                //return db.ADMINS.OrderBy(x => x.Username).ToList();
             }
         }
     }

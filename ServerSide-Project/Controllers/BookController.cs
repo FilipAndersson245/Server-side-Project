@@ -28,22 +28,6 @@ namespace ServerSide_Project.Controllers
             return View("ListBookDetails", bookManager.GetBookFromIsbn(id));
         }
 
-        [HttpGet]
-        public ActionResult EditBook(string id)
-        {
-            ValidateAndRedirect();
-            BookManager bookManager = new BookManager();
-            return View("EditBook", bookManager.GetBookFromIsbn(id));
-        }
-
-        [HttpPost]
-        public ActionResult EditBook(Book book)
-        {
-            ValidateAndRedirect();
-            BookManager bookManager = new BookManager();
-            return RedirectToAction("ListBookDetails", "Book", bookManager.EditBook(book).ISBN);
-        }
-
         [HttpPost]
         public ActionResult DeleteBook(string id)
         {

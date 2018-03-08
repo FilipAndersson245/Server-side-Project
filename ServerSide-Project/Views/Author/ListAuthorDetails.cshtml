@@ -1,4 +1,5 @@
 ﻿@model Service.Models.Author
+    @using Service.Models
 
 @{
     ViewBag.Title = "Author Details";
@@ -29,12 +30,15 @@
     </div>
     <div class="col-sm-1 text-right">
         
-        
-        @Html.ActionLink("Edit", "EditAuthor", "Author", new { id = Model.Aid }, null) |
-        @using (Html.BeginForm("DeleteAuthor", "Author", new { id = Model.Aid }, FormMethod.Post, new { @class = "form-group", @id = "authorDetailsOptions" }))
+        @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Admin)
         {
-            @Html.AntiForgeryToken()
-            <input type="submit" value="Delete" class="btn-link" />
+            @Html.ActionLink("Edit", "EditAuthor", "Author", new { id = Model.Aid }, null);
+            @Html.Raw(" | ");
+            using (Html.BeginForm("DeleteAuthor", "Author", new { id = Model.Aid }, FormMethod.Post, new { @class = "form-group", @id = "authorDetailsOptions" }))
+            {
+                @Html.AntiForgeryToken();
+                <input type="submit" value="Delete" class="btn-link" />
+            }
         }
     </div>
     <div class="col-sm-2"></div>

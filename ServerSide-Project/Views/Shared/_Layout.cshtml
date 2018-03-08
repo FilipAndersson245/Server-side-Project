@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Service.Models
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -32,8 +33,19 @@
                 </div>
                 <div class="navbar-col-sm-4">
                     <ul class="nav navbar-nav navbar-right">
-                        <li>@Html.ActionLink("Admin", "AdminPanel", "Admin", null, null)</li>
-                        <li><a href=@Url.Action("Login", "Admin")><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Admin)
+                        {
+                            <li>@Html.ActionLink("Admin", "AdminPanel", "Admin", null, null)</li>
+                            using (@Html.BeginForm("Logout", "Admin", FormMethod.Post, new { @class = "form-group", @id = "logOutButton" }))
+                            {
+                                <span class="glyphicon glyphicon-log-out"></span>
+                                <button type="submit" class="btn btn-link"> Sign Out</button>
+                            }
+                        }
+                        else
+                        {
+                            <li><a href=@Url.Action("Login", "Admin")><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -57,11 +69,14 @@
                         </div>
 
                         <div class="col-sm-2 sidenav float-left align-top text-center container" id="classificationOuter">
-                            <div class="row">
-                                @Html.ActionLink("Create New Classification", "CreateClassification", "Classification", null, null)
-                            </div>
+                            @if (Session["Level"] != null && (Rank)Session["Level"] == Rank.Admin)
+                            {
+                                <div class="row">
+                                    @Html.ActionLink("Create New Classification", "CreateClassification", "Classification", null, null)
+                                </div>
+                            }
                             <div class="collapse-group">
-                                <h5>Advanced Filters</h5>
+                                <b>Advanced Filters</b>
                                 @{Html.RenderAction("GetClassifications", "Classification");}
                             </div>
                         </div>

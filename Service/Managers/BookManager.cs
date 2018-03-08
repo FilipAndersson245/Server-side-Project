@@ -14,11 +14,24 @@ using AutoMapper;
 using PagedList;
 using Service.Models;
 using Service.Tools;
+using Service.Validations;
 
 namespace Service.Managers
 {
     public class BookManager
     {
+        public Book GetBookFromIsbn(string isbn)
+        {
+            BookRepository repo = new BookRepository();
+            var BOOK = repo.GetBookFromIsbn(isbn);
+            var book = Mapper.Map<BOOK, Book>(BOOK);
+            if (book.Authors.Count == 0)
+                book.Authors = AddAuthors(book);
+            if (book.Classification == null)
+                book.Classification = AddClassification(book);
+            return book;
+        }
+
         public List<Author> AddAuthors(Book book)
         {
             List<Author> authors = new List<Author>();
@@ -66,54 +79,6 @@ namespace Service.Managers
 
         }
 
-        public Book CreateBook(Book book)
-        {
-            BookRepository repo = new BookRepository();
-            var newBook = Mapper.Map<BOOK, Book>(repo.CreateBook(Mapper.Map<Book, BOOK>(book)));
-            //newBook.Authors = AddAuthors(newBook);
-            //newBook.Classification = AddClassification(newBook);
-            return newBook;
-        }
-
-        public bool DeleteBook(string isbn)
-        {
-            BookRepository repo = new BookRepository();
-            return repo.DeleteBook(Mapper.Map<Book, BOOK>(GetBookFromIsbn(isbn)));
-        }
-
-        public Book EditBook(Book book)
-        {
-            BookRepository repo = new BookRepository();
-            return Mapper.Map<BOOK, Book>(repo.EditBook(Mapper.Map<Book, BOOK>(book)));
-        }
-
-        public IPagedList<Book> GetAllBooks(int page, int itemsPerPage)
-        {
-            BookRepository repo = new BookRepository();
-            var bookList = repo.GetAllBooksFromDB(page, itemsPerPage).ToMappedPagedList<BOOK, Book>();
-            SetupBooks(bookList);
-            return bookList;
-        }
-
-        public Book GetBookFromIsbn(string isbn)
-        {
-            BookRepository repo = new BookRepository();
-            var BOOK = repo.GetBookFromIsbn(isbn);
-            var book = Mapper.Map<BOOK, Book>(BOOK);
-            if (book.Authors.Count == 0)
-                book.Authors = AddAuthors(book);
-            if (book.Classification == null)
-                book.Classification = AddClassification(book);
-            return book;
-        }
-        public IPagedList<Book> SearchBooks(string search, int page, int itemsPerPage, params int[] classifications)
-        {
-            BookRepository repo = new BookRepository();
-            var bookList = repo.GetBookSearchResultat(search, page, itemsPerPage, classifications).ToMappedPagedList<BOOK, Book>();
-            SetupBooks(bookList);
-            return bookList;
-        }
-
         public void SetupBooks(IPagedList<Book> bookList)
         {
             for (int i = 0; i < bookList.Count; i++)
@@ -124,5 +89,58 @@ namespace Service.Managers
                     bookList[i].Authors = AddAuthors(bookList[i]);
             }
         }
+
+        public IPagedList<Book> GetAllBooks(int page, int itemsPerPage)
+        {
+            BookRepository repo = new BookRepository();
+            var bookList = repo.GetAllBooksFromDB(page, itemsPerPage).ToMappedPagedList<BOOK, Book>();
+            SetupBooks(bookList);
+            return bookList;
+        }
+
+        public IPagedList<Book> SearchBooks(string search, int page, int itemsPerPage, params int[] classifications)
+        {
+            BookRepository repo = new BookRepository();
+            var bookList = repo.GetBookSearchResultat(search, page, itemsPerPage, classifications).ToMappedPagedList<BOOK, Book>();
+            SetupBooks(bookList);
+            return bookList;
+        }
+
+        public Tuple<Book, BookValidation> CreateBook(Book book)
+        {
+            BookValidation validation = new BookValidation(book);
+            if (validation.IsValid)
+            {
+                BookRepository repo = new BookRepository();
+                var newBook = Mapper.Map<BOOK, Book>(repo.CreateBook(Mapper.Map<Book, BOOK>(book)));
+                if (newBook != null)
+                    return new Tuple<Book, BookValidation>(newBook, validation);
+                validation.FailedToCreateBook(nameof(book.Title));
+            }
+            return new Tuple<Book, BookValidation>(null, validation);
+        }
+
+        public bool DeleteBook(string isbn)
+        {
+            BookRepository repo = new BookRepository();
+            return repo.DeleteBook(Mapper.Map<Book, BOOK>(GetBookFromIsbn(isbn)));
+        }
+
+        public Tuple<Book, BookValidation> EditBook(Book book)
+        {
+            BookValidation validation = new BookValidation(book);
+            BookRepository repo = new BookRepository();
+            if (!repo.DoesBookExist(book.ISBN))
+                validation.BookDoesntExist(book.ISBN);
+            else if (validation.IsValid)
+            {
+                var editedBook = Mapper.Map<BOOK, Book>(repo.EditBook(Mapper.Map<Book, BOOK>(book)));
+                if (editedBook != null)
+                    return new Tuple<Book, BookValidation>(editedBook, validation);
+                validation.FailedToCreateBook(nameof(Book.Title));
+            }
+            return new Tuple<Book, BookValidation>(null, validation);
+        }
+
     }
 }

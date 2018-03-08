@@ -12,40 +12,45 @@ using AutoMapper;
 using PagedList;
 using Service.Models;
 using Service.Tools;
+using Service.Validations;
 
 namespace Service.Managers
 {
     public class AuthorManager
     {
-        public int? CreateAuthor(ModelStateDictionary modelState,Author author) //Returns Aid if successfull, 0 if failed
+        public Tuple<int?, AuthorValidation> CreateAuthor(Author author) //Returns Aid if successfull, 0 if failed
         {
-            AuthorRepository repo = new AuthorRepository();
+            AuthorValidation validation = new AuthorValidation(author);
+
             int? id = null;
-            if (modelState.IsValid)
+            if (validation.IsValid)
             {
+                AuthorRepository repo = new AuthorRepository();
                 id = repo.CreateAuthor(Mapper.Map<Author, AUTHOR>(author));
                 if (id == null)
                 {
-                    modelState.AddModelError("", "Failed to Create author at database!");
+                    validation.FailedToCreateAuthor(nameof(author.FirstName));
                 }
             }
-            return id;
+            return new Tuple<int?, AuthorValidation>(id, validation);
+            //should return the validation instead of int? should maybe Tuple.
         }
 
-        public Author EditAuthor(ModelStateDictionary modelState, Author author)
+        public Tuple<Author, AuthorValidation> EditAuthor(Author author)
         {
-            if (modelState.IsValid)
+
+            AuthorValidation validation = new AuthorValidation(author);
+            if (validation.IsValid)
             {
                 AuthorRepository repo = new AuthorRepository();
                 var dbAuthor = repo.EditAuthor(Mapper.Map<Author, AUTHOR>(author));
                 if (dbAuthor == null)
                 {
-                    modelState.AddModelError("", "Author does not exist on the database");
+                    validation.DoesAlreadyExistOnServer(nameof(author.FirstName));
                 }
-                return Mapper.Map<AUTHOR, Author>(dbAuthor);
+                return new Tuple<Author, AuthorValidation>(Mapper.Map<AUTHOR, Author>(dbAuthor), validation);
             }
-            return null;
-            
+            return new Tuple<Author, AuthorValidation>(null, validation);
         }
 
         public bool DeleteAuthor(Author author)

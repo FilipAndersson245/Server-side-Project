@@ -35,14 +35,19 @@ namespace ServerSide_Project.Controllers
         {
             ValidateAndRedirect();
             AuthorManager authorManager = new AuthorManager();
-            var id = authorManager.CreateAuthor(ModelState, author);
-            if (id != null)
-                return RedirectToAction("ListAuthorDetails", "Author", new { id });
+            var authorTuple = authorManager.CreateAuthor(author);
+            if (authorTuple.Item1 != null)
+                return RedirectToAction("ListAuthorDetails", "Author", new { authorTuple.Item1 });
             else
+            {
+                ValidationMessages.ConvertCodeToMsg(ModelState, authorTuple.Item2.ErrorDict);
                 return RedirectToAction("CreateAuthor", "Author");
+            }
+                
         }
 
         [HttpGet]
+        [RestoreModelStateFromTempData]
         public ActionResult EditAuthor(int id)
         {
             ValidateAndRedirect();
@@ -51,16 +56,17 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpPost]
+        [SetTempDataModelState]
         public ActionResult EditAuthor(Author author)
         {
             ValidateAndRedirect();
             AuthorManager manager = new AuthorManager();
-            var dbAuthor = manager.EditAuthor(ModelState, author);
-            if (dbAuthor != null)
+            var authorTuple = manager.EditAuthor(author);
+            if (authorTuple.Item1 != null)
             {
-                return RedirectToAction("ListAuthorDetails", "Author", new { id = Convert.ToInt32(dbAuthor.Aid) });
+                return RedirectToAction("ListAuthorDetails", "Author", new { id = Convert.ToInt32(authorTuple.Item1.Aid) });
             }
-            //may not work
+            ValidationMessages.ConvertCodeToMsg(ModelState, authorTuple.Item2.ErrorDict);
             return RedirectToAction("BrowseAllAuthors","Author");
         }
         

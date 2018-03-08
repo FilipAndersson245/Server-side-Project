@@ -20,7 +20,6 @@ namespace Service.Tools
                 this.Salt = Convert.ToBase64String(deriveBytes.Salt);
             }
         }
-
         public Hashing(string password, string salt)
         {
             using (var deriveBytes = new Rfc2898DeriveBytes(password, Convert.FromBase64String(salt)))
@@ -32,7 +31,7 @@ namespace Service.Tools
 
         public bool Equals(string dbHash)
         {
-            return this.Hash == dbHash ? true : false;
+            return this.Hash == dbHash;
         }
     }
 }

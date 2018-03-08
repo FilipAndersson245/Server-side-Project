@@ -34,10 +34,12 @@ namespace ServerSide_Project.Controllers
         {
             ValidateAndRedirect(Rank.SuperAdmin);
             AdminManager manager = new AdminManager();
-            if (manager.SignUp(ModelState,admin))
+            var valid = manager.SignUp(admin);
+            if (valid.IsValid)
             {
                 return RedirectToAction("AdminPanel", "Admin");
             }
+            ValidationMessages.ConvertCodeToMsg(ModelState, valid.ErrorDict);
             return RedirectToAction("CreateAdmin", "Admin", null);
         }
 
@@ -61,7 +63,9 @@ namespace ServerSide_Project.Controllers
         public ActionResult Login(Admin admin, string returnBackTo = null)
         {
             var modelList = ModelState.ToList();
-            if (new AdminManager().Login(ModelState, admin))
+            var manager = new AdminManager();
+            var validation = manager.Login(admin);
+            if (validation.IsValid)
             {
                 Session["authentication"] = admin.Username;
                 Session["level"] = admin.PermissionLevel;
@@ -71,6 +75,7 @@ namespace ServerSide_Project.Controllers
             }
             else
             {
+                ValidationMessages.ConvertCodeToMsg(ModelState, validation.ErrorDict);
                 return RedirectToAction("Login", new { returnBackTo });
             }
         }

@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Service.Models.Admin>
+    @using Service.Models
 
 @{
     ViewBag.Title = "AdminPanel";
@@ -8,9 +9,13 @@
 
 <div class="col-sm-6 col-sm-offset-3 text-center">
     <h2>Admin Panel</h2>
-    @Html.ActionLink("Create New Book", "CreateBook", "BookAuthorClassification") | 
-    @Html.ActionLink("Create New Admin", "CreateAdmin", "Admin") | 
-    @Html.ActionLink("Create New Author", "CreateAuthor", "Author")
+    @Html.ActionLink("Create New Book", "CreateBook", "BookAuthorClassification") |
+    @Html.ActionLink("Create New Author", "CreateAuthor", "Author") |
+    @Html.ActionLink("Create New Classification", "CreateClassification", "Classification")
+    @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.SuperAdmin)
+    {
+        @Html.ActionLink("Create New Admin", "CreateAdmin", "Admin");
+    }
 </div>
 
 @foreach (var item in Model)
@@ -22,7 +27,10 @@
                     @Html.DisplayFor(modelItem => item.Username)
                 </div>
                 <div class="col-sm-3" id="adminOptions">
-                    @Html.ActionLink("Delete Admin", "DeleteAdmin", "Admin", new { id = item.Username }, null)
+                    @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.SuperAdmin)
+                    {
+                        @Html.ActionLink("Delete Admin", "DeleteAdmin", "Admin", new { id = item.Username }, null)
+                    }
                 </div>
             </div>
         </div>
