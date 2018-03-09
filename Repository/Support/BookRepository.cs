@@ -39,13 +39,28 @@ namespace Repository.Support
                 try
                 {
                     db.Configuration.LazyLoadingEnabled = false;
-                    BOOK book = db.BOOKs.Include(b => b.AUTHORs).Include(b => b.CLASSIFICATION).FirstOrDefault(x => x.ISBN.Equals(eBook.ISBN));
-                    db.Entry(book).CurrentValues.SetValues(eBook);
-                    db.ChangeTracker.Entries<AUTHOR>().ToList().ForEach(a => a.State = EntityState.Unchanged);
-                    db.ChangeTracker.Entries<CLASSIFICATION>().ToList().ForEach(a => a.State = EntityState.Unchanged);
+                    BOOK book = db.BOOKs.Include(b => b.AUTHORs).FirstOrDefault(x => x.ISBN.Equals(eBook.ISBN));
                     book.AUTHORs.Clear();
+                    db.SaveChanges();
+                }
+                catch
+                {
+                    return null;
+                }
+
+            }
+            using (var db = new dbGrupp3())
+            {
+                try
+                {
+                    db.Configuration.LazyLoadingEnabled = false;
+                    BOOK book = db.BOOKs.Include(b => b.CLASSIFICATION).FirstOrDefault(x => x.ISBN.Equals(eBook.ISBN));
+                    db.Entry(book).CurrentValues.SetValues(eBook);
+                    db.ChangeTracker.Entries<CLASSIFICATION>().ToList().ForEach(a => a.State = EntityState.Unchanged);
+                    book.AUTHORs = new List<AUTHOR>();
                     foreach (var author in eBook.AUTHORs)
                     {
+                        db.AUTHORs.Attach(author);
                         book.AUTHORs.Add(author);
                     }
                     db.SaveChanges();
