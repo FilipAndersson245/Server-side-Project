@@ -108,6 +108,7 @@ namespace Repository.Support
             {
                 using (var db = new dbGrupp3())
                 {
+                    db.Configuration.LazyLoadingEnabled = false;
                     return db.BOOKs.Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + y.LastName).Contains(search)))
                         .OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
                 }

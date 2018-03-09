@@ -22,7 +22,7 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                string sql = "SELECT * FROM ADMINS WHERE ADMINS.Username = @user";
+                string sql = "SELECT TOP 1 * FROM ADMINS WHERE ADMINS.Username = @user";
                 return db.Database.SqlQuery<ADMIN>(sql, new SqlParameter("@user", username)).SingleOrDefault();
 
                 //return db.ADMINS.FirstOrDefault(x => x.Username.Equals(username));
