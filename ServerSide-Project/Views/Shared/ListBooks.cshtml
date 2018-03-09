@@ -1,73 +1,73 @@
 ﻿@using PagedList.Mvc
 @using Service.Models
-@model Search
+@model PagedList.IPagedList<Service.Models.Book>
 @{
     ViewBag.activeBrowseBy = "Book";
 }
 
 @if (Session["Level"] != null && (Rank)Session["Level"] == Rank.Admin)
 {
-<p>
-    @Html.ActionLink("Create New Book", "CreateBook", "BookAuthorClassification")
-</p>
+    <p>
+        @Html.ActionLink("Create New Book", "CreateBook", "BookAuthorClassification")
+    </p>
 }
 
 <div class="row" id="bookListOuter">
 
-    @for (int i = 0; i < Model.BookSearchResult.Count; i++)
+    @for (int i = 0; i < Model.Count; i++)
     {
-    <div class="row text-left" id="bookListItem">
-        <div class="col-sm-2">
-            @{
+        <div class="row text-left" id="bookListItem">
+            <div class="col-sm-2">
+                @{
                     string ClassificationPictureString = "~/Resources/";
-                    ClassificationPictureString += Model.BookSearchResult[i].Classification.Signum += ".png";
-                    if (@Model.BookSearchResult[i].Classification.Signum[0] == 'P' && @Model.BookSearchResult[i].Classification.Signum[1] == 'u' && @Model.BookSearchResult[i].Classification.Signum[2] == 'b')
+                    ClassificationPictureString += Model[i].Classification.Signum += ".png";
+                    if (@Model[i].Classification.Signum[0] == 'P' && @Model[i].Classification.Signum[1] == 'u' && @Model[i].Classification.Signum[2] == 'b')
                     {
                         ClassificationPictureString = "~/Resources/Education.png";
                     }
-            }
-            <img src="@Url.Content(ClassificationPictureString)" id="bookListImage" />
-        </div>
-        <div class="col-sm-9">
-            <div class="row">
-                <div class="col-sm-9" id="bookListTitle">
-                    @Html.ActionLink(Html.Encode(@Model.BookSearchResult[i].Title), "ListBookDetails", "Book", new { id = @Model.BookSearchResult[i].ISBN }, null)
-                </div>
-                <div class="col-sm-3 text-right" id="bookListAdminPane">
-                    @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Admin)
+                }
+                <img src="@Url.Content(ClassificationPictureString)" id="bookListImage" />
+            </div>
+            <div class="col-sm-9">
+                <div class="row">
+                    <div class="col-sm-9" id="bookListTitle">
+                        @Html.ActionLink(HttpUtility.HtmlDecode(@Model[i].Title), "ListBookDetails", "Book", new { id = @Model[i].ISBN }, null)
+                    </div>
+                    <div class="col-sm-3 text-right" id="bookListAdminPane">
+                        @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Admin)
                         {
-                            @Html.ActionLink("Edit", "EditBook", "BookAuthorClassification", new { id = @Model.BookSearchResult[i].ISBN }, new { @class = "" });
+                            @Html.ActionLink("Edit", "EditBook", "BookAuthorClassification", new { id = @Model[i].ISBN }, new { @class = "" });
                             @Html.Raw(" | ");
-                            @Html.ActionLink("Delete", "DeleteBook", "Book", new { id = @Model.BookSearchResult[i].ISBN }, null);
+                            @Html.ActionLink("Delete", "DeleteBook", "Book", new { id = @Model[i].ISBN }, null);
                         }
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-5" id="bookListAuthor">
-                    <p class="listHeadline">Authors:</p>
+                <div class="row">
+                    <div class="col-sm-5" id="bookListAuthor">
+                        <p class="listHeadline">Authors:</p>
+                    </div>
+                    <div class="col-sm-2" id="bookListPublicationYear">
+                        <p class="listHeadline">Published:</p>
+                    </div>
+                    <div class="col-sm-3" id="bookListISBN">
+                        <p class="listHeadline">ISBN:</p>
+                    </div>
+                    <div class="col-sm-2" id="bookListPages">
+                        <p class="listHeadline">Pages:</p>
+                    </div>
                 </div>
-                <div class="col-sm-2" id="bookListPublicationYear">
-                    <p class="listHeadline">Published:</p>
-                </div>
-                <div class="col-sm-3" id="bookListISBN">
-                    <p class="listHeadline">ISBN:</p>
-                </div>
-                <div class="col-sm-2" id="bookListPages">
-                    <p class="listHeadline">Pages:</p>
-                </div>
-            </div>
-            <div class="row" id="bookListInfoRow">
-                <div class="col-sm-5" id="bookListAuthor">
-                    @if (Model.BookSearchResult[i].Authors[0].FirstName != "No Author")
+                <div class="row" id="bookListInfoRow">
+                    <div class="col-sm-5" id="bookListAuthor">
+                        @if (Model[i].Authors[0].FirstName != "No Author")
                         {
-                            foreach (var author in @Model.BookSearchResult[i].Authors)
+                            foreach (var author in @Model[i].Authors)
                             {
-                                @Html.ActionLink(Html.Encode(author.FullName), "ListAuthorDetails", "Author", new { id = author.Aid }, null)
-                                if (!@Model.BookSearchResult[i].Authors.Last().Equals(author))
+                                @Html.ActionLink(HttpUtility.HtmlDecode(author.FullName), "ListAuthorDetails", "Author", new { id = author.Aid }, null)
+                                if (!@Model[i].Authors.Last().Equals(author))
                                 {
-                    <span>
-                        |
-                    </span>
+                                    <span>
+                                        |
+                                    </span>
                                 }
                             }
                         }
@@ -75,29 +75,29 @@
                         {
                             @Html.Encode("No Author Available");
                         }
+                    </div>
+                    <div class="col-sm-2" id="bookListPublicationYear">
+                        @Model[i].PublicationYear
+                    </div>
+                    <div class="col-sm-3" id="bookListISBN">
+                        @Model[i].ISBN
+                    </div>
+                    <div class="col-sm-2" id="bookListPages">
+                        @Model[i].Pages
+                    </div>
                 </div>
-                <div class="col-sm-2" id="bookListPublicationYear">
-                    @Model.BookSearchResult[i].PublicationYear
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p class="listHeadline">Description:</p>
+                    </div>
                 </div>
-                <div class="col-sm-3" id="bookListISBN">
-                    @Model.BookSearchResult[i].ISBN
-                </div>
-                <div class="col-sm-2" id="bookListPages">
-                    @Model.BookSearchResult[i].Pages
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <p class="listHeadline">Description:</p>
-                </div>
-            </div>
-            <div class="row" id="bookListDescription">
-                <div class="col-sm-12">
-                    @Model.BookSearchResult[i].ShortDescription
+                <div class="row" id="bookListDescription">
+                    <div class="col-sm-12">
+                        @Model[i].ShortDescription
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
     }
 </div>

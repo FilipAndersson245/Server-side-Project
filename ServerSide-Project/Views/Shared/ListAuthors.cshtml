@@ -1,6 +1,6 @@
 ﻿@using PagedList.Mvc
 @using Service.Models
-@model Search
+@model PagedList.IPagedList<Service.Models.Author>
 
 @{
     ViewBag.Title = "ListAuthors";
@@ -13,7 +13,7 @@
     @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Admin)
     {
         <div class="col-sm-offset-3 col-sm-9 text-left">
-                @Html.ActionLink("Create New Author", "CreateAuthor", "Author", null, null)
+            @Html.ActionLink("Create New Author", "CreateAuthor", "Author", null, null)
         </div>
     }
 </div>
@@ -21,7 +21,7 @@
 <div class="row">
     <div class="col-sm-3"></div>
     <div class="col-sm-6" id="authorListOuter">
-        @foreach (var item in Model.AuthorSearchResult)
+        @foreach (var item in Model)
         {
 
             <div class="row" id="authorListItem">
@@ -29,7 +29,7 @@
                     <img src="~/Resources/Author.png" width="80%" height="80%" class="text-center" />
                 </div>
                 <div class="col-sm-3" id="authorListName">
-                    @Html.ActionLink(Html.Encode(item.FirstName + " " + item.LastName), "ListAuthorDetails", "Author", new { id = item.Aid }, null)
+                    @Html.ActionLink(HttpUtility.HtmlDecode(item.FullName), "ListAuthorDetails", "Author", new { id = item.Aid }, null)
                 </div>
                 <div class="col-sm-2 text-right">
                     <div class="row">
@@ -40,7 +40,7 @@
                         {<span>Unknown</span>}
                         else
                         { @Html.Encode(item.BirthYear);
-                        }
+                    }
                     </div>
                 </div>
                 <div class="col-sm-2 text-right">

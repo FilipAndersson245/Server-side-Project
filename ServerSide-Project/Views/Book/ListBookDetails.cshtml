@@ -23,7 +23,7 @@
         <div class="col-sm-9">
             <div class="row">
                 <div class="col-sm-9" id="bookListTitle">
-                    @Html.ActionLink(Html.Encode(@Model.Title), "ListBookDetails", "Book", new { id = @Model.ISBN }, null)
+                    @Html.ActionLink(HttpUtility.HtmlDecode(@Model.Title), "ListBookDetails", "Book", new { id = @Model.ISBN }, null)
                 </div>
                 <div class="col-sm-3 text-right" id="bookListAdminPane">
                     @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Admin)
@@ -54,7 +54,7 @@
                     {
                         foreach (var author in @Model.Authors)
                         {
-                            @Html.ActionLink(Html.Encode(author.FullName), "ListAuthorDetails", "Author", new { id = author.Aid }, null)
+                            @Html.ActionLink(HttpUtility.HtmlDecode(author.FullName), "ListAuthorDetails", "Author", new { id = author.Aid }, null)
                             if (!@Model.Authors.Last().Equals(author))
                             {<span> | </span>}
                         }

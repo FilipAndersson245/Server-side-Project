@@ -18,7 +18,7 @@
     </div>
 }
 
-@Html.Partial("ListBooks", Model)
+@Html.Partial("ListBooks", Model.BookSearchResult)
 
 @if (Model.BookSearchResult.PageCount > 0)
 {
