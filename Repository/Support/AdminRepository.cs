@@ -33,7 +33,7 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                string sql = @"INSERT INTO ADMINS VALUES (@username, @salt, @passwordHash, @ permissionLevel);";
+                string sql = @"INSERT INTO ADMINS VALUES (@username, @salt, @passwordHash, @ permissionLevel);"; //todo add CanEditClassification to create query
 
                 try
                 {
@@ -51,6 +51,26 @@ namespace Repository.Support
                 //db.ADMINS.Add(admin);
                 //db.SaveChanges();
                 //return true;
+            }
+        }
+
+        public bool resetPassword(string username, string passwordHash, string salt)
+        {
+            using (var db = new dbGrupp3())
+            {
+                try
+                {
+                    string sql = @"UPDATE ADMINS SET ADMINS.PasswordHash @passwordHash, ADMINS.Salt = @salt WHERE ADMINS.Username = @username";
+                    db.Database.ExecuteSqlCommand(sql,
+                        new SqlParameter("@username", username),
+                        new SqlParameter("@passwordHash", passwordHash),
+                        new SqlParameter("@salt", salt));
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
             }
         }
 
