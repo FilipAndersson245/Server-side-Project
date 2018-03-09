@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PagedList;
 
 namespace Service.Models
 {
     public class Search
     {
-        List<Author> AuthorSearchResult;
+        IPagedList<Author> AuthorSearchResult { get; set; }
 
-        List<Book> BookSearchResult;
+        IPagedList<Book> BookSearchResult { get; set; }
 
-        List<Classification> SelectedClassifications;
+        List<Classification> SelectedClassifications { get; set; }
 
-        string SearchQuery;
+        string SearchQuery { get; set; }
     }
 }
