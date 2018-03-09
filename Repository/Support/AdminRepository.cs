@@ -11,10 +11,7 @@ namespace Repository.Support
             using (var db = new dbGrupp3())
             {
                 string sql = "SELECT TOP 1 * FROM ADMINS WHERE ADMINS.Username = @user LIMIT 1";
-                var existingAdmin = db.Database.SqlQuery<ADMIN>(sql, new SqlParameter("@user", username)).SingleOrDefault();
-                return existingAdmin != null;
-
-                //return db.ADMINS.Any(x => x.Username.Equals(username));
+                return db.Database.SqlQuery<ADMIN>(sql, new SqlParameter("@user", username)).SingleOrDefault() != null;
             }
         }
 
@@ -24,8 +21,6 @@ namespace Repository.Support
             {
                 string sql = "SELECT TOP 1 * FROM ADMINS WHERE ADMINS.Username = @user";
                 return db.Database.SqlQuery<ADMIN>(sql, new SqlParameter("@user", username)).SingleOrDefault();
-
-                //return db.ADMINS.FirstOrDefault(x => x.Username.Equals(username));
             }
         }
 
@@ -34,7 +29,6 @@ namespace Repository.Support
             using (var db = new dbGrupp3())
             {
                 string sql = @"INSERT INTO ADMINS VALUES (@username, @salt, @passwordHash, @ permissionLevel);"; //todo add CanEditClassification to create query
-
                 try
                 {
                     db.Database.ExecuteSqlCommand(sql,
@@ -48,9 +42,6 @@ namespace Repository.Support
                 {
                     return false;
                 }
-                //db.ADMINS.Add(admin);
-                //db.SaveChanges();
-                //return true;
             }
         }
 
