@@ -13,10 +13,6 @@ namespace Service.Managers
         {
             ClassificationRepository repo = new ClassificationRepository();
             List<Book> bookList = Mapper.Map<List<BOOK>, List<Book>>(repo.GetBooksFromClassification(signId));
-            for (int i = 0; i < bookList.Count; i++)
-            {
-                //bookList[i] = Book.setupBook(bookList[i]);
-            }
             return bookList;
         }
 
@@ -30,6 +26,33 @@ namespace Service.Managers
         {
             ClassificationRepository repo = new ClassificationRepository();
             return Mapper.Map<CLASSIFICATION, Classification>(repo.GetClassificationFromID(id));
+        }
+
+        public Classification GetClassificationFromName(string name)
+        {
+            ClassificationRepository repo = new ClassificationRepository();
+            return Mapper.Map<CLASSIFICATION, Classification>(repo.GetClassificationFromName(name));
+        }
+
+        public Classification AddGenericClassification()
+        {
+            ClassificationRepository classRepo = new ClassificationRepository();
+            if (classRepo.DoesClassificationExist("Generic"))
+            {
+                return Mapper.Map<CLASSIFICATION, Classification>(classRepo.GetClassificationFromName("Generic"));
+            }
+            else
+            {
+                Classification genericClass = new Classification() { Signum = "Generic", Description = "Books without a category" };
+                if (classRepo.CreateClassification(Mapper.Map<Classification, CLASSIFICATION>(genericClass)))
+                {
+                    return genericClass;
+                }
+                else
+                {
+                    return genericClass; //Add some warning for user maybe
+                }
+            }
         }
 
         public bool DeleteClassification(Classification classification)
