@@ -31,7 +31,6 @@ namespace ServerSide_Project.Controllers
                 return RedirectToAction("BrowseAllBooks", "Book", null);
             else
                 return RedirectToAction("BrowseAllBooks", "Book", null);
-            //ModelState.AddModelError("","Could not delete your book")
         }
 
         [HttpGet]

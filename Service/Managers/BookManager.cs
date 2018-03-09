@@ -43,26 +43,11 @@ namespace Service.Managers
         public Classification AddClassification(Book book)
         {
             BookRepository bookRepo = new BookRepository();
-            ClassificationRepository classRepo = new ClassificationRepository();
+            ClassificationManager classificationManager = new ClassificationManager();
             Classification classification = Mapper.Map<CLASSIFICATION, Classification>(bookRepo.GetClassificationFromIsbn(Mapper.Map<Book, BOOK>(book)));
             if (classification == null)
             {
-                if (classRepo.DoesClassificationExist("Generic"))
-                {
-                    return Mapper.Map<CLASSIFICATION, Classification>(classRepo.GetClassificationFromName("Generic"));
-                }
-                else
-                {
-                    Classification genericClass = new Classification() { Signum = "Generic", Description = "Books without a category" };
-                    if (classRepo.CreateClassification(Mapper.Map<Classification, CLASSIFICATION>(genericClass)))
-                    {
-                        return genericClass;
-                    }
-                    else
-                    {
-                        return genericClass; //Add some warning for user maybe
-                    }
-                }
+                return classificationManager.AddGenericClassification();
             }
             else
             {
@@ -97,8 +82,20 @@ namespace Service.Managers
             return bookList;
         }
 
-        public Tuple<Book, BookValidation> CreateBook(Book book)
+        public Tuple<Book, BookValidation> CreateBook(BookAuthorClassification bac, string[] authorChecklist, int? classificationRadio)
         {
+            AuthorManager authorManager = new AuthorManager();
+            ClassificationManager classificationManager = new ClassificationManager();
+            Book book = bac.Book;
+            if (classificationRadio == null)
+                book.Classification = classificationManager.AddGenericClassification();
+            else
+                book.Classification = classificationManager.GetClassificationFromID(Convert.ToInt32(classificationRadio));
+            List<Author> authorList = new List<Author>();
+            foreach (var aID in authorChecklist)
+            {
+                book.Authors.Add(authorManager.GetAuthorFromID(Convert.ToInt32(aID)));
+            }
             BookValidation validation = new BookValidation(book);
             if (validation.IsValid)
             {

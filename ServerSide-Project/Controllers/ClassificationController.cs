@@ -7,11 +7,6 @@ namespace ServerSide_Project.Controllers
 {
     public class ClassificationController : ControllerExtension
     {
-        [HttpGet]
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         [HttpGet]
         public ActionResult ListClassifications(int id)

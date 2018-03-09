@@ -58,6 +58,7 @@
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BookAuthorClassification.cs" />
     <Compile Include="Models\Classification.cs" />
+    <Compile Include="Models\Search.cs" />
     <Compile Include="Tools\Extensions.cs" />
     <Compile Include="Tools\Hashing.cs" />
     <Compile Include="Validations\Validation.cs" />
