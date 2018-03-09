@@ -91,10 +91,13 @@ namespace Service.Managers
                 book.Classification = classificationManager.AddGenericClassification();
             else
                 book.Classification = classificationManager.GetClassificationFromID(Convert.ToInt32(classificationRadio));
-            List<Author> authorList = new List<Author>();
-            foreach (var aID in authorChecklist)
+            book.Authors = new List<Author>();
+            if (authorChecklist != null)
             {
-                book.Authors.Add(authorManager.GetAuthorFromID(Convert.ToInt32(aID)));
+                foreach (var aID in authorChecklist)
+                {
+                    book.Authors.Add(authorManager.GetAuthorFromID(Convert.ToInt32(aID)));
+                }
             }
             BookValidation validation = new BookValidation(book);
             if (validation.IsValid)
@@ -114,10 +117,31 @@ namespace Service.Managers
             return repo.DeleteBook(Mapper.Map<Book, BOOK>(GetBookFromIsbn(isbn)));
         }
 
-        public Tuple<Book, BookValidation> EditBook(Book book)
+        public Tuple<Book, BookValidation> EditBook(BookAuthorClassification bac, string[] authorChecklist, int? classificationRadio)
         {
-            BookValidation validation = new BookValidation(book);
+            AuthorManager authorManager = new AuthorManager();
+            ClassificationManager classificationManager = new ClassificationManager();
+            Book book = bac.Book;
             BookRepository repo = new BookRepository();
+            if (classificationRadio == null)
+            {
+                book.Classification = classificationManager.AddGenericClassification();
+                book.SignId = book.Classification.SignId;
+            }
+            else
+            {
+                book.Classification = classificationManager.GetClassificationFromID(Convert.ToInt32(classificationRadio));
+                book.SignId = book.Classification.SignId;
+            }
+            book.Authors = new List<Author>();
+            if (authorChecklist != null)
+            {
+                foreach (var aID in authorChecklist)
+                {
+                    book.Authors.Add(authorManager.GetAuthorFromID(Convert.ToInt32(aID)));
+                }
+            }
+            BookValidation validation = new BookValidation(book);
             if (!repo.DoesBookExist(book.ISBN))
                 validation.BookDoesntExist(book.ISBN);
             else if (validation.IsValid)

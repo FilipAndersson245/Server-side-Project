@@ -36,26 +36,17 @@ namespace Service.Validations
                 ErrorDict.Add(nameof(model.PublicationYear), ErrorCodes.InvalidRange);
             }
 
-            if (model.Publicationinfo.Length > DESCRIPTION_MAX_LENGTH)
+            if (model.Publicationinfo != null)
             {
-                ErrorDict.Add(nameof(model.Publicationinfo), ErrorCodes.InvalidRange);
+                if (model.Publicationinfo.Length > DESCRIPTION_MAX_LENGTH)
+                {
+                    ErrorDict.Add(nameof(model.Publicationinfo), ErrorCodes.InvalidRange);
+                }
             }
 
             if (model.Pages > BOOK_MAX_LENGTH)
             {
                 ErrorDict.Add(nameof(model.Pages), ErrorCodes.InvalidRange);
-            }
-
-            if (model.Authors != null)
-            {
-                if (model.Authors.Count < 1)
-                {
-                    ErrorDict.Add(nameof(model.Authors), ErrorCodes.IsRequired);
-                }
-            }
-            else
-            {
-                ErrorDict.Add(nameof(model.Authors), ErrorCodes.IsRequired);
             }
 
             if (model.Classification == null)

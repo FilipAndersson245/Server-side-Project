@@ -36,18 +36,26 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                db.Configuration.LazyLoadingEnabled = false;
-                BOOK book = db.BOOKs.Include(b => b.AUTHORs).FirstOrDefault(x => x.ISBN.Equals(eBook.ISBN));
-                db.Entry(book).CurrentValues.SetValues(eBook);
-                db.ChangeTracker.Entries<AUTHOR>().ToList().ForEach(a => a.State = EntityState.Unchanged);
-                db.ChangeTracker.Entries<CLASSIFICATION>().ToList().ForEach(a => a.State = EntityState.Unchanged);
-                book.AUTHORs.Clear();
-                foreach (var author in eBook.AUTHORs)
+                try
                 {
-                    book.AUTHORs.Add(author);
+                    db.Configuration.LazyLoadingEnabled = false;
+                    BOOK book = db.BOOKs.Include(b => b.AUTHORs).Include(b => b.CLASSIFICATION).FirstOrDefault(x => x.ISBN.Equals(eBook.ISBN));
+                    db.Entry(book).CurrentValues.SetValues(eBook);
+                    db.ChangeTracker.Entries<AUTHOR>().ToList().ForEach(a => a.State = EntityState.Unchanged);
+                    db.ChangeTracker.Entries<CLASSIFICATION>().ToList().ForEach(a => a.State = EntityState.Unchanged);
+                    book.AUTHORs.Clear();
+                    foreach (var author in eBook.AUTHORs)
+                    {
+                        book.AUTHORs.Add(author);
+                    }
+                    db.SaveChanges();
+                    return book;
                 }
-                db.SaveChanges();
-                return book;
+                catch
+                {
+                    return null;
+                }
+
             }
         }
 
@@ -55,11 +63,18 @@ namespace Repository.Support
         {
             using (var db = new dbGrupp3())
             {
-                db.BOOKs.Add(book);
-                db.ChangeTracker.Entries<AUTHOR>().ToList().ForEach(a => a.State = EntityState.Unchanged);
-                db.ChangeTracker.Entries<CLASSIFICATION>().ToList().ForEach(a => a.State = EntityState.Unchanged);
-                db.SaveChanges();
-                return book;
+                try
+                {
+                    db.BOOKs.Add(book);
+                    db.ChangeTracker.Entries<AUTHOR>().ToList().ForEach(a => a.State = EntityState.Unchanged);
+                    db.ChangeTracker.Entries<CLASSIFICATION>().ToList().ForEach(a => a.State = EntityState.Unchanged);
+                    db.SaveChanges();
+                    return book;
+                }
+                catch
+                {
+                    return null;
+                }
             }
         }
 
