@@ -2,10 +2,9 @@
 {
     public enum Rank
     {
-        // User,may change admin to 1 and have user as rank 0
-        Admin = 0,
-
-        SuperAdmin
+        Editor = 0, //do all books / author
+        Admin,      //also reset password
+        SuperAdmin  //create / delete admins
     }
 
     public class Admin
@@ -19,5 +18,7 @@
         public string Salt { get; set; }
 
         public Rank PermissionLevel { get; set; }
+
+        public bool CanEditClassification { get; set; }
     }
 }
