@@ -1,6 +1,6 @@
 ﻿@using PagedList.Mvc
 @using Service.Models
-@model PagedList.IPagedList<Service.Models.Author>
+@model Search
 
 @{
     ViewBag.Title = "ListAuthors";
@@ -21,7 +21,7 @@
 <div class="row">
     <div class="col-sm-3"></div>
     <div class="col-sm-6" id="authorListOuter">
-        @foreach (var item in Model)
+        @foreach (var item in Model.AuthorSearchResult)
         {
 
             <div class="row" id="authorListItem">

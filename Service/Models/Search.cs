@@ -9,12 +9,12 @@ namespace Service.Models
 {
     public class Search
     {
-        IPagedList<Author> AuthorSearchResult { get; set; }
+        public IPagedList<Author> AuthorSearchResult { get; set; }
 
-        IPagedList<Book> BookSearchResult { get; set; }
+        public IPagedList<Book> BookSearchResult { get; set; }
 
-        List<Classification> SelectedClassifications { get; set; }
+        public List<Classification> SelectedClassifications { get; set; }
 
-        string SearchQuery { get; set; }
+        public string SearchQuery { get; set; }
     }
 }

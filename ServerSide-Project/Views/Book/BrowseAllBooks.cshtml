@@ -1,31 +1,32 @@
 ﻿@using PagedList.Mvc
-@model PagedList.IPagedList<Service.Models.Book>
+@using Service.Models
+@model Search
 
 @{
     ViewBag.Title = "BrowseAllBooks";
     ViewBag.activeBrowseBy = "Book";
 }
 
-@if (Model.PageCount > 0)
+@if (Model.BookSearchResult.PageCount > 0)
 {
     <div class="text-center" id="pageSelector">
         <div class="pagination">
-            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-            of @Model.PageCount
-            @Html.PagedListPager(Model, page => Url.Action("BrowseAllBooks", new { page }))
+            Page @(Model.BookSearchResult.PageCount < Model.BookSearchResult.PageNumber ? 0 : Model.BookSearchResult.PageNumber)
+            of @Model.BookSearchResult.PageCount
+            @Html.PagedListPager(Model.BookSearchResult, page => Url.Action("BrowseAllBooks", new { page }))
         </div>
     </div>
 }
 
 @Html.Partial("ListBooks", Model)
 
-@if (Model.PageCount > 0)
+@if (Model.BookSearchResult.PageCount > 0)
 {
     <div class="text-center" id="pageSelector">
         <div class="pagination">
-            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-            of @Model.PageCount
-            @Html.PagedListPager(Model, page => Url.Action("BrowseAllBooks", new { page }))
+            Page @(Model.BookSearchResult.PageCount < Model.BookSearchResult.PageNumber ? 0 : Model.BookSearchResult.PageNumber)
+            of @Model.BookSearchResult.PageCount
+            @Html.PagedListPager(Model.BookSearchResult, page => Url.Action("BrowseAllBooks", new { page }))
         </div>
     </div>
 }

@@ -1,6 +1,6 @@
 ﻿@using PagedList.Mvc
 @using Service.Models
-@model PagedList.IPagedList<Service.Models.Book>
+@model Search
 @{
     ViewBag.activeBrowseBy = "Book";
 }
@@ -14,14 +14,14 @@
 
 <div class="row" id="bookListOuter">
 
-    @for (int i = 0; i < Model.Count; i++)
+    @for (int i = 0; i < Model.BookSearchResult.Count; i++)
     {
     <div class="row text-left" id="bookListItem">
         <div class="col-sm-2">
             @{
                     string ClassificationPictureString = "~/Resources/";
-                    ClassificationPictureString += Model[i].Classification.Signum += ".png";
-                    if (@Model[i].Classification.Signum[0] == 'P' && @Model[i].Classification.Signum[1] == 'u' && @Model[i].Classification.Signum[2] == 'b')
+                    ClassificationPictureString += Model.BookSearchResult[i].Classification.Signum += ".png";
+                    if (@Model.BookSearchResult[i].Classification.Signum[0] == 'P' && @Model.BookSearchResult[i].Classification.Signum[1] == 'u' && @Model.BookSearchResult[i].Classification.Signum[2] == 'b')
                     {
                         ClassificationPictureString = "~/Resources/Education.png";
                     }
@@ -31,14 +31,14 @@
         <div class="col-sm-9">
             <div class="row">
                 <div class="col-sm-9" id="bookListTitle">
-                    @Html.ActionLink(Html.Encode(@Model[i].Title), "ListBookDetails", "Book", new { id = @Model[i].ISBN }, null)
+                    @Html.ActionLink(Html.Encode(@Model.BookSearchResult[i].Title), "ListBookDetails", "Book", new { id = @Model.BookSearchResult[i].ISBN }, null)
                 </div>
                 <div class="col-sm-3 text-right" id="bookListAdminPane">
                     @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Admin)
                         {
-                    @Html.ActionLink("Edit", "EditBook", "BookAuthorClassification", new { id = @Model[i].ISBN }, new { @class = "" });
-                    @Html.Raw(" | ");
-                    @Html.ActionLink("Delete", "DeleteBook", "Book", new { id = @Model[i].ISBN }, null);
+                            @Html.ActionLink("Edit", "EditBook", "BookAuthorClassification", new { id = @Model.BookSearchResult[i].ISBN }, new { @class = "" });
+                            @Html.Raw(" | ");
+                            @Html.ActionLink("Delete", "DeleteBook", "Book", new { id = @Model.BookSearchResult[i].ISBN }, null);
                         }
                 </div>
             </div>
@@ -58,12 +58,12 @@
             </div>
             <div class="row" id="bookListInfoRow">
                 <div class="col-sm-5" id="bookListAuthor">
-                    @if (Model[i].Authors[0].FirstName != "No Author")
+                    @if (Model.BookSearchResult[i].Authors[0].FirstName != "No Author")
                         {
-                            foreach (var author in @Model[i].Authors)
+                            foreach (var author in @Model.BookSearchResult[i].Authors)
                             {
-                    @Html.ActionLink(Html.Encode(author.FullName), "ListAuthorDetails", "Author", new { id = author.Aid }, null)
-                                if (!@Model[i].Authors.Last().Equals(author))
+                                @Html.ActionLink(Html.Encode(author.FullName), "ListAuthorDetails", "Author", new { id = author.Aid }, null)
+                                if (!@Model.BookSearchResult[i].Authors.Last().Equals(author))
                                 {
                     <span>
                         |
@@ -73,17 +73,17 @@
                         }
                         else
                         {
-                    @Html.Encode("No Author Available");
+                            @Html.Encode("No Author Available");
                         }
                 </div>
                 <div class="col-sm-2" id="bookListPublicationYear">
-                    @Model[i].PublicationYear
+                    @Model.BookSearchResult[i].PublicationYear
                 </div>
                 <div class="col-sm-3" id="bookListISBN">
-                    @Model[i].ISBN
+                    @Model.BookSearchResult[i].ISBN
                 </div>
                 <div class="col-sm-2" id="bookListPages">
-                    @Model[i].Pages
+                    @Model.BookSearchResult[i].Pages
                 </div>
             </div>
             <div class="row">
@@ -93,7 +93,7 @@
             </div>
             <div class="row" id="bookListDescription">
                 <div class="col-sm-12">
-                    @Model[i].ShortDescription
+                    @Model.BookSearchResult[i].ShortDescription
                 </div>
             </div>
         </div>

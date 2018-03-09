@@ -66,20 +66,22 @@ namespace Service.Managers
             }
         }
 
-        public IPagedList<Book> GetAllBooks(int page, int itemsPerPage)
+        public Search GetAllBooks(int page, int itemsPerPage)
         {
             BookRepository repo = new BookRepository();
             var bookList = repo.GetAllBooksFromDB(page, itemsPerPage).ToMappedPagedList<BOOK, Book>();
             SetupBooks(bookList);
-            return bookList;
+            Search searchResult = new Search() { BookSearchResult = bookList };
+            return searchResult;
         }
 
-        public IPagedList<Book> SearchBooks(string search, int page, int itemsPerPage, params int[] classifications)
+        public Search SearchBooks(string search, int page, int itemsPerPage, params int[] classifications)
         {
             BookRepository repo = new BookRepository();
             var bookList = repo.GetBookSearchResultat(search, page, itemsPerPage, classifications).ToMappedPagedList<BOOK, Book>();
             SetupBooks(bookList);
-            return bookList;
+            Search searchResult = new Search() { BookSearchResult = bookList};
+            return searchResult;
         }
 
         public Tuple<Book, BookValidation> CreateBook(BookAuthorClassification bac, string[] authorChecklist, int? classificationRadio)

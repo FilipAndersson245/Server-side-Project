@@ -52,10 +52,11 @@ namespace Service.Managers
             return repo.DeleteAuthor(Mapper.Map<Author, AUTHOR>(author));
         }
 
-        public IPagedList<Author> GetAllAuthors(int page, int itemsPerPage)
+        public Search GetAllAuthors(int page, int itemsPerPage)
         {
             AuthorRepository repo = new AuthorRepository();
-            return repo.GetAllAuthorsFromDB(page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>();
+            Search searchResult = new Search() { AuthorSearchResult = repo.GetAllAuthorsFromDB(page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>() };
+            return searchResult;
         }
 
         public List<Author> GetAllAuthorsToList()
@@ -75,10 +76,11 @@ namespace Service.Managers
             return author;
         }
 
-        public IPagedList<Author> GetAuthorsFromSearch(string search, int page, int itemsPerPage)
+        public Search GetAuthorsFromSearch(string search, int page, int itemsPerPage)
         {
             AuthorRepository repo = new AuthorRepository();
-            return repo.GetAuthorsFromSearchResult(search, page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>(); ;
+            Search searchResult = new Search() { AuthorSearchResult = repo.GetAuthorsFromSearchResult(search, page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>() };
+            return searchResult;
         }
 
         public Author GetAuthorFromID(int id)
