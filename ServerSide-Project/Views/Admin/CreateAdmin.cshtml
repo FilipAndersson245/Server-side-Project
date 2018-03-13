@@ -1,37 +1,68 @@
 ﻿@model Service.Models.Admin
+@using Service.Models
 
 @{
     ViewBag.Title = "CreateAdmin";
 }
 
-<h2 class="text-center">CreateAdmin</h2>
-<div class="col-sm-4 col-sm-offset-4" }>
-    @using (Html.BeginForm("CreateAdmin", "Admin", FormMethod.Post, new { }))
+<h2 class="text-center">Create New Admin</h2>
+
+<div class="col-sm-6 col-sm-offset-3">
+    @using (Html.BeginForm()) 
     {
         @Html.AntiForgeryToken()
+    
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-        <h4>Admin</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label " })
-            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessage(nameof(Model.Username), new { @class = "text-danger" })
-        </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
-            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessage(nameof(Model.Password), new { @class = "text-danger" })
-        </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PermissionLevel, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EnumDropDownListFor(
+                            x => x.PermissionLevel,
+                            new { @class = "form-control" })
+                </div>
+            </div>
 
-        <div class="form-group">
-            <div class="text-left col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="form-group">
+                @Html.LabelFor(model => model.CanEditClassification, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.CanEditClassification)
+                        @Html.ValidationMessageFor(model => model.CanEditClassification, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
             </div>
         </div>
     }
 </div>
+
 <div>
-    @Html.ActionLink("Back to List", "AdminPanel", "Admin", null, null)
+    @Html.ActionLink("Back to List", "Index")
 </div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

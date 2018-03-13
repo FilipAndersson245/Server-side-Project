@@ -33,7 +33,7 @@
                 </div>
                 <div class="navbar-col-sm-4">
                     <ul class="nav navbar-nav navbar-right">
-                        @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Admin)
+                        @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Editor)
                         {
                             <li>@Html.ActionLink("Admin", "AdminPanel", "Admin", null, null)</li>
                             using (@Html.BeginForm("Logout", "Admin", FormMethod.Post, new { @class = "form-group", @id = "logOutButton" }))
@@ -70,14 +70,14 @@
                         </div>
 
                         <div class="col-sm-2 sidenav float-left align-top text-center container" id="classificationOuter">
-                            @if (Session["Level"] != null && (Rank)Session["Level"] == Rank.Admin)
+                            @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Editor)
                             {
                                 <div class="row">
                                     @Html.ActionLink("Create New Classification", "CreateClassification", "Classification", null, null)
                                 </div>
                             }
                             <div class="collapse-group">
-                                <b>Advanced Filters</b>
+                                <b>Filters</b>
                                 @{Html.RenderAction("GetClassifications", "Classification");}
                             </div>
                         </div>

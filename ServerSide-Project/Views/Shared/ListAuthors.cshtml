@@ -10,7 +10,7 @@
     <div class="col-sm-12 text-center">
         <h2>Authors</h2>
     </div>
-    @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Admin)
+    @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Editor)
     {
         <div class="col-sm-offset-3 col-sm-9 text-left">
             @Html.ActionLink("Create New Author", "CreateAuthor", "Author", null, null)

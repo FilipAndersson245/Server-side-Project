@@ -5,7 +5,7 @@
     ViewBag.activeBrowseBy = "Book";
 }
 
-@if (Session["Level"] != null && (Rank)Session["Level"] == Rank.Admin)
+@if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Editor)
 {
     <p>
         @Html.ActionLink("Create New Book", "CreateBook", "BookAuthorClassification")
