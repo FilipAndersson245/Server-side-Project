@@ -81,11 +81,11 @@ namespace Service.Managers
             BookRepository repo = new BookRepository();
             var bookList = repo.GetBookSearchResultat(search, page, itemsPerPage, classifications).ToMappedPagedList<BOOK, Book>();
             SetupBooks(bookList);
-            Search searchResult = new Search() { BookSearchResult = bookList, SearchQuery = search, SelectedClassifications = classifications.ToList() };
+            Search searchResult = new Search() { BookSearchResult = bookList, SearchQuery = search, SelectedClassifications = classifications.ToList()};
             return searchResult;
         }
 
-        public Search Search(Search search, int page, int itemsPerPage)
+        public Search SearchBooks(Search search, int page, int itemsPerPage)
         {
             var bookList = new BookRepository().GetBookSearchResultat(search.SearchQuery, page, itemsPerPage, search.SelectedClassifications.ToArray()).ToMappedPagedList<BOOK, Book>();
             SetupBooks(bookList);

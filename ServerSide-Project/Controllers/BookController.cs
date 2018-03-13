@@ -1,5 +1,6 @@
 ﻿using ServerSide_Project.Tools;
 using Service.Managers;
+using Service.Models;
 using System.Web.Mvc;
 
 namespace ServerSide_Project.Controllers
@@ -47,5 +48,12 @@ namespace ServerSide_Project.Controllers
             BookManager bookManager = new BookManager();
             return View("BrowseSearchedBooks", bookManager.SearchBooks(search, page, ITEMS_PER_PAGE, classifications));
         }
+
+        //[HttpGet]
+        //public ActionResult SearchBooks(Search search, int page = 1)
+        //{
+        //    BookManager manager = new BookManager();
+        //    return View("BrowseSearchedBooks", manager.SearchBooks(search, page, ITEMS_PER_PAGE));
+        //}
     }
 }
