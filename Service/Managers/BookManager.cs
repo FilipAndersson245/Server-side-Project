@@ -7,6 +7,7 @@ using Service.Tools;
 using Service.Validations;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Service.Managers
 {
@@ -80,8 +81,16 @@ namespace Service.Managers
             BookRepository repo = new BookRepository();
             var bookList = repo.GetBookSearchResultat(search, page, itemsPerPage, classifications).ToMappedPagedList<BOOK, Book>();
             SetupBooks(bookList);
-            Search searchResult = new Search() { BookSearchResult = bookList};
+            Search searchResult = new Search() { BookSearchResult = bookList, SearchQuery = search, SelectedClassifications = classifications.ToList() };
             return searchResult;
+        }
+
+        public Search Search(Search search, int page, int itemsPerPage)
+        {
+            var bookList = new BookRepository().GetBookSearchResultat(search.SearchQuery, page, itemsPerPage, search.SelectedClassifications.ToArray()).ToMappedPagedList<BOOK, Book>();
+            SetupBooks(bookList);
+            search.BookSearchResult = bookList;
+            return search;
         }
 
         public Tuple<Book, BookValidation> CreateBook(BookAuthorClassification bac, string[] authorChecklist, int? classificationRadio)

@@ -13,7 +13,7 @@ namespace Service.Models
 
         public IPagedList<Book> BookSearchResult { get; set; }
 
-        public List<Classification> SelectedClassifications { get; set; }
+        public List<int> SelectedClassifications { get; set; } //changed from classifications to int
 
         public string SearchQuery { get; set; }
     }
