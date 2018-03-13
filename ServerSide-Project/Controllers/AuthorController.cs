@@ -26,6 +26,7 @@ namespace ServerSide_Project.Controllers
 
         [HttpPost]
         [SetTempDataModelState]
+        [ValidateAntiForgeryToken]
         public ActionResult CreateAuthor(Author author)
         {
             ValidateAndRedirect();
@@ -51,6 +52,7 @@ namespace ServerSide_Project.Controllers
 
         [HttpPost]
         [SetTempDataModelState]
+        [ValidateAntiForgeryToken]
         public ActionResult EditAuthor(Author author)
         {
             ValidateAndRedirect();
@@ -65,7 +67,8 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeleteAuthor(int id)
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteAuthorPost(int id)
         {
             ValidateAndRedirect();
             AuthorManager authorManager = new AuthorManager();
@@ -73,6 +76,13 @@ namespace ServerSide_Project.Controllers
                 return RedirectToAction("BrowseAllAuthors", "Author", null);
             else
                 return RedirectToAction("BrowseAllAuthors", "Author", null);
+        }
+
+        [HttpGet]
+        public ActionResult DeleteAuthor(string id)
+        {
+            AuthorManager manager = new AuthorManager();
+            return View("DeleteAuthor", manager.GetAuthorFromID(Convert.ToInt32(id)));
         }
 
         [HttpGet]

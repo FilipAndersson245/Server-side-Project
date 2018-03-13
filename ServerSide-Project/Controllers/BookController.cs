@@ -23,7 +23,8 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeleteBook(string id)
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteBookPost(string id)
         {
             ValidateAndRedirect();
             BookManager bookManager = new BookManager();
@@ -34,8 +35,7 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
-        [ActionName("DeleteBook")]
-        public ActionResult DeleteBookGet(string id)
+        public ActionResult DeleteBook(string id)
         {
             BookManager manager = new BookManager();
             return View("DeleteBook", manager.GetBookFromIsbn(id));

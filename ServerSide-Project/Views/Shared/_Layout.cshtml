@@ -38,6 +38,7 @@
                             <li>@Html.ActionLink("Admin", "AdminPanel", "Admin", null, null)</li>
                             using (@Html.BeginForm("Logout", "Admin", FormMethod.Post, new { @class = "form-group", @id = "logOutButton" }))
                             {
+                                @Html.AntiForgeryToken()
                                 <span class="glyphicon glyphicon-log-out"></span>
                                 <button type="submit" class="btn btn-link"> Sign Out</button>
                             }

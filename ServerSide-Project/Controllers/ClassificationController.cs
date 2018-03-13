@@ -24,6 +24,7 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult EditClassification(Classification classification)
         {
             ValidateAndRedirect();
@@ -48,6 +49,7 @@ namespace ServerSide_Project.Controllers
 
         [HttpPost]
         [SetTempDataModelState]
+        [ValidateAntiForgeryToken]
         public ActionResult CreateClassification(Classification classification)
         {
             ValidateAndRedirect();
@@ -61,6 +63,7 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteClassificationPost(int id)
         {
             ValidateAndRedirect();

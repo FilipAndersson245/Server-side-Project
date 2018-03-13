@@ -6,8 +6,8 @@
 
 <h2>Are you sure you want to delete this book?</h2>
 
-@using (Html.BeginForm("DeleteBook", "Book", new { id = @Model.ISBN }, FormMethod.Post, new { @class = "form-group" }))
+@using (Html.BeginForm("DeleteBookPost", "Book", new { id = @Model.ISBN }, FormMethod.Post, new { @class = "form-group" }))
 {
-    Html.AntiForgeryToken();
+    @Html.AntiForgeryToken();
     <input type="submit" value="Delete" class="btn-link" />
 }

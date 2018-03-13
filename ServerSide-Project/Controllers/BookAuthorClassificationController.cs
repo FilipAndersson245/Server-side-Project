@@ -20,6 +20,7 @@ namespace ServerSide_Project.Controllers
 
         [HttpPost]
         [SetTempDataModelState]
+        [ValidateAntiForgeryToken]
         public ActionResult CreateBook(BookAuthorClassification bac, string[] authorChecklist, int? classificationRadio) //Strukturera om till servicelagret och lös classificationRadio null
         {
             ValidateAndRedirect();
@@ -47,6 +48,7 @@ namespace ServerSide_Project.Controllers
 
         [HttpPost]
         [SetTempDataModelState]
+        [ValidateAntiForgeryToken]
         public ActionResult EditBook(BookAuthorClassification bac, string[] authorChecklist, int classificationRadio)
         {
             ValidateAndRedirect();

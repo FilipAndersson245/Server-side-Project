@@ -1,0 +1,13 @@
+﻿@model Service.Models.Author
+
+@{
+    ViewBag.Title = "DeleteAuthor";
+}
+
+<h2>Are you sure you want to delete this author?</h2>
+
+@using (Html.BeginForm("DeleteAuthorPost", "Author", new { id = @Model.Aid }, FormMethod.Post, new { @class = "form-group" }))
+{
+    @Html.AntiForgeryToken();
+    <input type="submit" value="Delete" class="btn-link" />
+}
