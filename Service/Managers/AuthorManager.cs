@@ -27,7 +27,6 @@ namespace Service.Managers
                 }
             }
             return new Tuple<int?, AuthorValidation>(id, validation);
-            //should return the validation instead of int? should maybe Tuple.
         }
 
         public Tuple<Author, AuthorValidation> EditAuthor(Author author)
@@ -79,8 +78,15 @@ namespace Service.Managers
         public Search GetAuthorsFromSearch(string search, int page, int itemsPerPage)
         {
             AuthorRepository repo = new AuthorRepository();
-            Search searchResult = new Search() { AuthorSearchResult = repo.GetAuthorsFromSearchResult(search, page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>() };
+            Search searchResult = new Search() { AuthorSearchResult = repo.GetAuthorsFromSearchResult(search, page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>(), SearchQuery = search};
             return searchResult;
+        }
+
+        public Search GetAuthorsFromSearch(Search search, int page, int itemsPerPage)
+        {
+            AuthorRepository repo = new AuthorRepository();
+            search.AuthorSearchResult = repo.GetAuthorsFromSearchResult(search.SearchQuery, page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>();
+            return search;
         }
 
         public Author GetAuthorFromID(int id)
