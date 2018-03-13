@@ -195,6 +195,7 @@
     <Content Include="Views\BookAuthorClassification\EditBook.cshtml" />
     <Content Include="Views\Classification\DeleteClassification.cshtml" />
     <Content Include="Views\Book\DeleteBook.cshtml" />
+    <Content Include="Views\Author\DeleteAuthor.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

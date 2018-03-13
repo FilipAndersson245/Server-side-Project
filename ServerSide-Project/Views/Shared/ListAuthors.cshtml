@@ -48,11 +48,7 @@
                     {
                         @Html.ActionLink("Edit", "EditAuthor", "Author", new { id = item.Aid }, null);
                         @Html.Raw(" | ")
-                        using (Html.BeginForm("DeleteAuthor", "Author", new { id = item.Aid }, FormMethod.Post, new { @class = "form-group", @id = "authorListOptions" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            <input type="submit" value="Delete" class="btn-link" />
-                        }
+                        @Html.ActionLink("Delete", "DeleteAuthor", "Author", new { id = item.Aid }, null);
                     }
                 </div>
             </div>

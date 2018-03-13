@@ -25,6 +25,7 @@ namespace ServerSide_Project.Controllers
 
         [HttpPost]
         [SetTempDataModelState]
+        [ValidateAntiForgeryToken]
         public ActionResult CreateAdmin(Admin admin)
         {
             ValidateAndRedirect(Rank.SuperAdmin);
@@ -39,6 +40,7 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteAdmin(string id)
         {
             ValidateAndRedirect(Rank.SuperAdmin);
@@ -55,6 +57,7 @@ namespace ServerSide_Project.Controllers
 
         [HttpPost]
         [SetTempDataModelState]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(Admin admin, string returnBackTo = null)
         {
             var modelList = ModelState.ToList();
