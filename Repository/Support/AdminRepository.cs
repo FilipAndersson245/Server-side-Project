@@ -15,6 +15,14 @@ namespace Repository.Support
             }
         }
 
+        public int GetPermissionLevel(string username)
+        {
+            using (var db = new dbGrupp3())
+            {
+                return db.ADMINS.FirstOrDefault(x => x.Username == username).PermissionLevel;
+            }
+        }
+
         public ADMIN GetAdmin(string username)
         {
             using (var db = new dbGrupp3())

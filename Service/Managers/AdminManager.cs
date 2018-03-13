@@ -5,6 +5,7 @@ using Service.Models;
 using Service.Tools;
 using Service.Validations;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Service.Managers
 {
@@ -32,6 +33,12 @@ namespace Service.Managers
                 }
             }
             return validation;
+        }
+
+        public Rank getPermissionLevel(string username)
+        {
+            AdminRepository repo = new AdminRepository();
+            return (Rank)repo.GetPermissionLevel(username);
         }
 
         public AdminValidation SignUp(Admin admin)
