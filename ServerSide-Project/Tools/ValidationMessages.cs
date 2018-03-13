@@ -15,15 +15,15 @@ namespace ServerSide_Project.Tools
                 switch (code)
                 {
                     case ErrorCodes.IsRequired:
-                        modelState.AddModelError(dict.Key, " Is Required!");
+                        modelState.AddModelError(dict.Key, "Is Required!");
                         break;
 
                     case ErrorCodes.DoesNotExist:
-                        modelState.AddModelError(dict.Key, " Does not exist");
+                        modelState.AddModelError(dict.Key, "Does not exist");
                         break;
 
                     case ErrorCodes.ExistsAlready:
-                        modelState.AddModelError(dict.Key, " Is already in use");
+                        modelState.AddModelError(dict.Key, "Is already in use");
                         break;
 
                     case ErrorCodes.InvalidRange:

@@ -19,11 +19,11 @@ namespace Service.Validations
                 ErrorDict.Add(nameof(model.FirstName), ErrorCodes.ToLong);
             }
 
-            if (string.IsNullOrWhiteSpace(model.FirstName))
+            if (string.IsNullOrWhiteSpace(model.LastName))
             {
                 ErrorDict.Add(nameof(model.LastName), ErrorCodes.IsRequired);
             }
-            else if (model.FirstName.Length > MAX_NAME_LENGTH)
+            else if (model.LastName.Length > MAX_NAME_LENGTH)
             {
                 ErrorDict.Add(nameof(model.LastName), ErrorCodes.ToLong);
             }
