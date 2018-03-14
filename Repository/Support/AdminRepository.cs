@@ -54,7 +54,7 @@ namespace Repository.Support
             }
         }
 
-        public bool resetPassword(string username, string passwordHash, string salt)
+        public bool ResetPassword(string username, string passwordHash, string salt)
         {
             using (var db = new dbLibrary())
             {
@@ -66,6 +66,28 @@ namespace Repository.Support
                         new SqlParameter("@passwordHash", passwordHash),
                         new SqlParameter("@salt", salt));
                     return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool DeleteAdmin(string username)
+        {
+            using (var db = new dbLibrary())
+            {
+                try
+                {
+                    var admin = db.ADMINS.SingleOrDefault(x => x.Username.Equals(username));
+                    if (admin != null)
+                    {
+                        db.ADMINS.Remove(admin);
+                        db.SaveChanges();
+                        return true;
+                    }
+                    return false;
                 }
                 catch
                 {
