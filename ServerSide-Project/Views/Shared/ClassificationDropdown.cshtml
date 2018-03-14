@@ -10,13 +10,14 @@
     </div>
     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
         <div class="panel-body">
-            @foreach (var classification in Model)
-            {
+            @{
+                foreach (var classification in Model)
+                {
                 <div class="col-sm-2 text-left">
-
                     <input name=classifications type="radio" value=@classification.SignId id=@classification.Signum>
                     <label for=@classification.Signum>@classification.Signum</label>
                 </div>
+                }
             }
         </div>
     </div>

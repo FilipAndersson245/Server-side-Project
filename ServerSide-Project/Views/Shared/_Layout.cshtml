@@ -52,18 +52,18 @@
             </div>
         </div>
     </nav>
-
-    @{Html.RenderPartial("SearchForms", new Search());}
-    @*<div class="container-fluid text-center">
+@*@{Html.RenderPartial("SearchForms", new Search());}*@
+    <div class="container-fluid text-center">
         <div class="content">
             <div class="row text-center">
                 @if (ViewBag.activeBrowseBy == "Book")
                 {
+                    string search = Request.Params["search"];
                     using (Html.BeginForm("SearchBooks", "Book", FormMethod.Get, new { @class = "form-inline" }))
                     {
                         Html.AntiForgeryToken();
                         <div class="form-group col-sm-12 input-lg text-center" id="searchBar">
-                            <input type="text" name="search" class="form-control" id="searchField" placeholder="Search for books">
+                            <input type="text" name="search" class="form-control" id="searchField" value="@search" placeholder="Search for books">
                             <button class="btn btn-default" type="submit" id="searchBtn">
                                 <i class="glyphicon glyphicon-search"></i>
                             </button>
@@ -107,8 +107,7 @@
                         }
             </div>
         </div>
-    </div>*@
-    @RenderBody()
+    </div>
 
     <footer>
         <div class="navbar align-center">
