@@ -65,7 +65,6 @@ namespace ServerSide_Project.Controllers
             var validation = manager.Login(admin);
             if (validation.IsValid)
             {
-
                 Session["authentication"] = admin.Username;
                 Session["level"] = manager.getPermissionLevel(admin.Username);
                 if (String.IsNullOrEmpty(returnBackTo))

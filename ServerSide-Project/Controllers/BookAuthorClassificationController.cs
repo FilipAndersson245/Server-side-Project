@@ -1,8 +1,6 @@
 ﻿using ServerSide_Project.Tools;
 using Service.Managers;
 using Service.Models;
-using System;
-using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace ServerSide_Project.Controllers

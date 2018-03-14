@@ -47,7 +47,6 @@ namespace Repository.Support
                 {
                     return null;
                 }
-
             }
             using (var db = new dbLibrary())
             {
@@ -70,7 +69,6 @@ namespace Repository.Support
                 {
                     return null;
                 }
-
             }
         }
 

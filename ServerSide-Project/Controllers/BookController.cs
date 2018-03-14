@@ -1,6 +1,5 @@
 ﻿using ServerSide_Project.Tools;
 using Service.Managers;
-using Service.Models;
 using System.Web.Mvc;
 
 namespace ServerSide_Project.Controllers

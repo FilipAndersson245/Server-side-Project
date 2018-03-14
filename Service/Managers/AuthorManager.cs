@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using PagedList;
 using Repository;
 using Repository.Support;
 using Service.Models;
@@ -12,10 +11,15 @@ namespace Service.Managers
 {
     public class AuthorManager
     {
-        public Tuple<int?, AuthorValidation> CreateAuthor(Author author) //Returns Aid if successfull, 0 if failed
+        /// <summary>
+        /// Create a new Author
+        /// </summary>
+        /// <param name="author"></param>
+        /// <returns>A tuple with errors and a int? that store if sucessful the created id</returns>
+        public Tuple<int?, AuthorValidation> CreateAuthor(Author author)
         {
+            var a = CreateAuthor(new Author());
             AuthorValidation validation = new AuthorValidation(author);
-
             int? id = null;
             if (validation.IsValid)
             {
@@ -29,6 +33,11 @@ namespace Service.Managers
             return new Tuple<int?, AuthorValidation>(id, validation);
         }
 
+        /// <summary>
+        /// Edit author return tuple with the edited object if sucessful and a errror dict
+        /// </summary>
+        /// <param name="author"></param>
+        /// <returns></returns>
         public Tuple<Author, AuthorValidation> EditAuthor(Author author)
         {
             AuthorValidation validation = new AuthorValidation(author);
@@ -69,7 +78,6 @@ namespace Service.Managers
             AuthorRepository repo = new AuthorRepository();
             Author author = Mapper.Map<AUTHOR, Author>(repo.GetAuthorDetailsFromDB(id));
             author.BookList = repo.GetBooksByAuthor(id, bookPage).ToMappedPagedList<BOOK, Book>();
-
             BookManager bookManager = new BookManager();
             bookManager.SetupBooks(author.BookList);
             return author;
@@ -78,7 +86,7 @@ namespace Service.Managers
         public Search GetAuthorsFromSearch(string search, int page, int itemsPerPage)
         {
             AuthorRepository repo = new AuthorRepository();
-            Search searchResult = new Search() { AuthorSearchResult = repo.GetAuthorsFromSearchResult(search, page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>(), SearchQuery = search};
+            Search searchResult = new Search() { AuthorSearchResult = repo.GetAuthorsFromSearchResult(search, page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>(), SearchQuery = search };
             return searchResult;
         }
 

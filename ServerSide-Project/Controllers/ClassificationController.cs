@@ -7,7 +7,6 @@ namespace ServerSide_Project.Controllers
 {
     public class ClassificationController : ControllerExtension
     {
-
         [HttpGet]
         public ActionResult ListClassifications(int id)
         {

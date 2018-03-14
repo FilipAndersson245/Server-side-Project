@@ -5,7 +5,6 @@ using Service.Models;
 using Service.Tools;
 using Service.Validations;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Service.Managers
 {
