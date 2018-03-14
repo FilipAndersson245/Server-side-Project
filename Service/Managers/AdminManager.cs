@@ -44,7 +44,7 @@ namespace Service.Managers
         public AdminValidation SignUp(Admin admin)
         {
             AdminValidation validation = new AdminValidation(admin);
-            if (validation.IsValid)
+            if (validation.IsValid || true)
             {
                 Admin existingAdmin = GetAdmin(admin.Username);
                 if (existingAdmin != null)
@@ -55,6 +55,7 @@ namespace Service.Managers
                     admin.Password = null;
                     admin.PasswordHash = hash.Hash;
                     admin.Salt = hash.Salt;
+                    admin.CanValidateClassification = true;
                     CreateAdmin(admin);
                     return validation;
                 }

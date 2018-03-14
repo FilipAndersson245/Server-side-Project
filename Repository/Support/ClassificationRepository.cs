@@ -8,7 +8,7 @@ namespace Repository.Support
     {
         public bool DoesClassificationExist(int signId)
         {
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
                 return db.CLASSIFICATIONs.Any(x => x.SignId.Equals(signId));
             }
@@ -16,7 +16,7 @@ namespace Repository.Support
 
         public bool DoesClassificationExist(string signum)
         {
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
                 return db.CLASSIFICATIONs.Any(x => x.Signum.Equals(signum));
             }
@@ -30,7 +30,7 @@ namespace Repository.Support
 
         public List<BOOK> GetBooksFromClassification(int signId)
         {
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
                 return db.CLASSIFICATIONs.Find(signId).BOOKs.ToList();
             }
@@ -38,7 +38,7 @@ namespace Repository.Support
 
         public List<CLASSIFICATION> GetAllClassifications()
         {
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
                 return db.CLASSIFICATIONs.OrderBy(x => x.Signum).ToList();
             }
@@ -46,7 +46,7 @@ namespace Repository.Support
 
         public int GetNewID()
         {
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
                 return db.CLASSIFICATIONs.Max(a => a.SignId) + 1;
             }
@@ -54,7 +54,7 @@ namespace Repository.Support
 
         public bool CreateClassification(CLASSIFICATION eClassification)
         {
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
                 eClassification.SignId = GetNewID();
                 db.CLASSIFICATIONs.Add(eClassification);
@@ -65,7 +65,7 @@ namespace Repository.Support
 
         public CLASSIFICATION GetClassificationFromID(int id)
         {
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
                 return db.CLASSIFICATIONs.FirstOrDefault(x => x.SignId.Equals(id));
             }
@@ -73,7 +73,7 @@ namespace Repository.Support
 
         public CLASSIFICATION GetClassificationFromName(string signum)
         {
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
                 return db.CLASSIFICATIONs.FirstOrDefault(a => a.Signum == signum);
             }
@@ -81,7 +81,7 @@ namespace Repository.Support
 
         public bool DeleteClassification(CLASSIFICATION eClassification)
         {
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
                 var classification = db.CLASSIFICATIONs.Include(a => a.BOOKs).FirstOrDefault(a => a.SignId == eClassification.SignId);
                 classification.BOOKs.Clear();
@@ -93,7 +93,7 @@ namespace Repository.Support
 
         public bool EditClassification(CLASSIFICATION eClassification)
         {
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
                 CLASSIFICATION classification = db.CLASSIFICATIONs.FirstOrDefault(x => x.SignId.Equals(eClassification.SignId));
                 db.Entry(classification).CurrentValues.SetValues(eClassification);

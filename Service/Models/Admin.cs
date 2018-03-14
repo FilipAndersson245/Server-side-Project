@@ -19,6 +19,6 @@
 
         public Rank PermissionLevel { get; set; }
 
-        public bool CanEditClassification { get; set; }
+        public bool? CanValidateClassification { get; set; }
     }
 }

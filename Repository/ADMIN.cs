@@ -1,9 +1,12 @@
 namespace Repository
 {
+    using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
 
-    [Table("ADMINS")]
+    [Table("ADMIN")]
     public partial class ADMIN
     {
         [Key]
@@ -11,13 +14,15 @@ namespace Repository
         public string Username { get; set; }
 
         [Required]
-        [StringLength(64)]
+        [StringLength(128)]
         public string Salt { get; set; }
 
         [Required]
-        [StringLength(64)]
+        [StringLength(128)]
         public string PasswordHash { get; set; }
 
         public int PermissionLevel { get; set; }
+
+        public bool? CanValidateClassifications { get; set; }
     }
 }

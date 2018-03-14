@@ -8,35 +8,35 @@ namespace Repository.Support
     {
         public bool DoesAdminExist(string username)
         {
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
-                string sql = "SELECT TOP 1 * FROM ADMINS WHERE ADMINS.Username = @user LIMIT 1";
+                string sql = "SELECT TOP 1 * FROM ADMIN WHERE ADMIN.Username = @user LIMIT 1";
                 return db.Database.SqlQuery<ADMIN>(sql, new SqlParameter("@user", username)).SingleOrDefault() != null;
             }
         }
 
         public int GetPermissionLevel(string username)
         {
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
-                return db.ADMINS.FirstOrDefault(x => x.Username == username).PermissionLevel;
+                return db.ADMINs.FirstOrDefault(x => x.Username == username).PermissionLevel;
             }
         }
 
         public ADMIN GetAdmin(string username)
         {
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
-                string sql = "SELECT TOP 1 * FROM ADMINS WHERE ADMINS.Username = @user";
+                string sql = "SELECT TOP 1 * FROM ADMIN WHERE ADMIN.Username = @user";
                 return db.Database.SqlQuery<ADMIN>(sql, new SqlParameter("@user", username)).SingleOrDefault();
             }
         }
 
         public bool CreateAdmin(ADMIN admin)
         {
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
-                string sql = @"INSERT INTO ADMINS VALUES (@username, @salt, @passwordHash, @ permissionLevel);"; //todo add CanEditClassification to create query
+                string sql = @"INSERT INTO ADMIN VALUES (@Username, @Salt, @PasswordHash, @PermissionLevel, @CanValidateClassifications);"; //todo add CanEditClassification to create query
                 try
                 {
                     db.Database.ExecuteSqlCommand(sql,
@@ -55,11 +55,11 @@ namespace Repository.Support
 
         public bool resetPassword(string username, string passwordHash, string salt)
         {
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
                 try
                 {
-                    string sql = @"UPDATE ADMINS SET ADMINS.PasswordHash @passwordHash, ADMINS.Salt = @salt WHERE ADMINS.Username = @username";
+                    string sql = @"UPDATE ADMIN SET ADMIN.PasswordHash @passwordHash, ADMIN.Salt = @salt WHERE ADMIN.Username = @username";
                     db.Database.ExecuteSqlCommand(sql,
                         new SqlParameter("@username", username),
                         new SqlParameter("@passwordHash", passwordHash),
@@ -75,9 +75,9 @@ namespace Repository.Support
 
         public List<ADMIN> GetAllAdmins()
         {
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
-                string sql = "SELECT * FROM ADMINS ORDER BY Username";
+                string sql = "SELECT * FROM ADMIN ORDER BY Username";
                 return db.Database.SqlQuery<ADMIN>(sql).ToList();
                 //return db.ADMINS.OrderBy(x => x.Username).ToList();
             }

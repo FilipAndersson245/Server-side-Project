@@ -9,7 +9,7 @@ namespace Repository.Support
     {
         public bool DoesBookExist(string isbn)
         {
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
                 return db.BOOKs.Any(x => x.ISBN == isbn);
             }
@@ -17,7 +17,7 @@ namespace Repository.Support
 
         public IPagedList<BOOK> GetAllBooksFromDB(int page, int itemsPerPage)
         {
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
                 db.Database.Log = s => System.Diagnostics.Debug.Write(s);
                 return db.BOOKs.Include(b => b.AUTHORs).Include(b => b.CLASSIFICATION).OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
@@ -26,7 +26,7 @@ namespace Repository.Support
 
         public BOOK GetBookFromIsbn(string isbn)
         {
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
                 return db.BOOKs.Include(b => b.AUTHORs).Include(b => b.CLASSIFICATION).FirstOrDefault(x => x.ISBN.Equals(isbn));
             }
@@ -34,7 +34,7 @@ namespace Repository.Support
 
         public BOOK EditBook(BOOK eBook)
         {
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
                 try
                 {
@@ -49,7 +49,7 @@ namespace Repository.Support
                 }
 
             }
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
                 try
                 {
@@ -76,7 +76,7 @@ namespace Repository.Support
 
         public BOOK CreateBook(BOOK book)
         {
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
                 try
                 {
@@ -95,7 +95,7 @@ namespace Repository.Support
 
         public bool DeleteBook(BOOK ebook)
         {
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
                 db.Configuration.LazyLoadingEnabled = false;
                 var book = db.BOOKs.Include(a => a.AUTHORs).FirstOrDefault(a => a.ISBN == ebook.ISBN);
@@ -108,7 +108,7 @@ namespace Repository.Support
 
         public List<AUTHOR> GetAuthorsFromIsbn(string isbn)
         {
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
                 return db.BOOKs.Find(isbn).AUTHORs.ToList();
             }
@@ -116,7 +116,7 @@ namespace Repository.Support
 
         public CLASSIFICATION GetClassificationFromIsbn(BOOK book)
         {
-            using (var db = new dbGrupp3())
+            using (var db = new dbLibrary())
             {
                 return db.CLASSIFICATIONs.FirstOrDefault(a => a.SignId == book.SignId);
             }
@@ -126,7 +126,7 @@ namespace Repository.Support
         {
             if (classifications != null)
             {
-                using (var db = new dbGrupp3())
+                using (var db = new dbLibrary())
                 {
                     db.Configuration.LazyLoadingEnabled = false;
                     return db.BOOKs.Include(b => b.AUTHORs).Where(b => b.SignId.HasValue && classifications.ToList().Contains(b.SignId.Value))
@@ -136,7 +136,7 @@ namespace Repository.Support
             }
             else
             {
-                using (var db = new dbGrupp3())
+                using (var db = new dbLibrary())
                 {
                     db.Configuration.LazyLoadingEnabled = false;
                     return db.BOOKs.Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + y.LastName).Contains(search)))

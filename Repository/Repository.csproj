@@ -149,6 +149,7 @@
     <Compile Include="BOOK.cs" />
     <Compile Include="CLASSIFICATION.cs" />
     <Compile Include="dbGrupp3.cs" />
+    <Compile Include="dbLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Support\AdminRepository.cs" />
     <Compile Include="Support\AuthorRepository.cs" />
