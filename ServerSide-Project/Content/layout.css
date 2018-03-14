@@ -315,3 +315,9 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
     margin-left: auto;
     margin-right: auto;
 }
+
+#biggerCheckBox 
+{
+    width: 4em;
+    height: 4em;
+}
