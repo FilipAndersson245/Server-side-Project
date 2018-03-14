@@ -6,7 +6,7 @@ namespace Repository
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("ADMIN")]
+    [Table("ADMINS")]
     public partial class ADMIN
     {
         [Key]
@@ -23,6 +23,6 @@ namespace Repository
 
         public int PermissionLevel { get; set; }
 
-        public bool? CanValidateClassifications { get; set; }
+        public bool CanEditClassifications { get; set; }
     }
 }

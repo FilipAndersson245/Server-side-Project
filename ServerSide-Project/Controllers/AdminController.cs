@@ -19,7 +19,7 @@ namespace ServerSide_Project.Controllers
         [RestoreModelStateFromTempData]
         public ActionResult CreateAdmin()
         {
-            //ValidateAndRedirect(Rank.SuperAdmin);
+            ValidateAndRedirect(Rank.SuperAdmin);
             return View("CreateAdmin");
         }
 
@@ -28,7 +28,7 @@ namespace ServerSide_Project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateAdmin(Admin admin)
         {
-            //ValidateAndRedirect(Rank.SuperAdmin);
+            ValidateAndRedirect(Rank.SuperAdmin);
             AdminManager manager = new AdminManager();
             var valid = manager.SignUp(admin);
             if (valid.IsValid)

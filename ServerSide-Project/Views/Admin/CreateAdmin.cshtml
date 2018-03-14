@@ -44,8 +44,8 @@
                 <label class="control-label col-md-2">Classification Editor</label>
                 <div class="col-md-10">
                     <div class="checkbox">
-                        @Html.EditorFor(model => model.CanValidateClassification)
-                        @Html.ValidationMessageFor(model => model.CanValidateClassification, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.CanEditClassifications)
+                        @Html.ValidationMessageFor(model => model.CanEditClassifications, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>

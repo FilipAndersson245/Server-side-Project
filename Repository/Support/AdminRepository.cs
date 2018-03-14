@@ -10,7 +10,7 @@ namespace Repository.Support
         {
             using (var db = new dbLibrary())
             {
-                string sql = "SELECT TOP 1 * FROM ADMIN WHERE ADMIN.Username = @user LIMIT 1";
+                string sql = "SELECT TOP 1 * FROM ADMINS WHERE ADMINS.Username = @user LIMIT 1";
                 return db.Database.SqlQuery<ADMIN>(sql, new SqlParameter("@user", username)).SingleOrDefault() != null;
             }
         }
@@ -19,7 +19,7 @@ namespace Repository.Support
         {
             using (var db = new dbLibrary())
             {
-                return db.ADMINs.FirstOrDefault(x => x.Username == username).PermissionLevel;
+                return db.ADMINS.FirstOrDefault(x => x.Username == username).PermissionLevel;
             }
         }
 
@@ -27,7 +27,7 @@ namespace Repository.Support
         {
             using (var db = new dbLibrary())
             {
-                string sql = "SELECT TOP 1 * FROM ADMIN WHERE ADMIN.Username = @user";
+                string sql = "SELECT TOP 1 * FROM ADMINS WHERE ADMINS.Username = @user";
                 return db.Database.SqlQuery<ADMIN>(sql, new SqlParameter("@user", username)).SingleOrDefault();
             }
         }
@@ -36,14 +36,15 @@ namespace Repository.Support
         {
             using (var db = new dbLibrary())
             {
-                string sql = @"INSERT INTO ADMIN VALUES (@Username, @Salt, @PasswordHash, @PermissionLevel, @CanValidateClassifications);"; //todo add CanEditClassification to create query
+                string sql = @"INSERT INTO ADMINS VALUES (@Username, @Salt, @PasswordHash, @PermissionLevel, @CanEditClassifications);"; //todo add CanEditClassification to create query
                 try
                 {
                     db.Database.ExecuteSqlCommand(sql,
-                        new SqlParameter("@username", admin.Username),
-                        new SqlParameter("@salt", admin.Salt),
-                        new SqlParameter("@passwordHash", admin.PasswordHash),
-                        new SqlParameter("@permissionLevel", admin.PermissionLevel));
+                        new SqlParameter("@Username", admin.Username),
+                        new SqlParameter("@Salt", admin.Salt),
+                        new SqlParameter("@PasswordHash", admin.PasswordHash),
+                        new SqlParameter("@PermissionLevel", admin.PermissionLevel),
+                        new SqlParameter("@CanEditClassifications", admin.CanEditClassifications));
                     return true;
                 }
                 catch
@@ -59,7 +60,7 @@ namespace Repository.Support
             {
                 try
                 {
-                    string sql = @"UPDATE ADMIN SET ADMIN.PasswordHash @passwordHash, ADMIN.Salt = @salt WHERE ADMIN.Username = @username";
+                    string sql = @"UPDATE ADMINS SET ADMINS.PasswordHash @passwordHash, ADMINS.Salt = @salt WHERE ADMINS.Username = @username";
                     db.Database.ExecuteSqlCommand(sql,
                         new SqlParameter("@username", username),
                         new SqlParameter("@passwordHash", passwordHash),
@@ -77,9 +78,8 @@ namespace Repository.Support
         {
             using (var db = new dbLibrary())
             {
-                string sql = "SELECT * FROM ADMIN ORDER BY Username";
+                string sql = "SELECT * FROM ADMINS ORDER BY Username";
                 return db.Database.SqlQuery<ADMIN>(sql).ToList();
-                //return db.ADMINS.OrderBy(x => x.Username).ToList();
             }
         }
     }

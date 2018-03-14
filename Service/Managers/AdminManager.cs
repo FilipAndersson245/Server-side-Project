@@ -44,7 +44,7 @@ namespace Service.Managers
         public AdminValidation SignUp(Admin admin)
         {
             AdminValidation validation = new AdminValidation(admin);
-            if (validation.IsValid || true)
+            if (validation.IsValid)
             {
                 Admin existingAdmin = GetAdmin(admin.Username);
                 if (existingAdmin != null)
@@ -55,7 +55,6 @@ namespace Service.Managers
                     admin.Password = null;
                     admin.PasswordHash = hash.Hash;
                     admin.Salt = hash.Salt;
-                    admin.CanValidateClassification = true;
                     CreateAdmin(admin);
                     return validation;
                 }
@@ -72,7 +71,8 @@ namespace Service.Managers
         public bool CreateAdmin(Admin admin)
         {
             AdminRepository repo = new AdminRepository();
-            return repo.CreateAdmin(Mapper.Map<ADMIN>(admin));
+            ADMIN dbAdmin = Mapper.Map<ADMIN>(admin);
+            return repo.CreateAdmin(dbAdmin);
         }
 
         public List<Admin> GetAllAdmins()

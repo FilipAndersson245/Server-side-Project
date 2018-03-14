@@ -8,11 +8,11 @@ namespace Repository
     public partial class dbLibrary : DbContext
     {
         public dbLibrary()
-            : base("name=dbLibrary")
+            : base("name=dbLibrary1")
         {
         }
 
-        public virtual DbSet<ADMIN> ADMINs { get; set; }
+        public virtual DbSet<ADMIN> ADMINS { get; set; }
         public virtual DbSet<AUTHOR> AUTHORs { get; set; }
         public virtual DbSet<BOOK> BOOKs { get; set; }
         public virtual DbSet<CLASSIFICATION> CLASSIFICATIONs { get; set; }
