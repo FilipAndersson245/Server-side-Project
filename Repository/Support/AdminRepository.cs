@@ -100,7 +100,7 @@ namespace Repository.Support
         {
             using (var db = new dbLibrary())
             {
-                string sql = "SELECT * FROM ADMINS ORDER BY Username";
+                string sql = "SELECT * FROM ADMINS ORDER BY PermissionLevel DESC";
                 return db.Database.SqlQuery<ADMIN>(sql).ToList();
             }
         }

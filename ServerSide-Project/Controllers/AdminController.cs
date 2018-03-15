@@ -39,12 +39,25 @@ namespace ServerSide_Project.Controllers
             return RedirectToAction("CreateAdmin", "Admin", null);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpGet]
         public ActionResult DeleteAdmin(string id)
         {
             ValidateAndRedirect(Rank.SuperAdmin);
-            return RedirectToAction("AdminPanel", "Admin", null);
+            AdminManager manager = new AdminManager();
+            Admin admin = manager.GetAdmin(id);
+            return View("DeleteAdmin", admin);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteAdminPost(string id)
+        {
+            ValidateAndRedirect(Rank.SuperAdmin);
+            AdminManager manager = new AdminManager();
+            if (manager.DeleteAdmin(id))
+                return RedirectToAction("AdminPanel", "Admin", null);
+            else
+                return RedirectToAction("AdminPanel", "Admin", null);
         }
 
         [HttpGet]

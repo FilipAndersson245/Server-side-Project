@@ -79,5 +79,11 @@ namespace Service.Managers
             AdminRepository repo = new AdminRepository();
             return Mapper.Map<List<ADMIN>, List<Admin>>(repo.GetAllAdmins());
         }
+
+        public bool DeleteAdmin(string id)
+        {
+            AdminRepository repo = new AdminRepository();
+            return repo.DeleteAdmin(id);
+        }
     }
 }
