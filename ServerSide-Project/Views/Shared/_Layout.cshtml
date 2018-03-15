@@ -70,7 +70,7 @@
                         </div>
 
                         <div class="col-sm-2 sidenav float-left align-top text-center container" id="classificationOuter">
-                            @if ((bool)Session["classificationEditor"])
+                            @if (Session["Level"] != null && (bool)Session["classificationEditor"])
                             {
                                 <div class="row">
                                     @Html.ActionLink("Create New Classification", "CreateClassification", "Classification", null, null)
