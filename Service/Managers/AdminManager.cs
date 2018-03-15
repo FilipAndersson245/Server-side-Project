@@ -4,13 +4,14 @@ using Repository.Support;
 using Service.Models;
 using Service.Tools;
 using Service.Validations;
+using System;
 using System.Collections.Generic;
 
 namespace Service.Managers
 {
     public class AdminManager
     {
-        public AdminValidation Login(Admin admin)
+        public Tuple<Admin, AdminValidation> Login(Admin admin)
         {
             AdminValidation validation = new AdminValidation(admin);
             if (validation.IsValid)
@@ -24,14 +25,14 @@ namespace Service.Managers
                 {
                     Hashing pwdHash = new Hashing(admin.Password, dbAdmin.Salt);
                     if (pwdHash.Equals(dbAdmin.PasswordHash))
-                        return validation;
+                        return new Tuple<Admin, AdminValidation>(dbAdmin, validation);
                     else
                     {
                         validation.WrongPassword(nameof(admin.Password));
                     }
                 }
             }
-            return validation;
+            return new Tuple<Admin, AdminValidation>(null, validation);
         }
 
         public Rank getPermissionLevel(string username)

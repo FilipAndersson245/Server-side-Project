@@ -28,7 +28,8 @@ namespace Repository.Support
             using (var db = new dbLibrary())
             {
                 string sql = "SELECT TOP 1 * FROM ADMINS WHERE ADMINS.Username = @user";
-                return db.Database.SqlQuery<ADMIN>(sql, new SqlParameter("@user", username)).SingleOrDefault();
+                var test = db.Database.SqlQuery<ADMIN>(sql, new SqlParameter("@user", username)).SingleOrDefault();
+                return test;
             }
         }
 
