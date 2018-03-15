@@ -105,11 +105,15 @@ namespace Repository.Support
             }
         }
 
-        public bool EditAdmin(ADMIN admin)
+        public bool EditAdmin(ADMIN eAdmin)
         {
-            int a = 1;
-
-            return true;
+            using (var db = new dbLibrary())
+            {
+                ADMIN admin = db.ADMINS.FirstOrDefault(x => x.Username.Equals(eAdmin.Username));
+                db.Entry(admin).CurrentValues.SetValues(eAdmin);
+                db.SaveChanges();
+                return true;
+            }
         }
     }
 }
