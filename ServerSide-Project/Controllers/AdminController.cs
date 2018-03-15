@@ -111,18 +111,18 @@ namespace ServerSide_Project.Controllers
             var modelList = ModelState.ToList();
             var manager = new AdminManager();
             var validation = manager.Login(admin);
-            if (validation.IsValid)
+            if (validation.Item2.IsValid)
             {
                 Session["authentication"] = admin.Username;
                 Session["level"] = manager.getPermissionLevel(admin.Username);
-                Session["classificationEditor"] = admin.CanEditClassifications;
+                Session["classificationEditor"] = validation.Item1.CanEditClassifications;
                 if (String.IsNullOrEmpty(returnBackTo))
                     return RedirectToAction("index", "Home");
                 return Redirect(returnBackTo);
             }
             else
             {
-                ValidationMessages.ConvertCodeToMsg(ModelState, validation.ErrorDict);
+                ValidationMessages.ConvertCodeToMsg(ModelState, validation.Item2.ErrorDict);
                 return RedirectToAction("Login", new { returnBackTo });
             }
         }
