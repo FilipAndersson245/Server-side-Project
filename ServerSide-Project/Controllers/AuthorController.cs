@@ -20,7 +20,7 @@ namespace ServerSide_Project.Controllers
         [RestoreModelStateFromTempData]
         public ActionResult CreateAuthor()
         {
-            ValidateAndRedirect();
+            AuthorizeAndRedirect();
             return View("CreateAuthor");
         }
 
@@ -29,7 +29,7 @@ namespace ServerSide_Project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateAuthor(Author author)
         {
-            ValidateAndRedirect();
+            AuthorizeAndRedirect();
             AuthorManager authorManager = new AuthorManager();
             var authorTuple = authorManager.CreateAuthor(author);
             if (authorTuple.Item1 != null)
@@ -45,7 +45,7 @@ namespace ServerSide_Project.Controllers
         [RestoreModelStateFromTempData]
         public ActionResult EditAuthor(int id)
         {
-            ValidateAndRedirect();
+            AuthorizeAndRedirect();
             AuthorManager authorManager = new AuthorManager();
             return View("EditAuthor", authorManager.GetAuthorFromID(id));
         }
@@ -55,7 +55,7 @@ namespace ServerSide_Project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditAuthor(Author author)
         {
-            ValidateAndRedirect();
+            AuthorizeAndRedirect();
             AuthorManager manager = new AuthorManager();
             var authorTuple = manager.EditAuthor(author);
             if (authorTuple.Item1 != null)
@@ -70,7 +70,7 @@ namespace ServerSide_Project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteAuthorPost(int id)
         {
-            ValidateAndRedirect();
+            AuthorizeAndRedirect();
             AuthorManager authorManager = new AuthorManager();
             if (authorManager.DeleteAuthor(authorManager.GetAuthorFromID(id)))
                 return RedirectToAction("BrowseAllAuthors", "Author", null);

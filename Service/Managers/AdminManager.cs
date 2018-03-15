@@ -85,5 +85,25 @@ namespace Service.Managers
             AdminRepository repo = new AdminRepository();
             return repo.DeleteAdmin(id);
         }
+
+        public AdminValidation EditAdmin(Admin admin)
+        {
+            AdminRepository repo = new AdminRepository();
+            AdminValidation validation = new AdminValidation(admin);
+            if (validation.IsValid)
+            {
+                Admin existingAdmin = GetAdmin(admin.Username);
+                if (existingAdmin != null)
+                {
+                    repo.EditAdmin(Mapper.Map<ADMIN>(admin));
+                }
+                else
+                {
+                    validation.DoesNotExistOnServer(nameof(admin.Username));
+                    return validation;
+                }
+            }
+            return validation;
+        }
     }
 }

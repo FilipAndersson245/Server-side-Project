@@ -4,6 +4,7 @@ using Service.Models;
 using System;
 using System.Linq;
 using System.Web.Mvc;
+using Service.Tools;
 
 namespace ServerSide_Project.Controllers
 {
@@ -19,7 +20,7 @@ namespace ServerSide_Project.Controllers
         [RestoreModelStateFromTempData]
         public ActionResult CreateAdmin()
         {
-            ValidateAndRedirect(Rank.SuperAdmin);
+            AuthorizeAndRedirect(Rank.SuperAdmin);
             return View("CreateAdmin");
         }
 
@@ -28,7 +29,7 @@ namespace ServerSide_Project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateAdmin(Admin admin)
         {
-            ValidateAndRedirect(Rank.SuperAdmin);
+            AuthorizeAndRedirect(Rank.SuperAdmin);
             AdminManager manager = new AdminManager();
             var valid = manager.SignUp(admin);
             if (valid.IsValid)
@@ -40,9 +41,43 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
+        public ActionResult EditAdmin(string id)
+        {
+            AuthorizeAndRedirect(Rank.Admin);
+            AdminManager manager = new AdminManager();
+            return View("Editadmin", manager.GetAdmin(id));
+        }
+
+        [HttpPost]
+        public ActionResult EditAdminPost(Admin admin)
+        {
+            AuthorizeAndRedirect(Rank.Admin);
+            AdminManager manager = new AdminManager();
+            Admin oldAdmin = manager.GetAdmin(admin.Username);
+            admin.Username = oldAdmin.Username;
+            if ((Rank)Session["Level"] < Rank.SuperAdmin) //Don't allow changing of admin level if admin who edited is not superadmin
+                admin.PermissionLevel = oldAdmin.PermissionLevel;
+            if (admin.Password == null)
+            {
+                admin.PasswordHash = oldAdmin.PasswordHash;
+                admin.Salt = oldAdmin.Salt;
+                admin.Password = "Tjollahopp1";
+            }
+            else
+            {
+                Hashing hashing = new Hashing(admin.Password);
+                admin.PasswordHash = hashing.Hash;
+                admin.Salt = hashing.Salt;
+            }
+            manager.EditAdmin(admin);
+            return RedirectToAction("AdminPanel", "Admin", null);
+        }
+
+
+        [HttpGet]
         public ActionResult DeleteAdmin(string id)
         {
-            ValidateAndRedirect(Rank.SuperAdmin);
+            AuthorizeAndRedirect(Rank.SuperAdmin);
             AdminManager manager = new AdminManager();
             Admin admin = manager.GetAdmin(id);
             return View("DeleteAdmin", admin);
@@ -52,7 +87,7 @@ namespace ServerSide_Project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteAdminPost(string id)
         {
-            ValidateAndRedirect(Rank.SuperAdmin);
+            AuthorizeAndRedirect(Rank.SuperAdmin);
             AdminManager manager = new AdminManager();
             if (manager.DeleteAdmin(id))
                 return RedirectToAction("AdminPanel", "Admin", null);
@@ -101,7 +136,7 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult AdminPanel()
         {
-            ValidateAndRedirect();
+            AuthorizeAndRedirect();
             AdminManager adminManager = new AdminManager();
             return View("AdminPanel", adminManager.GetAllAdmins());
         }

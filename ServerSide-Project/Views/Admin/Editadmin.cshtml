@@ -1,0 +1,64 @@
+﻿@model Service.Models.Admin
+@using Service.Models
+
+@{
+    ViewBag.Title = "Editadmin";
+}
+
+<h2>Edit Admin</h2>
+
+
+@using (Html.BeginForm("EditAdminPost", "Admin", FormMethod.Post, new { @class = "form-group" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">New Password <br>(leave empty if unchanged)</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.SuperAdmin)
+        {
+            <div class="form-group">
+                <label class="control-label col-md-2">Permission Level</label>
+                <div class="col-md-10 editor-field">
+                    @Html.EnumDropDownListFor(
+                         x => x.PermissionLevel,
+                         new { @class = "form-control" })
+                </div>
+            </div>
+        }
+            <div class="form-group">
+                <label class="control-label col-md-2">Classification Editor</label>
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.CanEditClassifications)
+                        @Html.ValidationMessageFor(model => model.CanEditClassifications, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Edit" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

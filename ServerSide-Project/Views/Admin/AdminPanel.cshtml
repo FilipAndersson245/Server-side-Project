@@ -35,10 +35,15 @@
                         }
                     </div>
                 </div>
-                <div class="col-sm-1" id="adminOptions">
+                <div class="col-sm-3" id="adminOptions">
+                    @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Admin && Rank.Admin >= item.PermissionLevel)
+                    {
+                        @Html.ActionLink("Edit", "EditAdmin", "Admin", new { id = item.Username }, null);
+                    }
                     @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.SuperAdmin)
                     {
-                        @Html.ActionLink("Delete Admin", "DeleteAdmin", "Admin", new { id = item.Username }, null)
+                        @Html.Raw(" | ");
+                        @Html.ActionLink("Delete", "DeleteAdmin", "Admin", new { id = item.Username }, null);
                     }
                 </div>
             </div>
