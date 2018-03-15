@@ -66,11 +66,15 @@ namespace ServerSide_Project.Controllers
         public ActionResult DeleteClassificationPost(int id)
         {
             AuthorizeAndRedirect();
-            ClassificationManager classificationManager = new ClassificationManager();
-            if (classificationManager.DeleteClassification(classificationManager.GetClassificationFromID(id)))
+            ClassificationManager manager = new ClassificationManager();
+            var validation = manager.DeleteClassification(manager.GetClassificationFromID(id));
+            if (validation.IsValid)
                 return RedirectToAction("BrowseAllBooks", "Book", null);
             else
-                return RedirectToAction("BrowseAllBooks", "Book", null);
+            {
+                ValidationMessages.ConvertCodeToMsg(ModelState, validation.ErrorDict);
+                return View("DeleteClassification", manager.GetClassificationFromID(id));
+            } 
         }
 
         [HttpGet]

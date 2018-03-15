@@ -4,6 +4,7 @@ using Repository.Support;
 using Service.Models;
 using Service.Validations;
 using System.Collections.Generic;
+using System;
 
 namespace Service.Managers
 {
@@ -55,10 +56,19 @@ namespace Service.Managers
             }
         }
 
-        public bool DeleteClassification(Classification classification)
+        public ClassificationValidation DeleteClassification(Classification classification)
         {
             ClassificationRepository repo = new ClassificationRepository();
-            return repo.DeleteClassification(Mapper.Map<Classification, CLASSIFICATION>(classification));
+            ClassificationValidation validation = new ClassificationValidation(classification);
+            if (repo.DoesClassificationContainBooks(Mapper.Map<CLASSIFICATION>(classification)))
+            {
+                validation.BooksExistInClassification(nameof(classification.Signum));
+            }
+            if (!repo.DeleteClassification(Mapper.Map<Classification, CLASSIFICATION>(classification)))
+            {
+                validation.DoesNotExistOnServer(nameof(classification.Signum));
+            }
+            return validation;
         }
 
         public ClassificationValidation CreateClassification(Classification classification)

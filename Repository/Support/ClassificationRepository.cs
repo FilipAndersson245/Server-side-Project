@@ -101,5 +101,13 @@ namespace Repository.Support
                 return true;
             }
         }
+
+        public bool DoesClassificationContainBooks(CLASSIFICATION classification)
+        {
+            using (var db = new dbLibrary())
+            {
+                return (db.CLASSIFICATIONs.Find(classification.SignId).BOOKs.ToList().Count() > 0);
+            }
+        }
     }
 }
