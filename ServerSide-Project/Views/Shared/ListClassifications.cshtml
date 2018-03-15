@@ -11,21 +11,36 @@
     </div>
     <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
         <div class="panel-body">
-            @foreach (var classification in Model)
-            {
-                <div class="row">
-                    <div class="col-sm-12 text-left">
-                            <input name=classifications type="checkbox" value=@classification.SignId.ToString() id=@classification.Signum>
-                            <label for=@classification.Signum>@classification.Signum</label>
+            @{
+                string selectedClassification = Request.Params["classifications"] ?? "";
+                var selectedId =  selectedClassification.Split(',');
+                List<int> ids = new List<int>();
+                foreach(var i in selectedId)
+                {
+                    int id=0;
+                    if(int.TryParse(i, out id))
+                    {
+                        ids.Add(id);
+                    }
+                }
+
+                foreach (var classification in Model)
+                {
+                    <div class="row">
+                        <div class="col-sm-12 text-left">
+                                @*@Html.CheckBox("classifications", selected.Contains(classification.SignId.ToString()), new { value= classification.SignId.ToString(), id= classification.Signum })*@
+                                <input name=classifications type="checkbox" value=@classification.SignId.ToString() id=@classification.Signum @Html.Raw((ids.Any(x => x.Equals(classification.SignId) )) ? "checked=\"checked\"" : "")/>
+                                <label for=@classification.Signum>@classification.Signum</label>
+                        </div>
+                            @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Admin)
+                            {
+                                <div class="col-sm-10 text-right">
+                                    @Html.ActionLink("Edit", "EditClassification", "Classification", new { id = classification.SignId }, null) |
+                                    @Html.ActionLink("Delete", "DeleteClassification", "Classification", new { id = classification.SignId }, null)
+                                </div>
+                            }
                     </div>
-                        @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Admin)
-                        {
-                            <div class="col-sm-10 text-right">
-                                @Html.ActionLink("Edit", "EditClassification", "Classification", new { id = classification.SignId }, null) |
-                                @Html.ActionLink("Delete", "DeleteClassification", "Classification", new { id = classification.SignId }, null)
-                            </div>
-                        }
-                </div>
+                }
             }
         </div>
     </div>
