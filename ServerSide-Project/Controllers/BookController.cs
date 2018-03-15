@@ -57,7 +57,7 @@ namespace ServerSide_Project.Controllers
             var a = new BookManager().SearchBooks(new Search() { SearchQuery = search, SelectedClassifications = new List<int>() { 1, 2, 3, 4, 5 } }, 1, 20);
             var jsonSerialiser = new JavaScriptSerializer();
             var json = jsonSerialiser.Serialize(a);
-            return Json(json);
+            return Json(a,"application/json", System.Text.UTF8Encoding.UTF8, JsonRequestBehavior.AllowGet);
         }
 }
 }
