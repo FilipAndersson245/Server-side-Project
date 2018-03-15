@@ -198,6 +198,7 @@
     <Content Include="Views\Author\DeleteAuthor.cshtml" />
     <Content Include="Views\Admin\CreateAdmin.cshtml" />
     <Content Include="Views\Shared\SearchForms.cshtml" />
+    <Content Include="Views\Admin\DeleteAdmin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

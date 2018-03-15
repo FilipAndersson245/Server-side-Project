@@ -21,10 +21,21 @@
     <div class="row" id="adminList">
         <div class="col-sm-6 col-sm-offset-3">
             <div class="row" id="adminListItem">
-                <div class="col-sm-3" id="adminListName">
+                <div class="col-sm-2" id="adminListName">
                     @Html.DisplayFor(modelItem => item.Username)
                 </div>
-                <div class="col-sm-3" id="adminOptions">
+                <div class="col-sm-3" id="adminListRank">
+                    <div class="row">
+                        <b>@Html.DisplayFor(modelItem => item.PermissionLevel)</b>
+                    </div>
+                    <div class="row">
+                        @if (item.CanEditClassifications)
+                        {
+                            @Html.Raw("Classification Editor");
+                        }
+                    </div>
+                </div>
+                <div class="col-sm-1" id="adminOptions">
                     @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.SuperAdmin)
                     {
                         @Html.ActionLink("Delete Admin", "DeleteAdmin", "Admin", new { id = item.Username }, null)
