@@ -89,11 +89,12 @@
                         }
                         else if (ViewBag.activeBrowseBy == "Author")
                         {
+                            string search = Request.Params["search"];
                             using (Html.BeginForm("SearchAuthors", "Author", FormMethod.Get, new { @class = "form-inline" }))
                             {
                                 Html.AntiForgeryToken();
                                 <div class="form-group col-sm-12 input-lg text-center" id="searchBar">
-                                    <input type="text" name="search" class="form-control" id="searchField" placeholder="Search for authors">
+                                    <input type="text" name="search" class="form-control" value="@search" id="searchField" placeholder="Search for authors">
                                     <button class="btn btn-default" type="submit" id="searchBtn">
                                         <i class="glyphicon glyphicon-search"></i>
                                     </button>

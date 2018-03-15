@@ -106,12 +106,12 @@ namespace ServerSide_Project.Controllers
             return View("BrowseSearchedAuthors", authorManager.GetAuthorsFromSearch(search, page, ITEMS_PER_PAGE));
         }
 
-        [HttpGet]
-        public ActionResult SearchAuthors(Search search, int page = 1)
-        {
-            AuthorManager authorManager = new AuthorManager();
-            return View("BrowseSearchedAuthors", authorManager.GetAuthorsFromSearch(search, page, ITEMS_PER_PAGE));
-        }
+        //[HttpGet]
+        //public ActionResult SearchAuthors(Search search, int page = 1)
+        //{
+        //    AuthorManager authorManager = new AuthorManager();
+        //    return View("BrowseSearchedAuthors", authorManager.GetAuthorsFromSearch(search, page, ITEMS_PER_PAGE));
+        //}
 
         [HttpGet]
         public ActionResult GetAllAuthorsDropdown()
