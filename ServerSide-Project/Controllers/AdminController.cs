@@ -115,6 +115,7 @@ namespace ServerSide_Project.Controllers
             {
                 Session["authentication"] = admin.Username;
                 Session["level"] = manager.getPermissionLevel(admin.Username);
+                Session["classificationEditor"] = admin.CanEditClassifications;
                 if (String.IsNullOrEmpty(returnBackTo))
                     return RedirectToAction("index", "Home");
                 return Redirect(returnBackTo);

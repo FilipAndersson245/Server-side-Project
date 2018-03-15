@@ -34,7 +34,7 @@
                         @Html.ActionLink(HttpUtility.HtmlDecode(@Model[i].Title), "ListBookDetails", "Book", new { id = @Model[i].ISBN }, null)
                     </div>
                     <div class="col-sm-3 text-right" id="bookListAdminPane">
-                        @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Admin)
+                        @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Editor)
                         {
                             @Html.ActionLink("Edit", "EditBook", "BookAuthorClassification", new { id = @Model[i].ISBN }, new { @class = "" });
                             @Html.Raw(" | ");

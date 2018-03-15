@@ -1,17 +1,23 @@
 ﻿@model IEnumerable<Service.Models.Admin>
-    @using Service.Models
+@using Service.Models
 
 @{
     ViewBag.Title = "AdminPanel";
 }
 
 <div class="col-sm-6 col-sm-offset-3 text-center">
-    <h2>Admin Panel</h2>
+    <h2>Admin Panel @Html.Raw((bool)Session["classificationEditor"])</h2>
     @Html.ActionLink("Create New Book", "CreateBook", "BookAuthorClassification") |
-    @Html.ActionLink("Create New Author", "CreateAuthor", "Author") |
-    @Html.ActionLink("Create New Classification", "CreateClassification", "Classification") |
+    @{ var classificationEditor = (bool)Session["classificationEditor"];}
+    @Html.ActionLink("Create New Author", "CreateAuthor", "Author")
+    @if (classificationEditor)
+    {
+        @Html.Raw(" | ");
+        @Html.ActionLink("Create New Classification", "CreateClassification", "Classification");
+    }
     @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.SuperAdmin)
     {
+        @Html.Raw(" | ");
         @Html.ActionLink("Create New Admin", "CreateAdmin", "Admin");
     }
 </div>
@@ -36,13 +42,16 @@
                     </div>
                 </div>
                 <div class="col-sm-3" id="adminOptions">
-                    @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Admin && Rank.Admin >= item.PermissionLevel)
+                    @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Admin && item.PermissionLevel <= Rank.Admin)
                     {
                         @Html.ActionLink("Edit", "EditAdmin", "Admin", new { id = item.Username }, null);
                     }
-                    @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.SuperAdmin)
+                    @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.SuperAdmin && item.PermissionLevel < Rank.SuperAdmin)
                     {
                         @Html.Raw(" | ");
+                    }
+                    @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.SuperAdmin)
+                    {
                         @Html.ActionLink("Delete", "DeleteAdmin", "Admin", new { id = item.Username }, null);
                     }
                 </div>

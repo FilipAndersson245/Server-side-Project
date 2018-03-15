@@ -15,7 +15,7 @@ namespace ServerSide_Project.Tools
             }
         }
 
-        protected bool AuthorizeAndRedirect(Rank rank = Rank.Admin)
+        protected bool AuthorizeAndRedirect(Rank rank = Rank.Editor)
         {
             if (Session["authentication"] == null || (Rank)Session["level"] < rank)
             {
