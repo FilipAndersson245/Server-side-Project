@@ -8,22 +8,22 @@ namespace ServerSide_Project.Tools
     {
         protected override void OnException(ExceptionContext filterContext)
         {
-            if (filterContext.Exception is ValidationException)
+            if (filterContext.Exception is AuthorizationException)
             {
                 filterContext.ExceptionHandled = true;
                 filterContext.Result = RedirectToAction("Login", "Admin", new { returnBackTo = Request.Url });
             }
         }
 
-        protected bool ValidateAndRedirect(Rank rank = Rank.Admin)
+        protected bool AuthorizeAndRedirect(Rank rank = Rank.Admin)
         {
             if (Session["authentication"] == null || (Rank)Session["level"] < rank)
             {
-                throw new ValidationException();
+                throw new AuthorizationException();
             }
             return true;
         }
     }
 
-    public class ValidationException : Exception { }
+    public class AuthorizationException : Exception { }
 }

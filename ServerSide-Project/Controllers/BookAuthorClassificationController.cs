@@ -21,7 +21,7 @@ namespace ServerSide_Project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateBook(BookAuthorClassification bac, string[] authorChecklist, int? classificationRadio) //Strukturera om till servicelagret och lös classificationRadio null
         {
-            ValidateAndRedirect();
+            AuthorizeAndRedirect();
             BookManager bookManager = new BookManager();
             var bookTuple = bookManager.CreateBook(bac, authorChecklist, classificationRadio);
             if (bookTuple.Item2.IsValid)
@@ -49,7 +49,7 @@ namespace ServerSide_Project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditBook(BookAuthorClassification bac, string[] authorChecklist, int classificationRadio)
         {
-            ValidateAndRedirect();
+            AuthorizeAndRedirect();
             BookManager bookManager = new BookManager();
             var bookTuple = bookManager.EditBook(bac, authorChecklist, classificationRadio);
             if (bookTuple.Item2.IsValid)

@@ -17,7 +17,7 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult EditClassification(int id)
         {
-            ValidateAndRedirect();
+            AuthorizeAndRedirect();
             ClassificationManager classificationManager = new ClassificationManager();
             return View("EditClassification", classificationManager.GetClassificationFromID(id));
         }
@@ -26,7 +26,7 @@ namespace ServerSide_Project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditClassification(Classification classification)
         {
-            ValidateAndRedirect();
+            AuthorizeAndRedirect();
             ClassificationManager classificationManager = new ClassificationManager();
             var validation = classificationManager.EditClassification(classification);
             if (validation.IsValid)
@@ -42,7 +42,7 @@ namespace ServerSide_Project.Controllers
         [RestoreModelStateFromTempData]
         public ActionResult CreateClassification()
         {
-            ValidateAndRedirect();
+            AuthorizeAndRedirect();
             return View("CreateClassification");
         }
 
@@ -51,7 +51,7 @@ namespace ServerSide_Project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateClassification(Classification classification)
         {
-            ValidateAndRedirect();
+            AuthorizeAndRedirect();
             ClassificationManager classificationManager = new ClassificationManager();
             var validation = classificationManager.CreateClassification(classification);
             if (validation.IsValid)
@@ -65,7 +65,7 @@ namespace ServerSide_Project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteClassificationPost(int id)
         {
-            ValidateAndRedirect();
+            AuthorizeAndRedirect();
             ClassificationManager classificationManager = new ClassificationManager();
             if (classificationManager.DeleteClassification(classificationManager.GetClassificationFromID(id)))
                 return RedirectToAction("BrowseAllBooks", "Book", null);
