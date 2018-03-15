@@ -9,11 +9,12 @@
 
 @if (Model.BookSearchResult.PageCount > 1)
 {
+    var a = Request.Url.PathAndQuery;
     <div class="text-center" id="pageSelector">
         <div class="pagination">
             Page @(Model.BookSearchResult.PageCount < Model.BookSearchResult.PageNumber ? 0 : Model.BookSearchResult.PageNumber)
             of @Model.BookSearchResult.PageCount
-            @Html.PagedListPager(Model.BookSearchResult, page => Url.Action("SearchBooks", new { page, search = Request.Params["search"] }))
+            @Html.PagedListPager(Model.BookSearchResult, page => Url.Action("SearchBooks", new { page, search = Request.Params["search"], classifications = Model.SelectedClassifications }))
         </div>
     </div>
 }
@@ -26,7 +27,7 @@
         <div class="pagination">
             Page @(Model.BookSearchResult.PageCount < Model.BookSearchResult.PageNumber ? 0 : Model.BookSearchResult.PageNumber)
             of @Model.BookSearchResult.PageCount
-            @Html.PagedListPager(Model.BookSearchResult, page => Url.Action("SearchBooks", new { page, search = Request.Params["search"] }))
+            @Html.PagedListPager(Model.BookSearchResult, page => Url.Action("SearchBooks", new { page, search = Request.Params["search"], classifications = Request.Params["classifications"] }))
         </div>
     </div>
 }

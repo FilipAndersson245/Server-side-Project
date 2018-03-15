@@ -15,7 +15,7 @@
                 string selectedClassification = Request.Params["classifications"] ?? "";
                 var selectedId =  selectedClassification.Split(',');
                 List<int> ids = new List<int>();
-                foreach(var i in selectedId)
+                foreach (var i in selectedId)
                 {
                     int id=0;
                     if(int.TryParse(i, out id))
