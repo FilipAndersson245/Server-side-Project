@@ -64,7 +64,7 @@ namespace Service.Managers
             {
                 validation.BooksExistInClassification(nameof(classification.Signum));
             }
-            if (!repo.DeleteClassification(Mapper.Map<Classification, CLASSIFICATION>(classification)))
+            else if (!repo.DeleteClassification(Mapper.Map<Classification, CLASSIFICATION>(classification)))
             {
                 validation.DoesNotExistOnServer(nameof(classification.Signum));
             }

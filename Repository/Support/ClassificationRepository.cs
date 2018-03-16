@@ -81,13 +81,20 @@ namespace Repository.Support
 
         public bool DeleteClassification(CLASSIFICATION eClassification)
         {
-            using (var db = new dbLibrary())
+            try
             {
-                var classification = db.CLASSIFICATIONs.Include(a => a.BOOKs).FirstOrDefault(a => a.SignId == eClassification.SignId);
-                classification.BOOKs.Clear();
-                db.CLASSIFICATIONs.Remove(classification);
-                db.SaveChanges();
-                return true;
+                using (var db = new dbLibrary())
+                {
+                    var classification = db.CLASSIFICATIONs.Include(a => a.BOOKs).FirstOrDefault(a => a.SignId == eClassification.SignId);
+                    classification.BOOKs.Clear();
+                    db.CLASSIFICATIONs.Remove(classification);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
 
