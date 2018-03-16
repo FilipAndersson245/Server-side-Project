@@ -81,6 +81,12 @@ namespace Service.Managers
             return searchResult;
         }
 
+        public List<Book>GetAllBooksToList()
+        {
+            BookRepository repo = new BookRepository();
+            return Mapper.Map<List<Book>>(repo.GetAllBooksFromDBToList());
+        }
+
         public Search SearchBooks(string search, int page, int itemsPerPage, params int[] classifications)
         {
             BookRepository repo = new BookRepository();
