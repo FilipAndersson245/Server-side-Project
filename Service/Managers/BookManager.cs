@@ -87,7 +87,7 @@ namespace Service.Managers
 
         public Search SearchBooks(Search search, int page, int itemsPerPage)
         {
-            var bookList = new BookRepository().GetBookSearchResultat(search.SearchQuery, page, itemsPerPage, search.SelectedClassifications.ToArray()).ToMappedPagedList<BOOK, Book>();
+            var bookList = new BookRepository().GetBookSearchResultat(search.SearchQuery, page, itemsPerPage, search.SelectedClassifications?.ToArray()).ToMappedPagedList<BOOK, Book>();
             SetupBooks(bookList);
             search.BookSearchResult = bookList;
             return search;

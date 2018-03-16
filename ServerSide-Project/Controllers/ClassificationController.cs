@@ -1,6 +1,7 @@
 ﻿using ServerSide_Project.Tools;
 using Service.Managers;
 using Service.Models;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace ServerSide_Project.Controllers
@@ -85,10 +86,11 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetClassifications()
+        public ActionResult GetClassifications(int[] classifications = null)
         {
             ClassificationManager classificationManager = new ClassificationManager();
-            return PartialView("ListClassifications", classificationManager.GetAllClassifications());
+            var a = new ListClassification() { Classifications = classificationManager.GetAllClassifications(), SelectedClassification = classifications?.ToList() };
+            return PartialView("ListClassifications",a );
         }
 
         [HttpGet]
