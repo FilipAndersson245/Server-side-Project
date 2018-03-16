@@ -21,7 +21,8 @@ namespace Service.Validations
         FailedToCreateAuthor,
         FailedToCreateBook,
         BookDoesntExist,
-        FailedToCreateClassification
+        FailedToCreateClassification,
+        BooksExistInClassification
     }
 
     public class Validation
@@ -71,5 +72,7 @@ namespace Service.Validations
             IsValid = false;
             ErrorDict.Add(type, ErrorCodes.FailedToCreateClassification);
         }
+
+        
     }
 }

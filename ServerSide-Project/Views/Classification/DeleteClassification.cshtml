@@ -10,5 +10,6 @@
 @using (Html.BeginForm("DeleteClassificationPost", "Classification", new { id = Model.SignId }, FormMethod.Post, new { @class = "form-group", @id = "classificationListOptions" }))
 {
     @Html.AntiForgeryToken()
+    @Html.ValidationMessage(nameof(Model.Signum), new { @class = "text-danger" })
     <input type="submit" value="Delete" class="btn btn-danger" />
 }

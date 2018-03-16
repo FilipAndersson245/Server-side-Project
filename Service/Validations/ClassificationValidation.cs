@@ -13,7 +13,7 @@ namespace Service.Validations
             {
                 ErrorDict.Add(nameof(model.Signum), ErrorCodes.IsRequired);
             }
-            else if (model.Signum.Length < 64)
+            else if (model.Signum.Length > 64)
             {
                 ErrorDict.Add(nameof(model.Signum), ErrorCodes.MoreThenSixtyFourChars);
             }
@@ -31,6 +31,13 @@ namespace Service.Validations
             {
                 IsValid = true;
             }
+
+        }
+
+        public void BooksExistInClassification(string type)
+        {
+            IsValid = false;
+            ErrorDict.Add(type, ErrorCodes.BooksExistInClassification);
         }
     }
 }
