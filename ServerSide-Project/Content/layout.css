@@ -4,6 +4,7 @@
     padding-top:0px;
     padding-bottom: 50px;
     height: 100%;
+    margin-bottom: 60px;
 }
 
 html
@@ -233,6 +234,16 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
     display: inline;
 }
 
+#logOutButton
+{
+    padding-top: 8px;
+}
+
+#logOutButton button:hover
+{
+    text-decoration:none;
+}
+
 #bookListOuter
 {
     background-color:#e4e4e4;
@@ -316,8 +327,8 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
     margin-right: auto;
 }
 
-#biggerCheckBox
+#headerNamedisplay p
 {
-    width: 4em;
-    height: 4em;
+    color: #9d9d9d;
+    padding: 15px;
 }
