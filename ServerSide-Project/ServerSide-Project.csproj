@@ -196,8 +196,6 @@
     <Content Include="Views\Classification\CreateClassification.cshtml" />
     <Content Include="Views\Classification\EditClassification.cshtml" />
     <Content Include="Views\Book\ListBookDetails.cshtml" />
-    <Content Include="Views\Shared\ClassificationDropdown.cshtml" />
-    <Content Include="Views\Shared\AuthorDropdown.cshtml" />
     <Content Include="Views\BookAuthorClassification\CreateBook.cshtml" />
     <Content Include="Views\BookAuthorClassification\EditBook.cshtml" />
     <Content Include="Views\Classification\DeleteClassification.cshtml" />

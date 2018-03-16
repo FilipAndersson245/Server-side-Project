@@ -66,20 +66,32 @@
                     </div>
                     <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                         <div class="panel-body">
-                            @foreach (var author in Model.Authors)
+                            @for (int i = 0; i < Model.Authors.Count(); i++)
                             {
+                                if (i > 0 && Model.Authors[i].LastName.First() != Model.Authors[i - 1].LastName.First())
+                                {
+                                    <div class="col-sm-12 text-left authorDropdownDivider">
+                                        <h2>@Html.Raw(Model.Authors[i].LastName.First())</h2>
+                                    </div>
+                                }
+                                else if (Model.Authors[i].LastName.First() == 'A' && i == 0)
+                                {
+                                    <div class="col-sm-12 text-left">
+                                        <h2>@Html.Raw('A')</h2>
+                                    </div>
+                                }
                                 bool isChecked = false;
                                 foreach (var bookauthor in Model.Book.Authors)
                                 {
-                                    if (bookauthor.Aid == author.Aid)
+                                    if (bookauthor.Aid == Model.Authors[i].Aid)
                                     {
                                         isChecked = true;
                                     }
                                 }
                                 <div class="col-sm-2 text-left">
                                     <label>
-                                        <input @(isChecked ? "checked='checked'" : string.Empty) name=authorChecklist type="checkbox" value=@author.Aid>
-                                    @author.FullName
+                                        <input @(isChecked ? "checked='checked'" : string.Empty) name=authorChecklist type="checkbox" value=@Model.Authors[i].Aid>
+                                        @Model.Authors[i].FullName
                                     </label>
                                 </div>
                             }
