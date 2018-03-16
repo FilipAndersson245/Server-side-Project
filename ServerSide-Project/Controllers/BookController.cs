@@ -1,9 +1,12 @@
 ﻿using ServerSide_Project.Tools;
 using Service.Managers;
 using Service.Models;
+using System;
 using System.Collections.Generic;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using System.Web.UI.WebControls;
 
 namespace ServerSide_Project.Controllers
 {
@@ -57,7 +60,49 @@ namespace ServerSide_Project.Controllers
             var a = new BookManager().SearchBooks(new Search() { SearchQuery = search, SelectedClassifications = new List<int>() { 1, 2, 3, 4, 5 } }, 1, 20);
             var jsonSerialiser = new JavaScriptSerializer();
             var json = jsonSerialiser.Serialize(a);
-            return Json(a,"application/json", System.Text.UTF8Encoding.UTF8, JsonRequestBehavior.AllowGet);
+            //return new JsonpResult(json);
+            //JavaScriptSerializer()
+            return Json(a, "application/javascript", System.Text.UTF8Encoding.UTF8, JsonRequestBehavior.AllowGet);
         }
-}
+    }
+
+
+
+
+
+
+    public class JsonpResult : JsonResult
+    {
+        object Data = null;
+
+        public JsonpResult()
+        {
+        }
+
+        public JsonpResult(object Data)
+        {
+            this.Data = Data;
+        }
+
+        public override void ExecuteResult(ControllerContext ControllerContext)
+        {
+            if (ControllerContext != null)
+            {
+                HttpResponseBase Response = ControllerContext.HttpContext.Response;
+                HttpRequestBase Request = ControllerContext.HttpContext.Request;
+
+                string callbackfunction = Request["callback"];
+                if (string.IsNullOrEmpty(callbackfunction))
+                {
+                    throw new Exception("Callback function name must be provided in the request!");
+                }
+                Response.ContentType = "application/x-javascript";
+                if (Data != null)
+                {
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    Response.Write(string.Format("{0}({1});", callbackfunction, serializer.Serialize(Data)));
+                }
+            }
+        }
+    }
 }
