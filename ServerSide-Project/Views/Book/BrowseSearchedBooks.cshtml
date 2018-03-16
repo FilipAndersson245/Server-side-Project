@@ -16,7 +16,7 @@
             of @Model.BookSearchResult.PageCount
             @Html.PagedListPager(Model.BookSearchResult, page => {
                 var parameters = new RouteValueDictionary();
-                for (int i = 0; i < Model.SelectedClassifications.Count; i++)
+                for (int i = 0; i < Model.SelectedClassifications?.Count; i++)
                 {
                     parameters.Add("classifications[" + i + "]", Model.SelectedClassifications[i]);
                 }
@@ -39,7 +39,7 @@
             @Html.PagedListPager(Model.BookSearchResult, page =>
                    {
                        var parameters = new RouteValueDictionary();
-                       for (int i = 0; i < Model.SelectedClassifications.Count; i++)
+                       for (int i = 0; i < Model.SelectedClassifications?.Count; i++)
                        {
                            parameters.Add("classifications[" + i + "]", Model.SelectedClassifications[i]);
                        }
