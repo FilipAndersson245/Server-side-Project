@@ -57,7 +57,7 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public JsonResult SEARCH(string search)
         {
-            var a = new BookManager().SearchBooks(new Search() { SearchQuery = search}, 1, 1000000000);
+            var a = new BookManager().GetSearchedBooksToList(new Search() { SearchQuery = search});
             var jsonSerialiser = new JavaScriptSerializer();
             var json = jsonSerialiser.Serialize(a);
             return new JsonpResult(a);

@@ -84,7 +84,8 @@ namespace Service.Managers
         public List<Book>GetSearchedBooksToList(Search search)
         {
             BookRepository repo = new BookRepository();
-            return Mapper.Map<List<Book>>(repo.GetSearchedBooksFromDBToList(search.SearchQuery));
+            var a = Mapper.Map<List<Book>>(repo.GetSearchedBooksFromDBToList(search.SearchQuery));
+            return a;
         }
 
         public Search SearchBooks(string search, int page, int itemsPerPage, params int[] classifications)

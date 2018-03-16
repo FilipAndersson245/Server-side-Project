@@ -5,29 +5,58 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"
             integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
             crossorigin="anonymous"></script>
+    <style>
+        #widget {
+            width: 100%;
+            background-color: rgb(211,211,211);
+            text-align: center;
+        }
+
+        #widgetData {
+            color: #000000;
+            text-decoration: none;
+        }
+
+        .rowLink {
+            text-align: left;
+            text-decoration: none;
+            color: #000000;
+        }
+
+            .rowLink :hover {
+                text-decoration: none;
+                color: yellow;
+            }
+    </style>
 </head>
 <body>
-    <div>
+    <div id="widget">
         <form id="searchBook" action="~/API/SEARCH">
-            <input id="search" name="search" />
+            <input id="search" value="jesper" name="search" />
             <input type="submit" />
         </form>
-        <div id="test"></div>
+        <div id="widgetData"></div>
         <script>
-                $('#searchBook').submit(function(event) {
-					event.preventDefault();
-                    var url = 'http://localhost:10975/Book/SEARCH?search='+ $("#search").val();
-                    $.ajax({
-                        crossDomain: true,
-                        url: url,
-                        type: 'GET',
-                        dataType: 'jsonp',
-                        jsonpCallback: 'callback'
-                    });
-                });
-                function callback(data) {
-                    $("<p>Test<p>").insertAfter("#test")
-                };
+                        var baseUrl = 'http://localhost:10975'
+                        $('#searchBook').submit(function(event) {
+                            event.preventDefault();
+                            var url = baseUrl + '/Book/SEARCH?search='+ $("#search").val();
+                            $.ajax({
+                                crossDomain: true,
+                                url: url,
+                                type: 'GET',
+                                dataType: 'jsonp',
+                                jsonpCallback: 'callback',
+                            });
+                        });
+                        function callback(data) {
+                            $("#widgetData").empty()
+                            data.forEach(function(element) {
+                                $("#widgetData")
+                                    .append("<div class=\"row\">")
+                                        .append("<div><a class=\"rowLink\" href =\""+ baseUrl + "/Book/ListBookDetails/" + element.ISBN +"\"><b>" + element.Title + "</b></div>")
+                            }, this);
+                        };
         </script>
     </div>
 </body>
