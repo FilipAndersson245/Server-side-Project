@@ -7,116 +7,119 @@
     <title>@ViewBag.Title - Server-side Web Development Project</title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <link href="~/Content/sticky-footer.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/layout.css" rel="stylesheet" type="text/css" />
 
     <script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
     <script src="js/shieldui-all.min.js" type="text/javascript"></script>
 </head>
 <body>
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
+    <div id="wrap">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
 
-            <div class="navbar-header col-sm-12 ">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <div class="col-sm-4">
-                    <ul class="nav nav-pills nav-justified">
-                        <li class="@((ViewBag.activeBrowseBy == "Book") ? "active" : null) " >@Html.ActionLink("Books", "BrowseAllBooks", "Book")</li>
-                        <li class="@((ViewBag.activeBrowseBy == "Author") ? "active" : null) " >@Html.ActionLink("Authors", "BrowseAllAuthors", "Author")</li>
-                    </ul>
-                </div>
-                <div class="navbar-col-sm-4 col-sm-offset-5">
-                    @Html.ActionLink("Jönköping Library", "Index", "Home", null, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-col-sm-4">
-                    <ul class="nav navbar-nav navbar-right">
-                        @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Editor)
-                        {
-                            <li id="headerNamedisplay">
-                                <p>
-                                    @Html.DisplayName((Session["Authentication"]).ToString() + ": ")
-                                    @Html.DisplayName(((Rank)Session["Level"]).ToString())
-                                </p>
-                            </li>
-                            <li>@Html.ActionLink("Admin Panel", "AdminPanel", "Admin", null, null)</li>
-                            <li>
-                                @using (@Html.BeginForm("Logout", "Admin", FormMethod.Post, new { @class = "form-group", @id = "logOutButton" }))
-                                {
-                                    @Html.AntiForgeryToken()
-                                    <button type="submit" class="btn btn-link"><span class="glyphicon glyphicon-log-out"></span> Sign Out</button>
-                                }
-                            </li>
-                        }
-                        else
-                        {
-                            <li><a href=@Url.Action("Login", "Admin")><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
-                        }
-                    </ul>
+                <div class="navbar-header col-sm-12 ">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="col-sm-4">
+                        <ul class="nav nav-pills nav-justified">
+                            <li class="@((ViewBag.activeBrowseBy == "Book") ? "active" : null) " >@Html.ActionLink("Books", "BrowseAllBooks", "Book")</li>
+                            <li class="@((ViewBag.activeBrowseBy == "Author") ? "active" : null) " >@Html.ActionLink("Authors", "BrowseAllAuthors", "Author")</li>
+                        </ul>
+                    </div>
+                    <div class="navbar-col-sm-4 col-sm-offset-5">
+                        @Html.ActionLink("Jönköping Library", "Index", "Home", null, new { @class = "navbar-brand" })
+                    </div>
+                    <div class="navbar-col-sm-4">
+                        <ul class="nav navbar-nav navbar-right">
+                            @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Editor)
+                            {
+                                <li id="headerNamedisplay">
+                                    <p>
+                                        @Html.DisplayName((Session["Authentication"]).ToString() + ": ")
+                                        @Html.DisplayName(((Rank)Session["Level"]).ToString())
+                                    </p>
+                                </li>
+                                <li>@Html.ActionLink("Admin Panel", "AdminPanel", "Admin", null, null)</li>
+                                <li>
+                                    @using (@Html.BeginForm("Logout", "Admin", FormMethod.Post, new { @class = "form-group", @id = "logOutButton" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-link"><span class="glyphicon glyphicon-log-out"></span> Sign Out</button>
+                                    }
+                                </li>
+                            }
+                            else
+                            {
+                                <li><a href=@Url.Action("Login", "Admin")><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
+                            }
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    </nav>
-    <div class="container-fluid text-center">
-        <div class="content">
-            <div class="row text-center">
-                @if (ViewBag.activeBrowseBy == "Book")
-                {
-                    string search = Request.Params["search"];
-                    using (Html.BeginForm("SearchBooks", "Book", FormMethod.Get, new { @class = "form-inline" }))
+        </nav>
+        <div class="container-fluid text-center">
+            <div class="content">
+                <div class="row text-center">
+                    @if (ViewBag.activeBrowseBy == "Book")
                     {
-                        Html.AntiForgeryToken();
-                        <div class="form-group col-sm-12 input-lg text-center" id="searchBar">
-                            <input type="text" name="search" class="form-control" id="searchField" value="@search" placeholder="Search for books">
-                            <button class="btn btn-default" type="submit" id="searchBtn">
-                                <i class="glyphicon glyphicon-search"></i>
-                            </button>
-                        </div>
-
-                        <div class="col-sm-2 sidenav float-left align-top text-center container" id="classificationOuter">
-                            @if (Session["Level"] != null && (bool)Session["classificationEditor"])
-                            {
-                                <div class="row">
-                                    @Html.ActionLink("Create New Classification", "CreateClassification", "Classification", null, null)
-                                </div>
-                            }
-                            <div class="collapse-group">
-                                <b>Filters</b>
-                                @{Html.RenderAction("GetClassifications", "Classification");}
+                        string search = Request.Params["search"];
+                        using (Html.BeginForm("SearchBooks", "Book", FormMethod.Get, new { @class = "form-inline" }))
+                        {
+                            Html.AntiForgeryToken();
+                            <div class="form-group col-sm-12 input-lg text-center" id="searchBar">
+                                <input type="text" name="search" class="form-control" id="searchField" value="@search" placeholder="Search for books">
+                                <button class="btn btn-default" type="submit" id="searchBtn">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
                             </div>
-                        </div>
 
-                        <div class="col-sm-8">
-                            @RenderBody()
-                        </div>
-                        }
-                        }
-                        else if (ViewBag.activeBrowseBy == "Author")
-                        {
-                            string search = Request.Params["search"];
-                            using (Html.BeginForm("SearchAuthors", "Author", FormMethod.Get, new { @class = "form-inline" }))
-                            {
-                                Html.AntiForgeryToken();
-                                <div class="form-group col-sm-12 input-lg text-center" id="searchBar">
-                                    <input type="text" name="search" class="form-control" value="@search" id="searchField" placeholder="Search for authors">
-                                    <button class="btn btn-default" type="submit" id="searchBtn">
-                                        <i class="glyphicon glyphicon-search"></i>
-                                    </button>
+                            <div class="col-sm-2 sidenav float-left align-top text-center container" id="classificationOuter">
+                                @if (Session["Level"] != null && (bool)Session["classificationEditor"])
+                                {
+                                    <div class="row">
+                                        @Html.ActionLink("Create New Classification", "CreateClassification", "Classification", null, null)
+                                    </div>
+                                }
+                                <div class="collapse-group">
+                                    <b>Filters</b>
+                                    @{Html.RenderAction("GetClassifications", "Classification");}
                                 </div>
+                            </div>
+
+                            <div class="col-sm-8">
+                                @RenderBody()
+                            </div>
                             }
-                            @RenderBody()
-                        }
-                        else
-                        {
-                            @RenderBody()
-                        }
+                            }
+                            else if (ViewBag.activeBrowseBy == "Author")
+                            {
+                                string search = Request.Params["search"];
+                                using (Html.BeginForm("SearchAuthors", "Author", FormMethod.Get, new { @class = "form-inline" }))
+                                {
+                                    Html.AntiForgeryToken();
+                                    <div class="form-group col-sm-12 input-lg text-center" id="searchBar">
+                                        <input type="text" name="search" class="form-control" value="@search" id="searchField" placeholder="Search for authors">
+                                        <button class="btn btn-default" type="submit" id="searchBtn">
+                                            <i class="glyphicon glyphicon-search"></i>
+                                        </button>
+                                    </div>
+                                }
+                                @RenderBody()
+                            }
+                            else
+                            {
+                                @RenderBody()
+                            }
+                </div>
             </div>
         </div>
     </div>
 
-    <footer>
+    <footer id="footer">
         <div class="navbar align-center">
                 <div class="text-muted col-sm-4">©@DateTime.Today.Year</div>
         </div>
