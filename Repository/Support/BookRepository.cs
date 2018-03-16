@@ -19,8 +19,15 @@ namespace Repository.Support
         {
             using (var db = new dbLibrary())
             {
-                db.Database.Log = s => System.Diagnostics.Debug.Write(s);
                 return db.BOOKs.Include(b => b.AUTHORs).Include(b => b.CLASSIFICATION).OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
+            }
+        }
+
+        public List<BOOK> GetAllBooksFromDBToList()
+        {
+            using (var db = new dbLibrary())
+            {
+                return db.BOOKs.Include(b => b.AUTHORs).Include(b => b.CLASSIFICATION).OrderBy(x => x.Title).ToList();
             }
         }
 

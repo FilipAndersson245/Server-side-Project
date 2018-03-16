@@ -58,10 +58,15 @@ namespace Service.Managers
 
         public void SetupBooks(IPagedList<Book> bookList)
         {
+            BookRepository repo = new BookRepository();
             for (int i = 0; i < bookList.Count; i++)
             {
                 if (bookList[i].SignId == 0 || bookList[i].Classification == null)
+                {
                     bookList[i].Classification = AddClassification(bookList[i]);
+                    bookList[i].SignId = bookList[i].Classification.SignId;
+                    repo.EditBook(Mapper.Map<BOOK>(bookList[i]));
+                }
                 if (bookList[i].Authors.Count == 0)
                     bookList[i].Authors = AddAuthors(bookList[i]);
             }
@@ -74,6 +79,12 @@ namespace Service.Managers
             SetupBooks(bookList);
             Search searchResult = new Search() { BookSearchResult = bookList };
             return searchResult;
+        }
+
+        public List<Book>GetAllBooksToList()
+        {
+            BookRepository repo = new BookRepository();
+            return Mapper.Map<List<Book>>(repo.GetAllBooksFromDBToList());
         }
 
         public Search SearchBooks(string search, int page, int itemsPerPage, params int[] classifications)
