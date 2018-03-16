@@ -9,12 +9,21 @@
 
 @if (Model.BookSearchResult.PageCount > 1)
 {
-    var a = Request.Url.PathAndQuery;
+
     <div class="text-center" id="pageSelector">
         <div class="pagination">
             Page @(Model.BookSearchResult.PageCount < Model.BookSearchResult.PageNumber ? 0 : Model.BookSearchResult.PageNumber)
             of @Model.BookSearchResult.PageCount
-            @Html.PagedListPager(Model.BookSearchResult, page => Url.Action("SearchBooks", new { page, search = Request.Params["search"], classifications = Model.SelectedClassifications }))
+            @Html.PagedListPager(Model.BookSearchResult, page => {
+                var parameters = new RouteValueDictionary();
+                for (int i = 0; i < Model.SelectedClassifications.Count; i++)
+                {
+                    parameters.Add("classifications[" + i + "]", Model.SelectedClassifications[i]);
+                }
+                parameters.Add("search", Model.SearchQuery);
+                parameters.Add("page",page);
+                return Url.Action("SearchBooks", parameters);
+            })
         </div>
     </div>
 }
@@ -27,7 +36,19 @@
         <div class="pagination">
             Page @(Model.BookSearchResult.PageCount < Model.BookSearchResult.PageNumber ? 0 : Model.BookSearchResult.PageNumber)
             of @Model.BookSearchResult.PageCount
-            @Html.PagedListPager(Model.BookSearchResult, page => Url.Action("SearchBooks", new { page, search = Request.Params["search"], classifications = Request.Params["classifications"] }))
+            @Html.PagedListPager(Model.BookSearchResult, page =>
+                   {
+                       var parameters = new RouteValueDictionary();
+                       for (int i = 0; i < Model.SelectedClassifications.Count; i++)
+                       {
+                           parameters.Add("classifications[" + i + "]", Model.SelectedClassifications[i]);
+                       }
+                       parameters.Add("search", Model.SearchQuery);
+                       parameters.Add("page", page);
+                       return Url.Action("SearchBooks", parameters);
+                   })
+
+
         </div>
     </div>
 }
