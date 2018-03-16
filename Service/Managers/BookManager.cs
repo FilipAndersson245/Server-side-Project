@@ -81,10 +81,10 @@ namespace Service.Managers
             return searchResult;
         }
 
-        public List<Book>GetAllBooksToList()
+        public List<Book>GetSearchedBooksToList(Search search)
         {
             BookRepository repo = new BookRepository();
-            return Mapper.Map<List<Book>>(repo.GetAllBooksFromDBToList());
+            return Mapper.Map<List<Book>>(repo.GetSearchedBooksFromDBToList(search.SearchQuery));
         }
 
         public Search SearchBooks(string search, int page, int itemsPerPage, params int[] classifications)

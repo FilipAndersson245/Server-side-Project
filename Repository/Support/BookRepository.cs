@@ -23,11 +23,13 @@ namespace Repository.Support
             }
         }
 
-        public List<BOOK> GetAllBooksFromDBToList()
+        public List<BOOK> GetSearchedBooksFromDBToList(string search)
         {
             using (var db = new dbLibrary())
             {
-                return db.BOOKs.Include(b => b.AUTHORs).Include(b => b.CLASSIFICATION).OrderBy(x => x.Title).ToList();
+                db.Configuration.LazyLoadingEnabled = false;
+                return db.BOOKs.Include(b => b.AUTHORs).Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + y.LastName)
+                    .Contains(search))).OrderBy(x => x.Title).ToList();
             }
         }
 

@@ -49,9 +49,6 @@
                     @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.SuperAdmin && item.PermissionLevel < Rank.SuperAdmin)
                     {
                         @Html.Raw(" | ");
-                    }
-                    @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.SuperAdmin)
-                    {
                         @Html.ActionLink("Delete", "DeleteAdmin", "Admin", new { id = item.Username }, null);
                     }
                 </div>
