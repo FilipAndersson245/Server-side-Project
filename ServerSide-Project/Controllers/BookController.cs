@@ -13,19 +13,18 @@ namespace ServerSide_Project.Controllers
     public class BookController : ControllerExtension
     {
         public const int ITEMS_PER_PAGE = 10;
+        private BookManager _BookManager { get; } = new BookManager();
 
         [HttpGet]
         public ActionResult BrowseAllBooks(int page = 1)
         {
-            BookManager bookManager = new BookManager();
-            return View("BrowseAllBooks", bookManager.GetAllBooks(page, ITEMS_PER_PAGE));
+            return View("BrowseAllBooks", _BookManager.GetAllBooks(page, ITEMS_PER_PAGE));
         }
 
         [HttpGet]
         public ActionResult ListBookDetails(string id)
         {
-            BookManager bookManager = new BookManager();
-            return View("ListBookDetails", bookManager.GetBookFromIsbn(id));
+            return View("ListBookDetails", _BookManager.GetBookFromIsbn(id));
         }
 
         [HttpPost]
@@ -33,8 +32,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult DeleteBookPost(string id)
         {
             AuthorizeAndRedirect();
-            BookManager bookManager = new BookManager();
-            if (bookManager.DeleteBook(id))
+            if (_BookManager.DeleteBook(id)) //why? vvvvvvvv
                 return RedirectToAction("BrowseAllBooks", "Book", null);
             else
                 return RedirectToAction("BrowseAllBooks", "Book", null);
@@ -43,37 +41,26 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult DeleteBook(string id)
         {
-            BookManager manager = new BookManager();
-            return View("DeleteBook", manager.GetBookFromIsbn(id));
+            return View("DeleteBook", _BookManager.GetBookFromIsbn(id));
         }
 
         [HttpGet]
         public ActionResult SearchBooks(string search, int page = 1, params int[] classifications)
         {
-            BookManager bookManager = new BookManager();
-            return View("BrowseSearchedBooks", bookManager.SearchBooks(search, page, ITEMS_PER_PAGE, classifications));
+            return View("BrowseSearchedBooks", _BookManager.SearchBooks(search, page, ITEMS_PER_PAGE, classifications));
         }
 
         [HttpGet]
         public JsonResult SEARCH(string search)
         {
-            var a = new BookManager().GetSearchedBooksToList(new Search() { SearchQuery = search});
-            var jsonSerialiser = new JavaScriptSerializer();
-            var json = jsonSerialiser.Serialize(a);
-            return new JsonpResult(a);
-            //JavaScriptSerializer()
-            return Json(a, "application/javascript", System.Text.UTF8Encoding.UTF8, JsonRequestBehavior.AllowGet);
+            var searchedBookList = _BookManager.GetSearchedBooksToList(new Search() { SearchQuery = search });
+            return new JsonpResult(searchedBookList);
         }
     }
 
-
-
-
-
-
     public class JsonpResult : JsonResult
     {
-        object Data = null;
+        private new object Data = null;
 
         public JsonpResult()
         {
