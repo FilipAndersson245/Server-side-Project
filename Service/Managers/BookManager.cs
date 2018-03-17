@@ -177,9 +177,13 @@ namespace Service.Managers
                 validation.BookDoesntExist(book.ISBN);
             else if (validation.IsValid)
             {
-                var editedBook = Mapper.Map<BOOK, Book>(repo.EditBook(Mapper.Map<Book, BOOK>(book)));
-                if (editedBook != null)
-                    return new Tuple<Book, BookValidation>(editedBook, validation);
+                BOOK repoBOOK = repo.EditBook(Mapper.Map<BOOK>(book));
+                if (repoBOOK != null)
+                {
+                    Book editedBook = Mapper.Map<Book>(repoBOOK);
+                    if (editedBook != null)
+                        return new Tuple<Book, BookValidation>(editedBook, validation);
+                }
                 validation.FailedToCreateBook(nameof(Book.Title));
             }
             return new Tuple<Book, BookValidation>(null, validation);

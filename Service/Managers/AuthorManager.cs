@@ -41,7 +41,7 @@ namespace Service.Managers
         }
 
         /// <summary>
-        /// Edit author return tuple with the edited object if sucessful and a errror dict
+        /// Edit author return tuple with the edited object if successful and a errror dict
         /// </summary>
         /// <param name="author"></param>
         /// <returns></returns>
@@ -51,12 +51,14 @@ namespace Service.Managers
             if (validation.IsValid)
             {
                 AuthorRepository repo = new AuthorRepository();
-                var dbAuthor = repo.EditAuthor(Mapper.Map<Author, AUTHOR>(author));
-                if (dbAuthor == null)
+                AUTHOR repoAUTHOR = repo.EditAuthor(Mapper.Map<Author, AUTHOR>(author));
+                if (repoAUTHOR != null)
                 {
-                    validation.DoesAlreadyExistOnServer(nameof(author.FirstName));
+                    Author editedAuthor = Mapper.Map<AUTHOR, Author>(repoAUTHOR);
+                    if (editedAuthor != null)
+                        return new Tuple<Author, AuthorValidation>(editedAuthor, validation);
                 }
-                return new Tuple<Author, AuthorValidation>(Mapper.Map<AUTHOR, Author>(dbAuthor), validation);
+                validation.DoesAlreadyExistOnServer(nameof(author.FirstName));
             }
             return new Tuple<Author, AuthorValidation>(null, validation);
         }

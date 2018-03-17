@@ -54,12 +54,19 @@ namespace Repository.Support
 
         public bool CreateClassification(CLASSIFICATION eClassification)
         {
-            using (var db = new dbLibrary())
+            try
             {
-                eClassification.SignId = GetNewID();
-                db.CLASSIFICATIONs.Add(eClassification);
-                db.SaveChanges();
-                return true;
+                using (var db = new dbLibrary())
+                {
+                    eClassification.SignId = GetNewID();
+                    db.CLASSIFICATIONs.Add(eClassification);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
 
@@ -100,12 +107,19 @@ namespace Repository.Support
 
         public bool EditClassification(CLASSIFICATION eClassification)
         {
-            using (var db = new dbLibrary())
+            try
             {
-                CLASSIFICATION classification = db.CLASSIFICATIONs.FirstOrDefault(x => x.SignId.Equals(eClassification.SignId));
-                db.Entry(classification).CurrentValues.SetValues(eClassification);
-                db.SaveChanges();
-                return true;
+                using (var db = new dbLibrary())
+                {
+                    CLASSIFICATION classification = db.CLASSIFICATIONs.FirstOrDefault(x => x.SignId.Equals(eClassification.SignId));
+                    db.Entry(classification).CurrentValues.SetValues(eClassification);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
 
