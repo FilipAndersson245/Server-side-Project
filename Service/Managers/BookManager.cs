@@ -126,10 +126,18 @@ namespace Service.Managers
             if (validation.IsValid)
             {
                 BookRepository repo = new BookRepository();
-                var newBook = Mapper.Map<BOOK, Book>(repo.CreateBook(Mapper.Map<Book, BOOK>(book)));
-                if (newBook != null)
-                    return new Tuple<Book, BookValidation>(newBook, validation);
-                validation.FailedToCreateBook(nameof(book.Title));
+                BOOK repoBOOK = repo.CreateBook(Mapper.Map<Book, BOOK>(book));
+                if (repoBOOK == null)
+                {
+                    return new Tuple<Book, BookValidation>(null, validation);
+                }
+                else
+                {
+                    Book newBook = Mapper.Map<Book>(repoBOOK);
+                    if (newBook != null)
+                        return new Tuple<Book, BookValidation>(newBook, validation);
+                    validation.FailedToCreateBook(nameof(book.Title));
+                }
             }
             return new Tuple<Book, BookValidation>(null, validation);
         }

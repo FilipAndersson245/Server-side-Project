@@ -16,21 +16,28 @@ namespace Service.Managers
         /// </summary>
         /// <param name="author"></param>
         /// <returns>A tuple with errors and a int? that store if sucessful the created id</returns>
-        public Tuple<int?, AuthorValidation> CreateAuthor(Author author)
+        public Tuple<Author, AuthorValidation> CreateAuthor(Author author)
         {
-            var a = CreateAuthor(new Author());
             AuthorValidation validation = new AuthorValidation(author);
-            int? id = null;
+            AuthorRepository repo = new AuthorRepository();
             if (validation.IsValid)
             {
-                AuthorRepository repo = new AuthorRepository();
-                id = repo.CreateAuthor(Mapper.Map<Author, AUTHOR>(author));
-                if (id == null)
+                AUTHOR repoAUTHOR = repo.CreateAuthor(Mapper.Map<Author, AUTHOR>(author));
+                if (repoAUTHOR == null)
                 {
+                    return new Tuple<Author, AuthorValidation>(null, validation);
+                }
+                else
+                {
+                    Author newAuthor = Mapper.Map<Author>(repoAUTHOR);
+                    if (newAuthor != null)
+                    {
+                        return new Tuple<Author, AuthorValidation>(newAuthor, validation);
+                    }
                     validation.FailedToCreateAuthor(nameof(author.FirstName));
                 }
             }
-            return new Tuple<int?, AuthorValidation>(id, validation);
+            return new Tuple<Author, AuthorValidation>(null, validation);
         }
 
         /// <summary>

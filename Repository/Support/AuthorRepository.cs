@@ -39,7 +39,7 @@ namespace Repository.Support
             }
         }
 
-        public int? CreateAuthor(AUTHOR author) //Returns Aid if successfull, 0 if failed
+        public AUTHOR CreateAuthor(AUTHOR author) //Returns Aid if successfull, 0 if failed
         {
             try
             {
@@ -47,7 +47,7 @@ namespace Repository.Support
                 {
                     db.AUTHORs.Add(author);
                     db.SaveChanges();
-                    return author.Aid;
+                    return author;
                 }
             }
             catch

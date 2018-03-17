@@ -33,7 +33,9 @@ namespace ServerSide_Project.Controllers
             AuthorManager authorManager = new AuthorManager();
             var authorTuple = authorManager.CreateAuthor(author);
             if (authorTuple.Item1 != null)
-                return RedirectToAction("ListAuthorDetails", "Author", new { authorTuple.Item1 });
+            {
+                return RedirectToAction("ListAuthorDetails", "Author", new { id = Convert.ToInt32(authorTuple.Item1.Aid) });
+            }
             else
             {
                 ValidationMessages.ConvertCodeToMsg(ModelState, authorTuple.Item2.ErrorDict);
