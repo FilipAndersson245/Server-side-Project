@@ -10,6 +10,8 @@ namespace ServerSide_Project.Controllers
 {
     public class AdminController : ControllerExtension
     {
+        private AdminManager Manager { get; } = new AdminManager();
+
         // GET: Admins
         public ActionResult Index()
         {
@@ -30,8 +32,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult CreateAdmin(Admin admin)
         {
             AuthorizeAndRedirect(Rank.SuperAdmin);
-            AdminManager manager = new AdminManager();
-            var valid = manager.SignUp(admin);
+            var valid = Manager.SignUp(admin);
             if (valid.IsValid)
             {
                 return RedirectToAction("AdminPanel", "Admin");
@@ -44,16 +45,14 @@ namespace ServerSide_Project.Controllers
         public ActionResult EditAdmin(string id)
         {
             AuthorizeAndRedirect(Rank.Admin);
-            AdminManager manager = new AdminManager();
-            return View("Editadmin", manager.GetAdmin(id));
+            return View("Editadmin", Manager.GetAdmin(id));
         }
 
         [HttpPost]
         public ActionResult EditAdminPost(Admin admin)
         {
             AuthorizeAndRedirect(Rank.Admin);
-            AdminManager manager = new AdminManager();
-            Admin oldAdmin = manager.GetAdmin(admin.Username);
+            Admin oldAdmin = Manager.GetAdmin(admin.Username);
             admin.Username = oldAdmin.Username;
             if ((Rank)Session["Level"] < Rank.SuperAdmin) //Don't allow changing of admin level if admin who edited is not superadmin
                 admin.PermissionLevel = oldAdmin.PermissionLevel;
@@ -61,7 +60,7 @@ namespace ServerSide_Project.Controllers
             {
                 admin.PasswordHash = oldAdmin.PasswordHash;
                 admin.Salt = oldAdmin.Salt;
-                admin.Password = "Tjollahopp1";
+                admin.Password = "PlaceHolder123";
             }
             else
             {
@@ -69,17 +68,15 @@ namespace ServerSide_Project.Controllers
                 admin.PasswordHash = hashing.Hash;
                 admin.Salt = hashing.Salt;
             }
-            manager.EditAdmin(admin);
+            Manager.EditAdmin(admin);
             return RedirectToAction("AdminPanel", "Admin", null);
         }
-
 
         [HttpGet]
         public ActionResult DeleteAdmin(string id)
         {
             AuthorizeAndRedirect(Rank.SuperAdmin);
-            AdminManager manager = new AdminManager();
-            Admin admin = manager.GetAdmin(id);
+            Admin admin = Manager.GetAdmin(id);
             return View("DeleteAdmin", admin);
         }
 
@@ -88,8 +85,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult DeleteAdminPost(string id)
         {
             AuthorizeAndRedirect(Rank.SuperAdmin);
-            AdminManager manager = new AdminManager();
-            if (manager.DeleteAdmin(id))
+            if (Manager.DeleteAdmin(id))
                 return RedirectToAction("AdminPanel", "Admin", null);
             else
                 return RedirectToAction("AdminPanel", "Admin", null);
@@ -108,13 +104,11 @@ namespace ServerSide_Project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(Admin admin, string returnBackTo = null)
         {
-            var modelList = ModelState.ToList();
-            var manager = new AdminManager();
-            var validation = manager.Login(admin);
+            var validation = Manager.Login(admin);
             if (validation.Item2.IsValid)
             {
                 Session["authentication"] = admin.Username;
-                Session["level"] = manager.getPermissionLevel(admin.Username);
+                Session["level"] = Manager.getPermissionLevel(admin.Username);
                 Session["classificationEditor"] = validation.Item1.CanEditClassifications;
                 if (String.IsNullOrEmpty(returnBackTo))
                     return RedirectToAction("index", "Home");
@@ -138,8 +132,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult AdminPanel()
         {
             AuthorizeAndRedirect();
-            AdminManager adminManager = new AdminManager();
-            return View("AdminPanel", adminManager.GetAllAdmins());
+            return View("AdminPanel", Manager.GetAllAdmins());
         }
     }
 }

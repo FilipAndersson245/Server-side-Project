@@ -8,9 +8,11 @@ namespace Service.Managers
         {
             ClassificationManager classificationManager = new ClassificationManager();
             AuthorManager authorManager = new AuthorManager();
-            BookAuthorClassification bac = new BookAuthorClassification();
-            bac.Authors = authorManager.GetAllAuthorsToList();
-            bac.Classifications = classificationManager.GetAllClassifications();
+            BookAuthorClassification bac = new BookAuthorClassification
+            {
+                Authors = authorManager.GetAllAuthorsToList(),
+                Classifications = classificationManager.GetAllClassifications()
+            };
             return bac;
         }
     }

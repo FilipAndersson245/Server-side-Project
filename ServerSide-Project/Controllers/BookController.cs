@@ -13,18 +13,18 @@ namespace ServerSide_Project.Controllers
     public class BookController : ControllerExtension
     {
         public const int ITEMS_PER_PAGE = 10;
-        private BookManager _BookManager { get; } = new BookManager();
+        private BookManager Manager { get; } = new BookManager();
 
         [HttpGet]
         public ActionResult BrowseAllBooks(int page = 1)
         {
-            return View("BrowseAllBooks", _BookManager.GetAllBooks(page, ITEMS_PER_PAGE));
+            return View("BrowseAllBooks", Manager.GetAllBooks(page, ITEMS_PER_PAGE));
         }
 
         [HttpGet]
         public ActionResult ListBookDetails(string id)
         {
-            return View("ListBookDetails", _BookManager.GetBookFromIsbn(id));
+            return View("ListBookDetails", Manager.GetBookFromIsbn(id));
         }
 
         [HttpPost]
@@ -32,7 +32,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult DeleteBookPost(string id)
         {
             AuthorizeAndRedirect();
-            if (_BookManager.DeleteBook(id)) //why? vvvvvvvv
+            if (Manager.DeleteBook(id)) //why? vvvvvvvv
                 return RedirectToAction("BrowseAllBooks", "Book", null);
             else
                 return RedirectToAction("BrowseAllBooks", "Book", null);
@@ -41,19 +41,19 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult DeleteBook(string id)
         {
-            return View("DeleteBook", _BookManager.GetBookFromIsbn(id));
+            return View("DeleteBook", Manager.GetBookFromIsbn(id));
         }
 
         [HttpGet]
         public ActionResult SearchBooks(string search, int page = 1, params int[] classifications)
         {
-            return View("BrowseSearchedBooks", _BookManager.SearchBooks(search, page, ITEMS_PER_PAGE, classifications));
+            return View("BrowseSearchedBooks", Manager.SearchBooks(search, page, ITEMS_PER_PAGE, classifications));
         }
 
         [HttpGet]
         public JsonResult SEARCH(string search)
         {
-            var searchedBookList = _BookManager.GetSearchedBooksToList(new Search() { SearchQuery = search });
+            var searchedBookList = Manager.GetSearchedBooksToList(new Search() { SearchQuery = search });
             return new JsonpResult(searchedBookList);
         }
     }

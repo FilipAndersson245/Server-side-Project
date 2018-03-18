@@ -11,6 +11,8 @@ namespace Service.Managers
 {
     public class AuthorManager
     {
+        private AuthorRepository _Repo { get; } = new AuthorRepository();
+
         /// <summary>
         /// Create a new Author
         /// </summary>
@@ -19,10 +21,9 @@ namespace Service.Managers
         public Tuple<Author, AuthorValidation> CreateAuthor(Author author)
         {
             AuthorValidation validation = new AuthorValidation(author);
-            AuthorRepository repo = new AuthorRepository();
             if (validation.IsValid)
             {
-                AUTHOR repoAUTHOR = repo.CreateAuthor(Mapper.Map<Author, AUTHOR>(author));
+                AUTHOR repoAUTHOR = _Repo.CreateAuthor(Mapper.Map<Author, AUTHOR>(author));
                 if (repoAUTHOR == null)
                 {
                     return new Tuple<Author, AuthorValidation>(null, validation);
@@ -50,8 +51,7 @@ namespace Service.Managers
             AuthorValidation validation = new AuthorValidation(author);
             if (validation.IsValid)
             {
-                AuthorRepository repo = new AuthorRepository();
-                AUTHOR repoAUTHOR = repo.EditAuthor(Mapper.Map<Author, AUTHOR>(author));
+                AUTHOR repoAUTHOR = _Repo.EditAuthor(Mapper.Map<Author, AUTHOR>(author));
                 if (repoAUTHOR != null)
                 {
                     Author editedAuthor = Mapper.Map<AUTHOR, Author>(repoAUTHOR);
@@ -65,28 +65,24 @@ namespace Service.Managers
 
         public bool DeleteAuthor(Author author)
         {
-            AuthorRepository repo = new AuthorRepository();
-            return repo.DeleteAuthor(Mapper.Map<Author, AUTHOR>(author));
+            return _Repo.DeleteAuthor(Mapper.Map<Author, AUTHOR>(author));
         }
 
         public Search GetAllAuthors(int page, int itemsPerPage)
         {
-            AuthorRepository repo = new AuthorRepository();
-            Search searchResult = new Search() { AuthorSearchResult = repo.GetAllAuthorsFromDB(page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>() };
+            Search searchResult = new Search() { AuthorSearchResult = _Repo.GetAllAuthorsFromDB(page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>() };
             return searchResult;
         }
 
         public List<Author> GetAllAuthorsToList()
         {
-            AuthorRepository repo = new AuthorRepository();
-            return Mapper.Map<List<AUTHOR>, List<Author>>(repo.GetAllAuthorsFromDBToList());
+            return Mapper.Map<List<AUTHOR>, List<Author>>(_Repo.GetAllAuthorsFromDBToList());
         }
 
         public Author GetAuthorDetails(int id, int bookPage)
         {
-            AuthorRepository repo = new AuthorRepository();
-            Author author = Mapper.Map<AUTHOR, Author>(repo.GetAuthorDetailsFromDB(id));
-            author.BookList = repo.GetBooksByAuthor(id, bookPage).ToMappedPagedList<BOOK, Book>();
+            Author author = Mapper.Map<AUTHOR, Author>(_Repo.GetAuthorDetailsFromDB(id));
+            author.BookList = _Repo.GetBooksByAuthor(id, bookPage).ToMappedPagedList<BOOK, Book>();
             BookManager bookManager = new BookManager();
             bookManager.SetupBooks(author.BookList);
             return author;
@@ -94,22 +90,19 @@ namespace Service.Managers
 
         public Search GetAuthorsFromSearch(string search, int page, int itemsPerPage)
         {
-            AuthorRepository repo = new AuthorRepository();
-            Search searchResult = new Search() { AuthorSearchResult = repo.GetAuthorsFromSearchResult(search, page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>(), SearchQuery = search };
+            Search searchResult = new Search() { AuthorSearchResult = _Repo.GetAuthorsFromSearchResult(search, page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>(), SearchQuery = search };
             return searchResult;
         }
 
         public Search GetAuthorsFromSearch(Search search, int page, int itemsPerPage)
         {
-            AuthorRepository repo = new AuthorRepository();
-            search.AuthorSearchResult = repo.GetAuthorsFromSearchResult(search.SearchQuery, page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>();
+            search.AuthorSearchResult = _Repo.GetAuthorsFromSearchResult(search.SearchQuery, page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>();
             return search;
         }
 
         public Author GetAuthorFromID(int id)
         {
-            AuthorRepository repo = new AuthorRepository();
-            return Mapper.Map<AUTHOR, Author>(repo.GetAuthorFromDB(id));
+            return Mapper.Map<AUTHOR, Author>(_Repo.GetAuthorFromDB(id));
         }
     }
 }

@@ -10,42 +10,39 @@ namespace Service.Managers
 {
     public class ClassificationManager
     {
+        private ClassificationRepository _Repo { get; } = new ClassificationRepository();
+
         public List<Book> GetBooksByClassification(int signId)
         {
-            ClassificationRepository repo = new ClassificationRepository();
-            List<Book> bookList = Mapper.Map<List<BOOK>, List<Book>>(repo.GetBooksFromClassification(signId));
+            List<Book> bookList = Mapper.Map<List<BOOK>, List<Book>>(_Repo.GetBooksFromClassification(signId));
             return bookList;
         }
 
         public Classification GetClassificationFromBookIsbn(string isbn)
         {
-            ClassificationRepository repo = new ClassificationRepository();
-            return Mapper.Map<Classification>(repo.GetClassificationForBook(isbn));
+            return Mapper.Map<Classification>(_Repo.GetClassificationForBook(isbn));
         }
 
         public Classification GetClassificationFromID(int id)
         {
-            ClassificationRepository repo = new ClassificationRepository();
-            return Mapper.Map<CLASSIFICATION, Classification>(repo.GetClassificationFromID(id));
+            return Mapper.Map<CLASSIFICATION, Classification>(_Repo.GetClassificationFromID(id));
         }
 
         public Classification GetClassificationFromName(string name)
         {
-            ClassificationRepository repo = new ClassificationRepository();
-            return Mapper.Map<CLASSIFICATION, Classification>(repo.GetClassificationFromName(name));
+            return Mapper.Map<CLASSIFICATION, Classification>(_Repo.GetClassificationFromName(name));
         }
 
         public Classification AddGenericClassification()
         {
-            ClassificationRepository classRepo = new ClassificationRepository();
-            if (classRepo.DoesClassificationExist("Generic"))
+            if (_Repo.DoesClassificationExist("Generic"))
             {
-                return Mapper.Map<CLASSIFICATION, Classification>(classRepo.GetClassificationFromName("Generic"));
+                return Mapper.Map<CLASSIFICATION, Classification>(_Repo.GetClassificationFromName("Generic"));
             }
             else
             {
                 Classification genericClass = new Classification() { Signum = "Generic", Description = "Books without a category" };
-                if (classRepo.CreateClassification(Mapper.Map<Classification, CLASSIFICATION>(genericClass)))
+                if (_Repo.CreateClassification(Mapper.Map<Classification, CLASSIFICATION>(genericClass)))
                 {
                     return genericClass;
                 }
@@ -58,13 +55,12 @@ namespace Service.Managers
 
         public ClassificationValidation DeleteClassification(Classification classification)
         {
-            ClassificationRepository repo = new ClassificationRepository();
             ClassificationValidation validation = new ClassificationValidation(classification);
-            if (repo.DoesClassificationContainBooks(Mapper.Map<CLASSIFICATION>(classification)))
+            if (_Repo.DoesClassificationContainBooks(Mapper.Map<CLASSIFICATION>(classification)))
             {
                 validation.BooksExistInClassification(nameof(classification.Signum));
             }
-            else if (!repo.DeleteClassification(Mapper.Map<Classification, CLASSIFICATION>(classification)))
+            else if (!_Repo.DeleteClassification(Mapper.Map<Classification, CLASSIFICATION>(classification)))
             {
                 validation.DoesNotExistOnServer(nameof(classification.Signum));
             }
@@ -76,8 +72,7 @@ namespace Service.Managers
             ClassificationValidation validation = new ClassificationValidation(classification);
             if (validation.IsValid)
             {
-                ClassificationRepository repo = new ClassificationRepository();
-                if (!repo.CreateClassification(Mapper.Map<Classification, CLASSIFICATION>(classification)))
+                if (!_Repo.CreateClassification(Mapper.Map<Classification, CLASSIFICATION>(classification)))
                 {
                     validation.FailedToCreateClassification(nameof(classification.Signum));
                 }
@@ -87,8 +82,7 @@ namespace Service.Managers
 
         public List<Classification> GetAllClassifications()
         {
-            ClassificationRepository repo = new ClassificationRepository();
-            return Mapper.Map<List<CLASSIFICATION>, List<Classification>>(repo.GetAllClassifications());
+            return Mapper.Map<List<CLASSIFICATION>, List<Classification>>(_Repo.GetAllClassifications());
         }
 
         public ClassificationValidation EditClassification(Classification classification)

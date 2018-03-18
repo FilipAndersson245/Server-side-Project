@@ -8,7 +8,8 @@ namespace ServerSide_Project.Controllers
 {
     public class AuthorController : ControllerExtension
     {
-        public const int ITEMS_PER_PAGE = 15;
+        private const int ITEMS_PER_PAGE = 15;
+        private AuthorManager Manager { get; } = new AuthorManager();
 
         [HttpGet]
         public ActionResult Index()
@@ -30,8 +31,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult CreateAuthor(Author author)
         {
             AuthorizeAndRedirect();
-            AuthorManager authorManager = new AuthorManager();
-            var authorTuple = authorManager.CreateAuthor(author);
+            var authorTuple = Manager.CreateAuthor(author);
             if (authorTuple.Item1 != null)
             {
                 return RedirectToAction("ListAuthorDetails", "Author", new { id = Convert.ToInt32(authorTuple.Item1.Aid) });
@@ -48,8 +48,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult EditAuthor(int id)
         {
             AuthorizeAndRedirect();
-            AuthorManager authorManager = new AuthorManager();
-            return View("EditAuthor", authorManager.GetAuthorFromID(id));
+            return View("EditAuthor", Manager.GetAuthorFromID(id));
         }
 
         [HttpPost]
@@ -58,8 +57,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult EditAuthor(Author author)
         {
             AuthorizeAndRedirect();
-            AuthorManager manager = new AuthorManager();
-            var authorTuple = manager.EditAuthor(author);
+            var authorTuple = Manager.EditAuthor(author);
             if (authorTuple.Item1 != null)
             {
                 return RedirectToAction("ListAuthorDetails", "Author", new { id = Convert.ToInt32(authorTuple.Item1.Aid) });
@@ -73,8 +71,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult DeleteAuthorPost(int id)
         {
             AuthorizeAndRedirect();
-            AuthorManager authorManager = new AuthorManager();
-            if (authorManager.DeleteAuthor(authorManager.GetAuthorFromID(id)))
+            if (Manager.DeleteAuthor(Manager.GetAuthorFromID(id)))
                 return RedirectToAction("BrowseAllAuthors", "Author", null);
             else
                 return RedirectToAction("BrowseAllAuthors", "Author", null);
@@ -83,29 +80,25 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult DeleteAuthor(string id)
         {
-            AuthorManager manager = new AuthorManager();
-            return View("DeleteAuthor", manager.GetAuthorFromID(Convert.ToInt32(id)));
+            return View("DeleteAuthor", Manager.GetAuthorFromID(Convert.ToInt32(id)));
         }
 
         [HttpGet]
         public ActionResult BrowseAllAuthors(int page = 1)
         {
-            AuthorManager authorManager = new AuthorManager();
-            return View("BrowseAllAuthors", authorManager.GetAllAuthors(page, ITEMS_PER_PAGE));
+            return View("BrowseAllAuthors", Manager.GetAllAuthors(page, ITEMS_PER_PAGE));
         }
 
         [HttpGet]
         public ActionResult ListAuthorDetails(int id, int bookPage = 1)
         {
-            AuthorManager authorManager = new AuthorManager();
-            return View("ListAuthorDetails", authorManager.GetAuthorDetails(id, bookPage));
+            return View("ListAuthorDetails", Manager.GetAuthorDetails(id, bookPage));
         }
 
         [HttpGet]
         public ActionResult SearchAuthors(string search, int page = 1)
         {
-            AuthorManager authorManager = new AuthorManager();
-            return View("BrowseSearchedAuthors", authorManager.GetAuthorsFromSearch(search, page, ITEMS_PER_PAGE));
+            return View("BrowseSearchedAuthors", Manager.GetAuthorsFromSearch(search, page, ITEMS_PER_PAGE));
         }
     }
 }

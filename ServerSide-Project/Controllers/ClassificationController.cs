@@ -8,19 +8,19 @@ namespace ServerSide_Project.Controllers
 {
     public class ClassificationController : ControllerExtension
     {
+        private ClassificationManager _Manager { get; } = new ClassificationManager();
+
         [HttpGet]
         public ActionResult ListClassifications(int id)
         {
-            ClassificationManager classificationManager = new ClassificationManager();
-            return View("ListBooks", classificationManager.GetBooksByClassification(id));
+            return View("ListBooks", _Manager.GetBooksByClassification(id));
         }
 
         [HttpGet]
         public ActionResult EditClassification(int id)
         {
             AuthorizeAndRedirect();
-            ClassificationManager classificationManager = new ClassificationManager();
-            return View("EditClassification", classificationManager.GetClassificationFromID(id));
+            return View("EditClassification", _Manager.GetClassificationFromID(id));
         }
 
         [HttpPost]
@@ -28,8 +28,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult EditClassification(Classification classification)
         {
             AuthorizeAndRedirect();
-            ClassificationManager classificationManager = new ClassificationManager();
-            var validation = classificationManager.EditClassification(classification);
+            var validation = _Manager.EditClassification(classification);
             if (validation.IsValid)
                 return RedirectToAction("BrowseAllBooks", "Book", null);
             else
@@ -53,8 +52,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult CreateClassification(Classification classification)
         {
             AuthorizeAndRedirect();
-            ClassificationManager classificationManager = new ClassificationManager();
-            var validation = classificationManager.CreateClassification(classification);
+            var validation = _Manager.CreateClassification(classification);
             if (validation.IsValid)
                 return RedirectToAction("BrowseAllBooks", "Book", null);
             else
@@ -67,37 +65,33 @@ namespace ServerSide_Project.Controllers
         public ActionResult DeleteClassificationPost(int id)
         {
             AuthorizeAndRedirect();
-            ClassificationManager manager = new ClassificationManager();
-            var validation = manager.DeleteClassification(manager.GetClassificationFromID(id));
+            var validation = _Manager.DeleteClassification(_Manager.GetClassificationFromID(id));
             if (validation.IsValid)
                 return RedirectToAction("BrowseAllBooks", "Book", null);
             else
             {
                 ValidationMessages.ConvertCodeToMsg(ModelState, validation.ErrorDict);
-                return View("DeleteClassification", manager.GetClassificationFromID(id));
-            } 
+                return View("DeleteClassification", _Manager.GetClassificationFromID(id));
+            }
         }
 
         [HttpGet]
         public ActionResult DeleteClassification(int id)
         {
-            ClassificationManager manager = new ClassificationManager();
-            return View("DeleteClassification", manager.GetClassificationFromID(id));
+            return View("DeleteClassification", _Manager.GetClassificationFromID(id));
         }
 
         [HttpGet]
         public ActionResult GetClassifications(int[] classifications = null)
         {
-            ClassificationManager classificationManager = new ClassificationManager();
-            var a = new ListClassification() { Classifications = classificationManager.GetAllClassifications(), SelectedClassification = classifications?.ToList() };
-            return PartialView("ListClassifications",a );
+            var classificationList = new ListClassification() { Classifications = _Manager.GetAllClassifications(), SelectedClassification = classifications?.ToList() };
+            return PartialView("ListClassifications", classificationList);
         }
 
         [HttpGet]
         public ActionResult GetClassificationDropdown()
         {
-            ClassificationManager classificationManager = new ClassificationManager();
-            return PartialView("ClassificationDropdown", classificationManager.GetAllClassifications());
+            return PartialView("ClassificationDropdown", _Manager.GetAllClassifications());
         }
     }
 }

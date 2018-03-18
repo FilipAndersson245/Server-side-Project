@@ -11,6 +11,8 @@ namespace Service.Managers
 {
     public class AdminManager
     {
+        private AdminRepository _Repo { get; } = new AdminRepository();
+
         public Tuple<Admin, AdminValidation> Login(Admin admin)
         {
             AdminValidation validation = new AdminValidation(admin);
@@ -37,8 +39,7 @@ namespace Service.Managers
 
         public Rank getPermissionLevel(string username)
         {
-            AdminRepository repo = new AdminRepository();
-            return (Rank)repo.GetPermissionLevel(username);
+            return (Rank)_Repo.GetPermissionLevel(username);
         }
 
         public AdminValidation SignUp(Admin admin)
@@ -64,39 +65,34 @@ namespace Service.Managers
 
         public Admin GetAdmin(string username)
         {
-            AdminRepository repo = new AdminRepository();
-            return Mapper.Map<Admin>(repo.GetAdmin(username));
+            return Mapper.Map<Admin>(_Repo.GetAdmin(username));
         }
 
         public bool CreateAdmin(Admin admin)
         {
-            AdminRepository repo = new AdminRepository();
             ADMIN dbAdmin = Mapper.Map<ADMIN>(admin);
-            return repo.CreateAdmin(dbAdmin);
+            return _Repo.CreateAdmin(dbAdmin);
         }
 
         public List<Admin> GetAllAdmins()
         {
-            AdminRepository repo = new AdminRepository();
-            return Mapper.Map<List<ADMIN>, List<Admin>>(repo.GetAllAdmins());
+            return Mapper.Map<List<ADMIN>, List<Admin>>(_Repo.GetAllAdmins());
         }
 
         public bool DeleteAdmin(string id)
         {
-            AdminRepository repo = new AdminRepository();
-            return repo.DeleteAdmin(id);
+            return _Repo.DeleteAdmin(id);
         }
 
         public AdminValidation EditAdmin(Admin admin)
         {
-            AdminRepository repo = new AdminRepository();
             AdminValidation validation = new AdminValidation(admin);
             if (validation.IsValid)
             {
                 Admin existingAdmin = GetAdmin(admin.Username);
                 if (existingAdmin != null)
                 {
-                    repo.EditAdmin(Mapper.Map<ADMIN>(admin));
+                    _Repo.EditAdmin(Mapper.Map<ADMIN>(admin));
                 }
                 else
                 {

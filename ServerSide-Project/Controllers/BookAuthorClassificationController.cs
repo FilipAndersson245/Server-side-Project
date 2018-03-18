@@ -1,18 +1,22 @@
 ﻿using ServerSide_Project.Tools;
 using Service.Managers;
 using Service.Models;
+using Service.Validations;
+using System;
 using System.Web.Mvc;
 
 namespace ServerSide_Project.Controllers
 {
     public class BookAuthorClassificationController : ControllerExtension
     {
+        private BookManager _BookManager { get; } = new BookManager();
+        private BookAuthorClassificationManager _BookAuthorClassificationManager { get; } = new BookAuthorClassificationManager();
+
         [HttpGet]
         [RestoreModelStateFromTempData]
         public ActionResult CreateBook()
         {
-            BookAuthorClassificationManager bacManager = new BookAuthorClassificationManager();
-            var bac = bacManager.Setup();
+            var bac = _BookAuthorClassificationManager.Setup();
             return View("CreateBook", bac);
         }
 
@@ -22,8 +26,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult CreateBook(BookAuthorClassification bac, string[] authorChecklist, int? classificationRadio) //Strukturera om till servicelagret och lös classificationRadio null
         {
             AuthorizeAndRedirect();
-            BookManager bookManager = new BookManager();
-            var bookTuple = bookManager.CreateBook(bac, authorChecklist, classificationRadio);
+            var bookTuple = _BookManager.CreateBook(bac, authorChecklist, classificationRadio);
             if (bookTuple.Item2.IsValid)
                 return RedirectToAction("ListBookDetails", "Book", new { id = bookTuple.Item1.ISBN });
             else
@@ -37,10 +40,8 @@ namespace ServerSide_Project.Controllers
         [RestoreModelStateFromTempData]
         public ActionResult EditBook(string id)
         {
-            BookManager bookManager = new BookManager();
-            BookAuthorClassificationManager bacManager = new BookAuthorClassificationManager();
-            var bac = bacManager.Setup();
-            bac.Book = bookManager.GetBookFromIsbn(id);
+            var bac = _BookAuthorClassificationManager.Setup();
+            bac.Book = _BookManager.GetBookFromIsbn(id);
             return View("EditBook", bac);
         }
 
@@ -50,8 +51,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult EditBook(BookAuthorClassification bac, string[] authorChecklist, int classificationRadio)
         {
             AuthorizeAndRedirect();
-            BookManager bookManager = new BookManager();
-            var bookTuple = bookManager.EditBook(bac, authorChecklist, classificationRadio);
+            Tuple<Book, BookValidation> bookTuple = _BookManager.EditBook(bac, authorChecklist, classificationRadio);
             if (bookTuple.Item2.IsValid)
                 return RedirectToAction("ListBookDetails", "Book", new { id = bookTuple.Item1.ISBN });
             else
