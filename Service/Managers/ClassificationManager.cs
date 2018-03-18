@@ -90,8 +90,7 @@ namespace Service.Managers
             ClassificationValidation validation = new ClassificationValidation(classification);
             if (validation.IsValid)
             {
-                ClassificationRepository repo = new ClassificationRepository();
-                if (!repo.EditClassification(Mapper.Map<Classification, CLASSIFICATION>(classification)))
+                if (!_Repo.EditClassification(Mapper.Map<Classification, CLASSIFICATION>(classification)))
                 {
                     validation.DoesNotExistOnServer(nameof(classification.Signum));
                 }
