@@ -107,7 +107,7 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
 
 #searchBtn
 {
-    background-color: #006c9b;
+    background-color: #003952;
     border-color: #ffffff;
     color: #ffffff;
     height: 200%;
@@ -116,7 +116,7 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
 
 #searchBtn:hover
 {
-    background-color: #003952;
+    background-color: #005275;
     border-color: #ffffff;
 }
 
@@ -209,7 +209,7 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
 
 .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover
 {
-    background-color: #636363;
+    background-color: #a5a5a5;
 }
 
 .nav-pills
@@ -227,7 +227,7 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
 
 .nav-pills > li > a:hover, .nav-pills > li > a:focus
 {
-    background-color: #969696;
+    background-color: #a5a5a5;
 }
 
 #authorListOptions, #authorDetailsOptions #logOutButton
@@ -243,6 +243,11 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
 #logOutButton button:hover
 {
     text-decoration:none;
+}
+
+#logInButton
+{
+    padding-bottom: 25px;
 }
 
 #bookListOuter
@@ -355,4 +360,10 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
 {
     margin-bottom: 15%;
     margin-top: 15%;
+}
+
+#pageSelector > div > div > ul > li.active > a
+{
+    background-color: #003952;
+    border-color: #003952
 }
