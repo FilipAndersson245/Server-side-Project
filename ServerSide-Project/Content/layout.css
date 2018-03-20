@@ -367,3 +367,15 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
     background-color: #003952;
     border-color: #003952
 }
+
+.btn-primary
+{
+    background-color: #003952;
+    border-color: #ffffff;
+}
+
+.btn-primary:hover
+{
+    background-color: #005275;
+    border-color: #ffffff;
+}
