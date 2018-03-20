@@ -11,7 +11,7 @@ namespace Repository.Support
         {
             using (dbLibrary db = new dbLibrary())
             {
-                return db.AUTHORs.Any(x => x.Aid == aid);
+                return db.AUTHORs.Any(x => x.Aid.Equals(aid));
             }
         }
 

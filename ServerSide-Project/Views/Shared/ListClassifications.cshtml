@@ -12,23 +12,12 @@
     <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
         <div class="panel-body">
             @{
-                //string selectedClassification = Request.Params["classifications"] ?? "";
-                //var selectedId =  selectedClassification.Split(',');
-                //List<int> ids = new List<int>();
-                //foreach (var i in selectedId)
-                //{
-                //    int id=0;
-                //    if(int.TryParse(i, out id))
-                //    {
-                //        ids.Add(id);
-                //    }
-                //}
                 foreach (var classification in Model.Classifications)
                 {
                     <div class="row">
                         <div class="col-sm-12 text-left">
                                 <input name=classifications type="checkbox" value=@classification.SignId.ToString() id=@classification.Signum @Html.Raw((Model.SelectedClassification!=null && Model.SelectedClassification.Any(x => x.Equals(classification.SignId) )) ? "checked=\"checked\"" : "")/>
-                                <label for=@classification.Signum>@classification.Signum</label>
+                                <label for=@classification.Signum title="@classification.Description" >@classification.Signum</label>
                         </div>
                             @if (Session["Level"] != null && (bool)Session["classificationEditor"])
                             {
