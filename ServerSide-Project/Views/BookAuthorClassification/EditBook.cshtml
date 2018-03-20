@@ -4,7 +4,7 @@
     ViewBag.Title = "EditBook";
 }
 
-<div class="col-sm-10 col-sm-offset-1">
+<div class="col-sm-6 col-sm-offset-3">
     <h2>Edit Book</h2>
 
     @using (Html.BeginForm("EditBook", "BookAuthorClassification", FormMethod.Post, new { @class = "form-group" }))
@@ -12,7 +12,6 @@
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>Book</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
@@ -126,16 +125,12 @@
             </div>
 
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Edit" class="btn btn-default" />
+                <div class="col-md-10 col-md-offset-1">
+                    <input type="submit" value="Edit" class="btn btn-primary" />
                 </div>
             </div>
         </div>
     }
-
-    <div>
-        @Html.ActionLink("Back to List", "AdminPanel", "Admin", null, null)
-    </div>
 </div>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>

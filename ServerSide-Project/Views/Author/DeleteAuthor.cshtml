@@ -4,11 +4,12 @@
     ViewBag.Title = "DeleteAuthor";
 }
 
-<h3>Are you sure you want to delete the author</h3>
-<h2>@Html.Encode(Model.FullName)?</h2>
-
-@using (Html.BeginForm("DeleteAuthorPost", "Author", new { id = @Model.Aid }, FormMethod.Post, new { @class = "form-group" }))
-{
-    @Html.AntiForgeryToken();
-    <input type="submit" value="Delete" class="btn btn-danger" />
-}
+<div class="deleteContent">
+    <h3>Are you sure you want to delete the author</h3>
+    <h2>@Html.Encode(Model.FullName)?</h2>
+    @using (Html.BeginForm("DeleteAuthorPost", "Author", new { id = @Model.Aid }, FormMethod.Post, new { @class = "form-group" }))
+    {
+        @Html.AntiForgeryToken();
+        <input type="submit" value="Delete" class="btn btn-danger" />
+    }
+</div>

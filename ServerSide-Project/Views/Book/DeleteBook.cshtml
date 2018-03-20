@@ -3,12 +3,12 @@
 @{
     ViewBag.Title = "DeleteBook";
 }
-
-<h3>Are you sure you want to delete the book</h3>
-<h2>@Html.Encode(Model.Title)?</h2>
-
-@using (Html.BeginForm("DeleteBookPost", "Book", new { id = @Model.ISBN }, FormMethod.Post, new { @class = "form-group" }))
-{
-    @Html.AntiForgeryToken();
-    <input type="submit" value="Delete" class="btn btn-danger" />
-}
+<div class="deleteContent">
+    <h3>Are you sure you want to delete the book</h3>
+    <h2>@Html.Encode(Model.Title)?</h2>
+    @using (Html.BeginForm("DeleteBookPost", "Book", new { id = @Model.ISBN }, FormMethod.Post, new { @class = "form-group" }))
+    {
+        @Html.AntiForgeryToken();
+        <input type="submit" value="Delete" class="btn btn-danger" />
+    }
+</div>

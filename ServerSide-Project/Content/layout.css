@@ -349,3 +349,9 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
 {
     border-top: 1px solid #9d9d9d;
 }
+
+.deleteContent
+{
+    margin-bottom: 15%;
+    margin-top: 15%;
+}

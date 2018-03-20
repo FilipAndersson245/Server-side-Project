@@ -4,17 +4,12 @@
     ViewBag.Title = "CreateClassification";
 }
 
-<div class="col-sm-3"></div>
-<div class="col-sm-6">
-
-    <h2>CreateClassification</h2>
-
+<div class="col-sm-6 col-sm-offset-3">
+    <h2>Create Classification</h2>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-
         <div class="form-horizontal">
-            <h4>Classification</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
@@ -34,15 +29,10 @@
             </div>
 
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
+                <div class="col-md-offset-1 col-md-10">
                     <input type="submit" value="Create" class="btn btn-primary" />
                 </div>
             </div>
         </div>
     }
-
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
 </div>
-<div class="col-sm-3"></div>
