@@ -16,7 +16,7 @@ namespace ServerSide_Project.Controllers
         [RestoreModelStateFromTempData]
         public ActionResult CreateBook()
         {
-            var bac = _BookAuthorClassificationManager.Setup();
+            BookAuthorClassification bac = _BookAuthorClassificationManager.Setup();
             return View("CreateBook", bac);
         }
 
@@ -26,7 +26,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult CreateBook(BookAuthorClassification bac, string[] authorChecklist, int? classificationRadio) //Strukturera om till servicelagret och lös classificationRadio null
         {
             AuthorizeAndRedirect();
-            var bookTuple = _BookManager.CreateBook(bac, authorChecklist, classificationRadio);
+            Tuple<Book, BookValidation> bookTuple = _BookManager.CreateBook(bac, authorChecklist, classificationRadio);
             if (bookTuple.Item2.IsValid)
                 return RedirectToAction("ListBookDetails", "Book", new { id = bookTuple.Item1.ISBN });
             else
@@ -40,7 +40,7 @@ namespace ServerSide_Project.Controllers
         [RestoreModelStateFromTempData]
         public ActionResult EditBook(string id)
         {
-            var bac = _BookAuthorClassificationManager.Setup();
+            BookAuthorClassification bac = _BookAuthorClassificationManager.Setup();
             bac.Book = _BookManager.GetBookFromIsbn(id);
             return View("EditBook", bac);
         }

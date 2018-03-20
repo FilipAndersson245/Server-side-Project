@@ -5,18 +5,13 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using Service.Tools;
+using Service.Validations;
 
 namespace ServerSide_Project.Controllers
 {
     public class AdminController : ControllerExtension
     {
         private AdminManager Manager { get; } = new AdminManager();
-
-        // GET: Admins
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         [HttpGet]
         [RestoreModelStateFromTempData]
@@ -32,7 +27,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult CreateAdmin(Admin admin)
         {
             AuthorizeAndRedirect(Rank.SuperAdmin);
-            var valid = Manager.SignUp(admin);
+            AdminValidation valid = Manager.SignUp(admin);
             if (valid.IsValid)
             {
                 return RedirectToAction("AdminPanel", "Admin");
@@ -104,7 +99,8 @@ namespace ServerSide_Project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(Admin admin, string returnBackTo = null)
         {
-            var validation = Manager.Login(admin);
+            Tuple<Admin, AdminValidation> validation = Manager.Login(admin);
+            
             if (validation.Item2.IsValid)
             {
                 Session["authentication"] = admin.Username;

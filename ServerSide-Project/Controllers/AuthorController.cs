@@ -1,6 +1,7 @@
 ﻿using ServerSide_Project.Tools;
 using Service.Managers;
 using Service.Models;
+using Service.Validations;
 using System;
 using System.Web.Mvc;
 
@@ -31,7 +32,8 @@ namespace ServerSide_Project.Controllers
         public ActionResult CreateAuthor(Author author)
         {
             AuthorizeAndRedirect();
-            var authorTuple = Manager.CreateAuthor(author);
+            Tuple<Author, AuthorValidation> authorTuple = Manager.CreateAuthor(author);
+            
             if (authorTuple.Item1 != null)
             {
                 return RedirectToAction("ListAuthorDetails", "Author", new { id = Convert.ToInt32(authorTuple.Item1.Aid) });
@@ -57,7 +59,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult EditAuthor(Author author)
         {
             AuthorizeAndRedirect();
-            var authorTuple = Manager.EditAuthor(author);
+            Tuple<Author, AuthorValidation> authorTuple = Manager.EditAuthor(author);
             if (authorTuple.Item1 != null)
             {
                 return RedirectToAction("ListAuthorDetails", "Author", new { id = Convert.ToInt32(authorTuple.Item1.Aid) });
