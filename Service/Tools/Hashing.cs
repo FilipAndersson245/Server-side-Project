@@ -14,7 +14,7 @@ namespace Service.Tools
         /// <param name="password"></param>
         public Hashing(string password)
         {
-            using (var deriveBytes = new Rfc2898DeriveBytes(password, 20))
+            using (Rfc2898DeriveBytes deriveBytes = new Rfc2898DeriveBytes(password, 20))
             {
                 this.Hash = Convert.ToBase64String(deriveBytes.GetBytes(20));
                 this.Salt = Convert.ToBase64String(deriveBytes.Salt);
@@ -28,7 +28,7 @@ namespace Service.Tools
         /// <param name="salt"></param>
         public Hashing(string password, string salt)
         {
-            using (var deriveBytes = new Rfc2898DeriveBytes(password, Convert.FromBase64String(salt)))
+            using (Rfc2898DeriveBytes deriveBytes = new Rfc2898DeriveBytes(password, Convert.FromBase64String(salt)))
             {
                 this.Hash = Convert.ToBase64String(deriveBytes.GetBytes(20));
                 this.Salt = Convert.ToBase64String(deriveBytes.Salt);

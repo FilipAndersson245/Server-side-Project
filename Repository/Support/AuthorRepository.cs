@@ -9,7 +9,7 @@ namespace Repository.Support
     {
         public bool DoesAuthorExist(int aid)
         {
-            using (var db = new dbLibrary())
+            using (dbLibrary db = new dbLibrary())
             {
                 return db.AUTHORs.Any(x => x.Aid == aid);
             }
@@ -17,7 +17,7 @@ namespace Repository.Support
 
         public IPagedList<AUTHOR> GetAllAuthorsFromDB(int page, int itemsPerPage)
         {
-            using (var db = new dbLibrary())
+            using (dbLibrary db = new dbLibrary())
             {
                 return db.AUTHORs.OrderBy(x => x.LastName).ToPagedList(page, itemsPerPage);
             }
@@ -25,7 +25,7 @@ namespace Repository.Support
 
         public List<AUTHOR> GetAllAuthorsFromDBToList()
         {
-            using (var db = new dbLibrary())
+            using (dbLibrary db = new dbLibrary())
             {
                 return db.AUTHORs.OrderBy(x => x.LastName).ToList();
             }
@@ -33,7 +33,7 @@ namespace Repository.Support
 
         public AUTHOR GetAuthorDetailsFromDB(int id)
         {
-            using (var db = new dbLibrary())
+            using (dbLibrary db = new dbLibrary())
             {
                 return db.AUTHORs.FirstOrDefault(x => x.Aid.Equals(id));
             }
@@ -43,7 +43,7 @@ namespace Repository.Support
         {
             try
             {
-                using (var db = new dbLibrary())
+                using (dbLibrary db = new dbLibrary())
                 {
                     db.AUTHORs.Add(author);
                     db.SaveChanges();
@@ -60,7 +60,7 @@ namespace Repository.Support
         {
             try
             {
-                using (var db = new dbLibrary())
+                using (dbLibrary db = new dbLibrary())
                 {
                     var author = db.AUTHORs.Include(a => a.BOOKs).FirstOrDefault(a => a.Aid.Equals(eauthor.Aid));
                     author.BOOKs.Clear();
@@ -79,7 +79,7 @@ namespace Repository.Support
         {
             try
             {
-                using (var db = new dbLibrary())
+                using (dbLibrary db = new dbLibrary())
                 {
                     AUTHOR updatedAUTHOR = db.AUTHORs.Find(eauthor.Aid);
                     db.Entry(updatedAUTHOR).CurrentValues.SetValues(eauthor);
@@ -95,7 +95,7 @@ namespace Repository.Support
 
         public IPagedList<BOOK> GetBooksByAuthor(int id, int page)
         {
-            using (var db = new dbLibrary())
+            using (dbLibrary db = new dbLibrary())
             {
                 db.Configuration.LazyLoadingEnabled = false;
                 var data = db.AUTHORs.Include(a => a.BOOKs).First(a => a.Aid.Equals(id)).BOOKs.ToPagedList(page, 100);
@@ -105,7 +105,7 @@ namespace Repository.Support
 
         public IPagedList<AUTHOR> GetAuthorsFromSearchResult(string search, int page, int itemsPerPage)
         {
-            using (var db = new dbLibrary())
+            using (dbLibrary db = new dbLibrary())
             {
                 return db.AUTHORs.Where(x => ((x.FirstName + " " + x.LastName).Contains(search))).OrderBy(x => x.LastName).ToPagedList(page, itemsPerPage);
             }
@@ -113,7 +113,7 @@ namespace Repository.Support
 
         public AUTHOR GetAuthorFromDB(int id)
         {
-            using (var db = new dbLibrary())
+            using (dbLibrary db = new dbLibrary())
             {
                 return db.AUTHORs.Find(id);
             }

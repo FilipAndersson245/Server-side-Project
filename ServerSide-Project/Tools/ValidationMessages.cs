@@ -9,9 +9,10 @@ namespace ServerSide_Project.Tools
 
         public static void ConvertCodeToMsg(System.Web.Mvc.ModelStateDictionary modelState, Dictionary<string, ErrorCodes> MessageCodes)
         {
-            foreach (var dict in MessageCodes)
+            foreach (KeyValuePair<string, ErrorCodes> dict in MessageCodes)
             {
-                var code = dict.Value;
+                
+                ErrorCodes code = dict.Value;
                 switch (code)
                 {
                     case ErrorCodes.IsRequired:

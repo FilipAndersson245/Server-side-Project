@@ -1,6 +1,7 @@
 ﻿using ServerSide_Project.Tools;
 using Service.Managers;
 using Service.Models;
+using Service.Validations;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -28,7 +29,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult EditClassification(Classification classification)
         {
             AuthorizeAndRedirect();
-            var validation = _Manager.EditClassification(classification);
+            ClassificationValidation validation = _Manager.EditClassification(classification);
             if (validation.IsValid)
                 return RedirectToAction("BrowseAllBooks", "Book", null);
             else
@@ -52,7 +53,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult CreateClassification(Classification classification)
         {
             AuthorizeAndRedirect();
-            var validation = _Manager.CreateClassification(classification);
+            ClassificationValidation validation = _Manager.CreateClassification(classification);
             if (validation.IsValid)
                 return RedirectToAction("BrowseAllBooks", "Book", null);
             else
@@ -65,7 +66,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult DeleteClassificationPost(int id)
         {
             AuthorizeAndRedirect();
-            var validation = _Manager.DeleteClassification(_Manager.GetClassificationFromID(id));
+            ClassificationValidation validation = _Manager.DeleteClassification(_Manager.GetClassificationFromID(id));
             if (validation.IsValid)
                 return RedirectToAction("BrowseAllBooks", "Book", null);
             else
@@ -84,7 +85,7 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult GetClassifications(int[] classifications = null)
         {
-            var classificationList = new ListClassification() { Classifications = _Manager.GetAllClassifications(), SelectedClassification = classifications?.ToList() };
+            ListClassification classificationList = new ListClassification() { Classifications = _Manager.GetAllClassifications(), SelectedClassification = classifications?.ToList() };
             return PartialView("ListClassifications", classificationList);
         }
 

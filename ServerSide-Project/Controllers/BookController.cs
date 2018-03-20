@@ -34,6 +34,11 @@ namespace ServerSide_Project.Controllers
             AuthorizeAndRedirect();
             if (Manager.DeleteBook(id)) //why? vvvvvvvv
                 return RedirectToAction("BrowseAllBooks", "Book", null);
+
+
+
+            //adhaiu
+            //dahdiuahdaliuhgdiud
             else
                 return RedirectToAction("BrowseAllBooks", "Book", null);
         }

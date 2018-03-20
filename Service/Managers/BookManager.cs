@@ -17,8 +17,8 @@ namespace Service.Managers
 
         public Book GetBookFromIsbn(string isbn)
         {
-            var dbBOOK = _Repo.GetBookFromIsbn(isbn);
-            var book = Mapper.Map<BOOK, Book>(dbBOOK);
+            BOOK dbBOOK = _Repo.GetBookFromIsbn(isbn);
+            Book book = Mapper.Map<BOOK, Book>(dbBOOK);
             if (book.Authors.Count == 0)
                 book.Authors = AddAuthors(book); //add unknown
             if (book.Classification == null)
@@ -34,7 +34,7 @@ namespace Service.Managers
         /// <returns>A list of authors with atleast one item</returns>
         public List<Author> AddAuthors(Book book)
         {
-            var authors = Mapper.Map<List<AUTHOR>, List<Author>>(_Repo.GetAuthorsFromIsbn(book.ISBN));
+            List<Author> authors = Mapper.Map<List<AUTHOR>, List<Author>>(_Repo.GetAuthorsFromIsbn(book.ISBN));
             if (authors.Count == 0)
             {
                 authors.Add(new Author() { FirstName = "No Author", LastName = "Available", BirthYear = 0, Aid = "-1" });
@@ -49,7 +49,7 @@ namespace Service.Managers
         public Classification AddClassification(Book book)
         {
             ClassificationManager classificationManager = new ClassificationManager();
-            var classification = Mapper.Map<CLASSIFICATION, Classification>(_Repo.GetClassificationFromIsbn(Mapper.Map<Book, BOOK>(book)));
+            Classification classification = Mapper.Map<CLASSIFICATION, Classification>(_Repo.GetClassificationFromIsbn(Mapper.Map<Book, BOOK>(book)));
             if (classification == null)
             {
                 return classificationManager.AddGenericClassification();
@@ -84,7 +84,7 @@ namespace Service.Managers
         /// <returns>A Search object with its booklist set to all books in a page</returns>
         public Search GetAllBooks(int page, int itemsPerPage)
         {
-            var bookList = _Repo.GetAllBooksFromDB(page, itemsPerPage).ToMappedPagedList<BOOK, Book>();
+            IPagedList<Book> bookList = _Repo.GetAllBooksFromDB(page, itemsPerPage).ToMappedPagedList<BOOK, Book>();
             SetupBooks(bookList);
             return new Search() { BookSearchResult = bookList };
         }
@@ -102,7 +102,7 @@ namespace Service.Managers
         {
             if (search == null) //prevent bug where null matches 0 resultat
                 search = "";
-            var bookList = _Repo.GetBookSearchResultat(search, page, itemsPerPage, classifications).ToMappedPagedList<BOOK, Book>();
+            IPagedList<Book> bookList = _Repo.GetBookSearchResultat(search, page, itemsPerPage, classifications).ToMappedPagedList<BOOK, Book>();
             SetupBooks(bookList);
             return new Search() // create Search object with existing data and returns it
             {
@@ -131,7 +131,7 @@ namespace Service.Managers
                 book.Classification = classificationManager.GetClassificationFromID(Convert.ToInt32(classificationRadio));
             if (authorChecklist != null)
             {
-                foreach (var aId in authorChecklist)
+                foreach (string aId in authorChecklist)
                 {
                     book.Authors.Add(authorManager.GetAuthorFromID(Convert.ToInt32(aId)));
                 }
@@ -140,7 +140,7 @@ namespace Service.Managers
             BookValidation validation = new BookValidation(book);
             if (validation.IsValid)
             {
-                var repoBOOK = _Repo.CreateBook(Mapper.Map<Book, BOOK>(book));
+                BOOK repoBOOK = _Repo.CreateBook(Mapper.Map<Book, BOOK>(book));
                 if (repoBOOK == null)
                 {
                     return new Tuple<Book, BookValidation>(null, validation);
@@ -160,6 +160,7 @@ namespace Service.Managers
         {
             return _Repo.DeleteBook(Mapper.Map<Book, BOOK>(GetBookFromIsbn(isbn)));
         }
+
         /// <summary>
         /// Returns a Tuple with Book and a Validation object
         /// </summary>
@@ -181,7 +182,7 @@ namespace Service.Managers
             book.Authors = new List<Author>();
             if (authorChecklist != null)
             {
-                foreach (var aID in authorChecklist)
+                foreach (string aID in authorChecklist)
                 {
                     book.Authors.Add(authorManager.GetAuthorFromID(Convert.ToInt32(aID)));
                 }

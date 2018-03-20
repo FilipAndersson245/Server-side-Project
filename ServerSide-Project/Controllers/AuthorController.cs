@@ -13,12 +13,6 @@ namespace ServerSide_Project.Controllers
         private AuthorManager Manager { get; } = new AuthorManager();
 
         [HttpGet]
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        [HttpGet]
         [RestoreModelStateFromTempData]
         public ActionResult CreateAuthor()
         {

@@ -8,7 +8,7 @@ namespace Repository.Support
     {
         public bool DoesAdminExist(string username)
         {
-            using (var db = new dbLibrary())
+            using (dbLibrary db = new dbLibrary())
             {
                 string sql = "SELECT TOP 1 * FROM ADMINS WHERE ADMINS.Username = @user LIMIT 1";
                 return db.Database.SqlQuery<ADMIN>(sql, new SqlParameter("@user", username)).SingleOrDefault() != null;
@@ -17,7 +17,7 @@ namespace Repository.Support
 
         public int GetPermissionLevel(string username)
         {
-            using (var db = new dbLibrary())
+            using (dbLibrary db = new dbLibrary())
             {
                 return db.ADMINS.FirstOrDefault(x => x.Username == username).PermissionLevel;
             }
@@ -25,7 +25,7 @@ namespace Repository.Support
 
         public ADMIN GetAdmin(string username)
         {
-            using (var db = new dbLibrary())
+            using (dbLibrary db = new dbLibrary())
             {
                 string sql = "SELECT TOP 1 * FROM ADMINS WHERE ADMINS.Username = @user";
                 var test = db.Database.SqlQuery<ADMIN>(sql, new SqlParameter("@user", username)).SingleOrDefault();
@@ -35,7 +35,7 @@ namespace Repository.Support
 
         public bool CreateAdmin(ADMIN admin)
         {
-            using (var db = new dbLibrary())
+            using (dbLibrary db = new dbLibrary())
             {
                 string sql = @"INSERT INTO ADMINS VALUES (@Username, @Salt, @PasswordHash, @PermissionLevel, @CanEditClassifications);"; //todo add CanEditClassification to create query
                 try
@@ -57,7 +57,7 @@ namespace Repository.Support
 
         public bool ResetPassword(string username, string passwordHash, string salt)
         {
-            using (var db = new dbLibrary())
+            using (dbLibrary db = new dbLibrary())
             {
                 try
                 {
@@ -77,7 +77,7 @@ namespace Repository.Support
 
         public bool DeleteAdmin(string username)
         {
-            using (var db = new dbLibrary())
+            using (dbLibrary db = new dbLibrary())
             {
                 try
                 {
@@ -99,7 +99,7 @@ namespace Repository.Support
 
         public List<ADMIN> GetAllAdmins()
         {
-            using (var db = new dbLibrary())
+            using (dbLibrary db = new dbLibrary())
             {
                 string sql = "SELECT * FROM ADMINS ORDER BY PermissionLevel DESC, Username";
                 return db.Database.SqlQuery<ADMIN>(sql).ToList();
@@ -108,7 +108,7 @@ namespace Repository.Support
 
         public bool EditAdmin(ADMIN eAdmin)
         {
-            using (var db = new dbLibrary())
+            using (dbLibrary db = new dbLibrary())
             {
                 ADMIN admin = db.ADMINS.FirstOrDefault(x => x.Username.Equals(eAdmin.Username));
                 db.Entry(admin).CurrentValues.SetValues(eAdmin);
