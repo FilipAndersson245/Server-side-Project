@@ -20,12 +20,18 @@ namespace Service.Managers
             var dbBOOK = _Repo.GetBookFromIsbn(isbn);
             var book = Mapper.Map<BOOK, Book>(dbBOOK);
             if (book.Authors.Count == 0)
-                book.Authors = AddAuthors(book);
+                book.Authors = AddAuthors(book); //add unknown
             if (book.Classification == null)
-                book.Classification = AddClassification(book);
+                book.Classification = AddClassification(book); //add generic
             return book;
         }
 
+        /// <summary>
+        /// return list of authors from a given book
+        /// if nonexistant add No Author Available
+        /// </summary>
+        /// <param name="book">a book with a valid isbn</param>
+        /// <returns>A list of authors with atleast one item</returns>
         public List<Author> AddAuthors(Book book)
         {
             var authors = Mapper.Map<List<AUTHOR>, List<Author>>(_Repo.GetAuthorsFromIsbn(book.ISBN));
@@ -36,10 +42,14 @@ namespace Service.Managers
             return authors;
         }
 
+        /// <summary>
+        /// Add classification to a book.
+        /// If non exust add generic classification
+        /// </summary>
         public Classification AddClassification(Book book)
         {
             ClassificationManager classificationManager = new ClassificationManager();
-            Classification classification = Mapper.Map<CLASSIFICATION, Classification>(_Repo.GetClassificationFromIsbn(Mapper.Map<Book, BOOK>(book)));
+            var classification = Mapper.Map<CLASSIFICATION, Classification>(_Repo.GetClassificationFromIsbn(Mapper.Map<Book, BOOK>(book)));
             if (classification == null)
             {
                 return classificationManager.AddGenericClassification();
@@ -50,6 +60,9 @@ namespace Service.Managers
             }
         }
 
+        /// <summary>
+        /// Setup a multitude of books with classification and author.
+        /// </summary>
         public void SetupBooks(IPagedList<Book> bookList)
         {
             for (int i = 0; i < bookList.Count; i++)
@@ -65,14 +78,21 @@ namespace Service.Managers
             }
         }
 
+        /// <summary>
+        /// Get all books from db in a page
+        /// </summary>
+        /// <returns>A Search object with its booklist set to all books in a page</returns>
         public Search GetAllBooks(int page, int itemsPerPage)
         {
             var bookList = _Repo.GetAllBooksFromDB(page, itemsPerPage).ToMappedPagedList<BOOK, Book>();
             SetupBooks(bookList);
-            Search searchResult = new Search() { BookSearchResult = bookList };
-            return searchResult;
+            return new Search() { BookSearchResult = bookList };
         }
 
+        /// <summary>
+        /// Require a Search query and returns
+        /// all matching resultats
+        /// </summary>
         public List<Book> GetSearchedBooksToList(Search search)
         {
             return Mapper.Map<List<Book>>(_Repo.GetSearchedBooksFromDBToList(search.SearchQuery));
@@ -80,32 +100,35 @@ namespace Service.Managers
 
         public Search SearchBooks(string search, int page, int itemsPerPage, params int[] classifications)
         {
-            if (search == null)
+            if (search == null) //prevent bug where null matches 0 resultat
                 search = "";
             var bookList = _Repo.GetBookSearchResultat(search, page, itemsPerPage, classifications).ToMappedPagedList<BOOK, Book>();
             SetupBooks(bookList);
-            Search searchResult = new Search() { BookSearchResult = bookList, SearchQuery = search, SelectedClassifications = classifications != null ? classifications.ToList() : null };
-            return searchResult;
+            return new Search() // create Search object with existing data and returns it
+            {
+                BookSearchResult = bookList,
+                SearchQuery = search,
+                SelectedClassifications = classifications != null ? classifications.ToList() : null //do convertion to list if not null
+            };
         }
 
-        public Search SearchBooks(Search search, int page, int itemsPerPage)
-        {
-            var bookList = new BookRepository().GetBookSearchResultat(search.SearchQuery, page, itemsPerPage, search.SelectedClassifications?.ToArray()).ToMappedPagedList<BOOK, Book>();
-            SetupBooks(bookList);
-            search.BookSearchResult = bookList;
-            return search;
-        }
-
-        public Tuple<Book, BookValidation> CreateBook(BookAuthorClassification bac, string[] authorChecklist, int? classificationRadio)
+        /// <summary>
+        /// Return a Tuple with the Book
+        /// And a validation object
+        /// </summary>
+        /// <returns></returns>
+        public Tuple<Book, BookValidation> CreateBook(BookAuthorClassification bookAuthorClassification, string[] authorChecklist, int? classificationRadio)
         {
             AuthorManager authorManager = new AuthorManager();
             ClassificationManager classificationManager = new ClassificationManager();
-            Book book = bac.Book;
+
+
+            Book book = bookAuthorClassification.Book;
+            book.Authors = new List<Author>();
             if (classificationRadio == null)
                 book.Classification = classificationManager.AddGenericClassification();
             else
                 book.Classification = classificationManager.GetClassificationFromID(Convert.ToInt32(classificationRadio));
-            book.Authors = new List<Author>();
             if (authorChecklist != null)
             {
                 foreach (var aId in authorChecklist)
@@ -113,6 +136,7 @@ namespace Service.Managers
                     book.Authors.Add(authorManager.GetAuthorFromID(Convert.ToInt32(aId)));
                 }
             }
+
             BookValidation validation = new BookValidation(book);
             if (validation.IsValid)
             {
@@ -136,7 +160,9 @@ namespace Service.Managers
         {
             return _Repo.DeleteBook(Mapper.Map<Book, BOOK>(GetBookFromIsbn(isbn)));
         }
-
+        /// <summary>
+        /// Returns a Tuple with Book and a Validation object
+        /// </summary>
         public Tuple<Book, BookValidation> EditBook(BookAuthorClassification bac, string[] authorChecklist, int? classificationRadio)
         {
             AuthorManager authorManager = new AuthorManager();
