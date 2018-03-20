@@ -299,6 +299,7 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
 {
     background-color: #cfcfcf;
     border-radius: 5px;
+    border-bottom: 0px;
 }
 
 .Home-jumbo

@@ -6,7 +6,7 @@
 
 <div class="deleteContent">
     <h3>Are you sure you want to delete the admin</h3>
-    <h2>@Html.Encode(Model.Username)?</h2>
+    <h2>@Html.NameFor(Model.Username)?</h2>
     @using (Html.BeginForm("DeleteAdminPost", "Admin", new { id = @Model.Username }, FormMethod.Post, new { @class = "form-group" }))
     {
         @Html.AntiForgeryToken();
