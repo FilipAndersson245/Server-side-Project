@@ -143,6 +143,7 @@ namespace Service.Managers
                 BOOK repoBOOK = _Repo.CreateBook(Mapper.Map<Book, BOOK>(book));
                 if (repoBOOK == null)
                 {
+                    validation.FailedToCreateBook(nameof(book.Title));
                     return new Tuple<Book, BookValidation>(null, validation);
                 }
                 else

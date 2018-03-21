@@ -26,6 +26,7 @@ namespace Service.Managers
                 AUTHOR repoAUTHOR = _Repo.CreateAuthor(Mapper.Map<Author, AUTHOR>(author));
                 if (repoAUTHOR == null)
                 {
+                    validation.FailedToCreateAuthor(nameof(author.FirstName));
                     return new Tuple<Author, AuthorValidation>(null, validation);
                 }
                 else
