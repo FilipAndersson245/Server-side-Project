@@ -16,6 +16,7 @@ namespace ServerSide_Project.Controllers
         [RestoreModelStateFromTempData]
         public ActionResult CreateBook()
         {
+            AuthorizeAndRedirect();
             BookAuthorClassification bac = _BookAuthorClassificationManager.Setup();
             return View("CreateBook", bac);
         }
@@ -23,42 +24,37 @@ namespace ServerSide_Project.Controllers
         [HttpPost]
         [SetTempDataModelState]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateBook(BookAuthorClassification bac, string[] authorChecklist, int? classificationRadio) //Strukturera om till servicelagret och lös classificationRadio null
+        public ActionResult CreateBook(BookAuthorClassification bookAuthorClassification, string[] authorChecklist, int? classificationRadio)
         {
             AuthorizeAndRedirect();
-            Tuple<Book, BookValidation> bookTuple = _BookManager.CreateBook(bac, authorChecklist, classificationRadio);
+            Tuple<Book, BookValidation> bookTuple = _BookManager.CreateBook(bookAuthorClassification, authorChecklist, classificationRadio);
             if (bookTuple.Item2.IsValid)
                 return RedirectToAction("ListBookDetails", "Book", new { id = bookTuple.Item1.ISBN });
-            else
-            {
-                ValidationMessages.ConvertCodeToMsg(ModelState, bookTuple.Item2.ErrorDict);
-                return RedirectToAction("CreateBook", "BookAuthorClassification");
-            }
+            ValidationMessages.ConvertCodeToMsg(ModelState, bookTuple.Item2.ErrorDict);
+            return RedirectToAction("CreateBook", "BookAuthorClassification");
         }
 
         [HttpGet]
         [RestoreModelStateFromTempData]
         public ActionResult EditBook(string id)
         {
-            BookAuthorClassification bac = _BookAuthorClassificationManager.Setup();
-            bac.Book = _BookManager.GetBookFromIsbn(id);
-            return View("EditBook", bac);
+            AuthorizeAndRedirect();
+            BookAuthorClassification bookAuthorClassification = _BookAuthorClassificationManager.Setup();
+            bookAuthorClassification.Book = _BookManager.GetBookFromIsbn(id);
+            return View("EditBook", bookAuthorClassification);
         }
 
         [HttpPost]
         [SetTempDataModelState]
         [ValidateAntiForgeryToken]
-        public ActionResult EditBook(BookAuthorClassification bac, string[] authorChecklist, int classificationRadio)
+        public ActionResult EditBook(BookAuthorClassification bookAuthorClassification, string[] authorChecklist, int classificationRadio)
         {
             AuthorizeAndRedirect();
-            Tuple<Book, BookValidation> bookTuple = _BookManager.EditBook(bac, authorChecklist, classificationRadio);
+            Tuple<Book, BookValidation> bookTuple = _BookManager.EditBook(bookAuthorClassification, authorChecklist, classificationRadio);
             if (bookTuple.Item2.IsValid)
                 return RedirectToAction("ListBookDetails", "Book", new { id = bookTuple.Item1.ISBN });
-            else
-            {
-                ValidationMessages.ConvertCodeToMsg(ModelState, bookTuple.Item2.ErrorDict);
-                return RedirectToAction("EditBook", "BookAuthorClassification", new { id = bac.Book.ISBN });
-            }
+            ValidationMessages.ConvertCodeToMsg(ModelState, bookTuple.Item2.ErrorDict);
+            return RedirectToAction("EditBook", "BookAuthorClassification", new { id = bookAuthorClassification.Book.ISBN });
         }
     }
 }

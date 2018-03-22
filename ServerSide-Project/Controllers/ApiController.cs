@@ -9,11 +9,11 @@ using System.Web.Script.Serialization;
 
 namespace ServerSide_Project.Controllers
 {
+
     public class ApiController : Controller
     {
         private BookManager Manager { get; } = new BookManager();
 
-        // GET: Api
         [HttpGet]
         public JsonResult Search(string search)
         {
@@ -22,6 +22,9 @@ namespace ServerSide_Project.Controllers
         }
     }
 
+    /// <summary>
+    /// Allows use of JSONP.
+    /// </summary>
     public class JsonpResult : JsonResult
     {
         private new object Data = null;
@@ -41,7 +44,6 @@ namespace ServerSide_Project.Controllers
             {
                 HttpResponseBase Response = controllerContext.HttpContext.Response;
                 HttpRequestBase Request = controllerContext.HttpContext.Request;
-
                 string callbackfunction = Request["callback"];
                 if (string.IsNullOrEmpty(callbackfunction))
                 {

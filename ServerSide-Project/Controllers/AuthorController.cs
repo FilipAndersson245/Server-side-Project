@@ -27,16 +27,12 @@ namespace ServerSide_Project.Controllers
         {
             AuthorizeAndRedirect();
             Tuple<Author, AuthorValidation> authorTuple = Manager.CreateAuthor(author);
-            
             if (authorTuple.Item1 != null)
             {
                 return RedirectToAction("ListAuthorDetails", "Author", new { id = Convert.ToInt32(authorTuple.Item1.Aid) });
             }
-            else
-            {
-                ValidationMessages.ConvertCodeToMsg(ModelState, authorTuple.Item2.ErrorDict);
-                return RedirectToAction("CreateAuthor", "Author");
-            }
+            ValidationMessages.ConvertCodeToMsg(ModelState, authorTuple.Item2.ErrorDict);
+            return RedirectToAction("CreateAuthor", "Author");
         }
 
         [HttpGet]
@@ -71,15 +67,14 @@ namespace ServerSide_Project.Controllers
         public ActionResult DeleteAuthorPost(int id)
         {
             AuthorizeAndRedirect();
-            if (Manager.DeleteAuthor(Manager.GetAuthorFromID(id)))
-                return RedirectToAction("BrowseAllAuthors", "Author", null);
-            else
-                return RedirectToAction("BrowseAllAuthors", "Author", null);
+            Manager.DeleteAuthor(Manager.GetAuthorFromID(id));
+            return RedirectToAction("BrowseAllAuthors", "Author", null);
         }
 
         [HttpGet]
         public ActionResult DeleteAuthor(string id)
         {
+            AuthorizeAndRedirect();
             return View("DeleteAuthor", Manager.GetAuthorFromID(Convert.ToInt32(id)));
         }
 

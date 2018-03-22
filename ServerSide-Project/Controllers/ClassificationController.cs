@@ -30,13 +30,9 @@ namespace ServerSide_Project.Controllers
         {
             AuthorizeAndRedirect();
             ClassificationValidation validation = _Manager.EditClassification(classification);
-            if (validation.IsValid)
-                return RedirectToAction("BrowseAllBooks", "Book", null);
-            else
-            {
+            if (!validation.IsValid)
                 ValidationMessages.ConvertCodeToMsg(ModelState, validation.ErrorDict);
-                return RedirectToAction("BrowseAllBooks", "Book", null);
-            }
+            return RedirectToAction("BrowseAllBooks", "Book", null);
         }
 
         [HttpGet]
@@ -54,9 +50,7 @@ namespace ServerSide_Project.Controllers
         {
             AuthorizeAndRedirect();
             ClassificationValidation validation = _Manager.CreateClassification(classification);
-            if (validation.IsValid)
-                return RedirectToAction("BrowseAllBooks", "Book", null);
-            else
+            if (!validation.IsValid)
                 ValidationMessages.ConvertCodeToMsg(ModelState, validation.ErrorDict);
             return RedirectToAction("BrowseAllBooks", "Book", null);
         }
@@ -69,16 +63,14 @@ namespace ServerSide_Project.Controllers
             ClassificationValidation validation = _Manager.DeleteClassification(_Manager.GetClassificationFromID(id));
             if (validation.IsValid)
                 return RedirectToAction("BrowseAllBooks", "Book", null);
-            else
-            {
-                ValidationMessages.ConvertCodeToMsg(ModelState, validation.ErrorDict);
-                return View("DeleteClassification", _Manager.GetClassificationFromID(id));
-            }
+            ValidationMessages.ConvertCodeToMsg(ModelState, validation.ErrorDict);
+            return View("DeleteClassification", _Manager.GetClassificationFromID(id));
         }
 
         [HttpGet]
         public ActionResult DeleteClassification(int id)
         {
+            AuthorizeAndRedirect();
             return View("DeleteClassification", _Manager.GetClassificationFromID(id));
         }
 

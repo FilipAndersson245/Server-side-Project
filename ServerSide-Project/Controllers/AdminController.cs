@@ -11,7 +11,7 @@ namespace ServerSide_Project.Controllers
 {
     public class AdminController : ControllerExtension
     {
-        private AdminManager Manager { get; } = new AdminManager();
+        private AdminManager _Manager { get; } = new AdminManager();
 
         [HttpGet]
         [RestoreModelStateFromTempData]
@@ -27,7 +27,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult CreateAdmin(Admin admin)
         {
             AuthorizeAndRedirect(Rank.SuperAdmin);
-            AdminValidation valid = Manager.SignUp(admin);
+            AdminValidation valid = _Manager.SignUp(admin);
             if (valid.IsValid)
             {
                 return RedirectToAction("AdminPanel", "Admin");
@@ -43,7 +43,7 @@ namespace ServerSide_Project.Controllers
             {
                 AuthorizeAndRedirect(Rank.Admin);
             }
-            return View("Editadmin", Manager.GetAdmin(id));
+            return View("Editadmin", _Manager.GetAdmin(id));
         }
 
         [HttpPost]
@@ -53,7 +53,7 @@ namespace ServerSide_Project.Controllers
             {
                 AuthorizeAndRedirect(Rank.Admin);
             }
-            Admin oldAdmin = Manager.GetAdmin(admin.Username);
+            Admin oldAdmin = _Manager.GetAdmin(admin.Username);
             admin.Username = oldAdmin.Username;
             if ((Rank)Session["Level"] < Rank.SuperAdmin) //Don't allow changing of admin level or classification access if admin who edited is not superadmin
             {
@@ -64,14 +64,14 @@ namespace ServerSide_Project.Controllers
             {
                 admin.PasswordHash = oldAdmin.PasswordHash;
                 admin.Salt = oldAdmin.Salt;
-                Manager.EditAdmin(admin, true);
+                _Manager.EditAdmin(admin, true);
             }
             else
             {
                 Hashing hashing = new Hashing(admin.Password);
                 admin.PasswordHash = hashing.Hash;
                 admin.Salt = hashing.Salt;
-                Manager.EditAdmin(admin);
+                _Manager.EditAdmin(admin);
             }
             return RedirectToAction("AdminPanel", "Admin", null);
         }
@@ -80,8 +80,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult DeleteAdmin(string id)
         {
             AuthorizeAndRedirect(Rank.SuperAdmin);
-            Admin admin = Manager.GetAdmin(id);
-            return View("DeleteAdmin", admin);
+            return View("DeleteAdmin", _Manager.GetAdmin(id));
         }
 
         [HttpPost]
@@ -89,10 +88,8 @@ namespace ServerSide_Project.Controllers
         public ActionResult DeleteAdminPost(string id)
         {
             AuthorizeAndRedirect(Rank.SuperAdmin);
-            if (Manager.DeleteAdmin(id))
-                return RedirectToAction("AdminPanel", "Admin", null);
-            else
-                return RedirectToAction("AdminPanel", "Admin", null);
+            _Manager.DeleteAdmin(id);
+            return RedirectToAction("AdminPanel", "Admin", null);
         }
 
         [HttpGet]
@@ -103,17 +100,20 @@ namespace ServerSide_Project.Controllers
             return View("Login");
         }
 
+        /// <summary>
+        /// Login and start session, then return to previous location
+        /// </summary>
+        /// <param name="returnBackTo">String that saves your location previous to trying to login.</param>
         [HttpPost]
         [SetTempDataModelState]
         [ValidateAntiForgeryToken]
         public ActionResult Login(Admin admin, string returnBackTo = null)
         {
-            Tuple<Admin, AdminValidation> validation = Manager.Login(admin);
-            
+            Tuple<Admin, AdminValidation> validation = _Manager.Login(admin);
             if (validation.Item2.IsValid)
             {
                 Session["authentication"] = admin.Username;
-                Session["level"] = Manager.getPermissionLevel(admin.Username);
+                Session["level"] = _Manager.getPermissionLevel(admin.Username);
                 Session["classificationEditor"] = validation.Item1.CanEditClassifications;
                 if (String.IsNullOrEmpty(returnBackTo))
                     return RedirectToAction("index", "Home");
@@ -137,7 +137,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult AdminPanel()
         {
             AuthorizeAndRedirect();
-            return View("AdminPanel", Manager.GetAllAdmins());
+            return View("AdminPanel", _Manager.GetAllAdmins());
         }
     }
 }

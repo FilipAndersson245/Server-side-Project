@@ -32,20 +32,14 @@ namespace ServerSide_Project.Controllers
         public ActionResult DeleteBookPost(string id)
         {
             AuthorizeAndRedirect();
-            if (Manager.DeleteBook(id)) //why? vvvvvvvv
-                return RedirectToAction("BrowseAllBooks", "Book", null);
-
-
-
-            //adhaiu
-            //dahdiuahdaliuhgdiud
-            else
-                return RedirectToAction("BrowseAllBooks", "Book", null);
+            Manager.DeleteBook(id);
+            return RedirectToAction("BrowseAllBooks", "Book", null);
         }
 
         [HttpGet]
         public ActionResult DeleteBook(string id)
         {
+            AuthorizeAndRedirect();
             return View("DeleteBook", Manager.GetBookFromIsbn(id));
         }
 
