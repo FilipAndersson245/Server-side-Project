@@ -149,7 +149,7 @@
     <Compile Include="AUTHOR.cs" />
     <Compile Include="BOOK.cs" />
     <Compile Include="CLASSIFICATION.cs" />
-    <Compile Include="dbLibrary.cs" />
+    <Compile Include="DbLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Support\AdminRepository.cs" />
     <Compile Include="Support\AuthorRepository.cs" />

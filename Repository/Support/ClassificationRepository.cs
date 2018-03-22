@@ -10,7 +10,14 @@ namespace Repository.Support
         {
             using (DbLibrary db = new DbLibrary())
             {
-                return db.CLASSIFICATIONs.Any(x => x.SignId.Equals(signId));
+                try
+                {
+                    return db.CLASSIFICATIONs.Any(x => x.SignId.Equals(signId));
+                }
+                catch
+                {
+                    return false;
+                }
             }
         }
 
@@ -18,7 +25,14 @@ namespace Repository.Support
         {
             using (DbLibrary db = new DbLibrary())
             {
-                return db.CLASSIFICATIONs.Any(x => x.Signum.Equals(signum));
+                try
+                {
+                    return db.CLASSIFICATIONs.Any(x => x.Signum.Equals(signum));
+                }
+                catch
+                {
+                    return false;
+                }
             }
         }
 
@@ -32,7 +46,14 @@ namespace Repository.Support
         {
             using (DbLibrary db = new DbLibrary())
             {
-                return db.CLASSIFICATIONs.Find(signId).BOOKs.ToList();
+                try
+                {
+                    return db.CLASSIFICATIONs.Find(signId).BOOKs.ToList();
+                }
+                catch
+                {
+                    return null;
+                }
             }
         }
 
@@ -40,7 +61,14 @@ namespace Repository.Support
         {
             using (DbLibrary db = new DbLibrary())
             {
-                return db.CLASSIFICATIONs.OrderBy(x => x.Signum).ToList();
+                try
+                {
+                    return db.CLASSIFICATIONs.OrderBy(x => x.Signum).ToList();
+                }
+                catch
+                {
+                    return null;
+                }
             }
         }
 
@@ -54,19 +82,19 @@ namespace Repository.Support
 
         public bool CreateClassification(CLASSIFICATION eClassification)
         {
-            try
+            using (DbLibrary db = new DbLibrary())
             {
-                using (DbLibrary db = new DbLibrary())
+                try
                 {
                     eClassification.SignId = GetNewID();
                     db.CLASSIFICATIONs.Add(eClassification);
                     db.SaveChanges();
                     return true;
                 }
-            }
-            catch
-            {
-                return false;
+                catch
+                {
+                    return false;
+                }
             }
         }
 
@@ -74,7 +102,14 @@ namespace Repository.Support
         {
             using (DbLibrary db = new DbLibrary())
             {
-                return db.CLASSIFICATIONs.FirstOrDefault(x => x.SignId.Equals(id));
+                try
+                {
+                    return db.CLASSIFICATIONs.FirstOrDefault(x => x.SignId.Equals(id));
+                }
+                catch
+                {
+                    return null;
+                }
             }
         }
 
@@ -82,15 +117,22 @@ namespace Repository.Support
         {
             using (DbLibrary db = new DbLibrary())
             {
-                return db.CLASSIFICATIONs.FirstOrDefault(a => a.Signum == signum);
+                try
+                {
+                    return db.CLASSIFICATIONs.FirstOrDefault(a => a.Signum == signum);
+                }
+                catch
+                {
+                    return null;
+                }
             }
         }
 
         public bool DeleteClassification(CLASSIFICATION eClassification)
         {
-            try
+            using (DbLibrary db = new DbLibrary())
             {
-                using (DbLibrary db = new DbLibrary())
+                try
                 {
                     var classification = db.CLASSIFICATIONs.Include(a => a.BOOKs).FirstOrDefault(a => a.SignId == eClassification.SignId);
                     classification.BOOKs.Clear();
@@ -98,36 +140,44 @@ namespace Repository.Support
                     db.SaveChanges();
                     return true;
                 }
-            }
-            catch
-            {
-                return false;
+                catch
+                {
+                    return false;
+                }
             }
         }
 
         public bool EditClassification(CLASSIFICATION eClassification)
         {
-            try
+            using (DbLibrary db = new DbLibrary())
             {
-                using (DbLibrary db = new DbLibrary())
+                try
                 {
                     CLASSIFICATION classification = db.CLASSIFICATIONs.FirstOrDefault(x => x.SignId.Equals(eClassification.SignId));
                     db.Entry(classification).CurrentValues.SetValues(eClassification);
                     db.SaveChanges();
                     return true;
                 }
+                catch
+                {
+                    return false;
+                }
             }
-            catch
-            {
-                return false;
-            }
+            
         }
 
         public bool DoesClassificationContainBooks(CLASSIFICATION classification)
         {
             using (DbLibrary db = new DbLibrary())
             {
-                return (db.CLASSIFICATIONs.Find(classification.SignId).BOOKs.ToList().Count() > 0);
+                try
+                {
+                    return (db.CLASSIFICATIONs.Find(classification.SignId).BOOKs.ToList().Count() > 0);
+                }
+                catch
+                {
+                    return false;
+                }
             }
         }
     }
