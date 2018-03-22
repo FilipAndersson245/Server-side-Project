@@ -39,23 +39,19 @@ namespace ServerSide_Project.Tools
                         modelState.AddModelError(dict.Key, "Not a valid page number.");
                         break;
 
-                    case ErrorCodes.ToLong:
+                    case ErrorCodes.TooLong:
                         modelState.AddModelError(dict.Key, "Too long.");
                         break;
 
-                    case ErrorCodes.MustBeTenCharLong:
-                        modelState.AddModelError(dict.Key, "Must be 10 characters long.");
+                    case ErrorCodes.MoreThanFiveHundredChars:
+                        modelState.AddModelError(dict.Key, "Too long, cannot be longer than 500 characters.");
                         break;
 
-                    case ErrorCodes.MoreThenFiveHundredChars:
-                        modelState.AddModelError(dict.Key, "Too long, cannot be longer then 500 characters.");
+                    case ErrorCodes.MoreThanFiftyChars:
+                        modelState.AddModelError(dict.Key, "Too long, cannot be longer than 50 characters.");
                         break;
 
-                    case ErrorCodes.MoreThenSixtyFourChars:
-                        modelState.AddModelError(dict.Key, "Too long, cannot be longer then 64 characters.");
-                        break;
-
-                    case ErrorCodes.InsuficentPermission:
+                    case ErrorCodes.InsufficentPermission:
                         modelState.AddModelError(dict.Key, "Insufficent permission.");
                         break;
 
@@ -71,9 +67,8 @@ namespace ServerSide_Project.Tools
                         modelState.AddModelError(dict.Key, "You can not delete a classification that has books assigned to it.");
                         break;
 
-
                     default:
-                        modelState.AddModelError(dict.Key, "Unspecified error code:" + code.ToString() + " Please contact the development team.");
+                        modelState.AddModelError(dict.Key, "Unspecified error code: " + code.ToString() + " Please contact the development team.");
                         break;
                 }
             }

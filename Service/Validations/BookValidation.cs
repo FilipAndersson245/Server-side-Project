@@ -6,9 +6,9 @@ namespace Service.Validations
     public class BookValidation : Validation
     {
         private const int BOOK_MAX_LENGTH = 10000;
-        private const int TITLE_MAX_LENGTH = 150;
-        private const int DESCRIPTION_MAX_LENGTH = 2000;
-        private const int MAX_ISBN = 10;
+        private const int TITLE_MAX_LENGTH = 255;
+        private const int DESCRIPTION_MAX_LENGTH = 255;
+        private const int MAX_ISBN = 15;
         private const int MIN_ISBN = 4;
 
         public BookValidation(Book model)
@@ -44,7 +44,7 @@ namespace Service.Validations
                 }
             }
 
-            if (model.Pages > BOOK_MAX_LENGTH)
+            if (model.Pages > BOOK_MAX_LENGTH && model.Pages < 1)
             {
                 ErrorDict.Add(nameof(model.Pages), ErrorCodes.InvalidRange);
             }

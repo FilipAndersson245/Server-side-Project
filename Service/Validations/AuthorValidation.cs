@@ -5,18 +5,17 @@ namespace Service.Validations
 {
     public class AuthorValidation : Validation
     {
-        private const int MAX_NAME_LENGTH = 30;
+        private const int MAX_NAME_LENGTH = 50;
         private const int MIN_BIRTH_YEAR = -3500;
 
         public AuthorValidation(Author model)
         {
             if (string.IsNullOrWhiteSpace(model.FirstName))
             {
-                ErrorDict.Add(nameof(model.FirstName), ErrorCodes.IsRequired);
-            }
-            else if (model.FirstName.Length > MAX_NAME_LENGTH)
-            {
-                ErrorDict.Add(nameof(model.FirstName), ErrorCodes.ToLong);
+                if (model.FirstName.Length > MAX_NAME_LENGTH)
+                {
+                    ErrorDict.Add(nameof(model.FirstName), ErrorCodes.TooLong);
+                }
             }
 
             if (string.IsNullOrWhiteSpace(model.LastName))
@@ -25,7 +24,7 @@ namespace Service.Validations
             }
             else if (model.LastName.Length > MAX_NAME_LENGTH)
             {
-                ErrorDict.Add(nameof(model.LastName), ErrorCodes.ToLong);
+                ErrorDict.Add(nameof(model.LastName), ErrorCodes.TooLong);
             }
 
             if (model.BirthYear != null)
