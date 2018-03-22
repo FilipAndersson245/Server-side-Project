@@ -11,7 +11,14 @@ namespace Repository.Support
         {
             using (DbLibrary db = new DbLibrary())
             {
-                return db.BOOKs.Any(x => x.ISBN == isbn);
+                try
+                {
+                    return db.BOOKs.Any(x => x.ISBN == isbn);
+                }
+                catch
+                {
+                    return false;
+                }
             }
         }
 
@@ -19,7 +26,14 @@ namespace Repository.Support
         {
             using (DbLibrary db = new DbLibrary())
             {
-                return db.BOOKs.Include(b => b.AUTHORs).Include(b => b.CLASSIFICATION).OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
+                try
+                {
+                    return db.BOOKs.Include(b => b.AUTHORs).Include(b => b.CLASSIFICATION).OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
+                }
+                catch
+                {
+                    return null;
+                }
             }
         }
 
@@ -27,9 +41,16 @@ namespace Repository.Support
         {
             using (DbLibrary db = new DbLibrary())
             {
-                db.Configuration.LazyLoadingEnabled = false;
-                return db.BOOKs.Include(b => b.AUTHORs).Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + y.LastName)
-                    .Contains(search))).OrderBy(x => x.Title).ToList();
+                try
+                {
+                    db.Configuration.LazyLoadingEnabled = false;
+                    return db.BOOKs.Include(b => b.AUTHORs).Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + y.LastName)
+                        .Contains(search))).OrderBy(x => x.Title).ToList();
+                }
+                catch
+                {
+                    return null;
+                }
             }
         }
 
@@ -37,7 +58,14 @@ namespace Repository.Support
         {
             using (DbLibrary db = new DbLibrary())
             {
-                return db.BOOKs.Include(b => b.AUTHORs).Include(b => b.CLASSIFICATION).FirstOrDefault(x => x.ISBN.Equals(isbn));
+                try
+                {
+                    return db.BOOKs.Include(b => b.AUTHORs).Include(b => b.CLASSIFICATION).FirstOrDefault(x => x.ISBN.Equals(isbn));
+                }
+                catch
+                {
+                    return null;
+                }
             }
         }
 
@@ -104,12 +132,19 @@ namespace Repository.Support
         {
             using (DbLibrary db = new DbLibrary())
             {
-                db.Configuration.LazyLoadingEnabled = false;
-                var book = db.BOOKs.Include(a => a.AUTHORs).FirstOrDefault(a => a.ISBN == ebook.ISBN);
-                book.AUTHORs.Clear();
-                db.BOOKs.Remove(book);
-                db.SaveChanges();
-                return true;
+                try
+                {
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var book = db.BOOKs.Include(a => a.AUTHORs).FirstOrDefault(a => a.ISBN == ebook.ISBN);
+                    book.AUTHORs.Clear();
+                    db.BOOKs.Remove(book);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
             }
         }
 
@@ -117,7 +152,14 @@ namespace Repository.Support
         {
             using (DbLibrary db = new DbLibrary())
             {
-                return db.BOOKs.Find(isbn).AUTHORs.ToList();
+                try
+                {
+                    return db.BOOKs.Find(isbn).AUTHORs.ToList();
+                }
+                catch
+                {
+                    return null;
+                }
             }
         }
 
@@ -125,7 +167,14 @@ namespace Repository.Support
         {
             using (DbLibrary db = new DbLibrary())
             {
-                return db.CLASSIFICATIONs.FirstOrDefault(a => a.SignId == book.SignId);
+                try
+                {
+                    return db.CLASSIFICATIONs.FirstOrDefault(a => a.SignId == book.SignId);
+                }
+                catch
+                {
+                    return null;
+                }
             }
         }
 
@@ -135,19 +184,33 @@ namespace Repository.Support
             {
                 using (DbLibrary db = new DbLibrary())
                 {
-                    db.Configuration.LazyLoadingEnabled = false;
-                    return db.BOOKs.Include(b => b.AUTHORs).Where(b => b.SignId.HasValue && classifications.ToList().Contains(b.SignId.Value))
-                        .Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + y.LastName).Contains(search)))
-                        .OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
+                    try
+                    {
+                        db.Configuration.LazyLoadingEnabled = false;
+                        return db.BOOKs.Include(b => b.AUTHORs).Where(b => b.SignId.HasValue && classifications.ToList().Contains(b.SignId.Value))
+                            .Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + y.LastName).Contains(search)))
+                            .OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
+                    }
+                    catch
+                    {
+                        return null;
+                    }
                 }
             }
             else
             {
                 using (DbLibrary db = new DbLibrary())
                 {
-                    db.Configuration.LazyLoadingEnabled = false;
-                    return db.BOOKs.Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + y.LastName).Contains(search)))
-                        .OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
+                    try
+                    {
+                        db.Configuration.LazyLoadingEnabled = false;
+                        return db.BOOKs.Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + y.LastName).Contains(search)))
+                            .OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
+                    }
+                    catch
+                    {
+                        return null;
+                    }
                 }
             }
         }
