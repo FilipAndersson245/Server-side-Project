@@ -59,6 +59,10 @@ namespace ServerSide_Project.Controllers
                 return RedirectToAction("ListAuthorDetails", "Author", new { id = Convert.ToInt32(authorTuple.Item1.Aid) });
             }
             ValidationMessages.ConvertCodeToMsg(ModelState, authorTuple.Item2.ErrorDict);
+            if (author != null)
+            {
+                return RedirectToAction("EditAuthor", "Author", new { id = Convert.ToInt32(author.Aid) });
+            }
             return RedirectToAction("BrowseAllAuthors", "Author");
         }
 

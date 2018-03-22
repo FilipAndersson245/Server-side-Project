@@ -21,7 +21,8 @@ namespace Service.Validations
         FailedToCreateBook,
         BookDoesntExist,
         FailedToCreateClassification,
-        BooksExistInClassification
+        BooksExistInClassification,
+        MustBeOnlyNumbers
     }
 
     public class Validation
@@ -72,6 +73,11 @@ namespace Service.Validations
             ErrorDict.Add(type, ErrorCodes.FailedToCreateClassification);
         }
 
-        
+        public void MustBeOnlyNumbers(string type)
+        {
+            IsValid = false;
+            ErrorDict.Add(type, ErrorCodes.MustBeOnlyNumbers);
+        }
+
     }
 }

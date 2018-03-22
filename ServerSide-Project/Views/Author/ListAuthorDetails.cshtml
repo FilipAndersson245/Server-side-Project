@@ -30,7 +30,7 @@
     </div>
     <div class="col-sm-1 text-right">
 
-        @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Admin)
+        @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Editor)
         {
             @Html.ActionLink("Edit", "EditAuthor", "Author", new { id = Model.Aid }, null);
             @Html.Raw(" | ");

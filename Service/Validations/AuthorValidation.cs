@@ -10,7 +10,7 @@ namespace Service.Validations
 
         public AuthorValidation(Author model)
         {
-            if (string.IsNullOrWhiteSpace(model.FirstName))
+            if (!string.IsNullOrWhiteSpace(model.FirstName))
             {
                 if (model.FirstName.Length > MAX_NAME_LENGTH)
                 {
@@ -29,7 +29,7 @@ namespace Service.Validations
 
             if (model.BirthYear != null)
             {
-                if (model.BirthYear < MIN_BIRTH_YEAR && model.BirthYear > DateTime.Now.Year - 5)
+                if (model.BirthYear < MIN_BIRTH_YEAR || model.BirthYear > DateTime.Now.Year - 5)
                 {
                     ErrorDict.Add(nameof(model.BirthYear), ErrorCodes.InvalidRange);
                 }

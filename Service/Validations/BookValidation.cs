@@ -1,5 +1,6 @@
 ﻿using Service.Models;
 using System;
+using System.Linq;
 
 namespace Service.Validations
 {
@@ -10,12 +11,17 @@ namespace Service.Validations
         private const int DESCRIPTION_MAX_LENGTH = 255;
         private const int MAX_ISBN = 15;
         private const int MIN_ISBN = 4;
+        private const int MIN_PUBLICATION_YEAR = -3500;
 
         public BookValidation(Book model)
         {
             if (String.IsNullOrWhiteSpace(model.ISBN))
             {
                 ErrorDict.Add(nameof(model.ISBN), ErrorCodes.IsRequired);
+            }
+            else if (!model.ISBN.All(char.IsDigit))
+            {
+                ErrorDict.Add(nameof(model.ISBN), ErrorCodes.MustBeOnlyNumbers);
             }
             else if (model.ISBN.Length > MAX_ISBN || model.ISBN.Length < MIN_ISBN)
             {
@@ -31,7 +37,7 @@ namespace Service.Validations
                 ErrorDict.Add(nameof(model.Title), ErrorCodes.InvalidRange);
             }
 
-            if (model.PublicationYear.ToString().Length > 4)
+            if (model.PublicationYear < MIN_PUBLICATION_YEAR || model.PublicationYear > DateTime.Now.Year)
             {
                 ErrorDict.Add(nameof(model.PublicationYear), ErrorCodes.InvalidRange);
             }
@@ -44,7 +50,7 @@ namespace Service.Validations
                 }
             }
 
-            if (model.Pages > BOOK_MAX_LENGTH && model.Pages < 1)
+            if (model.Pages > BOOK_MAX_LENGTH || model.Pages < 1)
             {
                 ErrorDict.Add(nameof(model.Pages), ErrorCodes.InvalidRange);
             }

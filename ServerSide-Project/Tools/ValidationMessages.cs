@@ -67,6 +67,10 @@ namespace ServerSide_Project.Tools
                         modelState.AddModelError(dict.Key, "You can not delete a classification that has books assigned to it.");
                         break;
 
+                    case ErrorCodes.MustBeOnlyNumbers:
+                        modelState.AddModelError(dict.Key, "Must contain only numbers 0-9.");
+                        break;
+
                     default:
                         modelState.AddModelError(dict.Key, "Unspecified error code: " + code.ToString() + " Please contact the development team.");
                         break;
