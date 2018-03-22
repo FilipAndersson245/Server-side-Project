@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div class="col-sm-3" id="adminOptions">
-                    @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Admin && item.PermissionLevel <= Rank.Admin)
+                    @if ((Session["Level"] != null && (Rank)Session["Level"] >= Rank.Admin && item.PermissionLevel <= Rank.Admin) || (item.Username == Session["authentication"].ToString()))
                     {
                         @Html.ActionLink("Edit", "EditAdmin", "Admin", new { id = item.Username }, null);
                     }

@@ -4,6 +4,9 @@ using System.Web.Mvc;
 
 namespace ServerSide_Project.Tools
 {
+    /// <summary>
+    /// Adds functionality to the controllers.
+    /// </summary>
     public class ControllerExtension : Controller
     {
         protected override void OnException(ExceptionContext filterContext)
@@ -15,6 +18,9 @@ namespace ServerSide_Project.Tools
             }
         }
 
+        /// <summary>
+        /// Makes sure that the user is signed in as the specified rank before proceeding.
+        /// </summary>
         protected bool AuthorizeAndRedirect(Rank rank = Rank.Editor)
         {
             if (Session["authentication"] == null || (Rank)Session["level"] < rank)

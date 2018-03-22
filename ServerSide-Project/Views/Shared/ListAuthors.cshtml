@@ -6,6 +6,7 @@
     ViewBag.Title = "ListAuthors";
     ViewBag.activeBrowseBy = "Author";
 }
+
 <div class="row">
     <div class="col-sm-12 text-center">
         <h2>Authors</h2>
@@ -23,7 +24,6 @@
     <div class="col-sm-6" id="authorListOuter">
         @foreach (var item in Model)
         {
-
             <div class="row" id="authorListItem">
                 <div class="col-sm-1" id="authorImage">
                     <img src="~/Resources/Author.png" width="80%" height="80%" class="text-center" />
@@ -37,10 +37,13 @@
                     </div>
                     <div class="row">
                         @if (item.BirthYear == null)
-                        {<span>Unknown</span>}
+                        {
+                            <span>Unknown</span>
+                        }
                         else
-                        { @Html.Encode(item.BirthYear);
-                    }
+                        {
+                            @Html.Encode(item.BirthYear);
+                        }
                     </div>
                 </div>
                 <div class="col-sm-2 text-right">
@@ -52,7 +55,6 @@
                     }
                 </div>
             </div>
-
         }
     </div>
     <div class="col-sm-3"></div>

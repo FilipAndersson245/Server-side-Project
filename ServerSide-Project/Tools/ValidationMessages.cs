@@ -3,15 +3,16 @@ using System.Collections.Generic;
 
 namespace ServerSide_Project.Tools
 {
+    /// <summary>
+    /// Converts a dictionary of ErrorCodes into error messages to display to the user.
+    /// </summary>
     public class ValidationMessages
     {
-        //public ModelStateDictionary modelState = new ModelStateDictionary();
 
         public static void ConvertCodeToMsg(System.Web.Mvc.ModelStateDictionary modelState, Dictionary<string, ErrorCodes> MessageCodes)
         {
             foreach (KeyValuePair<string, ErrorCodes> dict in MessageCodes)
             {
-                
                 ErrorCodes code = dict.Value;
                 switch (code)
                 {

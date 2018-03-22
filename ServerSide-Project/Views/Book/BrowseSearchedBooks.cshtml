@@ -9,7 +9,6 @@
 
 @if (Model.BookSearchResult.PageCount > 1)
 {
-
     <div class="text-center" id="pageSelector">
         <div class="pagination">
             Page @(Model.BookSearchResult.PageCount < Model.BookSearchResult.PageNumber ? 0 : Model.BookSearchResult.PageNumber)
@@ -47,8 +46,6 @@
                        parameters.Add("page", page);
                        return Url.Action("SearchBooks", parameters);
                    })
-
-
         </div>
     </div>
 }

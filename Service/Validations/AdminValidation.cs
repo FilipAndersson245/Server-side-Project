@@ -8,7 +8,7 @@ namespace Service.Validations
         private const int MAX_NAME_LENGTH = 64;
         private const string PASSWORD_REQ_REGEX = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{4,25}$";
 
-        public AdminValidation(Admin model)
+        public AdminValidation(Admin model, bool PasswordNotEdited = false)
         {
             if (string.IsNullOrWhiteSpace(model.Username))
             {
@@ -18,13 +18,16 @@ namespace Service.Validations
             {
                 ErrorDict.Add(nameof(model.Username), ErrorCodes.TooLong);
             }
-            if (string.IsNullOrWhiteSpace(model.Password))
+            if (!PasswordNotEdited)
             {
-                ErrorDict.Add(nameof(model.Password), ErrorCodes.IsRequired);
-            }
-            else if (!Regex.IsMatch(model.Password, PASSWORD_REQ_REGEX))
-            {
-                ErrorDict.Add(nameof(model.Password), ErrorCodes.PasswordDoesNotMatch);
+                if (string.IsNullOrWhiteSpace(model.Password))
+                {
+                    ErrorDict.Add(nameof(model.Password), ErrorCodes.IsRequired);
+                }
+                else if (!Regex.IsMatch(model.Password, PASSWORD_REQ_REGEX))
+                {
+                    ErrorDict.Add(nameof(model.Password), ErrorCodes.PasswordDoesNotMatch);
+                }
             }
 
             if (ErrorDict.Count == 0)

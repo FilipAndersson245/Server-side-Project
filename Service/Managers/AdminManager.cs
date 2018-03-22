@@ -84,9 +84,9 @@ namespace Service.Managers
             return _Repo.DeleteAdmin(id);
         }
 
-        public AdminValidation EditAdmin(Admin admin)
+        public AdminValidation EditAdmin(Admin admin, bool PasswordNotEdited = false)
         {
-            AdminValidation validation = new AdminValidation(admin);
+            AdminValidation validation = new AdminValidation(admin, PasswordNotEdited);
             if (validation.IsValid)
             {
                 Admin existingAdmin = GetAdmin(admin.Username);

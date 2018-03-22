@@ -39,31 +39,40 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult EditAdmin(string id)
         {
-            AuthorizeAndRedirect(Rank.Admin);
+            if (!(id == Session["authentication"].ToString()))
+            {
+                AuthorizeAndRedirect(Rank.Admin);
+            }
             return View("Editadmin", Manager.GetAdmin(id));
         }
 
         [HttpPost]
         public ActionResult EditAdminPost(Admin admin)
         {
-            AuthorizeAndRedirect(Rank.Admin);
+            if (!(admin.Username == Session["authentication"].ToString())) //Allow the user to change their own password even if not admin or higher
+            {
+                AuthorizeAndRedirect(Rank.Admin);
+            }
             Admin oldAdmin = Manager.GetAdmin(admin.Username);
             admin.Username = oldAdmin.Username;
-            if ((Rank)Session["Level"] < Rank.SuperAdmin) //Don't allow changing of admin level if admin who edited is not superadmin
+            if ((Rank)Session["Level"] < Rank.SuperAdmin) //Don't allow changing of admin level or classification access if admin who edited is not superadmin
+            {
                 admin.PermissionLevel = oldAdmin.PermissionLevel;
+                admin.CanEditClassifications = oldAdmin.CanEditClassifications;
+            }
             if (admin.Password == null)
             {
                 admin.PasswordHash = oldAdmin.PasswordHash;
                 admin.Salt = oldAdmin.Salt;
-                admin.Password = "PlaceHolder123";
+                Manager.EditAdmin(admin, true);
             }
             else
             {
                 Hashing hashing = new Hashing(admin.Password);
                 admin.PasswordHash = hashing.Hash;
                 admin.Salt = hashing.Salt;
+                Manager.EditAdmin(admin);
             }
-            Manager.EditAdmin(admin);
             return RedirectToAction("AdminPanel", "Admin", null);
         }
 

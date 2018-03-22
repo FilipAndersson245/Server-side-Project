@@ -207,7 +207,6 @@
     <Content Include="Views\Book\DeleteBook.cshtml" />
     <Content Include="Views\Author\DeleteAuthor.cshtml" />
     <Content Include="Views\Admin\CreateAdmin.cshtml" />
-    <Content Include="Views\Shared\SearchForms.cshtml" />
     <Content Include="Views\Admin\DeleteAdmin.cshtml" />
     <Content Include="Views\Admin\Editadmin.cshtml" />
     <Content Include="Views\Widget\Widget.cshtml" />
@@ -220,7 +219,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Api\" />
     <Folder Include="Views\Update\" />
   </ItemGroup>
   <ItemGroup>

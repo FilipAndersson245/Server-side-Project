@@ -3,8 +3,11 @@
 @{
     ViewBag.Title = "View";
 }
+
 <div class="deleteContent">
+
     <h3>Are you sure you want to delete the classification</h3>
+
     <h2>@Html.Name(Model.Signum)?</h2>
     @using (Html.BeginForm("DeleteClassificationPost", "Classification", new { id = Model.SignId }, FormMethod.Post, new { @class = "form-group", @id = "classificationListOptions" }))
     {

@@ -18,15 +18,15 @@
     </div>
 }
 
-    @Html.Partial("ListAuthors", Model.AuthorSearchResult)
+@Html.Partial("ListAuthors", Model.AuthorSearchResult)
 
-    @if (Model.AuthorSearchResult.PageCount > 1)
-    {
-        <div class="text-center" id="pageSelector">
-            <div class="pagination">
-                Page @(Model.AuthorSearchResult.PageCount < Model.AuthorSearchResult.PageNumber ? 0 : Model.AuthorSearchResult.PageNumber)
-                of @Model.AuthorSearchResult.PageCount
-                @Html.PagedListPager(Model.AuthorSearchResult, page => Url.Action("SearchAuthors", new { search = Request.Params["search"], page }))
-            </div>
+@if (Model.AuthorSearchResult.PageCount > 1)
+{
+    <div class="text-center" id="pageSelector">
+        <div class="pagination">
+            Page @(Model.AuthorSearchResult.PageCount < Model.AuthorSearchResult.PageNumber ? 0 : Model.AuthorSearchResult.PageNumber)
+            of @Model.AuthorSearchResult.PageCount
+            @Html.PagedListPager(Model.AuthorSearchResult, page => Url.Action("SearchAuthors", new { search = Request.Params["search"], page }))
         </div>
-    }
+    </div>
+}
