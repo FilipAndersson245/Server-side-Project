@@ -9,20 +9,20 @@ namespace Service.Validations
         InUse,
         InvalidRange,
         NotANumber,
-        ToLong,
-        MustBeTenCharLong,
-        InsuficentPermission,
+        TooLong,
+        InsufficentPermission,
         PasswordDoesNotMatch,
         ExistsAlready,
         WrongPassword,
         NotValidPageNr,
-        MoreThenFiveHundredChars,
-        MoreThenSixtyFourChars,
+        MoreThanFiveHundredChars,
+        MoreThanFiftyChars,
         FailedToCreateAuthor,
         FailedToCreateBook,
         BookDoesntExist,
         FailedToCreateClassification,
-        BooksExistInClassification
+        BooksExistInClassification,
+        MustBeOnlyNumbers
     }
 
     public class Validation
@@ -73,6 +73,11 @@ namespace Service.Validations
             ErrorDict.Add(type, ErrorCodes.FailedToCreateClassification);
         }
 
-        
+        public void MustBeOnlyNumbers(string type)
+        {
+            IsValid = false;
+            ErrorDict.Add(type, ErrorCodes.MustBeOnlyNumbers);
+        }
+
     }
 }

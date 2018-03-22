@@ -5,7 +5,8 @@ namespace Service.Validations
 {
     public class ClassificationValidation : Validation
     {
-        private const int DESCRIPTION_MAX_LENGTH = 500;
+        private const int DESCRIPTION_MAX_LENGTH = 255;
+        private const int NAME_MAX_LENGTH = 50;
 
         public ClassificationValidation(Classification model)
         {
@@ -13,9 +14,9 @@ namespace Service.Validations
             {
                 ErrorDict.Add(nameof(model.Signum), ErrorCodes.IsRequired);
             }
-            else if (model.Signum.Length > 64)
+            else if (model.Signum.Length > NAME_MAX_LENGTH)
             {
-                ErrorDict.Add(nameof(model.Signum), ErrorCodes.MoreThenSixtyFourChars);
+                ErrorDict.Add(nameof(model.Signum), ErrorCodes.MoreThanFiftyChars);
             }
 
             if (string.IsNullOrWhiteSpace(model.Description))
@@ -24,7 +25,7 @@ namespace Service.Validations
             }
             else if (model.Description.Length > DESCRIPTION_MAX_LENGTH)
             {
-                ErrorDict.Add(nameof(model.Description), ErrorCodes.MoreThenFiveHundredChars);
+                ErrorDict.Add(nameof(model.Description), ErrorCodes.MoreThanFiveHundredChars);
             }
 
             if (ErrorDict.Count == 0)

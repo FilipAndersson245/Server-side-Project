@@ -5,7 +5,7 @@ namespace Service.Validations
 {
     public class AdminValidation : Validation
     {
-        private const int MAX_NAME_LENGTH = 30;
+        private const int MAX_NAME_LENGTH = 64;
         private const string PASSWORD_REQ_REGEX = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{4,25}$";
 
         public AdminValidation(Admin model)
@@ -16,7 +16,7 @@ namespace Service.Validations
             }
             else if (model.Username.Length > MAX_NAME_LENGTH)
             {
-                ErrorDict.Add(nameof(model.Username), ErrorCodes.ToLong);
+                ErrorDict.Add(nameof(model.Username), ErrorCodes.TooLong);
             }
             if (string.IsNullOrWhiteSpace(model.Password))
             {
