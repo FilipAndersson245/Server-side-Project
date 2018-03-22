@@ -379,3 +379,8 @@ a:hover, a:active, .btn-link:hover, .btn-link:active
     background-color: #005275;
     border-color: #ffffff;
 }
+
+#webPageHeadline
+{
+    padding-left: 9%;
+}
