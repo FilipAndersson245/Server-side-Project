@@ -4,7 +4,10 @@
     <title></title>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"
             integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
-            crossorigin="anonymous"></script>
+            crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <style>
         #widget {
             width: 100%;
@@ -21,18 +24,19 @@
             text-align: left;
             text-decoration: none;
             color: #000000;
+            border-bottom: 1px solid black;
         }
 
-            .rowLink :hover {
-                text-decoration: none;
-                color: yellow;
+            .rowLink:hover {
+                text-decoration: none !important;
             }
     </style>
 </head>
 <body>
     <div id="widget">
+        <h1>Jönköping Libary</h1>
         <form id="searchBook" action="~/API/SEARCH">
-            <input id="search" value="jesper" name="search" />
+            <input id="search" placeholder="Search books" value="jesper" name="search" />
             <input type="submit" />
         </form>
         <div id="widgetData"></div>
@@ -40,13 +44,17 @@
                         var baseUrl = 'http://localhost:10975'
                         $('#searchBook').submit(function(event) {
                             event.preventDefault();
-                            var url = baseUrl + '/Book/SEARCH?search='+ $("#search").val();
+                            var url = baseUrl + '/Api/Search?search='+ $("#search").val();
                             $.ajax({
                                 crossDomain: true,
                                 url: url,
                                 type: 'GET',
                                 dataType: 'jsonp',
                                 jsonpCallback: 'callback',
+								error: function(xhr, ajaxOptions, thrownError) {
+									alert(xhr.status);
+									alert(thrownError);
+								}
                             });
                         });
                         function callback(data) {
