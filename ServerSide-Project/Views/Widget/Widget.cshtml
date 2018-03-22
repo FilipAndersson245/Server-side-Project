@@ -36,12 +36,12 @@
     <div id="widget">
         <h1>Jönköping Libary</h1>
         <form id="searchBook" action="~/API/SEARCH">
-            <input id="search" placeholder="Search books" value="jesper" name="search" />
+            <input id="search" placeholder="Search books" name="search" />
             <input type="submit" />
         </form>
         <div id="widgetData"></div>
         <script>
-                        var baseUrl = 'http://localhost:10975'
+            var baseUrl = 'https://jffaju.eu-central-1.elasticbeanstalk.com/'
                         $('#searchBook').submit(function(event) {
                             event.preventDefault();
                             var url = baseUrl + '/Api/Search?search='+ $("#search").val();
