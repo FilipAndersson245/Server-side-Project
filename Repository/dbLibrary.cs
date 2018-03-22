@@ -2,10 +2,10 @@ namespace Repository
 {
     using System.Data.Entity;
 
-    public partial class dbLibrary : DbContext
+    public partial class DbLibrary : DbContext
     {
-        public dbLibrary()
-            : base("name=dbLibrary1")
+        public DbLibrary()
+            : base("name=DbLibrary")
         {
         }
 
