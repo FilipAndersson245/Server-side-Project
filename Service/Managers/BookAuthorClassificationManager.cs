@@ -8,12 +8,12 @@ namespace Service.Managers
         {
             ClassificationManager classificationManager = new ClassificationManager();
             AuthorManager authorManager = new AuthorManager();
-            BookAuthorClassification bac = new BookAuthorClassification
+            BookAuthorClassification bookAuthorClassification = new BookAuthorClassification
             {
                 Authors = authorManager.GetAllAuthorsToList(),
                 Classifications = classificationManager.GetAllClassifications()
             };
-            return bac;
+            return bookAuthorClassification;
         }
     }
 }

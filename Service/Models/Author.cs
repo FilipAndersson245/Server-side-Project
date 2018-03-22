@@ -4,10 +4,6 @@ namespace Service.Models
 {
     public class Author
     {
-        public Author()
-        {
-        }
-
         public string Aid { get; set; } //Primary Key
 
         public string FirstName { get; set; }

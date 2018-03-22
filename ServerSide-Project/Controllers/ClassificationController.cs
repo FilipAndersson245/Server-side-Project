@@ -77,8 +77,11 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public ActionResult GetClassifications(int[] classifications = null)
         {
-            ListClassification classificationList = new ListClassification() { Classifications = _Manager.GetAllClassifications(), SelectedClassification = classifications?.ToList() };
-            return PartialView("ListClassifications", classificationList);
+            return PartialView("ListClassifications", new ListClassification()
+            {
+                Classifications = _Manager.GetAllClassifications(),
+                SelectedClassification = classifications?.ToList()
+            });
         }
 
         [HttpGet]

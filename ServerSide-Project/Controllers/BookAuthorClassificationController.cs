@@ -9,7 +9,7 @@ namespace ServerSide_Project.Controllers
 {
     public class BookAuthorClassificationController : ControllerExtension
     {
-        private BookManager _BookManager { get; } = new BookManager();
+        private BookManager _Manager { get; } = new BookManager();
         private BookAuthorClassificationManager _BookAuthorClassificationManager { get; } = new BookAuthorClassificationManager();
 
         [HttpGet]
@@ -27,7 +27,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult CreateBook(BookAuthorClassification bookAuthorClassification, string[] authorChecklist, int? classificationRadio)
         {
             AuthorizeAndRedirect();
-            Tuple<Book, BookValidation> bookTuple = _BookManager.CreateBook(bookAuthorClassification, authorChecklist, classificationRadio);
+            Tuple<Book, BookValidation> bookTuple = _Manager.CreateBook(bookAuthorClassification, authorChecklist, classificationRadio);
             if (bookTuple.Item2.IsValid)
                 return RedirectToAction("ListBookDetails", "Book", new { id = bookTuple.Item1.ISBN });
             ValidationMessages.ConvertCodeToMsg(ModelState, bookTuple.Item2.ErrorDict);
@@ -40,7 +40,7 @@ namespace ServerSide_Project.Controllers
         {
             AuthorizeAndRedirect();
             BookAuthorClassification bookAuthorClassification = _BookAuthorClassificationManager.Setup();
-            bookAuthorClassification.Book = _BookManager.GetBookFromIsbn(id);
+            bookAuthorClassification.Book = _Manager.GetBookFromIsbn(id);
             return View("EditBook", bookAuthorClassification);
         }
 
@@ -50,7 +50,7 @@ namespace ServerSide_Project.Controllers
         public ActionResult EditBook(BookAuthorClassification bookAuthorClassification, string[] authorChecklist, int classificationRadio)
         {
             AuthorizeAndRedirect();
-            Tuple<Book, BookValidation> bookTuple = _BookManager.EditBook(bookAuthorClassification, authorChecklist, classificationRadio);
+            Tuple<Book, BookValidation> bookTuple = _Manager.EditBook(bookAuthorClassification, authorChecklist, classificationRadio);
             if (bookTuple.Item2.IsValid)
                 return RedirectToAction("ListBookDetails", "Book", new { id = bookTuple.Item1.ISBN });
             ValidationMessages.ConvertCodeToMsg(ModelState, bookTuple.Item2.ErrorDict);

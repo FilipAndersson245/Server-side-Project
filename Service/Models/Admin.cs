@@ -2,14 +2,14 @@
 {
     public enum Rank
     {
-        Editor = 0, //do all books / author
-        Admin,      //also reset password
-        SuperAdmin  //create / delete admins
+        Editor = 0, //Can edit, create and delete books and authors.
+        Admin,      //Editor + Can reset password.
+        SuperAdmin  //Admin + Can create and delete admins.
     }
 
     public class Admin
     {
-        public string Username { get; set; }
+        public string Username { get; set; } //Primary Key
 
         public string Password { get; set; }
 

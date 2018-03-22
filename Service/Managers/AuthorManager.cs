@@ -13,11 +13,6 @@ namespace Service.Managers
     {
         private AuthorRepository _Repo { get; } = new AuthorRepository();
 
-        /// <summary>
-        /// Create a new Author
-        /// </summary>
-        /// <param name="author"></param>
-        /// <returns>A tuple with errors and a int? that store if sucessful the created id</returns>
         public Tuple<Author, AuthorValidation> CreateAuthor(Author author)
         {
             AuthorValidation validation = new AuthorValidation(author);
@@ -25,10 +20,7 @@ namespace Service.Managers
             {
                 AUTHOR repoAUTHOR = _Repo.CreateAuthor(Mapper.Map<Author, AUTHOR>(author));
                 if (repoAUTHOR == null)
-                {
                     validation.FailedToCreateAuthor(nameof(author.FirstName));
-                    return new Tuple<Author, AuthorValidation>(null, validation);
-                }
                 else
                 {
                     Author newAuthor = Mapper.Map<Author>(repoAUTHOR);
@@ -42,11 +34,6 @@ namespace Service.Managers
             return new Tuple<Author, AuthorValidation>(null, validation);
         }
 
-        /// <summary>
-        /// Edit author return tuple with the edited object if successful and a errror dict
-        /// </summary>
-        /// <param name="author"></param>
-        /// <returns></returns>
         public Tuple<Author, AuthorValidation> EditAuthor(Author author)
         {
             AuthorValidation validation = new AuthorValidation(author);
@@ -71,8 +58,10 @@ namespace Service.Managers
 
         public Search GetAllAuthors(int page, int itemsPerPage)
         {
-            Search searchResult = new Search() { AuthorSearchResult = _Repo.GetAllAuthorsFromDB(page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>() };
-            return searchResult;
+            return new Search()
+            {
+                AuthorSearchResult = _Repo.GetAllAuthorsFromDB(page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>()
+            };
         }
 
         public List<Author> GetAllAuthorsToList()
@@ -91,8 +80,11 @@ namespace Service.Managers
 
         public Search GetAuthorsFromSearch(string search, int page, int itemsPerPage)
         {
-            Search searchResult = new Search() { AuthorSearchResult = _Repo.GetAuthorsFromSearchResult(search, page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>(), SearchQuery = search };
-            return searchResult;
+            return new Search()
+            {
+                AuthorSearchResult = _Repo.GetAuthorsFromSearchResult(search, page, itemsPerPage).ToMappedPagedList<AUTHOR, Author>(),
+                SearchQuery = search
+            };
         }
 
         public Search GetAuthorsFromSearch(Search search, int page, int itemsPerPage)

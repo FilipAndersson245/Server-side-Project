@@ -14,8 +14,7 @@ namespace Service.Managers
 
         public List<Book> GetBooksByClassification(int signId)
         {
-            List<Book> bookList = Mapper.Map<List<BOOK>, List<Book>>(_Repo.GetBooksFromClassification(signId));
-            return bookList;
+            return Mapper.Map<List<BOOK>, List<Book>>(_Repo.GetBooksFromClassification(signId));
         }
 
         public Classification GetClassificationFromBookIsbn(string isbn)
@@ -36,20 +35,16 @@ namespace Service.Managers
         public Classification AddGenericClassification()
         {
             if (_Repo.DoesClassificationExist("Generic"))
-            {
                 return Mapper.Map<CLASSIFICATION, Classification>(_Repo.GetClassificationFromName("Generic"));
-            }
             else
             {
-                Classification genericClass = new Classification() { Signum = "Generic", Description = "Books without a category" };
-                if (_Repo.CreateClassification(Mapper.Map<Classification, CLASSIFICATION>(genericClass)))
+                Classification genericClass = new Classification()
                 {
-                    return genericClass;
-                }
-                else
-                {
-                    return genericClass; //Add some warning for user maybe
-                }
+                    Signum = "Generic",
+                    Description = "Books without a category"
+                };
+                _Repo.CreateClassification(Mapper.Map<Classification, CLASSIFICATION>(genericClass));
+                return genericClass;
             }
         }
 
@@ -57,13 +52,9 @@ namespace Service.Managers
         {
             ClassificationValidation validation = new ClassificationValidation(classification);
             if (_Repo.DoesClassificationContainBooks(Mapper.Map<CLASSIFICATION>(classification)))
-            {
                 validation.BooksExistInClassification(nameof(classification.Signum));
-            }
             else if (!_Repo.DeleteClassification(Mapper.Map<Classification, CLASSIFICATION>(classification)))
-            {
                 validation.DoesNotExistOnServer(nameof(classification.Signum));
-            }
             return validation;
         }
 
@@ -71,12 +62,8 @@ namespace Service.Managers
         {
             ClassificationValidation validation = new ClassificationValidation(classification);
             if (validation.IsValid)
-            {
                 if (!_Repo.CreateClassification(Mapper.Map<Classification, CLASSIFICATION>(classification)))
-                {
                     validation.FailedToCreateClassification(nameof(classification.Signum));
-                }
-            }
             return validation;
         }
 
@@ -89,12 +76,8 @@ namespace Service.Managers
         {
             ClassificationValidation validation = new ClassificationValidation(classification);
             if (validation.IsValid)
-            {
                 if (!_Repo.EditClassification(Mapper.Map<Classification, CLASSIFICATION>(classification)))
-                {
                     validation.DoesNotExistOnServer(nameof(classification.Signum));
-                }
-            }
             return validation;
         }
     }

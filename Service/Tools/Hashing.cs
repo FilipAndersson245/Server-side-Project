@@ -9,9 +9,8 @@ namespace Service.Tools
         public string Salt { get; set; } = null;
 
         /// <summary>
-        /// Create new salt and hash with a given password
+        /// Create new salt and hash with a given password.
         /// </summary>
-        /// <param name="password"></param>
         public Hashing(string password)
         {
             using (Rfc2898DeriveBytes deriveBytes = new Rfc2898DeriveBytes(password, 20))
@@ -22,10 +21,8 @@ namespace Service.Tools
         }
 
         /// <summary>
-        /// Create hash with a given salt
+        /// Create hash with a given salt.
         /// </summary>
-        /// <param name="password"></param>
-        /// <param name="salt"></param>
         public Hashing(string password, string salt)
         {
             using (Rfc2898DeriveBytes deriveBytes = new Rfc2898DeriveBytes(password, Convert.FromBase64String(salt)))

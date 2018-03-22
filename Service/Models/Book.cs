@@ -4,11 +4,8 @@ namespace Service.Models
 {
     public class Book
     {
-        public Book()
-        {
-        }
-
-        public string ISBN { get; set; } //PRIMARY KEY
+        
+        public string ISBN { get; set; } //Primary Key
 
         public string Title { get; set; }
 
@@ -23,17 +20,6 @@ namespace Service.Models
         public Classification Classification { get; set; }
 
         public int SignId { get; set; }
-
-        public void SetBook(Book book)
-        {
-            this.Authors = book.Authors;
-            this.Classification = book.Classification;
-            this.Pages = book.Pages;
-            this.Publicationinfo = book.Publicationinfo;
-            this.ISBN = book.ISBN;
-            this.Title = book.Title;
-            this.PublicationYear = book.PublicationYear;
-        }
 
         public string ShortDescription
         {

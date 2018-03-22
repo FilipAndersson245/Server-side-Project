@@ -57,7 +57,6 @@ namespace Service.Managers
                     admin.PasswordHash = hash.Hash;
                     admin.Salt = hash.Salt;
                     CreateAdmin(admin);
-                    return validation;
                 }
             }
             return validation;
@@ -70,8 +69,7 @@ namespace Service.Managers
 
         public bool CreateAdmin(Admin admin)
         {
-            ADMIN dbAdmin = Mapper.Map<ADMIN>(admin);
-            return _Repo.CreateAdmin(dbAdmin);
+            return _Repo.CreateAdmin(Mapper.Map<ADMIN>(admin));
         }
 
         public List<Admin> GetAllAdmins()
@@ -97,7 +95,6 @@ namespace Service.Managers
                 else
                 {
                     validation.DoesNotExistOnServer(nameof(admin.Username));
-                    return validation;
                 }
             }
             return validation;
