@@ -28,7 +28,11 @@ namespace Repository.Support
             {
                 try
                 {
-                    return db.BOOKs.Include(b => b.AUTHORs).Include(b => b.CLASSIFICATION).OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
+                    db.Configuration.LazyLoadingEnabled = false;
+                    return (from p in db.BOOKs.Include(b => b.AUTHORs).Include(c => c.CLASSIFICATION)
+                            orderby p.Title
+                            select p)
+                            .ToPagedList(page, itemsPerPage);
                 }
                 catch
                 {
@@ -148,21 +152,6 @@ namespace Repository.Support
             }
         }
 
-        public List<AUTHOR> GetAuthorsFromIsbn(string isbn)
-        {
-            using (DbLibrary db = new DbLibrary())
-            {
-                try
-                {
-                    return db.BOOKs.Find(isbn).AUTHORs.ToList();
-                }
-                catch
-                {
-                    return null;
-                }
-            }
-        }
-
         public CLASSIFICATION GetClassificationFromIsbn(BOOK book)
         {
             using (DbLibrary db = new DbLibrary())
@@ -188,7 +177,7 @@ namespace Repository.Support
                     {
                         db.Configuration.LazyLoadingEnabled = false;
                         return db.BOOKs.Include(b => b.AUTHORs).Where(b => b.SignId.HasValue && classifications.ToList().Contains(b.SignId.Value))
-                            .Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + y.LastName).Contains(search)))
+                            .Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + " " + y.LastName).Contains(search)))
                             .OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
                     }
                     catch
@@ -204,7 +193,7 @@ namespace Repository.Support
                     try
                     {
                         db.Configuration.LazyLoadingEnabled = false;
-                        return db.BOOKs.Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + y.LastName).Contains(search)))
+                        return db.BOOKs.Include(b => b.AUTHORs).Where(x => x.Title.Contains(search) || x.ISBN.Contains(search) || x.AUTHORs.Any(y => (y.FirstName + " " + y.LastName).Contains(search)))
                             .OrderBy(x => x.Title).ToPagedList(page, itemsPerPage);
                     }
                     catch

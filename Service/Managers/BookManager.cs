@@ -20,7 +20,7 @@ namespace Service.Managers
             BOOK dbBOOK = _Repo.GetBookFromIsbn(isbn);
             Book book = Mapper.Map<BOOK, Book>(dbBOOK);
             if (book.Authors.Count == 0)
-                book.Authors = AddAuthors(book); //add unknown
+                AddAuthors(book); //add unknown
             if (book.Classification == null)
                 book.Classification = AddClassification(book); //add generic
             return book;
@@ -34,10 +34,10 @@ namespace Service.Managers
         /// <returns>A list of authors with atleast one item.</returns>
         public List<Author> AddAuthors(Book book)
         {
-            List<Author> authors = Mapper.Map<List<AUTHOR>, List<Author>>(_Repo.GetAuthorsFromIsbn(book.ISBN));
-            if (authors.Count == 0)
+            //List<Author> authors = Mapper.Map<List<AUTHOR>, List<Author>>(_Repo.GetAuthorsFromIsbn(book.ISBN));
+            if (book.Authors.Count == 0)
             {
-                authors.Add(new Author()
+                book.Authors.Add(new Author()
                 {
                     FirstName = "No Author",
                     LastName = "Available",
@@ -45,7 +45,7 @@ namespace Service.Managers
                     Aid = "-1"
                 });
             }
-            return authors;
+            return book.Authors;
         }
 
         /// <summary>
@@ -74,8 +74,7 @@ namespace Service.Managers
                     bookList[i].SignId = bookList[i].Classification.SignId;
                     _Repo.EditBook(Mapper.Map<BOOK>(bookList[i]));
                 }
-                if (bookList[i].Authors.Count == 0)
-                    bookList[i].Authors = AddAuthors(bookList[i]);
+                AddAuthors(bookList[i]);
             }
         }
 

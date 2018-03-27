@@ -121,7 +121,7 @@ namespace Repository.Support
                 try
                 {
                     db.Configuration.LazyLoadingEnabled = false;
-                    return db.AUTHORs.Include(a => a.BOOKs).First(a => a.Aid.Equals(id)).BOOKs.ToPagedList(page, 100);
+                    return db.BOOKs.Include(b => b.AUTHORs).Where(b => b.AUTHORs.Any(a => a.Aid == id)).OrderBy(o => o.Title).ToPagedList(page, 100);
                 }
                 catch
                 {
