@@ -30,6 +30,7 @@ namespace ServerSide_Project.Controllers
             AdminValidation valid = _Manager.SignUp(admin);
             if (valid.IsValid)
             {
+                ViewData.ModelState.Clear();
                 return RedirectToAction("AdminPanel", "Admin");
             }
             ValidationMessages.ConvertCodeToMsg(ModelState, valid.ErrorDict);
@@ -65,6 +66,7 @@ namespace ServerSide_Project.Controllers
                 admin.PasswordHash = oldAdmin.PasswordHash;
                 admin.Salt = oldAdmin.Salt;
                 _Manager.EditAdmin(admin, true);
+                ViewData.ModelState.Clear();
             }
             else
             {
@@ -72,6 +74,7 @@ namespace ServerSide_Project.Controllers
                 admin.PasswordHash = hashing.Hash;
                 admin.Salt = hashing.Salt;
                 _Manager.EditAdmin(admin);
+                ViewData.ModelState.Clear();
             }
             return RedirectToAction("AdminPanel", "Admin", null);
         }
@@ -112,6 +115,7 @@ namespace ServerSide_Project.Controllers
             Tuple<Admin, AdminValidation> validation = _Manager.Login(admin);
             if (validation.Item2.IsValid)
             {
+                ViewData.ModelState.Clear();
                 Session["authentication"] = admin.Username;
                 Session["level"] = _Manager.getPermissionLevel(admin.Username);
                 Session["classificationEditor"] = validation.Item1.CanEditClassifications;
