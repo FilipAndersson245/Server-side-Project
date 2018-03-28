@@ -77,39 +77,25 @@ namespace Repository.Support
         {
             using (DbLibrary db = new DbLibrary())
             {
-                try
-                {
-                    db.Configuration.LazyLoadingEnabled = false;
-                    BOOK book = db.BOOKs.Include(b => b.AUTHORs).FirstOrDefault(x => x.ISBN.Equals(eBook.ISBN));
-                    book.AUTHORs.Clear();
-                    db.SaveChanges();
-                }
-                catch
-                {
-                    return null;
-                }
+                db.Configuration.LazyLoadingEnabled = false;
+                BOOK book = db.BOOKs.Include(b => b.AUTHORs).FirstOrDefault(x => x.ISBN.Equals(eBook.ISBN));
+                book.AUTHORs.Clear();
+                db.SaveChanges();
             }
             using (DbLibrary db = new DbLibrary())
             {
-                try
+                db.Configuration.LazyLoadingEnabled = false;
+                BOOK book = db.BOOKs.Include(b => b.CLASSIFICATION).FirstOrDefault(x => x.ISBN.Equals(eBook.ISBN));
+                db.Entry(book).CurrentValues.SetValues(eBook);
+                db.ChangeTracker.Entries<CLASSIFICATION>().ToList().ForEach(a => a.State = EntityState.Unchanged);
+                book.AUTHORs = new List<AUTHOR>();
+                foreach (var author in eBook.AUTHORs)
                 {
-                    db.Configuration.LazyLoadingEnabled = false;
-                    BOOK book = db.BOOKs.Include(b => b.CLASSIFICATION).FirstOrDefault(x => x.ISBN.Equals(eBook.ISBN));
-                    db.Entry(book).CurrentValues.SetValues(eBook);
-                    db.ChangeTracker.Entries<CLASSIFICATION>().ToList().ForEach(a => a.State = EntityState.Unchanged);
-                    book.AUTHORs = new List<AUTHOR>();
-                    foreach (var author in eBook.AUTHORs)
-                    {
-                        db.AUTHORs.Attach(author);
-                        book.AUTHORs.Add(author);
-                    }
-                    db.SaveChanges();
-                    return book;
+                    db.AUTHORs.Attach(author);
+                    book.AUTHORs.Add(author);
                 }
-                catch
-                {
-                    return null;
-                }
+                db.SaveChanges();
+                return book;
             }
         }
 

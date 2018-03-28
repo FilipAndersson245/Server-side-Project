@@ -60,7 +60,7 @@ namespace Repository.Support
             }
         }
 
-        public AUTHOR CreateAuthor(AUTHOR author) //Returns Aid if successfull, 0 if failed
+        public AUTHOR CreateAuthor(AUTHOR author)
         {
             using (DbLibrary db = new DbLibrary())
             {
