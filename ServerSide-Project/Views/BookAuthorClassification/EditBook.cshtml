@@ -68,13 +68,24 @@
                         <div class="panel-body">
                             @for (int i = 0; i < Model.Authors.Count(); i++)
                             {
-                                if (i > 0 && Model.Authors[i].LastName.First() != Model.Authors[i - 1].LastName.First())
+                                var first = Model.Authors[i].LastName.First();
+                                char second = ' ';
+                                if (i > 0)
+                                {
+                                    second = Model.Authors[i - 1].LastName.First();
+                                }
+                                if (i > 0 && first != second &&
+                                    !((first == 'Ö' && second =='O') || (first == 'O' && second == 'Ö') ||
+                                    (first == 'Å' && second == 'A') || (first == 'A' && second == 'Å') ||
+                                    (first == 'Å' && second == 'Ä') || (first == 'Ä' && second == 'Å') ||
+                                    (first == 'Ä' && second == 'A') || (first == 'A' && second == 'Ä') ||
+                                    (first == 'Ü' && second == 'U') || (first == 'U' && second == 'Ü')))
                                 {
                                     <div class="col-sm-12 text-left authorDropdownDivider">
-                                        <h2>@Html.Raw(Model.Authors[i].LastName.First())</h2>
+                                        <h2>@Html.Raw(first)</h2>
                                     </div>
                                 }
-                                else if (Model.Authors[i].LastName.First() == 'A' && i == 0)
+                                else if (first == 'A' && i == 0)
                                 {
                                     <div class="col-sm-12 text-left">
                                         <h2>@Html.Raw('A')</h2>

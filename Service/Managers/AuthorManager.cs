@@ -18,6 +18,11 @@ namespace Service.Managers
             AuthorValidation validation = new AuthorValidation(author);
             if (validation.IsValid)
             {
+                var authorFirstName = author.FirstName;
+                if (author.FirstName != null)
+                    author.FirstName = authorFirstName.Substring(0, 1).ToUpper() + authorFirstName.Substring(1);
+                var authorLastName = author.LastName;
+                author.LastName = authorLastName.Substring(0, 1).ToUpper() + authorLastName.Substring(1);
                 AUTHOR repoAUTHOR = _Repo.CreateAuthor(Mapper.Map<Author, AUTHOR>(author));
                 if (repoAUTHOR == null)
                     validation.FailedToCreateAuthor(nameof(author.FirstName));
