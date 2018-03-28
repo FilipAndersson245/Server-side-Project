@@ -44,7 +44,7 @@
                         <div class="col-md-1">
                             <div class="checkbox">
                                 @Html.EditorFor(model => model.CanEditClassifications)
-                                @Html.ValidationMessageFor(model => model.CanEditClassifications, "", new { @class = "text-danger" })
+                                @Html.ValidationMessage(nameof(Model.CanEditClassifications), "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>

@@ -18,6 +18,7 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
+        [RestoreModelStateFromTempData]
         public ActionResult EditClassification(int id)
         {
             AuthorizeAndRedirect();
@@ -25,6 +26,7 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpPost]
+        [SetTempDataModelState]
         [ValidateAntiForgeryToken]
         public ActionResult EditClassification(Classification classification)
         {

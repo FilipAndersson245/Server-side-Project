@@ -38,6 +38,7 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpGet]
+        [RestoreModelStateFromTempData]
         public ActionResult EditAdmin(string id)
         {
             if (!(id == Session["authentication"].ToString()))
@@ -48,6 +49,7 @@ namespace ServerSide_Project.Controllers
         }
 
         [HttpPost]
+        [SetTempDataModelState]
         public ActionResult EditAdminPost(Admin admin)
         {
             if (!(admin.Username == Session["authentication"].ToString())) //Allow the user to change their own password even if not admin or higher
@@ -70,6 +72,7 @@ namespace ServerSide_Project.Controllers
                     ViewData.ModelState.Clear();
                     return RedirectToAction("AdminPanel", "Admin", null);
                 }
+                ValidationMessages.ConvertCodeToMsg(ModelState, validation.ErrorDict);
             }
             else
             {
@@ -82,7 +85,9 @@ namespace ServerSide_Project.Controllers
                     ViewData.ModelState.Clear();
                     return RedirectToAction("AdminPanel", "Admin", null);
                 }
+                ValidationMessages.ConvertCodeToMsg(ModelState, validation.ErrorDict);
             }
+
             return RedirectToAction("EditAdmin", new { id = admin.Username });
         }
 
