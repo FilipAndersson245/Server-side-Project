@@ -29,7 +29,10 @@ namespace ServerSide_Project.Controllers
             AuthorizeAndRedirect();
             Tuple<Book, BookValidation> bookTuple = _Manager.CreateBook(bookAuthorClassification, authorChecklist, classificationRadio);
             if (bookTuple.Item2.IsValid)
+            {
+                ModelState.Clear();
                 return RedirectToAction("ListBookDetails", "Book", new { id = bookTuple.Item1.ISBN });
+            }
             ValidationMessages.ConvertCodeToMsg(ModelState, bookTuple.Item2.ErrorDict);
             return RedirectToAction("CreateBook", "BookAuthorClassification");
         }
@@ -52,7 +55,10 @@ namespace ServerSide_Project.Controllers
             AuthorizeAndRedirect();
             Tuple<Book, BookValidation> bookTuple = _Manager.EditBook(bookAuthorClassification, authorChecklist, classificationRadio);
             if (bookTuple.Item2.IsValid)
+            {
+                ModelState.Clear();
                 return RedirectToAction("ListBookDetails", "Book", new { id = bookTuple.Item1.ISBN });
+            }
             ValidationMessages.ConvertCodeToMsg(ModelState, bookTuple.Item2.ErrorDict);
             return RedirectToAction("EditBook", "BookAuthorClassification", new { id = bookAuthorClassification.Book.ISBN });
         }

@@ -11,13 +11,12 @@ namespace ServerSide_Project.Tools
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             base.OnActionExecuted(filterContext);
-            filterContext.Controller.TempData["ModelState"] =
-               filterContext.Controller.ViewData.ModelState;
+            filterContext.Controller.TempData["ModelState"] = filterContext.Controller.ViewData.ModelState;
         }
     }
 
     /// <summary>
-    /// Restores the ModelState to a saved temporary version 
+    /// Restores the ModelState to a saved temporary version
     /// </summary>
     public class RestoreModelStateFromTempDataAttribute : ActionFilterAttribute
     {
@@ -26,9 +25,9 @@ namespace ServerSide_Project.Tools
             base.OnActionExecuting(filterContext);
             if (filterContext.Controller.TempData.ContainsKey("ModelState"))
             {
-                filterContext.Controller.ViewData.ModelState.Merge(
-                    (ModelStateDictionary)filterContext.Controller.TempData["ModelState"]);
+                filterContext.Controller.ViewData.ModelState.Merge((ModelStateDictionary)filterContext.Controller.TempData["ModelState"]);
             }
+            filterContext.Controller.TempData.Remove("ModelState");
         }
     }
 }

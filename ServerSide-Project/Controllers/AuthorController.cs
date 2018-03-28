@@ -29,6 +29,7 @@ namespace ServerSide_Project.Controllers
             Tuple<Author, AuthorValidation> authorTuple = _Manager.CreateAuthor(author);
             if (authorTuple.Item1 != null)
             {
+                ModelState.Clear();
                 return RedirectToAction("ListAuthorDetails", "Author", new { id = Convert.ToInt32(authorTuple.Item1.Aid) });
             }
             ValidationMessages.ConvertCodeToMsg(ModelState, authorTuple.Item2.ErrorDict);
@@ -52,6 +53,7 @@ namespace ServerSide_Project.Controllers
             Tuple<Author, AuthorValidation> authorTuple = _Manager.EditAuthor(author);
             if (authorTuple.Item1 != null)
             {
+                ModelState.Clear();
                 return RedirectToAction("ListAuthorDetails", "Author", new { id = Convert.ToInt32(authorTuple.Item1.Aid) });
             }
             ValidationMessages.ConvertCodeToMsg(ModelState, authorTuple.Item2.ErrorDict);

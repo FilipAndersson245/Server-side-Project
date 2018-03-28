@@ -32,6 +32,8 @@ namespace ServerSide_Project.Controllers
             ClassificationValidation validation = _Manager.EditClassification(classification);
             if (!validation.IsValid)
                 ValidationMessages.ConvertCodeToMsg(ModelState, validation.ErrorDict);
+            else
+                ModelState.Clear();
             return RedirectToAction("BrowseAllBooks", "Book", null);
         }
 
@@ -51,7 +53,10 @@ namespace ServerSide_Project.Controllers
             AuthorizeAndRedirect();
             ClassificationValidation validation = _Manager.CreateClassification(classification);
             if (!validation.IsValid)
+            {
+                ModelState.Clear();
                 ValidationMessages.ConvertCodeToMsg(ModelState, validation.ErrorDict);
+            }
             return RedirectToAction("BrowseAllBooks", "Book", null);
         }
 
