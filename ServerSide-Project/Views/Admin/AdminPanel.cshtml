@@ -6,7 +6,7 @@
 }
 
 <div class="col-sm-6 col-sm-offset-3 text-center">
-    <h2>Admin Panel @Html.Raw((bool)Session["classificationEditor"])</h2>
+    <h2>Admin Panel</h2>
     @Html.ActionLink("Create New Book", "CreateBook", "BookAuthorClassification") |
     @{ var classificationEditor = (bool)Session["classificationEditor"];}
     @Html.ActionLink("Create New Author", "CreateAuthor", "Author")

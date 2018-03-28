@@ -8,7 +8,7 @@
 
 @if (Session["Level"] != null && (Rank)Session["Level"] >= Rank.Editor)
 {
-    <p>
+    <p class="text-left">
         @Html.ActionLink("Create New Book", "CreateBook", "BookAuthorClassification")
     </p>
 }
