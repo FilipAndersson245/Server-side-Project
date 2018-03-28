@@ -55,7 +55,6 @@ namespace ServerSide_Project.Controllers
                 AuthorizeAndRedirect(Rank.Admin);
             }
             Admin oldAdmin = _Manager.GetAdmin(admin.Username);
-            admin.Username = oldAdmin.Username;
             if ((Rank)Session["Level"] < Rank.SuperAdmin) //Don't allow changing of admin level or classification access if admin who edited is not superadmin
             {
                 admin.PermissionLevel = oldAdmin.PermissionLevel;
@@ -65,18 +64,26 @@ namespace ServerSide_Project.Controllers
             {
                 admin.PasswordHash = oldAdmin.PasswordHash;
                 admin.Salt = oldAdmin.Salt;
-                _Manager.EditAdmin(admin, true);
-                ViewData.ModelState.Clear();
+                AdminValidation validation = _Manager.EditAdmin(admin, true);
+                if (validation.IsValid)
+                {
+                    ViewData.ModelState.Clear();
+                    return RedirectToAction("AdminPanel", "Admin", null);
+                }
             }
             else
             {
                 Hashing hashing = new Hashing(admin.Password);
                 admin.PasswordHash = hashing.Hash;
                 admin.Salt = hashing.Salt;
-                _Manager.EditAdmin(admin);
-                ViewData.ModelState.Clear();
+                AdminValidation validation = _Manager.EditAdmin(admin);
+                if (validation.IsValid)
+                {
+                    ViewData.ModelState.Clear();
+                    return RedirectToAction("AdminPanel", "Admin", null);
+                }
             }
-            return RedirectToAction("AdminPanel", "Admin", null);
+            return RedirectToAction("EditAdmin", new { id = admin.Username });
         }
 
         [HttpGet]
