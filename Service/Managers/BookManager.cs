@@ -130,7 +130,11 @@ namespace Service.Managers
                 }
             }
             BookValidation validation = new BookValidation(book);
-            if (validation.IsValid)
+            if (_Repo.DoesBookExist(book.ISBN))
+            {
+                validation.DoesAlreadyExistOnServer(nameof(book.ISBN));
+            }
+            else if (validation.IsValid)
             {
                 BOOK repoBOOK = _Repo.CreateBook(Mapper.Map<Book, BOOK>(book));
                 if (repoBOOK == null)
