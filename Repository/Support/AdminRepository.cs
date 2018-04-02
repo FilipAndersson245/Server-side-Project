@@ -7,6 +7,14 @@ namespace Repository.Support
     public class AdminRepository
     {
 
+        public int GetPermissionLevel(string username)
+        {
+            using (DbLibrary db = new DbLibrary())
+            {
+                return db.ADMINS.FirstOrDefault(x => x.Username == username).PermissionLevel;
+            }
+        }
+
         public ADMIN GetAdmin(string username)
         {
             using (DbLibrary db = new DbLibrary())
