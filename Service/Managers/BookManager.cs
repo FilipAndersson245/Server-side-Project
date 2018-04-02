@@ -34,7 +34,6 @@ namespace Service.Managers
         /// <returns>A list of authors with atleast one item.</returns>
         public List<Author> AddAuthors(Book book)
         {
-            //List<Author> authors = Mapper.Map<List<AUTHOR>, List<Author>>(_Repo.GetAuthorsFromIsbn(book.ISBN));
             if (book.Authors.Count == 0)
             {
                 book.Authors.Add(new Author()
@@ -97,13 +96,13 @@ namespace Service.Managers
         {
             if (search == null) //Prevent bug where null matches 0 results.
                 search = "";
-            IPagedList<Book> bookList = _Repo.GetBookSearchResultat(search, page, itemsPerPage, classifications).ToMappedPagedList<BOOK, Book>();
+            IPagedList<Book> bookList = _Repo.GetBookSearchResult(search, page, itemsPerPage, classifications).ToMappedPagedList<BOOK, Book>();
             SetupBooks(bookList);
             return new Search() //Create Search object with existing data and return it.
             {
                 BookSearchResult = bookList,
                 SearchQuery = search,
-                SelectedClassifications = classifications != null ? classifications.ToList() : null //Convert to list if not null.
+                SelectedClassifications = classifications?.ToList() //Convert to list if not null.
             };
         }
 
@@ -152,11 +151,11 @@ namespace Service.Managers
             return _Repo.DeleteBook(Mapper.Map<Book, BOOK>(GetBookFromIsbn(isbn)));
         }
 
-        public Tuple<Book, BookValidation> EditBook(BookAuthorClassification bac, string[] authorChecklist, int? classificationRadio)
+        public Tuple<Book, BookValidation> EditBook(BookAuthorClassification bookAuthorClassification, string[] authorChecklist, int? classificationRadio)
         {
             AuthorManager authorManager = new AuthorManager();
             ClassificationManager classificationManager = new ClassificationManager();
-            Book book = bac.Book;
+            Book book = bookAuthorClassification.Book;
             if (classificationRadio == null) //Add the Generic classification if no classification was selected in in the form.
             {
                 book.Classification = classificationManager.AddGenericClassification();

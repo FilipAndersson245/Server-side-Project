@@ -18,10 +18,10 @@ namespace Service.Managers
             AuthorValidation validation = new AuthorValidation(author);
             if (validation.IsValid)
             {
-                var authorFirstName = author.FirstName;
+                string authorFirstName = author.FirstName;
                 if (author.FirstName != null)
                     author.FirstName = authorFirstName.Substring(0, 1).ToUpper() + authorFirstName.Substring(1);
-                var authorLastName = author.LastName;
+                string authorLastName = author.LastName;
                 author.LastName = authorLastName.Substring(0, 1).ToUpper() + authorLastName.Substring(1);
                 AUTHOR repoAUTHOR = _Repo.CreateAuthor(Mapper.Map<Author, AUTHOR>(author));
                 if (repoAUTHOR == null)
@@ -33,7 +33,7 @@ namespace Service.Managers
                     {
                         return new Tuple<Author, AuthorValidation>(newAuthor, validation);
                     }
-                    validation.FailedToCreateAuthor(nameof(author.FirstName));
+                    validation.FailedToCreateAuthor(nameof(author.LastName));
                 }
             }
             return new Tuple<Author, AuthorValidation>(null, validation);
@@ -44,6 +44,11 @@ namespace Service.Managers
             AuthorValidation validation = new AuthorValidation(author);
             if (validation.IsValid)
             {
+                string authorFirstName = author.FirstName;
+                if (author.FirstName != null)
+                    author.FirstName = authorFirstName.Substring(0, 1).ToUpper() + authorFirstName.Substring(1);
+                string authorLastName = author.LastName;
+                author.LastName = authorLastName.Substring(0, 1).ToUpper() + authorLastName.Substring(1);
                 AUTHOR repoAUTHOR = _Repo.EditAuthor(Mapper.Map<Author, AUTHOR>(author));
                 if (repoAUTHOR != null)
                 {
@@ -51,7 +56,8 @@ namespace Service.Managers
                     if (editedAuthor != null)
                         return new Tuple<Author, AuthorValidation>(editedAuthor, validation);
                 }
-                validation.DoesAlreadyExistOnServer(nameof(author.FirstName));
+                else
+                    validation.DoesNotExistOnServer(nameof(author.LastName));
             }
             return new Tuple<Author, AuthorValidation>(null, validation);
         }

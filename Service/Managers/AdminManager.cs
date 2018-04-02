@@ -37,7 +37,7 @@ namespace Service.Managers
             return new Tuple<Admin, AdminValidation>(null, validation);
         }
 
-        public Rank getPermissionLevel(string username)
+        public Rank GetPermissionLevel(string username)
         {
             return (Rank)_Repo.GetPermissionLevel(username);
         }

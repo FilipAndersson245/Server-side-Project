@@ -17,7 +17,7 @@ namespace ServerSide_Project.Controllers
         [HttpGet]
         public JsonResult Search(string search)
         {
-            var searchedBookList = Manager.GetSearchedBooksToList(new Search() { SearchQuery = search });
+            List<Book> searchedBookList = Manager.GetSearchedBooksToList(new Search() { SearchQuery = search });
             return new JsonpResult(searchedBookList);
         }
     }

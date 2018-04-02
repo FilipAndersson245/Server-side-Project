@@ -153,7 +153,7 @@ namespace Repository.Support
             }
         }
 
-        public IPagedList<BOOK> GetBookSearchResultat(string search, int page, int itemsPerPage, params int[] classifications)
+        public IPagedList<BOOK> GetBookSearchResult(string search, int page, int itemsPerPage, params int[] classifications)
         {
             if (classifications != null)
             {

@@ -6,20 +6,6 @@ namespace Repository.Support
 {
     public class ClassificationRepository
     {
-        public bool DoesClassificationExist(int signId)
-        {
-            using (DbLibrary db = new DbLibrary())
-            {
-                try
-                {
-                    return db.CLASSIFICATIONs.Any(x => x.SignId.Equals(signId));
-                }
-                catch
-                {
-                    return false;
-                }
-            }
-        }
 
         public bool DoesClassificationExist(string signum)
         {

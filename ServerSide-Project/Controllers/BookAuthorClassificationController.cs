@@ -17,8 +17,8 @@ namespace ServerSide_Project.Controllers
         public ActionResult CreateBook()
         {
             AuthorizeAndRedirect();
-            BookAuthorClassification bac = _BookAuthorClassificationManager.Setup();
-            return View("CreateBook", bac);
+            BookAuthorClassification bookAuthorClassification = _BookAuthorClassificationManager.Setup();
+            return View("CreateBook", bookAuthorClassification);
         }
 
         [HttpPost]

@@ -7,13 +7,6 @@ namespace Repository.Support
 {
     public class AuthorRepository
     {
-        public bool DoesAuthorExist(int aid)
-        {
-            using (DbLibrary db = new DbLibrary())
-            {
-                return db.AUTHORs.Any(x => x.Aid.Equals(aid));
-            }
-        }
 
         public IPagedList<AUTHOR> GetAllAuthorsFromDB(int page, int itemsPerPage)
         {

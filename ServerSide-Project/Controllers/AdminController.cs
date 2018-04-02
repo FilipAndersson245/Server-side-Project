@@ -87,7 +87,6 @@ namespace ServerSide_Project.Controllers
                 }
                 ValidationMessages.ConvertCodeToMsg(ModelState, validation.ErrorDict);
             }
-
             return RedirectToAction("EditAdmin", new { id = admin.Username });
         }
 
@@ -129,7 +128,7 @@ namespace ServerSide_Project.Controllers
             {
                 ViewData.ModelState.Clear();
                 Session["authentication"] = admin.Username;
-                Session["level"] = _Manager.getPermissionLevel(admin.Username);
+                Session["level"] = _Manager.GetPermissionLevel(admin.Username);
                 Session["classificationEditor"] = validation.Item1.CanEditClassifications;
                 if (String.IsNullOrEmpty(returnBackTo))
                     return RedirectToAction("index", "Home");

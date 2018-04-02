@@ -6,29 +6,6 @@ namespace Repository.Support
 {
     public class AdminRepository
     {
-        public bool DoesAdminExist(string username)
-        {
-            using (DbLibrary db = new DbLibrary())
-            {
-                try
-                {
-                    string sql = "SELECT TOP 1 * FROM ADMINS WHERE ADMINS.Username = @user LIMIT 1";
-                    return db.Database.SqlQuery<ADMIN>(sql, new SqlParameter("@user", username)).SingleOrDefault() != null;
-                }
-                catch
-                {
-                    return false;
-                }
-            }
-        }
-
-        public int GetPermissionLevel(string username)
-        {
-            using (DbLibrary db = new DbLibrary())
-            {
-                return db.ADMINS.FirstOrDefault(x => x.Username == username).PermissionLevel;
-            }
-        }
 
         public ADMIN GetAdmin(string username)
         {
@@ -50,7 +27,7 @@ namespace Repository.Support
         {
             using (DbLibrary db = new DbLibrary())
             {
-                string query = @"INSERT INTO ADMINS VALUES (@Username, @Salt, @PasswordHash, @PermissionLevel, @CanEditClassifications);"; //todo add CanEditClassification to create query
+                string query = @"INSERT INTO ADMINS VALUES (@Username, @Salt, @PasswordHash, @PermissionLevel, @CanEditClassifications);";
                 try
                 {
                     db.Database.ExecuteSqlCommand(query,
@@ -59,26 +36,6 @@ namespace Repository.Support
                         new SqlParameter("@PasswordHash", admin.PasswordHash),
                         new SqlParameter("@PermissionLevel", admin.PermissionLevel),
                         new SqlParameter("@CanEditClassifications", admin.CanEditClassifications));
-                    return true;
-                }
-                catch
-                {
-                    return false;
-                }
-            }
-        }
-
-        public bool ResetPassword(string username, string passwordHash, string salt)
-        {
-            using (DbLibrary db = new DbLibrary())
-            {
-                try
-                {
-                    string query = @"UPDATE ADMINS SET ADMINS.PasswordHash @passwordHash, ADMINS.Salt = @salt WHERE ADMINS.Username = @username";
-                    db.Database.ExecuteSqlCommand(query,
-                        new SqlParameter("@username", username),
-                        new SqlParameter("@passwordHash", passwordHash),
-                        new SqlParameter("@salt", salt));
                     return true;
                 }
                 catch
